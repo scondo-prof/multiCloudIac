@@ -1,0 +1,9 @@
+{
+  "id": "<name of your eks cluster>",
+  "type": "EKS",
+  "info": {
+    "eksInfo": {
+      "namespace": "gm"
+    }
+  }
+}

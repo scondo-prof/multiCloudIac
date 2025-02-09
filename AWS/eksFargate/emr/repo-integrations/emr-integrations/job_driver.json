@@ -1,0 +1,6 @@
+{
+  "sparkSubmitJobDriver": {
+    "entryPoint": "s3://gm-emr-scripts/butthole.py",
+    "sparkSubmitParameters": "--conf spark.executor.memory=69G --conf spark.executor.cores=16 --conf spark.executor.instances=28 --conf spark.driver.memory=70G --conf spark.driver.cores=16"
+  }
+}

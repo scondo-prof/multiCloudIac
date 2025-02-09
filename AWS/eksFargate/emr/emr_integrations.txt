@@ -1,0 +1,18 @@
+aws emr-containers create-virtual-cluster --name <name of emr virtual cluster> --container-provider file://emr-container-provider.json --region us-east-1
+
+eksctl create iamidentitymapping --cluster gm-emr-cluster --namespace gm --service-name "emr-containers"
+
+eksctl utils associate-iam-oidc-provider --cluster <cluster_name> --approve
+
+#Make sure you create this gmEmrRole to have access to aws apis that you need. 
+aws emr-containers update-role-trust-policy --cluster-name gm-emr-cluster --namespace gm --role-name gmEmrRole 
+
+
+#cmd command modify for terminal or powershell
+aws emr-containers start-job-run ^
+  --virtual-cluster-id uyb5ugcqe3i2z1e507pwarg40 ^
+  --execution-role-arn arn:aws:iam::708508995810:role/gmEmrRole ^
+  --name cool-spark-job ^
+  --release-label emr-6.2.0-latest ^
+  --job-driver file://C:/Users/Scott/Documents/GitHub/BC_Manifest_Files/AWS/EKS_Fargate/emr/job_driver.json ^
+  --configuration-overrides file://C:/Users/Scott/Documents/GitHub/BC_Manifest_Files/AWS/EKS_Fargate/emr/configuration_overrides.json

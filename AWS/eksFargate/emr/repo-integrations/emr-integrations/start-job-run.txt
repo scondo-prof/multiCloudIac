@@ -1,0 +1,7 @@
+aws emr-containers start-job-run ^
+  --virtual-cluster-id uyb5ugcqe3i2z1e507pwarg40 ^
+  --execution-role-arn arn:aws:iam::708508995810:role/gmEmrRole ^
+  --name childrens-tears-are-delicious ^
+  --release-label emr-6.2.0-latest ^
+  --job-driver file://C:/Users/Scott/Documents/GitHub/etl/geniusMonkey-etl/emr-integrations/job_driver.json ^
+  --configuration-overrides file://C:/Users/Scott/Documents/GitHub/etl/geniusMonkey-etl/emr-integrations/configuration_overrides.json
