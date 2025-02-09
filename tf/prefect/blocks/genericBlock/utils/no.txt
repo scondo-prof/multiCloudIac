@@ -1,0 +1,208 @@
+│ Block Type Slug                      │ Description                           │ Generate creation link               │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ aws-credentials                      │ Block used to manage authentication   │ prefect block create aws-credentials │
+│                                      │ with AWS                              │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ aws-secret                           │ Manages a secret in AWS's Secrets     │ prefect block create aws-secret      │
+│                                      │ Manager                               │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ azure                                │ DEPRECATION WARNING:                  │ prefect block create azure           │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ azure-blob-storage-container         │ Represents a container in Azure Blob  │ prefect block create                 │
+│                                      │ Storage                               │ azure-blob-storage-container         │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ azure-blob-storage-credentials       │ Stores credentials for authenticating │ prefect block create                 │
+│                                      │ with Azure Blob Storage               │ azure-blob-storage-credentials       │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ azure-container-instance-credentials │ Block used to manage Azure Container  │ prefect block create                 │
+│                                      │ Instances authentication              │ azure-container-instance-credentials │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ azure-container-instance-job         │ DEPRECATION WARNING: This block is    │ prefect block create                 │
+│                                      │ deprecated along with Agents and all  │ azure-container-instance-job         │
+│                                      │ other Infrastructure blocks           │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ azure-cosmos-db-credentials          │ Block used to manage Cosmos DB        │ prefect block create                 │
+│                                      │ authentication with Azure             │ azure-cosmos-db-credentials          │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ azureml-credentials                  │ Block used to manage authentication   │ prefect block create                 │
+│                                      │ with AzureML                          │ azureml-credentials                  │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ bigquery-warehouse                   │ A block for querying a database with  │ prefect block create                 │
+│                                      │ BigQuery                              │ bigquery-warehouse                   │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ bitbucket-credentials                │ Store BitBucket credentials to        │ prefect block create                 │
+│                                      │ interact with private BitBucket       │ bitbucket-credentials                │
+│                                      │ repositories                          │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ bitbucket-repository                 │ Interact with files stored in         │ prefect block create                 │
+│                                      │ BitBucket repositories                │ bitbucket-repository                 │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ database-credentials                 │ Block used to manage authentication   │ prefect block create                 │
+│                                      │ with a database                       │ database-credentials                 │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ databricks-credentials               │ Block used to manage Databricks       │ prefect block create                 │
+│                                      │ authentication                        │ databricks-credentials               │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ date-time                            │ A block that represents a datetime    │ prefect block create date-time       │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ discord-webhook                      │ Enables sending notifications via a   │ prefect block create discord-webhook │
+│                                      │ provided Discord webhook              │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ docker-container                     │ Runs a command in a container         │ prefect block create                 │
+│                                      │                                       │ docker-container                     │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ docker-host                          │ Store settings for interacting with a │ prefect block create docker-host     │
+│                                      │ Docker host                           │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ docker-registry                      │ DEPRECATION WARNING:                  │ prefect block create docker-registry │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ docker-registry-credentials          │ Store credentials for interacting     │ prefect block create                 │
+│                                      │ with a Docker Registry                │ docker-registry-credentials          │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ ecs-task                             │ DEPRECATION WARNING: This block is    │ prefect block create ecs-task        │
+│                                      │ deprecated along with Agents and all  │                                      │
+│                                      │ other Infrastructure blocks           │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ email                                │ Block that allows an email to be sent │ prefect block create email           │
+│                                      │ to a list of email addresses via the  │                                      │
+│                                      │ configured email backendWhen          │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ email-server-credentials             │ Block used to manage generic email    │ prefect block create                 │
+│                                      │ server authentication                 │ email-server-credentials             │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ cloud-run-job                        │ DEPRECATION WARNING: This block is    │ prefect block create cloud-run-job   │
+│                                      │ deprecated along with Agents and all  │                                      │
+│                                      │ other Infrastructure blocks           │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ gcp-credentials                      │ Block used to manage authentication   │ prefect block create gcp-credentials │
+│                                      │ with GCP                              │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ gcs                                  │ DEPRECATION WARNING:                  │ prefect block create gcs             │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ gcs-bucket                           │ Block used to store data using GCP    │ prefect block create gcs-bucket      │
+│                                      │ Cloud Storage Buckets                 │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ gcpsecret                            │ Manages a secret in Google Cloud      │ prefect block create gcpsecret       │
+│                                      │ Platform's Secret Manager             │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ github                               │ DEPRECATION WARNING:                  │ prefect block create github          │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ github-credentials                   │ Block used to manage GitHub           │ prefect block create                 │
+│                                      │ authentication                        │ github-credentials                   │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ github-repository                    │ Interact with files stored on GitHub  │ prefect block create                 │
+│                                      │ repositories                          │ github-repository                    │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ gitlab-credentials                   │ Store a GitLab personal access token  │ prefect block create                 │
+│                                      │ to interact with private GitLab       │ gitlab-credentials                   │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ gitlab-repository                    │ Interact with files stored in GitLab  │ prefect block create                 │
+│                                      │ repositories                          │ gitlab-repository                    │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ json                                 │ A block that represents JSON          │ prefect block create json            │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ kubernetes-cluster-config            │ Stores configuration for interaction  │ prefect block create                 │
+│                                      │ with Kubernetes clusters              │ kubernetes-cluster-config            │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ kubernetes-credentials               │ Credentials block for generating      │ prefect block create                 │
+│                                      │ configured Kubernetes API clients     │ kubernetes-credentials               │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ kubernetes-job                       │ Runs a command as a Kubernetes Job    │ prefect block create kubernetes-job  │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ lambda-function                      │ Invoke a Lambda function              │ prefect block create lambda-function │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ local-file-system                    │ Store data as a file on a local file  │ prefect block create                 │
+│                                      │ system                                │ local-file-system                    │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ mattermost-webhook                   │ Enables sending notifications via a   │ prefect block create                 │
+│                                      │ provided Mattermost webhook           │ mattermost-webhook                   │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ ms-teams-webhook                     │ Enables sending notifications via a   │ prefect block create                 │
+│                                      │ provided Microsoft Teams webhook      │ ms-teams-webhook                     │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ minio-credentials                    │ Block used to manage authentication   │ prefect block create                 │
+│                                      │ with MinIO                            │ minio-credentials                    │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ modal-credentials                    │ Block used to manage authentication   │ prefect block create                 │
+│                                      │ to Modal                              │ modal-credentials                    │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ opsgenie-webhook                     │ Enables sending notifications via a   │ prefect block create                 │
+│                                      │ provided Opsgenie webhook             │ opsgenie-webhook                     │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ pager-duty-webhook                   │ Enables sending notifications via a   │ prefect block create                 │
+│                                      │ provided PagerDuty webhook            │ pager-duty-webhook                   │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ process                              │ Run a command in a new process        │ prefect block create process         │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ remote-file-system                   │ Store data as a file on a remote file │ prefect block create                 │
+│                                      │ system                                │ remote-file-system                   │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ s3                                   │ DEPRECATION WARNING:                  │ prefect block create s3              │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ s3-bucket                            │ Block used to store data using AWS S3 │ prefect block create s3-bucket       │
+│                                      │ or S3-compatible object storage like  │                                      │
+│                                      │ MinIO                                 │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ smb                                  │ Store data as a file on a SMB share   │ prefect block create smb             │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ sqlalchemy-connector                 │ Block used to manage authentication   │ prefect block create                 │
+│                                      │ with a database                       │ sqlalchemy-connector                 │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ secret                               │ A block that represents a secret      │ prefect block create secret          │
+│                                      │ value                                 │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ sendgrid-email                       │ Enables sending notifications via     │ prefect block create sendgrid-email  │
+│                                      │ Sendgrid email service                │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ shell-operation                      │ A block representing a shell          │ prefect block create shell-operation │
+│                                      │ operation, containing multiple        │                                      │
+│                                      │ commands                              │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ slack-credentials                    │ Block holding Slack credentials for   │ prefect block create                 │
+│                                      │ use in tasks and flows                │ slack-credentials                    │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ slack-webhook                        │ Enables sending notifications via a   │ prefect block create slack-webhook   │
+│                                      │ provided Slack webhook                │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ snowflake-connector                  │ Perform data operations against a     │ prefect block create                 │
+│                                      │ Snowflake database                    │ snowflake-connector                  │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ snowflake-credentials                │ Block used to manage authentication   │ prefect block create                 │
+│                                      │ with Snowflake                        │ snowflake-credentials                │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ string                               │ A block that represents a string      │ prefect block create string          │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ twilio-sms                           │ Enables sending notifications via     │ prefect block create twilio-sms      │
+│                                      │ Twilio SMS                            │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ vertex-ai-custom-training-job        │ DEPRECATION WARNING: This block is    │ prefect block create                 │
+│                                      │ deprecated along with Agents and all  │ vertex-ai-custom-training-job        │
+│                                      │ other Infrastructure blocks           │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ webhook                              │ Block that enables calling webhooks   │ prefect block create webhook         │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ dbt-cli-bigquery-target-configs      │ dbt CLI target configs containing     │ prefect block create                 │
+│                                      │ credentials and settings, specific to │ dbt-cli-bigquery-target-configs      │
+│                                      │ BigQuery                              │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ dbt-cli-global-configs               │ Global configs control things like    │ prefect block create                 │
+│                                      │ the visual output                     │ dbt-cli-global-configs               │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ dbt-cli-postgres-target-configs      │ dbt CLI target configs containing     │ prefect block create                 │
+│                                      │ credentials and settings specific to  │ dbt-cli-postgres-target-configs      │
+│                                      │ Postgres                              │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ dbt-cli-profile                      │ Profile for use across dbt CLI tasks  │ prefect block create dbt-cli-profile │
+│                                      │ and flows                             │                                      │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ dbt-cli-snowflake-target-configs     │ Target configs contain credentials    │ prefect block create                 │
+│                                      │ and                                   │ dbt-cli-snowflake-target-configs     │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ dbt-cli-target-configs               │ Target configs contain credentials    │ prefect block create                 │
+│                                      │ and                                   │ dbt-cli-target-configs               │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ dbt-cloud-credentials                │ Credentials block for credential use  │ prefect block create                 │
+│                                      │ across dbt Cloud tasks and flows      │ dbt-cloud-credentials                │
+├──────────────────────────────────────┼───────────────────────────────────────┼──────────────────────────────────────┤
+│ dbt-core-operation                   │ A block representing a dbt operation, │ prefect block create                 │
+│                                      │ containing multiple dbt and shell     │ dbt-core-operation

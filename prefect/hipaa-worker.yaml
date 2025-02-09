@@ -1,0 +1,6 @@
+worker:
+  cloudApiConfig:
+    accountId: 9759ff6b-6f30-404f-92f3-02c593f6f7aa
+    workspaceId: 1733fd7b-18ad-4093-a0a1-4f128be45747
+  config:
+    workPool: hipa-k8

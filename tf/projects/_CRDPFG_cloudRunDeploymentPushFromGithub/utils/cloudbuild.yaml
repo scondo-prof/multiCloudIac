@@ -1,0 +1,38 @@
+  steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    #image naming convention -> us-east1-docker.pkg.dev/p3-prod-aa94d/dash-apps/{image_name}:$COMMIT_SHA
+    args: [ 'build', '-f', 'gcp.Dockerfile', '-t', '$_REGION_NAME-docker.pkg.dev/$_PROJECT_NAME/$_ARTIFACT_REPO/$_APP_NAME:$COMMIT_SHA', '.' ]
+  # Push the container image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    #image naming convention -> us-east1-docker.pkg.dev/p3-prod-aa94d/dash-apps/{image_name}:$COMMIT_SHA
+    args: ['push', '$_REGION_NAME-docker.pkg.dev/$_PROJECT_NAME/$_ARTIFACT_REPO/$_APP_NAME:$COMMIT_SHA']
+  # Deploy container image to Cloud Run test
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+    - 'run'
+    - 'deploy'
+    - '$_APP_NAME' #This will be applicaton name change this to reflect working dashapp
+    - '--image'
+    - '$_REGION_NAME-docker.pkg.dev/$_PROJECT_NAME/$_ARTIFACT_REPO/$_APP_NAME:$COMMIT_SHA' #image naming convention -> us-east1-docker.pkg.dev/p3-prod-aa94d/dash-apps/{image_name}:$COMMIT_SHA
+    - '--region'
+    - '$_REGION_NAME'
+    - '--port'
+    - '8080'
+    - '--allow-unauthenticated'
+    - '--command=gunicorn,-w,2,-b,0.0.0.0:8080,app:server'
+    - '--memory=4Gi'
+    - '--cpu=4'
+    - '--set-secrets=KEY=dash_app_deployment_aws_key:2,SECRET=dash_app_deployment_aws_secret:2' # only necessary if using aws secrets manager for creds
+    - '--labels=project=dash,app=$_APP_NAME'
+
+  images:
+  - '$_REGION_NAME-docker.pkg.dev/$_PROJECT_NAME/$_ARTIFACT_REPO/$_APP_NAME:$COMMIT_SHA'
+  
+  logsBucket: 'gs://dash_build_logs'
+  serviceAccount: '$_SERVICE_ACCOUNT' #image naming convention -> us-east1-docker.pkg.dev/p3-prod-aa94d/dash-apps/{image_name}:$COMMIT_SHA
+
+
+
+

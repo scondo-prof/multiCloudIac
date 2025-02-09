@@ -1,0 +1,48 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    #Builds Dockerfile
+    args:
+      [
+        "build",
+        "-f",
+        "gcp.Dockerfile",
+        "-t",
+        "$_REGION_NAME-docker.pkg.dev/$_PROJECT_NAME/$_ARTIFACT_REPO/$_APP_NAME:$COMMIT_SHA",
+        ".",
+      ]
+  - name: "gcr.io/cloud-builders/docker"
+    #Pushes Dockerfile to artifact registry
+    args:
+      [
+        "push",
+        "$_REGION_NAME-docker.pkg.dev/$_PROJECT_NAME/$_ARTIFACT_REPO/$_APP_NAME:$COMMIT_SHA",
+      ]
+  #Deploys cloud run container
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      - "run"
+      - "deploy"
+      - "$_APP_NAME"
+      - "--image"
+      - "$_REGION_NAME-docker.pkg.dev/$_PROJECT_NAME/$_ARTIFACT_REPO/$_APP_NAME:$COMMIT_SHA" #Targets the Dockerfile built and pushed to artifact registry in prior step.
+      - "--region"
+      - "$_REGION_NAME"
+      - "--port"
+      - "8080"
+      - "--allow-unauthenticated" #Allows unauthenticated requests(doesnt work most the time)
+      - "--vpc-connector"
+      - "$_VPC_CONNECTOR" #Ties into a vpc connector, allowing traffic to pass through a nat gateway for a static external IP
+      - "--vpc-egress"
+      - "all-traffic" #States all egress traffic will leave through the vpc
+      - "--command=gunicorn,-w,2,-b,0.0.0.0:8080,app:server"
+      - "--memory=$_MEM_IN_GIGSGi"
+      - "--cpu=$_NUMBER_OF_VCPU"
+      - "--set-secrets=$_ENV_VARIABLE_NAME=$_SECRET_NAME:1" #Passed secret into env variables, this comes in as a json object to be used in code in dictionary form.
+      - "--labels=project=dash,app=$_APP_NAME" #The labels for cost tracking
+
+images:
+  - "$_REGION_NAME-docker.pkg.dev/$_PROJECT_NAME/$_ARTIFACT_REPO/$_APP_NAME:$COMMIT_SHA"
+
+logsBucket: "$_BUCKET_NAME" #The bucket used for cloudbuild byproducts.
+serviceAccount: "$_SERVICE_ACCOUNT"

@@ -1,0 +1,10 @@
+helm repo add prefect https://prefecthq.github.io/prefect-helm
+helm repo update
+
+kubectl create namespace prefect
+
+kubectl create secret generic prefect-api-key --namespace=prefect --from-literal=key=pnu_CantlPzZFd3FckuQDZzN5IHMln0lFv2VuYPf
+
+helm install prefect-worker prefect/prefect-worker --namespace=prefect -f hipaa-worker.yaml
+
+helm uninstall prefect-worker --namespace=prefect

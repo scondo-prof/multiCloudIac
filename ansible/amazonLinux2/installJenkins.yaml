@@ -1,0 +1,52 @@
+# sudo yum update -y
+# sudo amazon-linux-extras enable corretto11
+# sudo yum install -y java-17-amazon-corretto
+# sudo curl --silent --location https://pkg.jenkins.io/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
+# sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+# sudo yum install -y jenkins
+# source /etc/environment
+---
+- name: Install and configure Jenkins on Amazon Linux 2
+  hosts: amazon_linux
+  become: true
+  tasks:
+    - name: Update all packages
+      yum:
+        name: "*"
+        state: latest
+
+    - name: Enable Amazon Corretto 11
+      command: amazon-linux-extras enable corretto11
+      register: corretto_enable
+      failed_when: "'not supported' in corretto_enable.stderr"
+
+    - name: Install Amazon Corretto 17 (Java 17)
+      yum:
+        name: java-17-amazon-corretto
+        state: present
+
+    - name: Add Jenkins repository
+      get_url:
+        url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+
+    - name: Import Jenkins GPG key
+      rpm_key:
+        state: present
+        key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+    - name: Install Jenkins
+      yum:
+        name: jenkins
+        state: present
+
+    - name: Source /etc/environment
+      shell: source /etc/environment
+      args:
+        executable: /bin/bash
+
+    - name: Start and enable Jenkins service
+      systemd:
+        name: jenkins
+        state: started
+        enabled: true

@@ -1,0 +1,31 @@
+# sudo yum update -y
+# sudo amazon-linux-extras enable docker
+# sudo yum install -y docker
+# sudo systemctl start docker
+# sudo systemctl enable docker
+
+---
+- name: Install and configure Docker on Amazon Linux 2
+  hosts: amazon_linux
+  become: true
+  tasks:
+    - name: Update all packages
+      yum:
+        name: "*"
+        state: latest
+
+    - name: Enable Docker in amazon-linux-extras
+      command: amazon-linux-extras enable docker
+      register: docker_enable
+      failed_when: "'not supported' in docker_enable.stderr"
+
+    - name: Install Docker
+      yum:
+        name: docker
+        state: present
+
+    - name: Start Docker service
+      systemd:
+        name: docker
+        state: started
+        enabled: true

@@ -1,0 +1,6 @@
+worker:
+  cloudApiConfig:
+    accountId: e7ecdbf0-1b1b-4f99-b70a-669f5bd477c3
+    workspaceId: d78cbbb5-afbc-49e6-9f69-8a6e7fa583e9
+  config:
+    workPool: overlord

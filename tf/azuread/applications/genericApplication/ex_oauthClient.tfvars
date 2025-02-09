@@ -1,0 +1,1 @@
+resourceName = "test-oauth-client"

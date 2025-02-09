@@ -1,0 +1,20 @@
+# sudo yum-config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+# sudo yum install -y gh
+
+---
+- name: Install GitHub CLI on Amazon Linux
+  hosts: amazon_linux
+  become: true
+  tasks:
+    - name: Add GitHub CLI repository
+      yum_repository:
+        name: gh-cli
+        description: GitHub CLI
+        baseurl: https://cli.github.com/packages/rpm/
+        gpgcheck: yes
+        gpgkey: https://cli.github.com/packages/rpm/gh-cli.repo
+
+    - name: Install GitHub CLI
+      yum:
+        name: gh
+        state: present
