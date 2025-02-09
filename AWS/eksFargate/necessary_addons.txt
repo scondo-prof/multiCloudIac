@@ -1,0 +1,18 @@
+metrics server: kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+vpa integration: https://docs.aws.amazon.com/eks/latest/userguide/vertical-pod-autoscaler.html
+
+ & "C:\Program Files\Git\bin\bash.exe" -c "./vpa-up.sh" #to run the vpa-up command from hack directory
+
+helm repo add aws-ebs-csi-driver https://kubernetes-sigs.github.io/aws-ebs-csi-driver
+
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+
+helm repo update
+
+helm upgrade --install aws-ebs-csi-driver --namespace kube-system --set enableVolumeScheduling=true --set enableVolumeResizing=true --set enableVolumeSnapshot=true aws-ebs-csi-driver/aws-ebs-csi-driver
+
+helm install prometheus-prod prometheus-community/kube-prometheus-stack --namespace prometheus

@@ -1,0 +1,31 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+#Change this to be an accurate cluster name
+metadata:
+  name: bc-hipaa-prefect
+  region: us-east-1
+  tags:
+    "Project": Prefect
+    "Created By": Scott Condo
+    "Deployed Date": 12/12/2024
+
+nodeGroups:
+  - name: bc-ec2-nodegroup
+    instanceType: t2.medium
+    desiredCapacity: 1
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+        ebs: true
+
+fargateProfiles:
+  - name: bc-prefect-fp #change this name to be specific to the cluster
+    selectors:
+      - namespace: default
+      - namespace: bc
+      - namespace: prefect
+      - namespace: aws-observability
+    tags:
+      "Project": Prefect
+      "Created By": Scott Condo
+      "Deployed Date": 12/12/2024
