@@ -1577,6 +1577,11 @@ variable "SS_SIBS_SWV_Staging_SecretForceSecretOverwrite" {
   default = true
 }
 
+variable "SS_SIBS_SWV_Staging_SnowflakeWarehouse" {
+  type    = string
+  default = var.snowflakeWarehouse
+}
+
 variable "SS_SIBS_SWV_Staging_SecretVersionSecretString" {
   type    = map(string)
   default = {}
@@ -1620,6 +1625,11 @@ variable "SS_SIBS_SWV_Prod_SecretReplica" {
 variable "SS_SIBS_SWV_Prod_SecretForceSecretOverwrite" {
   type    = bool
   default = true
+}
+
+variable "SS_SIBS_SWV_Prod_SnowflakeWarehouse" {
+  type    = string
+  default = var.snowflakeWarehouse
 }
 
 variable "SS_SIBS_SWV_Prod_SecretVersionSecretString" {
