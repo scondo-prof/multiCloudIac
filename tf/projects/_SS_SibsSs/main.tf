@@ -256,12 +256,12 @@ module "SIBS" {
   SIBS_SWV_Staging_SecretPolicy                                                 = var.SS_SIBS_SWV_Staging_SecretPolicy
   SIBS_SWV_Staging_SecretRecoveryWindowInDays                                   = var.SS_SIBS_SWV_Staging_SecretRecoveryWindowInDays
   SIBS_SWV_Staging_SecretReplica                                                = var.SS_SIBS_SWV_Staging_SecretReplica
-  SIBS_SWV_Staging_SecretForceSecretOverwrite                                   = module.SS.SS_SUP_SnowflakeUserFullyQualifiedName #var.SS_SIBS_SWV_Staging_SecretForceSecretOverwrite
+  SIBS_SWV_Staging_SecretForceSecretOverwrite                                   = var.SS_SIBS_SWV_Staging_SecretForceSecretOverwrite
   SIBS_SWV_Staging_SecretVersionSecretString = merge({
     SNOWFLAKE_ACCOUNT_ID    = "${var.snowflakeOrganizationName}-${var.snowflakeAccountName}"
     SNOWFLAKE_P8_PASSPHRASE = module.SS.SS_SUP_PKS_PasswordResult
     SNOWFLAKE_P8            = var.SS_SS_SUP_PKS_privateKeyP8FilePath
-    SNOWFLAKE_USERNAME      = module.SS.SS_SUP_SnowflakeUserFullyQualifiedName
+    SNOWFLAKE_USERNAME      = module.SS.SS_SUP_SnowflakeUserId
     SNOWFLAKE_WAREHOUSE     = var.SS_SIBS_SWV_Staging_SnowflakeWarehouse
   }, var.SS_SIBS_SWV_Staging_SecretVersionSecretString)
   SIBS_SWV_Staging_SecretVersionSecretBinary = var.SS_SIBS_SWV_Staging_SecretVersionSecretBinary
@@ -275,7 +275,7 @@ module "SIBS" {
     SNOWFLAKE_ACCOUNT_ID    = "${var.snowflakeOrganizationName}-${var.snowflakeAccountName}"
     SNOWFLAKE_P8_PASSPHRASE = module.SS.SS_SUP_PKS_PasswordResult
     SNOWFLAKE_P8            = var.SS_SS_SUP_PKS_privateKeyP8FilePath
-    SNOWFLAKE_USERNAME      = module.SS.SS_SUP_SnowflakeUserFullyQualifiedName
+    SNOWFLAKE_USERNAME      = module.SS.SS_SUP_SnowflakeUserId
     SNOWFLAKE_WAREHOUSE     = var.SS_SIBS_SWV_Prod_SnowflakeWarehouse
   }, var.SS_SIBS_SWV_Prod_SecretVersionSecretString)
   SIBS_SWV_Prod_SecretVersionSecretBinary = var.SS_SIBS_SWV_Prod_SecretVersionSecretBinary

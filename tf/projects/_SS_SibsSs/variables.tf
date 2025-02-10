@@ -1579,7 +1579,6 @@ variable "SS_SIBS_SWV_Staging_SecretForceSecretOverwrite" {
 
 variable "SS_SIBS_SWV_Staging_SnowflakeWarehouse" {
   type    = string
-  default = var.snowflakeWarehouse
 }
 
 variable "SS_SIBS_SWV_Staging_SecretVersionSecretString" {
@@ -1629,7 +1628,6 @@ variable "SS_SIBS_SWV_Prod_SecretForceSecretOverwrite" {
 
 variable "SS_SIBS_SWV_Prod_SnowflakeWarehouse" {
   type    = string
-  default = var.snowflakeWarehouse
 }
 
 variable "SS_SIBS_SWV_Prod_SecretVersionSecretString" {
