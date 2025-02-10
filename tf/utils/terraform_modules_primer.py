@@ -9,13 +9,23 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../aws/s3/_BWV_bucketWithVersioning",
-            "source_path": "../../aws/s3/_BWV_bucketWithVersioning",
-            "destination_path": "./temp",
+            "project_path": "../projects/_SS_SarargSup",
+            "source_path": "../_SS_SarargSup",
+            "destination_path": "../projects/_SS_SibsSs",
         },
-        "previous_variable_prefix": "BWV",
-        "new_variable_prefix": "IRIPSB_BWV",
-        "module_name": "BWV",
+        "previous_variable_prefix": "SS",
+        "new_variable_prefix": "SS_SS",
+        "module_name": "SS",
+    },
+    {
+        "paths": {
+            "project_path": "../projects/_SIBS_spcrdfgIuwpaksmsBwvSwv",
+            "source_path": "../_SIBS_spcrdfgIuwpaksmsBwvSwv",
+            "destination_path": "../projects/_SS_SibsSs",
+        },
+        "previous_variable_prefix": "SIBS",
+        "new_variable_prefix": "SS_SIBS",
+        "module_name": "SIBS",
     },
 ]
 
