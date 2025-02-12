@@ -1,0 +1,78 @@
+---
+- name: Install Jenkins and Configure Directory Permissions
+  hosts: all
+  become: yes # Run tasks with sudo privileges
+
+  tasks:
+    # 1. Update system packages
+    - name: Update and upgrade system packages
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    # 2. Install required dependencies
+    - name: Install required dependencies
+      apt:
+        name:
+          - openjdk-17-jdk
+          - curl
+          - gnupg
+          - software-properties-common
+        state: present
+
+    # 3. Add Jenkins repository key
+    - name: Add Jenkins repository key
+      shell: |
+        curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+    # 4. Add Jenkins repository
+    - name: Add Jenkins repository
+      shell: |
+        echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/" | tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+    # 5. Update package list again after adding Jenkins repo
+    - name: Update package list
+      apt:
+        update_cache: yes
+
+    # 6. Install Jenkins
+    - name: Install Jenkins
+      apt:
+        name: jenkins
+        state: present
+
+    # 7. Start and enable Jenkins service on boot
+    - name: Ensure Jenkins service is running and enabled
+      systemd:
+        name: jenkins
+        state: started
+        enabled: yes
+
+    # 8. Add ubuntu user to the existing jenkins group
+    - name: Add ubuntu user to jenkins group
+      user:
+        name: ubuntu
+        groups: jenkins
+        append: yes
+
+    # 9. Create the Jenkins directory if it does not exist
+    - name: Create /opt/jenkins_directory
+      file:
+        path: /opt/jenkins_directory
+        state: directory
+        owner: jenkins
+        group: jenkins
+        mode: "2775"
+
+    # 10. Ensure all files and subdirectories inside jenkins_directory inherit correct ownership and permissions
+    - name: Recursively set ownership of /opt/jenkins_directory to jenkins:jenkins
+      file:
+        path: /opt/jenkins_directory
+        state: directory
+        recurse: yes
+        owner: jenkins
+        group: jenkins
+        mode: "2775"
+
+    - name: Ensure all new files in jenkins_directory inherit jenkins group ownership
+      command: find /opt/jenkins_directory -type d -exec chmod g+s {} \;
