@@ -1,5 +1,5 @@
 ---
-- name: Install Jenkins and Configure Shared Directory
+- name: Install Jenkins and Configure Jenkins Group & Directory
   hosts: all
   become: yes # Run tasks with sudo privileges
 
@@ -48,44 +48,43 @@
         state: started
         enabled: yes
 
-    # 8. Create shared directory
-    - name: Create shared directory
-      file:
-        path: /opt/shared_directory
-        state: directory
-        mode: "2775"
-        owner: jenkins
-        group: jenkins
-
-    # 9. Create a shared group
-    - name: Create a shared group (if not exists)
+    # 8. Create jenkins_group
+    - name: Create jenkins_group (if not exists)
       group:
-        name: shared_group
+        name: jenkins_group
         state: present
 
-    # 10. Add both ubuntu and jenkins users to the shared group
-    - name: Add ubuntu user to shared_group
+    # 9. Add ubuntu and jenkins users to jenkins_group
+    - name: Add ubuntu user to jenkins_group
       user:
         name: ubuntu
-        groups: shared_group
+        groups: jenkins_group
         append: yes
 
-    - name: Add jenkins user to shared_group
+    - name: Add jenkins user to jenkins_group
       user:
         name: jenkins
-        groups: shared_group
+        groups: jenkins_group
         append: yes
 
-    # 11. Change ownership of shared directory
-    - name: Change ownership of shared directory to shared group
+    # 10. Create jenkins_directory
+    - name: Create jenkins_directory
       file:
-        path: /opt/shared_directory
+        path: /opt/jenkins_directory
+        state: directory
         owner: jenkins
-        group: shared_group
+        group: jenkins_group
         mode: "2775"
 
-    # 12. Set GID bit to inherit group permissions
-    - name: Set GID bit to ensure new files inherit group permissions
+    # 11. Ensure jenkins_group has full read/write permissions on jenkins_directory
+    - name: Set GID bit and ensure new files inherit group permissions
       file:
-        path: /opt/shared_directory
+        path: /opt/jenkins_directory
+        state: directory
         mode: "2775"
+
+    - name: Ensure all files and subdirectories inside jenkins_directory inherit correct permissions
+      command: chmod -R 2775 /opt/jenkins_directory
+
+    - name: Ensure all new files in jenkins_directory inherit jenkins_group ownership
+      command: find /opt/jenkins_directory -type d -exec chmod g+s {} \;
