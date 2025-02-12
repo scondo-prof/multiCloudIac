@@ -1,4 +1,6 @@
 #!/bin/bash
+git config --global --add safe.directory /opt/jenkins_directory/github/theToolKit
+
 cd /opt/jenkins_directory/github/theToolKit
 
 git pull origin dev/test
