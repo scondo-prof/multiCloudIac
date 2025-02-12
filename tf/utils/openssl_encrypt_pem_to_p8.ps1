@@ -1,5 +1,5 @@
 #example usecase:
-#.\openssl_encrypt_pem_to_p8.ps1 -PemFilePath "path/to/pem" -OutputP8FilePath "path/to/p8" -Passphrase "wowTest!"
+#.\openssl_encrypt_pem_to_p8.ps1 -PemFilePath "path/to/pem" -OutputP8FilePath "path/to/p8" -Passphrase "passphrase"
 
 param (
     [string]$PemFilePath,         # Path to input .pem file

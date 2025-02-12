@@ -1,10 +1,3 @@
-# sudo yum update -y
-# sudo amazon-linux-extras enable corretto11
-# sudo yum install -y java-17-amazon-corretto
-# sudo curl --silent --location https://pkg.jenkins.io/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
-# sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
-# sudo yum install -y jenkins
-# source /etc/environment
 ---
 - name: Install and configure Jenkins on Amazon Linux 2
   hosts: amazon_linux
@@ -50,3 +43,37 @@
         name: jenkins
         state: started
         enabled: true
+
+    # ----------------------------------------
+    # 🔹 Shared Directory Setup for ec2-user and jenkins
+    # ----------------------------------------
+
+    - name: Create a shared group
+      group:
+        name: shared_group
+        state: present
+
+    - name: Add ec2-user to shared_group
+      user:
+        name: ec2-user
+        groups: shared_group
+        append: yes
+
+    - name: Add jenkins to shared_group
+      user:
+        name: jenkins
+        groups: shared_group
+        append: yes
+
+    - name: Create a shared directory
+      file:
+        path: /opt/shared_directory
+        state: directory
+        owner: jenkins
+        group: shared_group
+        mode: "2775"
+
+    - name: Set GID bit to ensure new files inherit group ownership
+      file:
+        path: /opt/shared_directory
+        mode: "2775"

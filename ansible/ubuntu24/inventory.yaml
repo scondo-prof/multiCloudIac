@@ -1,0 +1,6 @@
+ubuntu_server:
+  hosts:
+    54.175.183.128: # Replace with your instance IP
+      ansible_user: ubuntu
+      ansible_ssh_private_key_file: ../../../../../tasks/aws/ec2/ubuntu-test/
+      ansible_python_interpreter: /usr/bin/python3

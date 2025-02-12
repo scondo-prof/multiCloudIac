@@ -1,0 +1,91 @@
+---
+- name: Install Jenkins and Configure Shared Directory
+  hosts: all
+  become: yes # Run tasks with sudo privileges
+
+  tasks:
+    # 1. Update system packages
+    - name: Update and upgrade system packages
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    # 2. Install required dependencies
+    - name: Install required dependencies
+      apt:
+        name:
+          - openjdk-17-jdk
+          - curl
+          - gnupg
+          - software-properties-common
+        state: present
+
+    # 3. Add Jenkins repository key
+    - name: Add Jenkins repository key
+      shell: |
+        curl -fsSL https://pkg.jenkins.io/debian/jenkins.io-2023.key | tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+    # 4. Add Jenkins repository
+    - name: Add Jenkins repository
+      shell: |
+        echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/" | tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+    # 5. Update package list again after adding Jenkins repo
+    - name: Update package list
+      apt:
+        update_cache: yes
+
+    # 6. Install Jenkins
+    - name: Install Jenkins
+      apt:
+        name: jenkins
+        state: present
+
+    # 7. Start and enable Jenkins service on boot
+    - name: Ensure Jenkins service is running and enabled
+      systemd:
+        name: jenkins
+        state: started
+        enabled: yes
+
+    # 8. Create shared directory
+    - name: Create shared directory
+      file:
+        path: /opt/shared_directory
+        state: directory
+        mode: "2775"
+        owner: jenkins
+        group: jenkins
+
+    # 9. Create a shared group
+    - name: Create a shared group (if not exists)
+      group:
+        name: shared_group
+        state: present
+
+    # 10. Add both ubuntu and jenkins users to the shared group
+    - name: Add ubuntu user to shared_group
+      user:
+        name: ubuntu
+        groups: shared_group
+        append: yes
+
+    - name: Add jenkins user to shared_group
+      user:
+        name: jenkins
+        groups: shared_group
+        append: yes
+
+    # 11. Change ownership of shared directory
+    - name: Change ownership of shared directory to shared group
+      file:
+        path: /opt/shared_directory
+        owner: jenkins
+        group: shared_group
+        mode: "2775"
+
+    # 12. Set GID bit to inherit group permissions
+    - name: Set GID bit to ensure new files inherit group permissions
+      file:
+        path: /opt/shared_directory
+        mode: "2775"
