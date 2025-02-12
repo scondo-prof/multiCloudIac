@@ -1,5 +1,5 @@
 ---
-- name: Install Jenkins and Configure Jenkins Group & Directory
+- name: Install Jenkins and Configure Directory Permissions
   hosts: all
   become: yes # Run tasks with sudo privileges
 
@@ -48,43 +48,31 @@
         state: started
         enabled: yes
 
-    # 8. Create jenkins_group
-    - name: Create jenkins_group (if not exists)
-      group:
-        name: jenkins_group
-        state: present
-
-    # 9. Add ubuntu and jenkins users to jenkins_group
-    - name: Add ubuntu user to jenkins_group
+    # 8. Add ubuntu user to the existing jenkins group
+    - name: Add ubuntu user to jenkins group
       user:
         name: ubuntu
-        groups: jenkins_group
+        groups: jenkins
         append: yes
 
-    - name: Add jenkins user to jenkins_group
-      user:
-        name: jenkins
-        groups: jenkins_group
-        append: yes
-
-    # 10. Create jenkins_directory
-    - name: Create jenkins_directory
+    # 9. Create the Jenkins directory if it does not exist
+    - name: Create /opt/jenkins_directory
       file:
         path: /opt/jenkins_directory
         state: directory
         owner: jenkins
-        group: jenkins_group
+        group: jenkins
         mode: "2775"
 
-    # 11. Ensure jenkins_group has full read/write permissions on jenkins_directory
-    - name: Set GID bit and ensure new files inherit group permissions
+    # 10. Ensure all files and subdirectories inside jenkins_directory inherit correct ownership and permissions
+    - name: Recursively set ownership of /opt/jenkins_directory to jenkins:jenkins
       file:
         path: /opt/jenkins_directory
         state: directory
+        recurse: yes
+        owner: jenkins
+        group: jenkins
         mode: "2775"
 
-    - name: Ensure all files and subdirectories inside jenkins_directory inherit correct permissions
-      command: chmod -R 2775 /opt/jenkins_directory
-
-    - name: Ensure all new files in jenkins_directory inherit jenkins_group ownership
+    - name: Ensure all new files in jenkins_directory inherit jenkins group ownership
       command: find /opt/jenkins_directory -type d -exec chmod g+s {} \;
