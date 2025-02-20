@@ -14,19 +14,24 @@ provider "aws" {
 resource "aws_lambda_event_source_mapping" "eventSourceMapping" {
 
   dynamic "amazon_managed_kafka_event_source_config" {
-    for_each = var.eventSourceMapping != null ? [var.eventSourceMapping] : []
+    for_each = var.eventSourceMappingAmazonManagedKafkaEventSourceConfig != null ? [var.eventSourceMappingAmazonManagedKafkaEventSourceConfig] : []
     content {
-
+      consumer_group_id = amazon_managed_kafka_event_source_config.value["consumer_group_id"]
     }
   }
 
-  batch_size                     = var.eventSourceMapping
-  bisect_batch_on_function_error = var.eventSourceMapping
+  batch_size                     = var.eventSourceMappingBatchSize
+  bisect_batch_on_function_error = var.eventSourceMappingBisectBatchOnFunctionError
 
   dynamic "destination_config" {
-    for_each = var.eventSourceMapping != null ? [var.eventSourceMapping] : []
+    for_each = var.eventSourceMappingDestinationConfig != null ? [var.eventSourceMappingDestinationConfig] : []
     content {
-
+      dynamic "on_failure" {
+        for_each = destination_config.value["on_failure"] != null ? [destination_config.value["on_failure"]] : []
+        content {
+          destination_arn = on_failure.value["destination_arn"]
+        }
+      }
     }
   }
 
