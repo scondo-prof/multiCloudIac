@@ -57,4 +57,40 @@ If the connection is successful, you should see a **pong** response.
 
 ---
 
+## **4. Run an Example Playbook**
+
+To test Ansible, you can run an example playbook using your inventory file:
+
+### **examplePlaybook.yaml**
+
+```yaml
+---
+- name: Example Playbook
+  hosts: all
+  become: yes
+  tasks:
+    - name: Ensure system is up to date
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Ensure system is up to date (RHEL)
+      yum:
+        name: "*"
+        state: latest
+      when: ansible_os_family == "RedHat"
+```
+
+### **Run the Playbook**
+
+Execute the following command to run `examplePlaybook.yaml` using `inventory.yaml`:
+
+```bash
+ansible-playbook -i inventory.yaml examplePlaybook.yaml
+```
+
+This will ensure that the system is updated according to its OS type (Debian or RedHat).
+
+---
+
 ✅ **Your remote deployment environment is now ready!** 🚀

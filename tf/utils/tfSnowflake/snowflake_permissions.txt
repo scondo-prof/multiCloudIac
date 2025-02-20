@@ -1,0 +1,854 @@
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AGILITY_RECENT_STREAM
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AZ_0_20
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AZ_20_40
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AZ_AGILITY
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AZ_COMBINE
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AZ_GOALS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AZ_HEADSHOTS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AZ_JUMP_PROF
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AZ_KA_RAW
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AZ_MVMT_EFF
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AZ_NUTRITION
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AZ_POST_DEXA
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AZ_PRE_PROG
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.AZ_TRN_MOD
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.COMBINE_RECENT_STREAM
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.DEXA_ANDROID_GYNOID
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.DEXA_PATIENT
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.DEXA_WBODY
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.DEXA_WBODY_COMPOSITION
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EX40_RECENT_STREAM
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_40_DATA
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_AGILITY
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_COMBINE
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_COMBINE_DASH
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_GOALS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_HEADSHOTS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_JUMP_PROFILE
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_KA_FORM
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_KA_HISTORICAL
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_KEISER
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_KEISER_CALCS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_LONG
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_MEDIANS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_MVMT_EFFICIENCY
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_NUTRITION
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_POST_DEXA
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_PRE_PROG
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_ROSTER
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_ROSTER_TRN_MOD
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_TESTING_ROSTER
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_TRN_MOD
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_YOUTH_FIELD
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.EXOS_YOUTH_FIELD_T
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.FL_0_20
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.FL_20_40
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.FL_AGILITY
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.FL_COMBINE
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.FL_GOALS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.FL_HEADSHOTS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.FL_JUMP_PROF
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.FL_KA_RAW
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.FL_MVMT_EFF
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.FL_NUTRITION
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.FL_POST_DEXA
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.FL_PRE_PROG
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.FL_TRN_MOD
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.GA_GOALS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.GA_JUMP_PROF
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.GA_KA_RAW
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.GA_MVMT_EFF
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.GA_NUTRITION
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.GA_POST_DEXA
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.GA_TRN_MOD
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.GOALS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_COMBINE_NUTRITION
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_COMBINE_NUTRITION_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_COMBINE_PRE_PROG
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_COMBINE_PRO_DAY
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_COMBINE_PRO_DAY_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_COMBINE_SPEED
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_COMBINE_SPEED_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_COMBINE_STRENGTH
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_COMBINE_STRENGTH_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_GOALS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_GOALS_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_JUMPS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_JUMPS_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_KA
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_KA_HISTORICAL
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_KA_HISTORICAL_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_KA_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_KEISER
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_KEISER_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_MVMT
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_MVMT_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_NUTRITION
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_NUTRITION_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_POST_DEXA
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_POST_DEXA_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_PRE_PROG_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_TRN_MOD
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_TRN_MOD_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_YOUTH_FIELD
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LANDING_YOUTH_FIELD_TEST
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LONG_EXOS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.LONG_FORM_EXOS
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.MVMT_EFFICENCY
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.NUTRITION
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.PRE_PROG_RECENT_STREAM
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.PRE_PROG_TX
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.ROSTER
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.TRAINING_MOD
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.TX_0_20
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.TX_20_40
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.TX_AGILITY
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.TX_COMBINE
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.TX_HEADSHOT
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.TX_JUMP_PROF
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.TX_KA_RAW
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.TX_POST_DEXA
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.YOUTH_FIELD_TESTING_CANTON_TESTING
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.YOUTH_FIELD_TESTING_CANTON_TESTING_DASH
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.YOUTH_FIELD_TESTING_COLORADO_SPRINGS_YOUTH_FIELD_TESTING
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.YOUTH_FIELD_TESTING_FRISCO_TESTING
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.YOUTH_FIELD_TESTING_GULF_BREEZE_TESTING
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.YOUTH_FIELD_TESTING_MERCY_CCIC_MO_YOUTH_FIELD_TESTING
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.YOUTH_FIELD_TESTING_MERCY_CPM_MO_YOUTH_FIELD_TESTING
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.YOUTH_FIELD_TESTING_MONUMENT_HEALTH_SD_YOUTH_FIELD_TESTING
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.YOUTH_FIELD_TESTING_NYP_NY_YOUTH_FIELD_TESTING
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.YOUTH_FIELD_TESTING_PHOENIX_TESTING
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.YOUTH_FIELD_TESTING_PLANO_YOUTH_FIELD_TESTING
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
+{
+    on_schema_object = {
+      object_name = FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102.YOUTH_FIELD_TESTING_UCLA_CA_YOUTH_FIELD_TESTING
+      object_type = TABLE
+    }
+    privileges = ["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"]
+  },
