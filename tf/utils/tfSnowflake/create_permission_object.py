@@ -38,7 +38,7 @@ def create_permissions(
 
 print(
     create_permissions(
-        object_preface="FIVETRAN_DATABASE.GOOGLE_SHEETS_F001102",
+        object_preface="WOW_DB.WOW_SCHEMA",
         object_type="TABLE",
         privileges=["DELETE", "INSERT", "SELECT", "UPDATE", "TRUNCATE", "UPDATE"],
     )
