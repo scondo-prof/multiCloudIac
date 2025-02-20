@@ -1,0 +1,35 @@
+{
+    on_schema_object = {
+      object_name = WOW_DB.WOW_SCHEMA.WOW
+      object_type = TABLE
+    }
+    privileges = ['DELETE', 'INSERT', 'SELECT', 'UPDATE', 'TRUNCATE', 'UPDATE']
+  },
+{
+    on_schema_object = {
+      object_name = WOW_DB.WOW_SCHEMA.
+      object_type = TABLE
+    }
+    privileges = ['DELETE', 'INSERT', 'SELECT', 'UPDATE', 'TRUNCATE', 'UPDATE']
+  },
+{
+    on_schema_object = {
+      object_name = WOW_DB.WOW_SCHEMA.COOL_WOW
+      object_type = TABLE
+    }
+    privileges = ['DELETE', 'INSERT', 'SELECT', 'UPDATE', 'TRUNCATE', 'UPDATE']
+  },
+{
+    on_schema_object = {
+      object_name = WOW_DB.WOW_SCHEMA.
+      object_type = TABLE
+    }
+    privileges = ['DELETE', 'INSERT', 'SELECT', 'UPDATE', 'TRUNCATE', 'UPDATE']
+  },
+{
+    on_schema_object = {
+      object_name = WOW_DB.WOW_SCHEMA.WOWOWOW
+      object_type = TABLE
+    }
+    privileges = ['DELETE', 'INSERT', 'SELECT', 'UPDATE', 'TRUNCATE', 'UPDATE']
+  },
