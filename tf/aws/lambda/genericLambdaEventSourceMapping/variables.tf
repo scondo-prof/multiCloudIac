@@ -17,16 +17,85 @@ variable "eventSourceMappingBatchSize" {
   default = null
 }
 
-variable "eventSourceMappingBisectBatchOnFunctionError" {
+variable "eventSourceMappingBisectBatchOnFunctionError" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#amazon_managed_kafka_event_source_config-configuration-block
   type    = bool
   default = null
 }
 
-variable "eventSourceMappingDestinationConfig" {
+variable "eventSourceMappingDestinationConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#destination_config-configuration-block
   type = object({
     on_failure = optional(object({
       destination_arn = string
     }), null)
   })
+  default = null
+}
+
+variable "eventSourceMappingDocumentDbEventSourceConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#document_db_event_source_config-configuration-block
+  type = object({
+    collection_name = optional(string, null)
+    database_name   = string
+    full_document   = optional(string, null)
+  })
+  default = null
+}
+
+variable "eventSourceMappingEnabled" {
+  type    = bool
+  default = null
+}
+
+variable "eventSourceMappingEventSourceArn" {
+  type    = string
+  default = null
+}
+
+variable "eventSourceMappingFilterCriteria" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#filter_criteria-configuration-block
+  type = object({
+    filter = optional(object({
+      pattern = optional(string, null)
+    }), null)
+  })
+  default = null
+}
+
+variable "eventSourceMappingFunctionName" {
+  type = string
+}
+
+variable "eventSourceMappingFunctionResponseTypes" {
+  type    = list(string)
+  default = null
+}
+
+variable "eventSourceMappingKmsKeyArn" {
+  type    = string
+  default = null
+}
+
+variable "eventSourceMappingMaximumBatchingWindowInSeconds" {
+  type = number
+  validation {
+    condition     = var.eventSourceMappingMaximumBatchingWindowInSeconds == null || var.eventSourceMappingMaximumBatchingWindowInSeconds == -1 || can(var.eventSourceMappingMaximumBatchingWindowInSeconds >= 60 && var.eventSourceMappingMaximumBatchingWindowInSeconds <= 604800)
+    error_message = "var.eventSourceMappingMaximumBatchingWindowInSeconds must be Greater than or Equal to 60 AND Less Than or Equal to 604800"
+  }
+  default = null
+}
+
+variable "eventSourceMappingMaximumRecordAgeInSeconds" {
+  type = number
+  validation {
+    condition     = var.eventSourceMappingMaximumRecordAgeInSeconds == null || var.eventSourceMappingMaximumRecordAgeInSeconds == -1 || can(var.eventSourceMappingMaximumRecordAgeInSeconds >= 60 && var.eventSourceMappingMaximumRecordAgeInSeconds <= 604800)
+    error_message = "var.eventSourceMappingMaximumRecordAgeInSeconds must be Greater than or Equal to 60 AND Less Than or Equal to 604800"
+  }
+  default = null
+}
+
+variable "eventSourceMappingMaximumRetryAttempts" {
+  type = number
+  validation {
+    condition     = var.eventSourceMappingMaximumRetryAttempts == null || can(var.eventSourceMappingMaximumRetryAttempts >= -1 && var.eventSourceMappingMaximumRetryAttempts <= 10000)
+    error_message = "var.eventSourceMappingMaximumRetryAttempts must be Greater than or Equal to -1 AND Less Than or Equal to 10000"
+  }
   default = null
 }

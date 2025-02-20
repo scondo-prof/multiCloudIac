@@ -36,28 +36,35 @@ resource "aws_lambda_event_source_mapping" "eventSourceMapping" {
   }
 
   dynamic "document_db_event_source_config" {
-    for_each = var.eventSourceMapping != null ? [var.eventSourceMapping] : []
+    for_each = var.eventSourceMappingDocumentDbEventSourceConfig != null ? [var.eventSourceMappingDocumentDbEventSourceConfig] : []
     content {
-
+      collection_name = document_db_event_source_config.value["collection_name"]
+      database_name   = document_db_event_source_config.value["database_name"]
+      full_document   = document_db_event_source_config.value["full_document"]
     }
   }
 
-  enabled          = var.eventSourceMapping
-  event_source_arn = var.eventSourceMapping
+  enabled          = var.eventSourceMappingEnabled
+  event_source_arn = var.eventSourceMappingEventSourceArn
 
   dynamic "filter_criteria" {
-    for_each = var.eventSourceMapping != null ? [var.eventSourceMapping] : []
+    for_each = var.eventSourceMappingFilterCriteria != null ? [var.eventSourceMappingFilterCriteria] : []
     content {
-
+      dynamic "filter" {
+        for_each = filter_criteria.value["filter"] != null ? [filter_criteria.value["filter"]] : []
+        content {
+          pattern = filter.value["pattern"]
+        }
+      }
     }
   }
 
-  function_name                      = var.eventSourceMapping
-  function_response_types            = var.eventSourceMapping
-  kms_key_arn                        = var.eventSourceMapping
-  maximum_batching_window_in_seconds = var.eventSourceMapping
-  maximum_record_age_in_seconds      = var.eventSourceMapping
-  maximum_retry_attempts             = var.eventSourceMapping
+  function_name                      = var.eventSourceMappingFunctionName
+  function_response_types            = var.eventSourceMappingFunctionResponseTypes
+  kms_key_arn                        = var.eventSourceMappingKmsKeyArn
+  maximum_batching_window_in_seconds = var.eventSourceMappingMaximumBatchingWindowInSeconds
+  maximum_record_age_in_seconds      = var.eventSourceMappingMaximumRecordAgeInSeconds
+  maximum_retry_attempts             = var.eventSourceMappingMaximumRetryAttempts
 
   dynamic "metrics_config" {
     for_each = var.eventSourceMapping != null ? [var.eventSourceMapping] : []
