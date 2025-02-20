@@ -99,6 +99,7 @@ variable "queueMessageRetentionSeconds" {
     condition     = var.queueMessageRetentionSeconds == null || can(var.queueMessageRetentionSeconds >= 60 && var.queueMessageRetentionSeconds <= 1209600)
     error_message = "var.queueMessageRetentionSeconds must be Greater than or Equal to 60 AND Less Than or Equal to 1209600"
   }
+  default = null
 }
 
 variable "queueName" {
