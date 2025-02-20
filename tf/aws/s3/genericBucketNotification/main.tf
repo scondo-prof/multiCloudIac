@@ -38,9 +38,13 @@ resource "aws_s3_bucket_notification" "bucketNotification" {
   }
 
   dynamic "topic" {
-    for_each = var.bucketNotification != null ? [var.bucketNotification] : []
+    for_each = var.bucketNotificationTopic != null ? [var.bucketNotificationTopic] : []
     content {
-
+      events        = topic.value["events"]
+      filter_prefix = topic.value["filter_prefix"]
+      filter_suffix = topic.value["filter_suffix"]
+      id            = topic.value["id"]
+      topic_arn     = topic.value["topic_arn"]
     }
   }
 }
