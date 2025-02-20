@@ -34,9 +34,8 @@ resource "aws_sqs_queue" "queue" {
 
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
-    Name         = "${var.resourceName}-ec2"
     TfModule     = var.tfModule
   }, var.additionalTags)
 

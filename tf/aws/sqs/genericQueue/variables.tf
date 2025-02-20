@@ -3,6 +3,28 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = null
+}
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue#argument-reference
 
 variable "queueContentBasedDeduplication" {
@@ -98,4 +120,38 @@ variable "queuePolicyDocumentStatements" {
     Condition = optional(map(map(string)), {})
     Principal = map(list(string))
   }))
+  default = []
+}
+
+variable "queueRecieveWaitTimeSeconds" {
+  type = number
+  validation {
+    condition     = var.queueRecieveWaitTimeSeconds == null || can(var.queueRecieveWaitTimeSeconds >= 0 && var.queueRecieveWaitTimeSeconds <= 20)
+    error_message = "var.queueRecieveWaitTimeSeconds must be Greater than or Equal to 0 AND Less Than or Equal to 20"
+  }
+  default = null
+}
+
+variable "queueRedriveAllowPolicy" {
+  type    = string
+  default = null
+}
+
+variable "queueRedrivePolicy" {
+  type    = string
+  default = null
+}
+
+variable "queueSqsManagedSseEnabled" {
+  type    = bool
+  default = null
+}
+
+variable "queueVisibilityTimeoutSeconds" {
+  type = number
+  validation {
+    condition     = var.queueVisibilityTimeoutSeconds == null || can(var.queueVisibilityTimeoutSeconds >= 0 && var.queueVisibilityTimeoutSeconds <= 43200)
+    error_message = "var.queueVisibilityTimeoutSeconds must be Greater than or Equal to 0 AND Less Than or Equal to 43200"
+  }
+  default = null
 }
