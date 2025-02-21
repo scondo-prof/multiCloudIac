@@ -8,7 +8,7 @@ module "CLCC" {
   CLCC_CECC_EcrRepositoryImageTagMutability                     = var.CSQSNLSM_CLCC_CECC_EcrRepositoryImageTagMutability
   CLCC_CECC_EcrRepositoryImageScanningConfiguration             = var.CSQSNLSM_CLCC_CECC_EcrRepositoryImageScanningConfiguration
   projectName                                                   = var.projectName
-  creator                                                       = var.creator
+  creator                                                       = var.createdBy
   deployedDate                                                  = var.deployedDate
   additionalTags                                                = var.additionalTags
   CLCC_CECC_CodebuildProjectArtifactsIdentifier                 = var.CSQSNLSM_CLCC_CECC_CodebuildProjectArtifactsIdentifier
@@ -136,27 +136,38 @@ module "CLCC" {
   CLCC_LFWLGSAR_LambdaPolicyNamePrefix                          = var.CSQSNLSM_CLCC_LFWLGSAR_LambdaPolicyNamePrefix
   CLCC_LFWLGSAR_LambdaPolicyPath                                = var.CSQSNLSM_CLCC_LFWLGSAR_LambdaPolicyPath
   CLCC_LFWLGSAR_LambdaPolicyVersion                             = var.CSQSNLSM_CLCC_LFWLGSAR_LambdaPolicyVersion
-  CLCC_LFWLGSAR_LambdaPolicyDocumentStatements                  = var.CSQSNLSM_CLCC_LFWLGSAR_LambdaPolicyDocumentStatements
-  CLCC_LFWLGSAR_SecretDescription                               = var.CSQSNLSM_CLCC_LFWLGSAR_SecretDescription
-  CLCC_LFWLGSAR_SecretKmsKeyId                                  = var.CSQSNLSM_CLCC_LFWLGSAR_SecretKmsKeyId
-  CLCC_LFWLGSAR_SecretNamePrefix                                = var.CSQSNLSM_CLCC_LFWLGSAR_SecretNamePrefix
-  CLCC_LFWLGSAR_SecretPolicy                                    = var.CSQSNLSM_CLCC_LFWLGSAR_SecretPolicy
-  CLCC_LFWLGSAR_SecretRecoveryWindowInDays                      = var.CSQSNLSM_CLCC_LFWLGSAR_SecretRecoveryWindowInDays
-  CLCC_LFWLGSAR_SecretReplica                                   = var.CSQSNLSM_CLCC_LFWLGSAR_SecretReplica
-  CLCC_LFWLGSAR_SecretForceSecretOverwrite                      = var.CSQSNLSM_CLCC_LFWLGSAR_SecretForceSecretOverwrite
-  CLCC_LFWLGSAR_SecretVersionSecretString                       = var.CSQSNLSM_CLCC_LFWLGSAR_SecretVersionSecretString
-  CLCC_LFWLGSAR_SecretVersionSecretBinary                       = var.CSQSNLSM_CLCC_LFWLGSAR_SecretVersionSecretBinary
-  CLCC_LFWLGSAR_SecretVersionStages                             = var.CSQSNLSM_CLCC_LFWLGSAR_SecretVersionStages
-  CLCC_LFWLGSAR_SecretPolicyDescription                         = var.CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyDescription
-  CLCC_LFWLGSAR_SecretPolicyNamePrefix                          = var.CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyNamePrefix
-  CLCC_LFWLGSAR_SecretPolicyPath                                = var.CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyPath
-  CLCC_LFWLGSAR_SecretPolicyVersion                             = var.CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyVersion
-  CLCC_LFWLGSAR_SecretPolicyDocumentStatements                  = var.CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyDocumentStatements
-  CLCC_LFWLGSAR_LogGroupNamePrefix                              = var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupNamePrefix
-  CLCC_LFWLGSAR_LogGroupSkipDestroy                             = var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupSkipDestroy
-  CLCC_LFWLGSAR_LogGroupClass                                   = var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupClass
-  CLCC_LFWLGSAR_LogGroupRetentionInDays                         = var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupRetentionInDays
-  CLCC_LFWLGSAR_LogGroupKmsKeyId                                = var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupKmsKeyId
+  CLCC_LFWLGSAR_LambdaPolicyDocumentStatements = concat([{
+    Action = [
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes"
+    ]
+    Effect = "Allow"
+    Resource = [
+      module.s3Queue.queueArn
+    ]
+    Sid = "queueAccess"
+  }], var.CSQSNLSM_CLCC_LFWLGSAR_LambdaPolicyDocumentStatements)
+  CLCC_LFWLGSAR_SecretDescription              = var.CSQSNLSM_CLCC_LFWLGSAR_SecretDescription
+  CLCC_LFWLGSAR_SecretKmsKeyId                 = var.CSQSNLSM_CLCC_LFWLGSAR_SecretKmsKeyId
+  CLCC_LFWLGSAR_SecretNamePrefix               = var.CSQSNLSM_CLCC_LFWLGSAR_SecretNamePrefix
+  CLCC_LFWLGSAR_SecretPolicy                   = var.CSQSNLSM_CLCC_LFWLGSAR_SecretPolicy
+  CLCC_LFWLGSAR_SecretRecoveryWindowInDays     = var.CSQSNLSM_CLCC_LFWLGSAR_SecretRecoveryWindowInDays
+  CLCC_LFWLGSAR_SecretReplica                  = var.CSQSNLSM_CLCC_LFWLGSAR_SecretReplica
+  CLCC_LFWLGSAR_SecretForceSecretOverwrite     = var.CSQSNLSM_CLCC_LFWLGSAR_SecretForceSecretOverwrite
+  CLCC_LFWLGSAR_SecretVersionSecretString      = var.CSQSNLSM_CLCC_LFWLGSAR_SecretVersionSecretString
+  CLCC_LFWLGSAR_SecretVersionSecretBinary      = var.CSQSNLSM_CLCC_LFWLGSAR_SecretVersionSecretBinary
+  CLCC_LFWLGSAR_SecretVersionStages            = var.CSQSNLSM_CLCC_LFWLGSAR_SecretVersionStages
+  CLCC_LFWLGSAR_SecretPolicyDescription        = var.CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyDescription
+  CLCC_LFWLGSAR_SecretPolicyNamePrefix         = var.CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyNamePrefix
+  CLCC_LFWLGSAR_SecretPolicyPath               = var.CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyPath
+  CLCC_LFWLGSAR_SecretPolicyVersion            = var.CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyVersion
+  CLCC_LFWLGSAR_SecretPolicyDocumentStatements = var.CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyDocumentStatements
+  CLCC_LFWLGSAR_LogGroupNamePrefix             = var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupNamePrefix
+  CLCC_LFWLGSAR_LogGroupSkipDestroy            = var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupSkipDestroy
+  CLCC_LFWLGSAR_LogGroupClass                  = var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupClass
+  CLCC_LFWLGSAR_LogGroupRetentionInDays        = var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupRetentionInDays
+  CLCC_LFWLGSAR_LogGroupKmsKeyId               = var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupKmsKeyId
 }
 
 #---
@@ -173,7 +184,7 @@ module "s3Queue" {
   queueKmsMasterKeyId               = var.CSQSNLSM_S3QueueKmsMasterKeyId
   queueMaxMessageSize               = var.CSQSNLSM_S3QueueMaxMessageSize
   queueMessageRetentionSeconds      = var.CSQSNLSM_S3QueueMessageRetentionSeconds
-  queueName                         = var.CSQSNLSM_S3QueueName
+  queueName                         = "${var.resourceName}-queue"
   queueNamePrefix                   = var.CSQSNLSM_S3QueueNamePrefix
   queuePolicyDocumentStatements     = var.CSQSNLSM_S3QueuePolicyDocumentStatements
   queueRecieveWaitTimeSeconds       = var.CSQSNLSM_S3QueueRecieveWaitTimeSeconds
@@ -190,23 +201,36 @@ module "s3Queue" {
 
 #---
 
-module "s3QueuePolicy" {
-  source                        = "../../aws/sqs/genericQueuePolicy"
-  awsRegion                     = var.awsRegion
-  queuePolicyDocumentStatements = var.CSQSNLSM_S3QueuePolicyDocumentStatements
-  queuePolicyQueueUrl           = var.CSQSNLSM_S3QueuePolicyQueueUrl
+module "externalS3QueuePolicy" {
+  source    = "../../aws/sqs/genericQueuePolicy"
+  awsRegion = var.awsRegion
+  queuePolicyDocumentStatements = concat([{
+    Action = ["sqs:SendMessage"]
+    Condition = {
+      "ArnEquals" = {
+        "aws:SourceArn" = var.CSQSNLSM_ExternalS3QueuePolicyBucket
+      }
+    }
+    Effect = "Allow"
+    Principal = {
+      "Service" = ["s3.amazonaws.com"]
+    }
+    Resource = [module.s3Queue.queueArn]
+    Sid      = "s3Access"
+  }], var.CSQSNLSM_ExternalS3QueuePolicyDocumentStatements)
+  queuePolicyQueueUrl = module.s3Queue.queueUrl
 }
 
 #---
 
-module "lambdaBucketNotification" {
-  source                           = "../../aws/s3/genericBucketNotification"
-  awsRegion                        = var.awsRegion
-  bucketNotificationBucket         = var.CSQSNLSM_LambdaBucketNotificationBucket
-  bucketNotificationEventbridge    = var.CSQSNLSM_LambdaBucketNotificationEventbridge
-  bucketNotificationLambdaFunction = var.CSQSNLSM_LambdaBucketNotificationLambdaFunction
-  bucketNotificationQueue          = var.CSQSNLSM_LambdaBucketNotificationQueue
-  bucketNotificationTopic          = var.CSQSNLSM_LambdaBucketNotificationTopic
+module "QueueBucketNotification" {
+  source                   = "../../aws/s3/genericBucketNotification"
+  awsRegion                = var.awsRegion
+  bucketNotificationBucket = var.CSQSNLSM_QueueBucketNotificationBucket
+  bucketNotificationQueue = merge({
+    queue_arn = module.s3Queue.queueArn
+    events    = concat(["s3:ObjectCreated:*"], var.CSQSNLSM_QueueBucketNotificationQueueEvents)
+  }, var.CSQSNLSM_QueueBucketNotificationQueue)
 }
 
 #---
@@ -220,9 +244,9 @@ module "s3EventSourceMapping" {
   eventSourceMappingDestinationConfig                   = var.CSQSNLSM_S3EventSourceMappingDestinationConfig
   eventSourceMappingDocumentDbEventSourceConfig         = var.CSQSNLSM_S3EventSourceMappingDocumentDbEventSourceConfig
   eventSourceMappingEnabled                             = var.CSQSNLSM_S3EventSourceMappingEnabled
-  eventSourceMappingEventSourceArn                      = var.CSQSNLSM_S3EventSourceMappingEventSourceArn
+  eventSourceMappingEventSourceArn                      = module.s3Queue.queueArn
   eventSourceMappingFilterCriteria                      = var.CSQSNLSM_S3EventSourceMappingFilterCriteria
-  eventSourceMappingFunctionName                        = var.CSQSNLSM_S3EventSourceMappingFunctionName
+  eventSourceMappingFunctionName                        = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionName
   eventSourceMappingFunctionResponseTypes               = var.CSQSNLSM_S3EventSourceMappingFunctionResponseTypes
   eventSourceMappingKmsKeyArn                           = var.CSQSNLSM_S3EventSourceMappingKmsKeyArn
   eventSourceMappingMaximumBatchingWindowInSeconds      = var.CSQSNLSM_S3EventSourceMappingMaximumBatchingWindowInSeconds

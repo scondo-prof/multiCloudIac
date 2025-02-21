@@ -11,12 +11,16 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
 }
 
 variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
   type = string
 }
 
@@ -1240,32 +1244,6 @@ variable "CSQSNLSM_CLCC_LFWLGSAR_LogGroupKmsKeyId" {
 
 
 #---
-variable "awsRegion" {
-  type    = string
-  default = "us-east-1"
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "createdBy" {
-  type    = string
-  default = "scott-condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "tfModule" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
-  default = null
-}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_CSQSNLSM_S3Queue#argument-reference
 
@@ -1400,14 +1378,13 @@ variable "CSQSNLSM_S3QueueVisibilityTimeoutSeconds" {
 }
 
 #---
-variable "awsRegion" {
-  type    = string
-  default = "us-east-1"
-}
-
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy#argument-reference
 
-variable "CSQSNLSM_S3QueuePolicyDocumentStatements" {
+variable "CSQSNLSM_ExternalS3QueuePolicyBucket" {
+  type = string
+}
+
+variable "CSQSNLSM_ExternalS3QueuePolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -1416,90 +1393,32 @@ variable "CSQSNLSM_S3QueuePolicyDocumentStatements" {
     Condition = optional(map(map(string)), {})
     Principal = map(list(string))
   }))
-}
-
-variable "CSQSNLSM_S3QueuePolicyQueueUrl" {
-  type = string
+  default = []
 }
 
 #---
-variable "awsRegion" {
-  type    = string
-  default = "us-east-1"
-}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification#argument-reference
 
-variable "CSQSNLSM_LambdaBucketNotificationBucket" {
+variable "CSQSNLSM_QueueBucketNotificationBucket" {
   type = string
 }
 
-variable "CSQSNLSM_LambdaBucketNotificationEventbridge" {
-  type    = bool
-  default = null
+variable "CSQSNLSM_QueueBucketNotificationQueueEvents" {
+  type    = list(string)
+  default = []
 }
 
-variable "CSQSNLSM_LambdaBucketNotificationLambdaFunction" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification#lambda_function
+variable "CSQSNLSM_QueueBucketNotificationQueue" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification#queue
   type = object({
-    events              = list(string)
-    filter_prefix       = optional(string, null)
-    filter_suffix       = optional(string, null)
-    id                  = optional(string, null)
-    lambda_function_arn = string
-  })
-  default = null
-}
-
-variable "CSQSNLSM_LambdaBucketNotificationQueue" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification#queue
-  type = object({
-    events        = list(string)
     filter_prefix = optional(string, null)
     filter_suffix = optional(string, null)
     id            = optional(string, null)
-    queue_arn     = string
   })
-  default = null
-}
-
-variable "CSQSNLSM_LambdaBucketNotificationTopic" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification#topic
-  type = object({
-    events        = list(string)
-    filter_prefix = optional(string, null)
-    filter_suffix = optional(string, null)
-    id            = optional(string, null)
-    topic_arn     = string
-  })
-  default = null
-}
-
-#---
-variable "awsRegion" {
-  type    = string
-  default = "us-east-1"
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "createdBy" {
-  type    = string
-  default = "scott-condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "tfModule" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
   default = {}
 }
 
+#---
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#argument-reference
 
 variable "CSQSNLSM_S3EventSourceMappingAmazonManagedKafkaEventSourceConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#amazon_managed_kafka_event_source_config-configuration-block
@@ -1554,10 +1473,6 @@ variable "CSQSNLSM_S3EventSourceMappingFilterCriteria" { #https://registry.terra
     }), null)
   })
   default = null
-}
-
-variable "CSQSNLSM_S3EventSourceMappingFunctionName" {
-  type = string
 }
 
 variable "CSQSNLSM_S3EventSourceMappingFunctionResponseTypes" {
