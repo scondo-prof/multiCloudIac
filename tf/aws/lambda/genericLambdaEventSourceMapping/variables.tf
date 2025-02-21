@@ -99,3 +99,53 @@ variable "eventSourceMappingMaximumRetryAttempts" {
   }
   default = null
 }
+
+variable "eventSourceMappingMetricsConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#metrics_config-configuration-block
+  type = object({
+    metrics = list(string)
+  })
+  default = null
+}
+
+variable "eventSourceMappingParallelizationFactor" {
+  type = number
+  validation {
+    condition = var.eventSourceMappingParallelizationFactor == null || can(var.eventSourceMappingParallelizationFactor >= 1 && var.eventSourceMappingParallelizationFactor <= 10)
+    error_message = "var.eventSourceMappingParallelizationFactor must be Greater than or Equal to 1 AND Less Than or Equal to 10"
+  }
+  default = null
+}
+
+variable "eventSourceMappingProvisionedPollerConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#provisioned_poller_config-configuration-block
+  type = object({
+    maximum_pollers = optional(number, null)
+    minimum_pollers = optional(number, null)
+  })
+  default = null
+}
+
+variable "eventSourceMappingQueues" {
+  type = list(string)
+  default = null
+}
+
+variable "eventSourceMappingScalingConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#scaling_config-configuration-block
+  type = object({
+    maximum_concurrency = optional(number, null)
+  })
+  default = null
+}
+
+variable "eventSourceMappingSelfManagedEventSource" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#self_managed_event_source-configuration-block
+  type = object({
+    endpoints = map(string)
+  })
+  default = null
+}
+
+variable "eventSourceMappingSelfManagedKafkaEventSourceConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#self_managed_kafka_event_source_config-configuration-block
+  type = object({
+    consumer_group_id = optional(string, null)
+  })
+  default = null
+}

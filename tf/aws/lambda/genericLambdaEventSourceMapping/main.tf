@@ -67,41 +67,42 @@ resource "aws_lambda_event_source_mapping" "eventSourceMapping" {
   maximum_retry_attempts             = var.eventSourceMappingMaximumRetryAttempts
 
   dynamic "metrics_config" {
-    for_each = var.eventSourceMapping != null ? [var.eventSourceMapping] : []
+    for_each = var.eventSourceMappingMetricsConfig != null ? [var.eventSourceMappingMetricsConfig] : []
     content {
-
+      metrics = metrics_config.value["metrics"]
     }
   }
 
-  parallelization_factor = var.eventSourceMapping
+  parallelization_factor = var.eventSourceMappingParallelizationFactor
 
   dynamic "provisioned_poller_config" {
-    for_each = var.eventSourceMapping != null ? [var.eventSourceMapping] : []
+    for_each = var.eventSourceMappingProvisionedPollerConfig != null ? [var.eventSourceMappingProvisionedPollerConfig] : []
     content {
-
+      maximum_pollers = provisioned_poller_config.value["maximum_pollers"]
+      minimum_pollers = provisioned_poller_config.value["minimum_pollers"]
     }
   }
 
-  queues = var.eventSourceMapping
+  queues = var.eventSourceMappingQueues
 
   dynamic "scaling_config" {
-    for_each = var.eventSourceMapping != null ? [var.eventSourceMapping] : []
+    for_each = var.eventSourceMappingScalingConfig != null ? [var.eventSourceMappingvar.eventSourceMappingScalingConfig] : []
     content {
-
+      maximum_concurrency = scaling_config.value["maximum_concurrency"]
     }
   }
 
   dynamic "self_managed_event_source" {
-    for_each = var.eventSourceMapping != null ? [var.eventSourceMapping] : []
+    for_each = var.eventSourceMappingSelfManagedEventSource != null ? [var.eventSourceMappingSelfManagedEventSource] : []
     content {
-
+      endpoints = self_managed_event_source.value["endpoints"]
     }
   }
 
   dynamic "self_managed_kafka_event_source_config" {
-    for_each = var.eventSourceMapping != null ? [var.eventSourceMapping] : []
+    for_each = var.eventSourceMappingSelfManagedKafkaEventSourceConfig != null ? [var.eventSourceMappingSelfManagedKafkaEventSourceConfig] : []
     content {
-
+      consumer_group_id = self_managed_kafka_event_source_config.value["consumer_group_id"]
     }
   }
 
