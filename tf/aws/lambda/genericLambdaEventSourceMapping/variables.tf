@@ -110,7 +110,7 @@ variable "eventSourceMappingMetricsConfig" { #https://registry.terraform.io/prov
 variable "eventSourceMappingParallelizationFactor" {
   type = number
   validation {
-    condition = var.eventSourceMappingParallelizationFactor == null || can(var.eventSourceMappingParallelizationFactor >= 1 && var.eventSourceMappingParallelizationFactor <= 10)
+    condition     = var.eventSourceMappingParallelizationFactor == null || can(var.eventSourceMappingParallelizationFactor >= 1 && var.eventSourceMappingParallelizationFactor <= 10)
     error_message = "var.eventSourceMappingParallelizationFactor must be Greater than or Equal to 1 AND Less Than or Equal to 10"
   }
   default = null
@@ -125,7 +125,7 @@ variable "eventSourceMappingProvisionedPollerConfig" { #https://registry.terrafo
 }
 
 variable "eventSourceMappingQueues" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
