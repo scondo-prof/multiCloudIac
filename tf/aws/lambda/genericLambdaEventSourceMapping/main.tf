@@ -86,7 +86,7 @@ resource "aws_lambda_event_source_mapping" "eventSourceMapping" {
   queues = var.eventSourceMappingQueues
 
   dynamic "scaling_config" {
-    for_each = var.eventSourceMappingScalingConfig != null ? [var.eventSourceMappingvar.eventSourceMappingScalingConfig] : []
+    for_each = var.eventSourceMappingScalingConfig != null ? [var.eventSourceMappingScalingConfig] : []
     content {
       maximum_concurrency = scaling_config.value["maximum_concurrency"]
     }
