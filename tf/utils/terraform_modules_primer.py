@@ -9,23 +9,53 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../projects/_SS_SarargSup",
-            "source_path": "../_SS_SarargSup",
-            "destination_path": "../projects/_SS_SibsSs",
+            "project_path": "../projects/_CLCC_containerLambdaCiCd",
+            "source_path": "../_CLCC_containerLambdaCiCd",
+            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
         },
-        "previous_variable_prefix": "SS",
-        "new_variable_prefix": "SS_SS",
-        "module_name": "SS",
+        "previous_variable_prefix": "CLCC",
+        "new_variable_prefix": "CSQSNLSM_CLCC",
+        "module_name": "CLCC",
     },
     {
         "paths": {
-            "project_path": "../projects/_SIBS_spcrdfgIuwpaksmsBwvSwv",
-            "source_path": "../_SIBS_spcrdfgIuwpaksmsBwvSwv",
-            "destination_path": "../projects/_SS_SibsSs",
+            "project_path": "../aws/sqs/genericQueue",
+            "source_path": "../../aws/sqs/genericQueue",
+            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
         },
-        "previous_variable_prefix": "SIBS",
-        "new_variable_prefix": "SS_SIBS",
-        "module_name": "SIBS",
+        "previous_variable_prefix": "queue",
+        "new_variable_prefix": "CSQSNLSM_S3Queue",
+        "module_name": "s3Queue",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/sqs/genericQueuePolicy",
+            "source_path": "../../aws/sqs/genericQueuePolicy",
+            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
+        },
+        "previous_variable_prefix": "queuePolicy",
+        "new_variable_prefix": "CSQSNLSM_S3QueuePolicy",
+        "module_name": "s3QueuePolicy",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/s3/genericBucketNotification",
+            "source_path": "../../aws/s3/genericBucketNotification",
+            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
+        },
+        "previous_variable_prefix": "bucketNotification",
+        "new_variable_prefix": "CSQSNLSM_LambdaBucketNotification",
+        "module_name": "lambdaBucketNotification",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/lambda/genericLambdaEventSourceMapping",
+            "source_path": "../../aws/lambda/genericLambdaEventSourceMapping",
+            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
+        },
+        "previous_variable_prefix": "eventSourceMapping",
+        "new_variable_prefix": "CSQSNLSM_S3EventSourceMapping",
+        "module_name": "s3EventSourceMapping",
     },
 ]
 
