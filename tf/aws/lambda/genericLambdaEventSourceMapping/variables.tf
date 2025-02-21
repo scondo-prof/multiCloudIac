@@ -3,6 +3,28 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#argument-reference
 
 variable "eventSourceMappingAmazonManagedKafkaEventSourceConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#amazon_managed_kafka_event_source_config-configuration-block
@@ -147,5 +169,45 @@ variable "eventSourceMappingSelfManagedKafkaEventSourceConfig" { #https://regist
   type = object({
     consumer_group_id = optional(string, null)
   })
+  default = null
+}
+
+variable "eventSourceMappingSourceAccessConfiguration" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#source_access_configuration-configuration-block
+  type = object({
+    type = string
+    uri  = string
+  })
+  default = null
+}
+
+variable "eventSourceMappingStartingPosition" {
+  type = string
+  validation {
+    condition = var.eventSourceMappingStartingPosition == null || can(contains([
+      "AT_TIMESTAMP",
+      "LATEST",
+      "TRIM_HORIZON"
+    ], var.eventSourceMappingStartingPosition))
+    error_message = "Valid inputs for | variable: var.eventSourceMappingStartingPosition | are: AT_TIMESTAMP , LATEST, TRIM_HORIZON"
+  }
+  default = null
+}
+
+variable "eventSourceMappingStartingPositionTimestamp" {
+  type    = string
+  default = null
+}
+
+variable "eventSourceMappingTopics" {
+  type    = list(string)
+  default = null
+}
+
+variable "eventSourceMappingTumblingWindowInSeconds" {
+  type = number
+  validation {
+    condition     = var.eventSourceMappingTumblingWindowInSeconds == null || can(var.eventSourceMappingTumblingWindowInSeconds >= 1 && var.eventSourceMappingTumblingWindowInSeconds <= 900)
+    error_message = "var.eventSourceMappingTumblingWindowInSeconds must be Greater than or Equal to 1 AND Less Than or Equal to 900"
+  }
   default = null
 }

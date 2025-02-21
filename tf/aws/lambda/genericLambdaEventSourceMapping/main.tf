@@ -107,14 +107,15 @@ resource "aws_lambda_event_source_mapping" "eventSourceMapping" {
   }
 
   dynamic "source_access_configuration" {
-    for_each = var.eventSourceMapping != null ? [var.eventSourceMapping] : []
+    for_each = var.eventSourceMappingSourceAccessConfiguration != null ? [var.eventSourceMappingSourceAccessConfiguration] : []
     content {
-
+      type = source_access_configuration.value["type"]
+      uri  = source_access_configuration.value["uri"]
     }
   }
 
-  starting_position           = var.eventSourceMapping
-  starting_position_timestamp = var.eventSourceMapping
+  starting_position           = var.eventSourceMappingStartingPosition
+  starting_position_timestamp = var.eventSourceMappingStartingPositionTimestamp
 
   tags = merge({
     Project      = var.projectName
@@ -123,6 +124,6 @@ resource "aws_lambda_event_source_mapping" "eventSourceMapping" {
     TfModule     = var.tfModule
   }, var.additionalTags)
 
-  topics                     = var.eventSourceMapping
-  tumbling_window_in_seconds = var.eventSourceMapping
+  topics                     = var.eventSourceMappingTopics
+  tumbling_window_in_seconds = var.eventSourceMappingTumblingWindowInSeconds
 }
