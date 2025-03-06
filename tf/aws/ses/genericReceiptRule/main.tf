@@ -13,17 +13,19 @@ provider "aws" {
 resource "aws_ses_receipt_rule" "receiptRule" {
   count         = length(var.receiptRuleObjects)
   name          = "${var.resourceName}-receipt-rule-${count.index}"
-  rule_set_name = var.receiptRuleSetName
-  after         = var.receiptRuleObjects[count.index][""]
-  enabled       = var.receiptRuleObjects[count.index][""]
-  recipients    = var.receiptRuleObjects[count.index][""]
-  scan_enabled  = var.receiptRuleObjects[count.index][""]
-  tls_policy    = var.receiptRuleObjects[count.index][""]
+  rule_set_name = var.receiptRuleObjects[count.index]["rule_set_name"]
+  after         = var.receiptRuleObjects[count.index]["after"]
+  enabled       = var.receiptRuleObjects[count.index]["enabled"]
+  recipients    = var.receiptRuleObjects[count.index]["recipients"]
+  scan_enabled  = var.receiptRuleObjects[count.index]["scan_enabled"]
+  tls_policy    = var.receiptRuleObjects[count.index]["tls_policy"]
 
   dynamic "add_header_action" {
-    for_each = var.receiptRuleObjects[count.index][""] != null ? [var.receiptRuleObjects[count.index][""]] : []
+    for_each = var.receiptRuleObjects[count.index]["add_header_action"] != null ? [var.receiptRuleObjects[count.index]["add_header_action"]] : []
     content {
-
+      header_name = add_header_action.value["header_name"]
+      header_value = add_header_action.value["header_value"]
+      position = add_header_action.value["position"]
     }
   }
 
