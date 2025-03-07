@@ -1,3 +1,7 @@
-output "grantPrivilegesId" {
-  value = snowflake_grant_privileges_to_account_role.grantPrivileges[*].id
+output "receiptRuleId" {
+  value = aws_ses_receipt_rule.receiptRule[*].id
+}
+
+output "receiptRule" {
+  value = aws_ses_receipt_rule.receiptRule[*].arn
 }
