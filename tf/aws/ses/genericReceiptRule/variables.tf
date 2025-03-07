@@ -11,18 +11,32 @@ variable "resourceName" {
 variable "receiptRuleObjects" {
   type = list(object({
     rule_set_name = string
-    after = optional(string, null)
-    enabled = optional(bool, null)
-    recipients = optional(list(string), null)
-    scan_enabled = optional(bool, null)
-    tls_policy = optional(string, null)
+    after         = optional(string, null)
+    enabled       = optional(bool, null)
+    recipients    = optional(list(string), null)
+    scan_enabled  = optional(bool, null)
+    tls_policy    = optional(string, null)
 
     add_header_action = optional(object({
-      header_name = string
+      header_name  = string
       header_value = string
-      position = number
+      position     = number
     }), null)
 
-    
+    bounce_action = optional(object({
+      message         = string
+      sender          = string
+      smtp_reply_code = string
+      status_code     = optional(string, null)
+      topic_arn       = optional(string, null)
+      position        = number
+    }), null)
+
+    lambda_action = optional(object({
+      function_arn    = string
+      invocation_type = optional(string, null)
+      topic_arn       = optional(string, null)
+      position        = number
+    }), null)
   }))
 }
