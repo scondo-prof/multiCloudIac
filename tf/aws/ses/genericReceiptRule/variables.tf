@@ -38,5 +38,32 @@ variable "receiptRuleObjects" {
       topic_arn       = optional(string, null)
       position        = number
     }), null)
+
+    s3_action = optional(object({
+      bucket_name       = string
+      iam_role_arn      = optional(string, null)
+      kms_key_arn       = optional(string, null)
+      object_key_prefix = optional(string, null)
+      topic_arn         = optional(string, null)
+      position          = number
+    }), null)
+
+    sns_action = optional(object({
+      topic_arn = string
+      position  = number
+      encoding  = optional(string, null)
+    }), null)
+
+    stop_action = optional(object({
+      scope     = string
+      topic_arn = optional(string, null)
+      position  = number
+    }), null)
+
+    workmail_action = object({
+      organization_arn = string
+      topic_arn        = optional(string, null)
+      position         = number
+    })
   }))
 }

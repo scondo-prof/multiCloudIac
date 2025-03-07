@@ -52,30 +52,41 @@ resource "aws_ses_receipt_rule" "receiptRule" {
   }
 
   dynamic "s3_action" {
-    for_each = var.receiptRuleObjects[count.index][""] != null ? [var.receiptRuleObjects[count.index][""]] : []
+    for_each = var.receiptRuleObjects[count.index]["s3_action"] != null ? [var.receiptRuleObjects[count.index]["s3_action"]] : []
     content {
-
+      bucket_name       = s3_action.value["bucket_name"]
+      iam_role_arn      = s3_action.value["iam_role_arn"]
+      kms_key_arn       = s3_action.value["kms_key_arn"]
+      object_key_prefix = s3_action.value["object_key_prefix"]
+      topic_arn         = s3_action.value["topic_arn"]
+      position          = s3_action.value["position"]
     }
   }
 
   dynamic "sns_action" {
-    for_each = var.receiptRuleObjects[count.index][""] != null ? [var.receiptRuleObjects[count.index][""]] : []
+    for_each = var.receiptRuleObjects[count.index]["sns_action"] != null ? [var.receiptRuleObjects[count.index]["sns_action"]] : []
     content {
-
+      topic_arn = sns_action.value["topic_arn"]
+      position  = sns_action.value["position"]
+      encoding  = sns_action.value["encoding"]
     }
   }
 
   dynamic "stop_action" {
-    for_each = var.receiptRuleObjects[count.index][""] != null ? [var.receiptRuleObjects[count.index][""]] : []
+    for_each = var.receiptRuleObjects[count.index]["stop_action"] != null ? [var.receiptRuleObjects[count.index]["stop_action"]] : []
     content {
-
+      scope     = stop_action.value["scope"]
+      topic_arn = stop_action.value["topic_arn"]
+      position  = stop_action.value["position"]
     }
   }
 
   dynamic "workmail_action" {
-    for_each = var.receiptRuleObjects[count.index][""] != null ? [var.receiptRuleObjects[count.index][""]] : []
+    for_each = var.receiptRuleObjects[count.index]["workmail_action"] != null ? [var.receiptRuleObjects[count.index]["workmail_action"]] : []
     content {
-
+      organization_arn = workmail_action.value["organization_arn"]
+      topic_arn        = workmail_action.value["topic_arn"]
+      position         = workmail_action.value["position"]
     }
   }
 }
