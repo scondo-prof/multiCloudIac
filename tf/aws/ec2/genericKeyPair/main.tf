@@ -18,5 +18,6 @@ resource "aws_key_pair" "keyPair" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }

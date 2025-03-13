@@ -25,6 +25,7 @@ resource "aws_ebs_volume" "ebsVolume" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
   throughput = var.ebsVolumeThroughput
 }

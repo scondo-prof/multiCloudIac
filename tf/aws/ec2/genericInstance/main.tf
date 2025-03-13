@@ -61,6 +61,7 @@ resource "aws_instance" "instance" {
         Project      = var.projectName
         CreatedBy    = var.creator
         DeployedDate = var.deployedDate
+        TfModule     = var.tfModule
       }, var.additionalTags)
       throughput  = ebs_block_device.value["throughput"]
       volume_size = ebs_block_device.value["volume_size"]
@@ -194,7 +195,7 @@ resource "aws_instance" "instance" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
-    Name = "${var.resourceName}-ec2"
+    Name         = "${var.resourceName}-ec2"
   }, var.additionalTags)
   tenancy                     = var.instanceTenancy
   user_data                   = var.instanceUserData != null ? file(var.instanceUserData) : null
