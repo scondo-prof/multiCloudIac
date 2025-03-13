@@ -21,6 +21,7 @@ module "iamUser" {
   projectName               = var.projectName
   creator                   = var.creator
   deployedDate              = var.deployedDate
+  tfModule                  = var.tfModule
   additionalTags            = var.additionalTags
 }
 
@@ -37,6 +38,7 @@ module "iamPolicy" {
   projectName                 = var.projectName
   creator                     = var.creator
   deployedDate                = var.deployedDate
+  tfModule                    = var.tfModule
   additionalTags              = var.additionalTags
 }
 

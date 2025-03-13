@@ -22,5 +22,6 @@ resource "aws_iam_policy" "iamPolicy" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    tfModule     = var.tfModule
   }, var.additionalTags)
 }

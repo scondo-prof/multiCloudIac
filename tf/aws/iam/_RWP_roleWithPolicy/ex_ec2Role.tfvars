@@ -18,11 +18,11 @@ RWP_IamRoleDescription = "just putting flow logs"
 
 RWP_IamPolicyDocumentStatements = [
   {
-    Effect   = "Allow",
-    Action   = [
-                "logs:CreateLogStream",
-                "logs:PutLogEvents"
-            ]
+    Effect = "Allow",
+    Action = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
     Resource = ["arn:aws:logs:us-east-1:708508995810:log-group:/aws/lambda/daddy_mood:*"]
   }
 ]

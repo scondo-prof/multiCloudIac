@@ -25,5 +25,6 @@ resource "aws_cloudwatch_event_rule" "eventRule" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }
