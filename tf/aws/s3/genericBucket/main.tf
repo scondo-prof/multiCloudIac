@@ -19,7 +19,8 @@ resource "aws_s3_bucket" "s3Bucket" {
 
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
+    TfModule     = var.tfModule
     DeployedDate = var.deployedDate
   }, var.additionalTags)
 }

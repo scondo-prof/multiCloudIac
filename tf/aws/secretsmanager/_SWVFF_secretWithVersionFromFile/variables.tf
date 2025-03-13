@@ -3,13 +3,37 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
+variable "resourceName" {
+  type = string
+}
+
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
+#---
+
 variable "SWVFF_SecretKmsKeyId" {
   type    = string
   default = null
-}
-
-variable "resourceName" {
-  type = string
 }
 
 variable "SWVFF_SecretPolicy" {
@@ -33,24 +57,6 @@ variable "SWVFF_SecretReplica" {
 variable "SWVFF_SecretForceSecretOverwrite" {
   type    = bool
   default = true
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "creator" {
-  type    = string
-  default = "Scott Condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
 }
 
 variable "SWVFF_SecretVersionSecretStringFile" {

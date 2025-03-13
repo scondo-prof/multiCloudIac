@@ -28,7 +28,8 @@ resource "aws_secretsmanager_secret" "secret" {
   force_overwrite_replica_secret = var.secretForceSecretOverwrite
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }

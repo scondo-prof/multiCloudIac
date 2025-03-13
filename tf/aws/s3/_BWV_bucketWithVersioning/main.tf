@@ -20,8 +20,9 @@ module "s3Bucket" {
   s3BucketForceDestroy      = var.BWV_S3BucketForceDestroy
   s3BucketObjectLockEnabled = var.BWV_S3BucketObjectLockEnabled
   projectName               = var.projectName
-  creator                   = var.creator
+  createdBy                 = var.createdBy
   deployedDate              = var.deployedDate
+  tfModule                  = var.tfModule
   additionalTags            = var.additionalTags
 }
 

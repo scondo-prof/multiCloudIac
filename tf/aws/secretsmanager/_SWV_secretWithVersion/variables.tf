@@ -3,6 +3,30 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
+#---
+
 variable "SWV_SecretKmsKeyId" {
   type    = string
   default = null
@@ -33,24 +57,6 @@ variable "SWV_SecretReplica" {
 variable "SWV_SecretForceSecretOverwrite" {
   type    = bool
   default = true
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "creator" {
-  type    = string
-  default = "Scott Condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
 }
 
 variable "SWV_SecretVersionSecretString" {
