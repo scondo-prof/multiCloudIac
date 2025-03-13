@@ -44,6 +44,7 @@ resource "aws_api_gateway_stage" "stage" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
   xray_tracing_enabled = var.stageXrayTracingEnabled
 }

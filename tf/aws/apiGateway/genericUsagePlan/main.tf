@@ -53,5 +53,6 @@ resource "aws_api_gateway_usage_plan" "usagePlan" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }

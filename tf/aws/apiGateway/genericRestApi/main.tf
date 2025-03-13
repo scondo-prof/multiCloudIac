@@ -35,5 +35,6 @@ resource "aws_api_gateway_rest_api" "restApi" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }
