@@ -22,5 +22,6 @@ resource "aws_cloudwatch_log_group" "logGroup" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }

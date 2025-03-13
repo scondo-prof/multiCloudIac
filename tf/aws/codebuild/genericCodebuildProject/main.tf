@@ -224,6 +224,7 @@ resource "aws_codebuild_project" "codebuildProject" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 
   dynamic "vpc_config" {

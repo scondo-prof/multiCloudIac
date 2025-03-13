@@ -35,5 +35,6 @@ resource "aws_budgets_budget" "budget" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
-  }, var.awsBudgetAdditionalTags)
+    TfModule     = var.tfModule
+  }, var.additionalTags)
 }

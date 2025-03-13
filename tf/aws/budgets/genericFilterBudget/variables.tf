@@ -1,11 +1,35 @@
 variable "awsRegion" {
-  type = string
+  type    = string
   default = "us-east-1"
 }
 
 variable "resourceName" {
   type = string
 }
+
+variable "projectName" {
+  type = string
+}
+
+variable "creator" {
+  type    = string
+  default = "Scott Condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#argument-reference
 
 variable "budgetType" {
   type    = string
@@ -77,22 +101,4 @@ variable "budgetNotificationType" {
 
 variable "snsTopicArns" {
   type = list(string)
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "creator" {
-  type    = string
-  default = "Scott Condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "awsBudgetAdditionalTags" {
-  type    = map(string)
-  default = {}
 }
