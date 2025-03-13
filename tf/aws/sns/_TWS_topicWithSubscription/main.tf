@@ -41,9 +41,10 @@ module "snsTopic" {
   snsTopicFirehoseSuccessFeedbackSampleRate    = var.snsTopicFirehoseSuccessFeedbackSampleRate
   snsTopicFirehoseFailureFeedbackRoleArn       = var.snsTopicFirehoseFailureFeedbackRoleArn
   projectName                                  = var.projectName
-  creator                                      = var.creator
+  createdBy                                    = var.createdBy
   deployedDate                                 = var.deployedDate
-  snsTopicAdditionalTags                       = var.snsTopicAdditionalTags
+  tfModule                                     = var.tfModule
+  additionalTags                               = var.additionalTags
 }
 
 module "snsTopicSubscription" {
