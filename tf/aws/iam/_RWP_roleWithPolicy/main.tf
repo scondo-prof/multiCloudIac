@@ -12,7 +12,7 @@ module "iamRole" {
   iamRolePath                    = var.RWP_IamRolePath
   iamRolePermissionsBoundary     = var.RWP_IamRolePermissionsBoundary
   projectName                    = var.projectName
-  creator                        = var.creator
+  createdBy                      = var.createdBy
   deployedDate                   = var.deployedDate
   tfModule                       = var.tfModule
   additionalTags                 = var.additionalTags
@@ -30,7 +30,7 @@ module "iamPolicy" {
   iamPolicyVersion            = var.RWP_IamPolicyVersion
   iamPolicyDocumentStatements = var.RWP_IamPolicyDocumentStatements
   projectName                 = var.projectName
-  creator                     = var.creator
+  createdBy                   = var.createdBy
   deployedDate                = var.deployedDate
   tfModule                    = var.tfModule
   additionalTags              = var.additionalTags

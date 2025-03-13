@@ -11,9 +11,9 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
-  default = "Scott Condo"
+  default = "scott-condo"
 }
 
 variable "deployedDate" {

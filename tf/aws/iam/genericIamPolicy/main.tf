@@ -20,7 +20,7 @@ resource "aws_iam_policy" "iamPolicy" {
   })
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
     tfModule     = var.tfModule
   }, var.additionalTags)

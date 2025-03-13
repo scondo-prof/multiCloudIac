@@ -33,7 +33,7 @@ resource "aws_budgets_budget" "budget" {
 
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
     TfModule     = var.tfModule
   }, var.additionalTags)

@@ -19,7 +19,7 @@ module "iamUser" {
   iamUserPermissionBoundary = var.UWP_IamUserPermissionBoundary
   iamUserForceDestroy       = var.UWP_IamUserForceDestroy
   projectName               = var.projectName
-  creator                   = var.creator
+  createdBy                 = var.createdBy
   deployedDate              = var.deployedDate
   tfModule                  = var.tfModule
   additionalTags            = var.additionalTags
@@ -36,7 +36,7 @@ module "iamPolicy" {
   iamPolicyVersion            = var.UWP_IamPolicyVersion
   iamPolicyDocumentStatements = var.UWP_IamPolicyDocumentStatements
   projectName                 = var.projectName
-  creator                     = var.creator
+  createdBy                   = var.createdBy
   deployedDate                = var.deployedDate
   tfModule                    = var.tfModule
   additionalTags              = var.additionalTags

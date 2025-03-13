@@ -222,7 +222,7 @@ resource "aws_codebuild_project" "codebuildProject" {
   source_version = var.codebuildProjectSourceVersion
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
     TfModule     = var.tfModule
   }, var.additionalTags)

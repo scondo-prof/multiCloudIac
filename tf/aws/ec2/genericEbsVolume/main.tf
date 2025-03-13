@@ -23,7 +23,7 @@ resource "aws_ebs_volume" "ebsVolume" {
   kms_key_id           = var.ebsVolumeKmsKeyId
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
     TfModule     = var.tfModule
   }, var.additionalTags)
