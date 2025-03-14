@@ -56,8 +56,9 @@ resource "azurerm_key_vault" "keyVault" {
   }
 
   tags = merge({
-    "project"       = var.projectName
-    "created-by"    = var.creator
-    "deployed-date" = var.deployedDate
+    project       = var.projectName
+    created-by    = var.createdBy
+    tf-module     = var.tfModule
+    deployed-date = var.deployedDate
   }, var.additionalTags)
 }

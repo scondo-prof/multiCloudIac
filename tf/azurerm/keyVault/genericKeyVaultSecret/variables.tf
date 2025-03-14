@@ -17,6 +17,30 @@ variable "resourceName" {
   type = string
 }
 
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
+#https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret#argument-reference
+
 variable "keyVaultSecretValue" {
   type = string
 }
@@ -36,24 +60,6 @@ variable "keyVaultSecretContentType" {
     error_message = "Valid inputs for | variable: keyVaultSecretContentType | are: application/json, text/plain, application/x-pem-file"
   }
   default = null
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "creator" {
-  type    = string
-  default = "scott-condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
 }
 
 variable "keyVaultSecretNotBeforeDate" { #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret#not_before_date

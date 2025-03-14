@@ -26,9 +26,10 @@ resource "azurerm_key_vault_secret" "keyVaultSecret" {
   content_type = var.keyVaultSecretContentType
 
   tags = merge({
-    "project"       = var.projectName
-    "created-by"    = var.creator
-    "deployed-date" = var.deployedDate
+    project       = var.projectName
+    created-by    = var.createdBy
+    tf-module     = var.tfModule
+    deployed-date = var.deployedDate
   }, var.additionalTags)
 
   not_before_date = var.keyVaultSecretNotBeforeDate

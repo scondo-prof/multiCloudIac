@@ -22,6 +22,30 @@ variable "azurermRegion" { #https://gist.github.com/ausfestivus/04e55c7d80229069
   default = "eastus"
 }
 
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
+#https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault#argument-reference
+
 variable "keyVaultResourceGroupName" {
   type = string
 }
@@ -111,22 +135,4 @@ variable "keyVaultContact" { #https://registry.terraform.io/providers/hashicorp/
     phone = optional(string, null)
   })
   default = null
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "creator" {
-  type    = string
-  default = "scott-condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
 }
