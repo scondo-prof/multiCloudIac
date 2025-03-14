@@ -8,15 +8,15 @@ terraform {
 }
 
 provider "google" {
-  project = var.projectId
-  region  = var.region
+  project = var.gcpProjectId
+  region  = var.gcpRegion
 }
 
 module "network" {
   source = "../genericNetwork"
 
-  projectId                           = var.projectId
-  region                              = var.region
+  gcpProjectId                           = var.gcpProjectId
+  gcpRegion                              = var.gcpRegion
   resourceName                        = var.resourceName
   networkAutoCreateSubNetworks        = var.NWSAF_NetworkAutoCreateSubNetworks
   networkRoutingMode                  = var.NWSAF_NetworkRoutingMode
@@ -27,8 +27,8 @@ module "network" {
 module "subnetwork" {
   source = "../genericSubnetwork"
 
-  projectId             = var.projectId
-  region                = var.region
+  gcpProjectId             = var.gcpProjectId
+  gcpRegion                = var.gcpRegion
   resourceName          = var.resourceName
   subnetworkIpCidrRange = var.NWSAF_SubnetworkIpCidrRange
   subnetworkNetworkId   = module.network.networkId
@@ -37,8 +37,8 @@ module "subnetwork" {
 module "firewallIngress" {
   source = "../genericFirewall"
 
-  projectId            = var.projectId
-  region               = var.region
+  gcpProjectId            = var.gcpProjectId
+  gcpRegion               = var.gcpRegion
   resourceName         = "ingress-${var.resourceName}"
   firewallNetwork      = module.network.networkName
   firewallRules        = var.NWSAF_FirewallIngressRules
@@ -51,8 +51,8 @@ module "firewallIngress" {
 module "firewallEgress" {
   source = "../genericFirewall"
 
-  projectId            = var.projectId
-  region               = var.region
+  gcpProjectId            = var.gcpProjectId
+  gcpRegion               = var.gcpRegion
   resourceName         = "egress-${var.resourceName}"
   firewallNetwork      = module.network.networkName
   firewallRules        = var.NWSAF_FirewallEgressRules

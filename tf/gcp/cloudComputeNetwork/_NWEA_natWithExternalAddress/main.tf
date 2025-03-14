@@ -8,16 +8,21 @@ terraform {
 }
 
 provider "google" {
-  project = var.projectId
-  region  = var.region
+  project = var.gcpProjectId
+  region  = var.gcpRegion
 }
 
 module "networkAddress" {
   source = "../genericNetworkAddress"
 
-  projectId                 = var.projectId
-  region                    = var.region
+  gcpProjectId                 = var.gcpProjectId
+  gcpRegion                    = var.gcpRegion
   resourceName              = var.resourceName
+  deployedDate = var.deployedDate
+  projectName = var.projectName
+  createdBy = var.createdBy
+  tfModule = var.tfModule
+  additionalTags = var.additionalTags
   networkAddressAddress     = var.NWEA_NetworkAddressAddress
   networkAddressType        = var.NWEA_NetworkAddressType
   networkAddressNetworkTier = var.NWEA_NetworkAddressNetworkTier
@@ -26,8 +31,8 @@ module "networkAddress" {
 module "networkRouter" {
   source = "../genericNetworkRouter"
 
-  projectId            = var.projectId
-  region               = var.region
+  gcpProjectId                 = var.gcpProjectId
+  gcpRegion                    = var.gcpRegion
   resourceName         = var.resourceName
   networkRouterNetwork = var.NWEA_NetworkRouterNetworkName
 }
@@ -35,8 +40,8 @@ module "networkRouter" {
 module "nat" {
   source = "../genericNetworkRouterNat"
 
-  projectId                        = var.projectId
-  region                           = var.region
+  gcpProjectId                 = var.gcpProjectId
+  gcpRegion                    = var.gcpRegion
   resourceName                     = var.resourceName
   natRouterName                    = module.networkRouter.networkRouterName
   natIpAllocateOption              = "MANUAL_ONLY"

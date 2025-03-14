@@ -1,8 +1,8 @@
-variable "projectId" {
+variable "gcpProjectId" {
   type = string
 }
 
-variable "region" {
+variable "gcpRegion" {
   type = string
   default = "us-east1"
 }
@@ -11,23 +11,22 @@ variable "resourceName" {
   type = string
 }
 
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#argument-reference
+
 variable "firewallNetwork" {
   type = string
 }
 
-variable "firewallRules" {
+variable "firewallRulesAllow" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_allow
   description = "List of firewall rules to apply."
   type = list(object({
     protocol = string
-    ports    = list(string)
+    ports    = optional(list(string), null)
   }))
-  default = [
-    {
-      protocol = "tcp"
-      ports = [ "22", "3389" ]
-    }
-  ]
+  default = null
 }
+
+
 
 variable "firewallDirection" {
   type = string

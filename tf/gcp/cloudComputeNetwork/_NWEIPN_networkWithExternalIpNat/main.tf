@@ -8,15 +8,15 @@ terraform {
 }
 
 provider "google" {
-  project = var.projectId
-  region  = var.region
+  project = var.gcpProjectId
+  region  = var.gcpRegion
 }
 
 module "NWSAF" {
   source = "../_NWSAF_networkWithSubnetworkAndFirewall"
 
-  projectId                                 = var.projectId
-  region                                    = var.region
+  gcpProjectId                                 = var.gcpProjectId
+  gcpRegion                                    = var.gcpRegion
   resourceName                              = var.resourceName
   NWSAF_NetworkAutoCreateSubNetworks        = var.NWEIPN_NetworkAutoCreateSubNetworks
   NWSAF_NetworkRoutingMode                  = var.NWEIPN_NetworkRoutingMode
@@ -36,9 +36,14 @@ module "NWSAF" {
 module "NWEA" {
   source = "../_NWEA_natWithExternalAddress"
 
-  projectId                             = var.projectId
-  region                                = var.region
+  gcpProjectId                             = var.gcpProjectId
+  gcpRegion                                = var.gcpRegion
   resourceName                          = var.resourceName
+  deployedDate = var.deployedDate
+  projectName = var.projectName
+  createdBy = var.createdBy
+  tfModule = var.tfModule
+  additionalTags = var.additionalTags
   NWEA_NetworkAddressAddress            = var.NWEIPN_NetworkAddressAddress
   NWEA_NetworkAddressType               = var.NWEIPN_NetworkAddressType
   NWEA_NetworkAddressNetworkTier        = var.NWEIPN_NetworkAddressNetworkTier
@@ -50,8 +55,8 @@ module "NWEA" {
 module "vpcAccessConnector" {
   source = "../genericVpcAccessConnector"
 
-  projectId                      = var.projectId
-  region                         = var.region
+  gcpProjectId                      = var.gcpProjectId
+  gcpRegion                         = var.gcpRegion
   resourceName                   = var.resourceName
   vpcAccessConnectorSubnet       = module.networkWithSubnet.subnetworkName
   vpcAccessConnectorMachineType  = var.NWEIPN_VpcAccessConnectorMachineType
