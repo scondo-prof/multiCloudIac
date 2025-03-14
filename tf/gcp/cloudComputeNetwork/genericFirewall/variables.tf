@@ -3,7 +3,7 @@ variable "gcpProjectId" {
 }
 
 variable "gcpRegion" {
-  type = string
+  type    = string
   default = "us-east1"
 }
 
@@ -34,12 +34,12 @@ variable "firewallDeny" { #https://registry.terraform.io/providers/hashicorp/goo
 }
 
 variable "firewallDescription" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "firewallDestinationRanges" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
@@ -47,16 +47,16 @@ variable "firewallDirection" {
   type = string
   validation {
     condition = var.firewallDirection == null || can(contains([
-    "INGRESS",
-    "EGRESS"
-], var.firewallDirection))
+      "INGRESS",
+      "EGRESS"
+    ], var.firewallDirection))
     error_message = "Valid inputs for | variable: var.firewallDirection | are: INGRESS, EGRESS"
   }
   default = null
 }
 
 variable "firewallDisabled" {
-  type = bool
+  type    = bool
   default = null
 }
 
@@ -70,33 +70,33 @@ variable "firewallLogConfig" { #https://registry.terraform.io/providers/hashicor
 variable "firewallPriority" {
   type = number
   validation {
-    condition = var.firewallPriority == null || can(var.firewallPriority >= 0 && var.firewallPriority <= 65535)
-    error_message = "var.firewallPriority must be Greater than or Equal to 0 AND Less Than or Equal to 65535"  
+    condition     = var.firewallPriority == null || can(var.firewallPriority >= 0 && var.firewallPriority <= 65535)
+    error_message = "var.firewallPriority must be Greater than or Equal to 0 AND Less Than or Equal to 65535"
   }
   default = null
 }
 
 variable "firewallSourceRanges" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "firewallSourceServiceAccounts" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "firewallSourceTags" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "firewallTargetServiceAccounts" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "firewallTargetTags" {
-  type = list(string)
+  type    = list(string)
   default = null
 }

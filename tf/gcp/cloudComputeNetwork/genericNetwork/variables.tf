@@ -3,7 +3,7 @@ variable "projectId" {
 }
 
 variable "region" {
-  type = string
+  type    = string
   default = "us-east1"
 }
 
@@ -12,14 +12,14 @@ variable "resourceName" {
 }
 
 variable "networkAutoCreateSubNetworks" {
-  type = bool
+  type    = bool
   default = false
 }
 
 variable "networkRoutingMode" {
   type = string
   validation {
-    condition = contains(["REGIONAL", "GLOBAL"], var.networkRoutingMode)
+    condition     = contains(["REGIONAL", "GLOBAL"], var.networkRoutingMode)
     error_message = "Value put for networkRoutingMode is not in values: REGIONAL, GLOBAL."
   }
   default = "REGIONAL"
@@ -28,13 +28,13 @@ variable "networkRoutingMode" {
 variable "networkMaximumTransmissionUnitBytes" {
   type = number
   validation {
-    condition = var.networkMaximumTransmissionUnitBytes > 1300 && var.networkMaximumTransmissionUnitBytes < 8896
+    condition     = var.networkMaximumTransmissionUnitBytes > 1300 && var.networkMaximumTransmissionUnitBytes < 8896
     error_message = "Value set for networkMaximumTransmissionUnitBytes must: greater than 1300 bytes, but less than 8896 bytes."
   }
   default = 1460
 }
 
 variable "networkDeleteDefaultRoutesOnCreate" {
-  type = bool
+  type    = bool
   default = false
 }

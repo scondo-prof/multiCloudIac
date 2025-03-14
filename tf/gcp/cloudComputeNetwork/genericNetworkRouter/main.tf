@@ -13,8 +13,8 @@ provider "google" {
 }
 
 resource "google_compute_router" "networkRouter" {
-  name = "${var.resourceName}-network-router"
+  name    = "${var.resourceName}-network-router"
   network = var.networkRouterNetwork
-  region = var.region
+  region  = var.region
   project = var.projectId
 }

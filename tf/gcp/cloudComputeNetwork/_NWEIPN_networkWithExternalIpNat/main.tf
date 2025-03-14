@@ -15,8 +15,8 @@ provider "google" {
 module "NWSAF" {
   source = "../_NWSAF_networkWithSubnetworkAndFirewall"
 
-  gcpProjectId                                 = var.gcpProjectId
-  gcpRegion                                    = var.gcpRegion
+  gcpProjectId                              = var.gcpProjectId
+  gcpRegion                                 = var.gcpRegion
   resourceName                              = var.resourceName
   NWSAF_NetworkAutoCreateSubNetworks        = var.NWEIPN_NetworkAutoCreateSubNetworks
   NWSAF_NetworkRoutingMode                  = var.NWEIPN_NetworkRoutingMode
@@ -36,14 +36,14 @@ module "NWSAF" {
 module "NWEA" {
   source = "../_NWEA_natWithExternalAddress"
 
-  gcpProjectId                             = var.gcpProjectId
-  gcpRegion                                = var.gcpRegion
+  gcpProjectId                          = var.gcpProjectId
+  gcpRegion                             = var.gcpRegion
   resourceName                          = var.resourceName
-  deployedDate = var.deployedDate
-  projectName = var.projectName
-  createdBy = var.createdBy
-  tfModule = var.tfModule
-  additionalTags = var.additionalTags
+  deployedDate                          = var.deployedDate
+  projectName                           = var.projectName
+  createdBy                             = var.createdBy
+  tfModule                              = var.tfModule
+  additionalTags                        = var.additionalTags
   NWEA_NetworkAddressAddress            = var.NWEIPN_NetworkAddressAddress
   NWEA_NetworkAddressType               = var.NWEIPN_NetworkAddressType
   NWEA_NetworkAddressNetworkTier        = var.NWEIPN_NetworkAddressNetworkTier
@@ -55,8 +55,8 @@ module "NWEA" {
 module "vpcAccessConnector" {
   source = "../genericVpcAccessConnector"
 
-  gcpProjectId                      = var.gcpProjectId
-  gcpRegion                         = var.gcpRegion
+  gcpProjectId                   = var.gcpProjectId
+  gcpRegion                      = var.gcpRegion
   resourceName                   = var.resourceName
   vpcAccessConnectorSubnet       = module.networkWithSubnet.subnetworkName
   vpcAccessConnectorMachineType  = var.NWEIPN_VpcAccessConnectorMachineType

@@ -13,11 +13,11 @@ provider "google" {
 }
 
 resource "google_compute_network" "network" {
-  name = "${var.resourceName}-network"
-  auto_create_subnetworks = var.networkAutoCreateSubNetworks
-  routing_mode = var.networkRoutingMode
-  mtu = var.networkMaximumTransmissionUnitBytes
-  project = var.projectId
+  name                            = "${var.resourceName}-network"
+  auto_create_subnetworks         = var.networkAutoCreateSubNetworks
+  routing_mode                    = var.networkRoutingMode
+  mtu                             = var.networkMaximumTransmissionUnitBytes
+  project                         = var.projectId
   delete_default_routes_on_create = var.networkDeleteDefaultRoutesOnCreate
 }
 

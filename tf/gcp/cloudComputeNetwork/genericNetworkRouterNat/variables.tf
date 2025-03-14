@@ -3,7 +3,7 @@ variable "projectId" {
 }
 
 variable "region" {
-  type = string
+  type    = string
   default = "us-east1"
 }
 
@@ -18,7 +18,7 @@ variable "natRouterName" {
 variable "natIpAllocateOption" {
   type = string
   validation {
-    condition = contains(["AUTO_ONLY", "MANUAL_ONLY"], var.natIpAllocateOption)
+    condition     = contains(["AUTO_ONLY", "MANUAL_ONLY"], var.natIpAllocateOption)
     error_message = "Variable natIpAllocateOption must be one of the following values: MANUAL_ONLY, AUTO_ONLY"
   }
 }
@@ -26,18 +26,18 @@ variable "natIpAllocateOption" {
 variable "natSourceSubnetworkIpRangesToNat" {
   type = string
   validation {
-    condition = contains(["ALL_SUBNETWORKS_ALL_IP_RANGES", "ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES", "LIST_OF_SUBNETWORKS"], var.natSourceSubnetworkIpRangesToNat)
+    condition     = contains(["ALL_SUBNETWORKS_ALL_IP_RANGES", "ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES", "LIST_OF_SUBNETWORKS"], var.natSourceSubnetworkIpRangesToNat)
     error_message = "Variable natSourceSubnetworkIpRangesToNat must be one of the following values: ALL_SUBNETWORKS_ALL_IP_RANGES, ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, LIST_OF_SUBNETWORKS"
   }
 }
 
 variable "natIps" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "natMinPortsPerVm" {
-  type = number
+  type    = number
   default = 64
 }
 

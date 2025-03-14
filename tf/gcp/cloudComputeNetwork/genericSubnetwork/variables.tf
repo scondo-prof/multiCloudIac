@@ -3,7 +3,7 @@ variable "projectId" {
 }
 
 variable "region" {
-  type = string
+  type    = string
   default = "us-east1"
 }
 
@@ -12,7 +12,7 @@ variable "resourceName" {
 }
 
 variable "subnetworkIpCidrRange" {
-  type = string
+  type    = string
   default = "10.142.0.0/20"
 }
 

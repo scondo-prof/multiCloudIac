@@ -56,12 +56,12 @@ variable "NWSAF_IngressFirewallDeny" { #https://registry.terraform.io/providers/
 }
 
 variable "NWSAF_IngressFirewallDescription" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "NWSAF_IngressFirewallDestinationRanges" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
@@ -69,16 +69,16 @@ variable "NWSAF_IngressFirewallDirection" {
   type = string
   validation {
     condition = var.NWSAF_IngressFirewallDirection == null || can(contains([
-    "INGRESS",
-    "EGRESS"
-], var.NWSAF_IngressFirewallDirection))
+      "INGRESS",
+      "EGRESS"
+    ], var.NWSAF_IngressFirewallDirection))
     error_message = "Valid inputs for | variable: var.NWSAF_IngressFirewallDirection | are: INGRESS, EGRESS"
   }
   default = null
 }
 
 variable "NWSAF_IngressFirewallDisabled" {
-  type = bool
+  type    = bool
   default = null
 }
 
@@ -92,34 +92,34 @@ variable "NWSAF_IngressFirewallLogConfig" { #https://registry.terraform.io/provi
 variable "NWSAF_IngressFirewallPriority" {
   type = number
   validation {
-    condition = var.NWSAF_IngressFirewallPriority == null || can(var.NWSAF_IngressFirewallPriority >= 0 && var.NWSAF_IngressFirewallPriority <= 65535)
-    error_message = "var.NWSAF_IngressFirewallPriority must be Greater than or Equal to 0 AND Less Than or Equal to 65535"  
+    condition     = var.NWSAF_IngressFirewallPriority == null || can(var.NWSAF_IngressFirewallPriority >= 0 && var.NWSAF_IngressFirewallPriority <= 65535)
+    error_message = "var.NWSAF_IngressFirewallPriority must be Greater than or Equal to 0 AND Less Than or Equal to 65535"
   }
   default = null
 }
 
 variable "NWSAF_IngressFirewallSourceRanges" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "NWSAF_IngressFirewallSourceServiceAccounts" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "NWSAF_IngressFirewallSourceTags" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "NWSAF_IngressFirewallTargetServiceAccounts" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "NWSAF_IngressFirewallTargetTags" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
@@ -148,12 +148,12 @@ variable "NWSAF_EgressFirewallDeny" { #https://registry.terraform.io/providers/h
 }
 
 variable "NWSAF_EgressFirewallDescription" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "NWSAF_EgressFirewallDestinationRanges" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
@@ -161,16 +161,16 @@ variable "NWSAF_EgressFirewallDirection" {
   type = string
   validation {
     condition = var.NWSAF_EgressFirewallDirection == null || can(contains([
-    "INGRESS",
-    "EGRESS"
-], var.NWSAF_EgressFirewallDirection))
+      "INGRESS",
+      "EGRESS"
+    ], var.NWSAF_EgressFirewallDirection))
     error_message = "Valid inputs for | variable: var.NWSAF_EgressFirewallDirection | are: INGRESS, EGRESS"
   }
   default = null
 }
 
 variable "NWSAF_EgressFirewallDisabled" {
-  type = bool
+  type    = bool
   default = null
 }
 
@@ -184,34 +184,34 @@ variable "NWSAF_EgressFirewallLogConfig" { #https://registry.terraform.io/provid
 variable "NWSAF_EgressFirewallPriority" {
   type = number
   validation {
-    condition = var.NWSAF_EgressFirewallPriority == null || can(var.NWSAF_EgressFirewallPriority >= 0 && var.NWSAF_EgressFirewallPriority <= 65535)
-    error_message = "var.NWSAF_EgressFirewallPriority must be Greater than or Equal to 0 AND Less Than or Equal to 65535"  
+    condition     = var.NWSAF_EgressFirewallPriority == null || can(var.NWSAF_EgressFirewallPriority >= 0 && var.NWSAF_EgressFirewallPriority <= 65535)
+    error_message = "var.NWSAF_EgressFirewallPriority must be Greater than or Equal to 0 AND Less Than or Equal to 65535"
   }
   default = null
 }
 
 variable "NWSAF_EgressFirewallSourceRanges" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "NWSAF_EgressFirewallSourceServiceAccounts" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "NWSAF_EgressFirewallSourceTags" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "NWSAF_EgressFirewallTargetServiceAccounts" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "NWSAF_EgressFirewallTargetTags" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 

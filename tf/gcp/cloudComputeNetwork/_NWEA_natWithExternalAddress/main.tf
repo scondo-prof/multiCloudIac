@@ -15,14 +15,14 @@ provider "google" {
 module "networkAddress" {
   source = "../genericNetworkAddress"
 
-  gcpProjectId                 = var.gcpProjectId
-  gcpRegion                    = var.gcpRegion
+  gcpProjectId              = var.gcpProjectId
+  gcpRegion                 = var.gcpRegion
   resourceName              = var.resourceName
-  deployedDate = var.deployedDate
-  projectName = var.projectName
-  createdBy = var.createdBy
-  tfModule = var.tfModule
-  additionalTags = var.additionalTags
+  deployedDate              = var.deployedDate
+  projectName               = var.projectName
+  createdBy                 = var.createdBy
+  tfModule                  = var.tfModule
+  additionalTags            = var.additionalTags
   networkAddressAddress     = var.NWEA_NetworkAddressAddress
   networkAddressType        = var.NWEA_NetworkAddressType
   networkAddressNetworkTier = var.NWEA_NetworkAddressNetworkTier
@@ -31,8 +31,8 @@ module "networkAddress" {
 module "networkRouter" {
   source = "../genericNetworkRouter"
 
-  gcpProjectId                 = var.gcpProjectId
-  gcpRegion                    = var.gcpRegion
+  gcpProjectId         = var.gcpProjectId
+  gcpRegion            = var.gcpRegion
   resourceName         = var.resourceName
   networkRouterNetwork = var.NWEA_NetworkRouterNetworkName
 }
@@ -40,8 +40,8 @@ module "networkRouter" {
 module "nat" {
   source = "../genericNetworkRouterNat"
 
-  gcpProjectId                 = var.gcpProjectId
-  gcpRegion                    = var.gcpRegion
+  gcpProjectId                     = var.gcpProjectId
+  gcpRegion                        = var.gcpRegion
   resourceName                     = var.resourceName
   natRouterName                    = module.networkRouter.networkRouterName
   natIpAllocateOption              = "MANUAL_ONLY"

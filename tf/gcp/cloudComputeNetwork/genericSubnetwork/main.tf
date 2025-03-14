@@ -17,5 +17,5 @@ resource "google_compute_subnetwork" "subnetwork" {
   ip_cidr_range = var.subnetworkIpCidrRange
   region        = var.region
   network       = var.subnetworkNetworkId
-  project = var.projectId
+  project       = var.projectId
 }
