@@ -25,29 +25,30 @@ resource "google_compute_firewall" "firewall" {
   }
 
   dynamic "deny" {
-    for_each = var.firewall != null ? [var.firewall]: []
+    for_each = var.firewallDeny != null ? [var.firewallDeny]: []
     content {
-      
+      protocol = allow.value["protocl"]
+      ports    = allow.value["ports"]
     }
   }
 
-  description = var.firewall
-  destination_ranges = var.firewall
+  description = var.firewallDescription
+  destination_ranges = var.firewallDestinationRanges
   direction = var.firewallDirection
   disabled = var.firewallDisabled
 
   dynamic "log_config" {
-    for_each = var.firewall != null ? [var.firewall]: []
+    for_each = var.firewallLogConfig != null ? [var.firewallLogConfig]: []
     content {
-      
+      metadata = log_config.value["metadata"]
     }
   }
 
   priority = var.firewallPriority
   source_ranges = var.firewallSourceRanges
-  source_service_accounts = var.firewall
-  source_tags = var.firewall
-  target_service_accounts = var.firewall
-  target_tags = var.firewall
+  source_service_accounts = var.firewallSourceServiceAccounts
+  source_tags = var.firewallSourceTags
+  target_service_accounts = var.firewallTargetServiceAccounts
+  target_tags = var.firewallTargetTags
   project = var.gcpProjectId
 }
