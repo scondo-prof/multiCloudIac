@@ -5,7 +5,7 @@ provider "google" {
 
 resource "google_cloudbuildv2_connection" "connection" {
   location = var.gcpRegion
-  name = "${var.resourceName}-connection"
+  name     = "${var.resourceName}-connection"
 
   github_config {
 
@@ -14,5 +14,5 @@ resource "google_cloudbuildv2_connection" "connection" {
     }
   }
   disabled = var.connectionDisabled
-  project = var.projectId
+  project  = var.projectId
 }

@@ -3,7 +3,7 @@ variable "projectId" {
 }
 
 variable "gcpRegion" {
-  type = string
+  type    = string
   default = "us-east1"
 }
 
@@ -16,6 +16,6 @@ variable "connectionOauthTokenSecretVersion" {
 }
 
 variable "connectionDisabled" {
-  type = bool
+  type    = bool
   default = false
 }

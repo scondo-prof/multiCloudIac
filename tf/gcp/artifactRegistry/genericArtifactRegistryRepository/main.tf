@@ -18,10 +18,11 @@ resource "google_artifact_registry_repository" "artifactRegistryRepository" {
 
   location = var.gcpRegion
   labels = merge({
-    "project" : var.projectName
-    "deployed-date" : var.deployedDate
-    "created-by" : var.createdBy
-  }, var.additionalLabels)
+    project       = var.projectName
+    deployed-date = var.deployedDate
+    created-by    = var.createdBy
+    tf-module     = var.tfModule
+  }, var.additionalTags)
   kms_key_name = var.artifactRegistryRepositoryKmsKeyName
 
   dynamic "docker_config" {

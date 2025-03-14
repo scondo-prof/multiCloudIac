@@ -12,10 +12,6 @@ variable "resourceName" {
   type = string
 }
 
-variable "artifactRegistryRepositoryFormat" {
-  type = string
-}
-
 variable "projectName" {
   type = string
 }
@@ -29,9 +25,19 @@ variable "createdBy" {
   default = "scott-condo"
 }
 
-variable "additionalLabels" {
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
   type    = map(string)
   default = {}
+}
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/artifact_registry_repository#argument-reference
+
+variable "artifactRegistryRepositoryFormat" {
+  type = string
 }
 
 variable "artifactRegistryRepositoryKmsKeyName" {
