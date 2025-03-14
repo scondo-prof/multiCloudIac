@@ -16,6 +16,10 @@ variable "deployedDate" {
   type = string
 }
 
+variable "tfModule" {
+  type = string
+}
+
 variable "additionalTags" {
   type    = map(string)
   default = {}
@@ -24,37 +28,37 @@ variable "additionalTags" {
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_security_group_ingress_rule#argument-reference
 
 variable "ingressRuleCidrIpv4" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "ingressRuleCidrIpv6" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "ingressRuleDescription" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "ingressRuleFromPort" {
-  type = number
+  type    = number
   default = null
 }
 
 variable "ingressRuleIpProtocol" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "ingressRulePrefixListId" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "ingressRuleReferencedSecurityGroupId" {
-  type = string
+  type    = string
   default = null
 }
 
@@ -63,6 +67,6 @@ variable "ingressRuleSecurityGroupId" {
 }
 
 variable "ingressRuleToPort" {
-  type = number
+  type    = number
   default = null
 }

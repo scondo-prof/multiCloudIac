@@ -31,6 +31,7 @@ resource "aws_subnet" "subnet" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
-    Name = "${var.resourceName}-subnet"
+    TfModule     = var.tfModule
+    Name         = "${var.resourceName}-subnet"
   }, var.additionalTags)
 }

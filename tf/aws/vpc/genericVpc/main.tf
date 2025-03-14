@@ -27,6 +27,7 @@ resource "aws_vpc" "vpc" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
-    Name = "${var.resourceName}-vpc"
+    TfModule     = var.tfModule
+    Name         = "${var.resourceName}-vpc"
   }, var.additionalTags)
 }

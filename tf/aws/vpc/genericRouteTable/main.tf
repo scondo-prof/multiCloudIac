@@ -17,6 +17,7 @@ resource "aws_route_table" "routeTable" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
   propagating_vgws = var.routeTablePropagatingVgws
 }

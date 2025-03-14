@@ -16,6 +16,10 @@ variable "deployedDate" {
   type = string
 }
 
+variable "tfModule" {
+  type = string
+}
+
 variable "additionalTags" {
   type    = map(string)
   default = {}

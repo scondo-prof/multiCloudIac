@@ -23,6 +23,7 @@ resource "aws_vpc_security_group_egress_rule" "egressRule" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
   to_port = var.egressRuleToPort
 }

@@ -16,13 +16,17 @@ variable "deployedDate" {
   type = string
 }
 
+variable "tfModule" {
+  type = string
+}
+
 variable "additionalTags" {
   type    = map(string)
   default = {}
 }
 
 variable "resourceName" {
-  
+
 }
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc#argument-reference

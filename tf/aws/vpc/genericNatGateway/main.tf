@@ -22,5 +22,6 @@ resource "aws_nat_gateway" "nat" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }

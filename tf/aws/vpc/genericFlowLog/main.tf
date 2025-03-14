@@ -35,5 +35,6 @@ resource "aws_flow_log" "flowLog" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }

@@ -21,6 +21,7 @@ resource "aws_security_group" "awsSecurityGroup" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
   vpc_id = var.awsSecurityGroupVpcId
 }

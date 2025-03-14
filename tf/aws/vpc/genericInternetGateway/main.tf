@@ -16,5 +16,6 @@ resource "aws_internet_gateway" "ig" {
     Project      = var.projectName
     CreatedBy    = var.creator
     DeployedDate = var.deployedDate
+    TfModul      = var.tfModule
   }, var.additionalTags)
 }

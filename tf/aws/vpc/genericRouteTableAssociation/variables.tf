@@ -6,12 +6,12 @@ variable "awsRegion" {
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association#argument-reference
 
 variable "routeTableAssociationSubnetId" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "routeTableAssociationGatewayId" {
-  type = string
+  type    = string
   default = null
 }
 
