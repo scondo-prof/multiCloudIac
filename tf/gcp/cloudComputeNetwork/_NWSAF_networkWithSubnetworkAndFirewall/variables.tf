@@ -33,105 +33,186 @@ variable "additionalTags" {
   default = {}
 }
 
-variable "NWSAF_NetworkAutoCreateSubNetworks" {
-  type    = bool
-  default = false
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_IngressFirewall#argument-reference
+
+variable "NWSAF_IngressFirewallNetwork" {
+  type = string
 }
 
-variable "NWSAF_NetworkRoutingMode" {
+variable "NWSAF_IngressFirewallRulesAllow" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_IngressFirewall#nested_allow
+  type = list(object({
+    protocol = string
+    ports    = optional(list(string), null)
+  }))
+  default = null
+}
+
+variable "NWSAF_IngressFirewallDeny" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_IngressFirewall#nested_deny
+  type = list(object({
+    protocol = string
+    ports    = optional(list(string), null)
+  }))
+  default = null
+}
+
+variable "NWSAF_IngressFirewallDescription" {
+  type = string
+  default = null
+}
+
+variable "NWSAF_IngressFirewallDestinationRanges" {
+  type = list(string)
+  default = null
+}
+
+variable "NWSAF_IngressFirewallDirection" {
   type = string
   validation {
-    condition     = contains(["REGIONAL", "GLOBAL"], var.NWSAF_NetworkRoutingMode)
-    error_message = "Value put for NWSAF_NetworkRoutingMode is not in values: REGIONAL, GLOBAL."
+    condition = var.NWSAF_IngressFirewallDirection == null || can(contains([
+    "INGRESS",
+    "EGRESS"
+], var.NWSAF_IngressFirewallDirection))
+    error_message = "Valid inputs for | variable: var.NWSAF_IngressFirewallDirection | are: INGRESS, EGRESS"
   }
-  default = "REGIONAL"
+  default = null
 }
 
-variable "NWSAF_NetworkMaximumTransmissionUnitBytes" {
+variable "NWSAF_IngressFirewallDisabled" {
+  type = bool
+  default = null
+}
+
+variable "NWSAF_IngressFirewallLogConfig" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_IngressFirewall#nested_log_config
+  type = object({
+    metadata = string
+  })
+  default = null
+}
+
+variable "NWSAF_IngressFirewallPriority" {
   type = number
   validation {
-    condition     = var.NWSAF_NetworkMaximumTransmissionUnitBytes > 1300 && var.NWSAF_NetworkMaximumTransmissionUnitBytes < 8896
-    error_message = "Value set for NWSAF_NetworkMaximumTransmissionUnitBytes must: greater than 1300 bytes, but less than 8896 bytes."
+    condition = var.NWSAF_IngressFirewallPriority == null || can(var.NWSAF_IngressFirewallPriority >= 0 && var.NWSAF_IngressFirewallPriority <= 65535)
+    error_message = "var.NWSAF_IngressFirewallPriority must be Greater than or Equal to 0 AND Less Than or Equal to 65535"  
   }
-  default = 1460
+  default = null
 }
 
-variable "NWSAF_NetworkDeleteDefaultRoutesOnCreate" {
-  type    = bool
-  default = false
+variable "NWSAF_IngressFirewallSourceRanges" {
+  type = list(string)
+  default = null
 }
 
-variable "NWSAF_SubnetworkIpCidrRange" {
-  type    = string
-  default = "10.142.0.0/20"
+variable "NWSAF_IngressFirewallSourceServiceAccounts" {
+  type = list(string)
+  default = null
 }
 
-variable "NWSAF_FirewallIngressRules" {
-  description = "List of firewall rules to apply."
+variable "NWSAF_IngressFirewallSourceTags" {
+  type = list(string)
+  default = null
+}
+
+variable "NWSAF_IngressFirewallTargetServiceAccounts" {
+  type = list(string)
+  default = null
+}
+
+variable "NWSAF_IngressFirewallTargetTags" {
+  type = list(string)
+  default = null
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_EgressFirewall#argument-reference
+
+variable "NWSAF_EgressFirewallNetwork" {
+  type = string
+}
+
+variable "NWSAF_EgressFirewallRulesAllow" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_EgressFirewall#nested_allow
   type = list(object({
     protocol = string
-    ports    = list(string)
+    ports    = optional(list(string), null)
   }))
-  default = [
-    {
-      protocol = "tcp"
-      ports    = ["22", "3389"]
-    }
-  ]
+  default = null
 }
 
-variable "NWSAF_FirewallIngressDisabled" {
-  type    = bool
-  default = false
-}
-
-
-variable "NWSAF_FirewallIngressPriority" {
-  type = number
-  validation {
-    condition     = var.NWSAF_FirewallIngressPriority >= 0 && var.NWSAF_FirewallIngressPriority <= 65535
-    error_message = "value"
-  }
-  default = 1000
-}
-
-variable "NWSAF_FirewallIngressSourceRanges" {
-  type = list(string)
-}
-
-variable "NWSAF_FirewallEgressRules" {
-  description = "List of firewall rules to apply."
+variable "NWSAF_EgressFirewallDeny" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_EgressFirewall#nested_deny
   type = list(object({
     protocol = string
-    ports    = list(string)
+    ports    = optional(list(string), null)
   }))
-  default = [
-    {
-      protocol = "tcp"
-      ports    = ["667"]
-    },
-    {
-      protocol = "upd"
-      ports    = ["665", "666"]
-    }
-  ]
+  default = null
 }
 
-variable "NWSAF_FirewallEgressDisabled" {
-  type    = bool
-  default = false
+variable "NWSAF_EgressFirewallDescription" {
+  type = string
+  default = null
 }
 
+variable "NWSAF_EgressFirewallDestinationRanges" {
+  type = list(string)
+  default = null
+}
 
-variable "NWSAF_FirewallEgressPriority" {
+variable "NWSAF_EgressFirewallDirection" {
+  type = string
+  validation {
+    condition = var.NWSAF_EgressFirewallDirection == null || can(contains([
+    "INGRESS",
+    "EGRESS"
+], var.NWSAF_EgressFirewallDirection))
+    error_message = "Valid inputs for | variable: var.NWSAF_EgressFirewallDirection | are: INGRESS, EGRESS"
+  }
+  default = null
+}
+
+variable "NWSAF_EgressFirewallDisabled" {
+  type = bool
+  default = null
+}
+
+variable "NWSAF_EgressFirewallLogConfig" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_EgressFirewall#nested_log_config
+  type = object({
+    metadata = string
+  })
+  default = null
+}
+
+variable "NWSAF_EgressFirewallPriority" {
   type = number
   validation {
-    condition     = var.NWSAF_FirewallEgressPriority >= 0 && var.NWSAF_FirewallEgressPriority <= 65535
-    error_message = "value"
+    condition = var.NWSAF_EgressFirewallPriority == null || can(var.NWSAF_EgressFirewallPriority >= 0 && var.NWSAF_EgressFirewallPriority <= 65535)
+    error_message = "var.NWSAF_EgressFirewallPriority must be Greater than or Equal to 0 AND Less Than or Equal to 65535"  
   }
-  default = 1000
+  default = null
 }
 
-variable "NWSAF_FirewallEgressSourceRanges" {
+variable "NWSAF_EgressFirewallSourceRanges" {
   type = list(string)
+  default = null
 }
+
+variable "NWSAF_EgressFirewallSourceServiceAccounts" {
+  type = list(string)
+  default = null
+}
+
+variable "NWSAF_EgressFirewallSourceTags" {
+  type = list(string)
+  default = null
+}
+
+variable "NWSAF_EgressFirewallTargetServiceAccounts" {
+  type = list(string)
+  default = null
+}
+
+variable "NWSAF_EgressFirewallTargetTags" {
+  type = list(string)
+  default = null
+}
+
+#---

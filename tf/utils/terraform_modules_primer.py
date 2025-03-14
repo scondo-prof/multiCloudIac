@@ -9,53 +9,23 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../projects/_CLCC_containerLambdaCiCd",
-            "source_path": "../_CLCC_containerLambdaCiCd",
-            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
+            "project_path": "../gcp/cloudComputeNetwork/genericFirewall",
+            "source_path": "../genericFirewall",
+            "destination_path": "./temp/",
         },
-        "previous_variable_prefix": "CLCC",
-        "new_variable_prefix": "CSQSNLSM_CLCC",
-        "module_name": "CLCC",
+        "previous_variable_prefix": "firewall",
+        "new_variable_prefix": "NWSAF_IngressFirewall",
+        "module_name": "ingressFirewall",
     },
     {
         "paths": {
-            "project_path": "../aws/sqs/genericQueue",
-            "source_path": "../../aws/sqs/genericQueue",
-            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
+            "project_path": "../gcp/cloudComputeNetwork/genericFirewall",
+            "source_path": "../genericFirewall",
+            "destination_path": "./temp/",
         },
-        "previous_variable_prefix": "queue",
-        "new_variable_prefix": "CSQSNLSM_S3Queue",
-        "module_name": "s3Queue",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/sqs/genericQueuePolicy",
-            "source_path": "../../aws/sqs/genericQueuePolicy",
-            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
-        },
-        "previous_variable_prefix": "queuePolicy",
-        "new_variable_prefix": "CSQSNLSM_S3QueuePolicy",
-        "module_name": "s3QueuePolicy",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/s3/genericBucketNotification",
-            "source_path": "../../aws/s3/genericBucketNotification",
-            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
-        },
-        "previous_variable_prefix": "bucketNotification",
-        "new_variable_prefix": "CSQSNLSM_LambdaBucketNotification",
-        "module_name": "lambdaBucketNotification",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/lambda/genericLambdaEventSourceMapping",
-            "source_path": "../../aws/lambda/genericLambdaEventSourceMapping",
-            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
-        },
-        "previous_variable_prefix": "eventSourceMapping",
-        "new_variable_prefix": "CSQSNLSM_S3EventSourceMapping",
-        "module_name": "s3EventSourceMapping",
+        "previous_variable_prefix": "firewall",
+        "new_variable_prefix": "NWSAF_EgressFirewall",
+        "module_name": "egressFirewall",
     },
 ]
 

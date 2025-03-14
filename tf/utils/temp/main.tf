@@ -1,19 +1,46 @@
 
-    module "BWV" {
-  source = "../../aws/s3/_BWV_bucketWithVersioning"
-awsRegion = var.awsRegion
+    module "ingressFirewall" {
+  source = "../genericFirewall"
+gcpProjectId = var.gcpProjectId
+gcpRegion = var.gcpRegion
 resourceName = var.resourceName
-BWV_S3BucketPrefix = var.IRIPSB_BWV_S3BucketPrefix
-BWV_S3BucketForceDestroy = var.IRIPSB_BWV_S3BucketForceDestroy
-BWV_S3BucketObjectLockEnabled = var.IRIPSB_BWV_S3BucketObjectLockEnabled
-projectName = var.projectName
-creator = var.creator
-deployedDate = var.deployedDate
-additionalTags = var.additionalTags
-BWV_S3BucketVersioningConfigurationStatus = var.IRIPSB_BWV_S3BucketVersioningConfigurationStatus
-BWV_S3BucketVersioningConfigurationMfaDelete = var.IRIPSB_BWV_S3BucketVersioningConfigurationMfaDelete
-BWV_S3BucketVersioningExpectedBucketOwner = var.IRIPSB_BWV_S3BucketVersioningExpectedBucketOwner
-BWV_S3BucketVersioningMfa = var.IRIPSB_BWV_S3BucketVersioningMfa
+firewallNetwork = var.NWSAF_IngressFirewallNetwork
+firewallRulesAllow = var.NWSAF_IngressFirewallRulesAllow
+firewallDeny = var.NWSAF_IngressFirewallDeny
+firewallDescription = var.NWSAF_IngressFirewallDescription
+firewallDestinationRanges = var.NWSAF_IngressFirewallDestinationRanges
+firewallDirection = var.NWSAF_IngressFirewallDirection
+firewallDisabled = var.NWSAF_IngressFirewallDisabled
+firewallLogConfig = var.NWSAF_IngressFirewallLogConfig
+firewallPriority = var.NWSAF_IngressFirewallPriority
+firewallSourceRanges = var.NWSAF_IngressFirewallSourceRanges
+firewallSourceServiceAccounts = var.NWSAF_IngressFirewallSourceServiceAccounts
+firewallSourceTags = var.NWSAF_IngressFirewallSourceTags
+firewallTargetServiceAccounts = var.NWSAF_IngressFirewallTargetServiceAccounts
+firewallTargetTags = var.NWSAF_IngressFirewallTargetTags
+}
+
+#---
+
+    module "egressFirewall" {
+  source = "../genericFirewall"
+gcpProjectId = var.gcpProjectId
+gcpRegion = var.gcpRegion
+resourceName = var.resourceName
+firewallNetwork = var.NWSAF_EgressFirewallNetwork
+firewallRulesAllow = var.NWSAF_EgressFirewallRulesAllow
+firewallDeny = var.NWSAF_EgressFirewallDeny
+firewallDescription = var.NWSAF_EgressFirewallDescription
+firewallDestinationRanges = var.NWSAF_EgressFirewallDestinationRanges
+firewallDirection = var.NWSAF_EgressFirewallDirection
+firewallDisabled = var.NWSAF_EgressFirewallDisabled
+firewallLogConfig = var.NWSAF_EgressFirewallLogConfig
+firewallPriority = var.NWSAF_EgressFirewallPriority
+firewallSourceRanges = var.NWSAF_EgressFirewallSourceRanges
+firewallSourceServiceAccounts = var.NWSAF_EgressFirewallSourceServiceAccounts
+firewallSourceTags = var.NWSAF_EgressFirewallSourceTags
+firewallTargetServiceAccounts = var.NWSAF_EgressFirewallTargetServiceAccounts
+firewallTargetTags = var.NWSAF_EgressFirewallTargetTags
 }
 
 #---
