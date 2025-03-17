@@ -11,64 +11,35 @@ variable "resourceName" {
   type = string
 }
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Network#argument-reference
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router#argument-reference
 
-variable "NWSAF_NetworkDescription" {
+variable "NWEA_NetworkRouterNetwork" {
+  type = string
+}
+
+variable "NWEA_NetworkRouterDescription" {
   type = string
   default = null
 }
 
-variable "NWSAF_NetworkAutoCreateSubNetworks" {
-  type    = bool
+variable "NWEA_NetworkRouterBgp" {
+  type = object({
+    asn = string
+    advertise_mode = optional(string, null)
+    advertised_groups = optional(list(string), null)
+    advertised_ip_ranges = optional(object({
+      range = string
+      description = optional(string, null)
+    }), null)
+    keepalive_interval = optional(number, null)
+    identifier_range = optional(string, null)
+  })
   default = null
 }
 
-variable "NWSAF_NetworkRoutingMode" {
-  type = string
-  validation {
-    condition = var.NWSAF_NetworkRoutingMode == null || can(contains([
-    "REGIONAL",
-    "GLOBAL"
-], var.NWSAF_NetworkRoutingMode))
-    error_message = "Valid inputs for | variable: var.NWSAF_NetworkRoutingMode | are: REGIONAL, GLOBAL"
-  }
-  default = null
-}
-
-variable "NWSAF_NetworkMaximumTransmissionUnitBytes" {
-  type = number
-  validation {
-    condition = var.NWSAF_NetworkMaximumTransmissionUnitBytes == null || can(var.NWSAF_NetworkMaximumTransmissionUnitBytes >= 1300 && var.NWSAF_NetworkMaximumTransmissionUnitBytes <= 8896)
-    error_message = "var.NWSAF_NetworkMaximumTransmissionUnitBytes must be Greater than or Equal to 1300 AND Less Than or Equal to 8896"
-  }
-  default = null
-}
-
-variable "NWSAF_NetworkEnableUlaInternalIpv6" {
+variable "NWEA_NetworkRouterEncryptedInterconnectRouter" {
   type = bool
   default = null
-}
-
-variable "NWSAF_NetworkInternalIpv6Range" {
-  type = string
-  default = null
-}
-
-variable "NWSAF_NetworkFirewallPolicyEnforcementOrder" {
-  type = string
-  validation {
-    condition = var.NWSAF_NetworkFirewallPolicyEnforcementOrder == null || can(contains([
-    "BEFORE_CLASSIC_FIREWALL",
-    "AFTER_CLASSIC_FIREWALL"
-], var.NWSAF_NetworkFirewallPolicyEnforcementOrder))
-    error_message = "Valid inputs for | variable: var.NWSAF_NetworkFirewallPolicyEnforcementOrder | are: BEFORE_CLASSIC_FIREWALL, AFTER_CLASSIC_FIREWALL"
-  }
-  default = null
-}
-
-variable "NWSAF_NetworkDeleteDefaultRoutesOnCreate" {
-  type    = bool
-  default = false
 }
 
 #---

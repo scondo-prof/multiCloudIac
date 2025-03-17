@@ -10,6 +10,8 @@ output "NWEA_NetworkAddressExternalIp" {
   value = module.networkAddress.networkAddressExternalIp
 }
 
+#---
+
 output "NWEA_NetworkRouterId" {
   value = module.networkRouter.networkRouterId
 }
@@ -21,6 +23,12 @@ output "NWEA_NetworkRouterName" {
 output "NWEA_NetworkRouterSelfLink" {
   value = module.networkRouter.networkRouterSelfLink
 }
+
+output "NWEA_NetworkRouterCreationTimestamp" {
+  value = module.networkRouter.networkRouterCreationTimestamp
+}
+
+#---
 
 output "NWEA_NatId" {
   value = module.nat.natId

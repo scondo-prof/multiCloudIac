@@ -1,21 +1,17 @@
-output "NWSAF_NetworkId" {
-  value = module.network.networkId
+output "NWEA_NetworkRouterId" {
+  value = module.networkRouter.networkRouterId
 }
 
-output "NWSAF_NetworkGatewayIpv4" {
-  value = module.network.networkGatewayIpv4
+output "NWEA_NetworkRouterName" {
+  value = module.networkRouter.networkRouterName
 }
 
-output "NWSAF_NetworkNumericId" {
-  value = module.network.networkNumericId
+output "NWEA_NetworkRouterSelfLink" {
+  value = module.networkRouter.networkRouterSelfLink
 }
 
-output "NWSAF_NetworkSelfLink" {
-  value = module.network.networkSelfLink
-}
-
-output "NWSAF_NetworkName" {
-  value = module.network.networkName
+output "NWEA_NetworkRouterCreationTimestamp" {
+  value = module.networkRouter.networkRouterCreationTimestamp
 }
 
 #---
