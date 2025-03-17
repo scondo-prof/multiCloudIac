@@ -1,17 +1,9 @@
-output "NWEA_NetworkRouterId" {
-  value = module.networkRouter.networkRouterId
+output "NWEA_NatId" {
+  value = module.nat.natId
 }
 
-output "NWEA_NetworkRouterName" {
-  value = module.networkRouter.networkRouterName
-}
-
-output "NWEA_NetworkRouterSelfLink" {
-  value = module.networkRouter.networkRouterSelfLink
-}
-
-output "NWEA_NetworkRouterCreationTimestamp" {
-  value = module.networkRouter.networkRouterCreationTimestamp
+output "NWEA_NatName" {
+  value = module.nat.natName
 }
 
 #---
