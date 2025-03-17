@@ -9,23 +9,13 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/genericFirewall",
-            "source_path": "../genericFirewall",
+            "project_path": "../gcp/cloudComputeNetwork/genericNetwork",
+            "source_path": "../genericNetwork",
             "destination_path": "./temp/",
         },
-        "previous_variable_prefix": "firewall",
-        "new_variable_prefix": "NWSAF_IngressFirewall",
-        "module_name": "ingressFirewall",
-    },
-    {
-        "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/genericFirewall",
-            "source_path": "../genericFirewall",
-            "destination_path": "./temp/",
-        },
-        "previous_variable_prefix": "firewall",
-        "new_variable_prefix": "NWSAF_EgressFirewall",
-        "module_name": "egressFirewall",
+        "previous_variable_prefix": "network",
+        "new_variable_prefix": "NWSAF_Network",
+        "module_name": "network",
     },
 ]
 

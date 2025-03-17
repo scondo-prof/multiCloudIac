@@ -19,10 +19,11 @@ resource "google_compute_global_address" "globalAddress" {
   address     = var.globalAddressAddress
   description = var.globalAddressDescription
   labels = merge({
-    "project" : var.projectName
-    "deployed-date" : var.deployedDate
-    "created-by" : var.createdBy
-  }, var.additionalLabels)
+    project       = var.projectName
+    deployed-date = var.deployedDate
+    created-by    = var.createdBy
+    tf-module     = var.tfModule
+  }, var.additionalTags)
   ip_version    = var.globalAddressIpVersion
   prefix_length = var.globalAddressPrefixLength
   address_type  = var.globalAddressType
