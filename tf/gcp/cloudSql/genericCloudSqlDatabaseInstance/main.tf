@@ -130,30 +130,43 @@ resource "google_sql_database_instance" "databaseInstance" {
       }
 
       dynamic "location_preference" {
-        for_each = settings.value[""] != null ? [settings.value[""]]: []
+        for_each = settings.value["location_preference"] != null ? [settings.value["location_preference"]]: []
         content {
-          
+          follow_gae_application = location_preference.value["follow_gae_application"]
+          zone = location_preference.value["zone"]
+          secondary_zone = location_preference.value["secondary_zone"]
         }
       }
 
       dynamic "maintenance_window" {
-        for_each = settings.value[""] != null ? [settings.value[""]]: []
+        for_each = settings.value["maintenance_window"] != null ? [settings.value["maintenance_window"]]: []
         content {
-          
+          day = maintenance_window.value["day"]
+          hour = maintenance_window.value["hour"]
+          update_track = maintenance_window.value["update_track"]
         }
       }
 
       dynamic "insights_config" {
-        for_each = settings.value[""] != null ? [settings.value[""]]: []
+        for_each = settings.value["insights_config"] != null ? [settings.value["insights_config"]]: []
         content {
-          
+          query_insights_enabled = insights_config.value["query_insights_enabled"]
+          query_string_length = insights_config.value["query_string_length"]
+          record_application_tags = insights_config.value["record_application_tags"]
+          record_client_address = insights_config.value["record_client_address"]
+          query_plans_per_minute = insights_config.value["query_plans_per_minute"]
         }
       }
 
       dynamic "password_validation_policy" {
-        for_each = settings.value[""] != null ? [settings.value[""]]: []
+        for_each = settings.value["password_validation_policy"] != null ? [settings.value["password_validation_policy"]]: []
         content {
-          
+          min_length = password_validation_policy.value["min_length"]
+          complexity = password_validation_policy.value["complexity"]
+          reuse_interval = password_validation_policy.value["reuse_interval"]
+          disallow_username_substring = password_validation_policy.value["disallow_username_substring"]
+          password_change_interval = password_validation_policy.value["password_change_interval"]
+          enable_password_policy = password_validation_policy.value["enable_password_policy"]
         }
       }
 

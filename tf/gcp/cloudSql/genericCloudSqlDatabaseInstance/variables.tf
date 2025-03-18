@@ -114,5 +114,34 @@ variable "databaseInstanceSettings" {
         allowed_consumer_projects = optional(list(string), null)
       }), null)
     }), null)
+
+    location_preference = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#follow_gae_application-1
+      follow_gae_application = optional(string, null)
+      zone = optional(string, null)
+      secondary_zone = optional(string, null)
+    }), null)
+
+    maintenance_window = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#day-1
+      day = optional(number, null)
+      hour = optional(number, null)
+      update_track = optional(string, null)
+    }), null)
+
+    insights_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#query_insights_enabled-1
+      query_insights_enabled = optional(bool, null)
+      query_string_length = optional(number, null)
+      record_application_tags = optional(bool, null)
+      record_client_address = optional(bool, null)
+      query_plans_per_minute = optional(number, null)
+    }), null)
+
+    password_validation_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#min_length-1
+      min_length = optional(number, null)
+      complexity = optional(bool, null)
+      reuse_interval = optional(number, null)
+      disallow_username_substring = optional(bool, null)
+      password_change_interval = optional(number, null)
+      enable_password_policy = optional(bool, null)
+    }), null)
   })
 }
