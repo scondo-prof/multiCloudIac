@@ -1,11 +1,13 @@
 provider "google" {
-  project = var.projectId
-  region  = var.region
+  project = var.gcpProjectId
+  region  = var.gcpRegion
 }
 
 resource "google_sql_database" "database" {
   name     = "${var.resourceName}-database"
   instance = var.databaseInstance
-  project = var.projectId
-  deletion_policy = var.deletionPolicy
+  charset = var.databaseCharset
+  collation = var.databaseCollation
+  project = var.gcpProjectId
+  deletion_policy = var.databaseDeletionPolicy
 }
