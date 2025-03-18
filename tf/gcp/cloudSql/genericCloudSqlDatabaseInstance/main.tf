@@ -174,16 +174,26 @@ resource "google_sql_database_instance" "databaseInstance" {
     }
   }
 
-  database_version = var.databaseInstance
-  name = "${var.resourceName}-db"
-  maintenance_version = var.databaseInstance
-  master_instance_name = var.databaseInstance
+  database_version = var.databaseInstanceDatabaseVersion
+  name = var.databseInstanceName
+  maintenance_version = var.databaseInstanceMaintenanceVersion
+  master_instance_name = var.databaseInstanceMasterInstanceName
   project = var.gcpProjectId
   
   dynamic "replica_configuration" {
-    for_each = var.databaseInstance != null ? [var.databaseInstance]: []
+    for_each = var.databaseInstanceReplicaConfiguration != null ? [var.databaseInstanceReplicaConfiguration]: []
     content {
-      
+      ca_certificate = replica_configuration.value["ca_certificate"]
+      client_certificate = replica_configuration.value["client_certificate"]
+      client_key = replica_configuration.value["client_key"]
+      connect_retry_interval = replica_configuration.value["connect_retry_interval"]
+      dump_file_path = replica_configuration.value["dump_file_path"]
+      failover_target = replica_configuration.value["failover_target"]
+      master_heartbeat_period = replica_configuration.value["master_heartbeat_period"]
+      password = replica_configuration.value["password"]
+      ssl_cipher = replica_configuration.value["ssl_cipher"]
+      username = replica_configuration.value["username"]
+      verify_server_certificate = replica_configuration.value["verify_server_certificate"]
     }
   }
 
