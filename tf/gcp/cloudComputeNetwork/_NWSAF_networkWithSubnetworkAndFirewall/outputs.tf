@@ -1,20 +1,20 @@
-output "networkId" {
+output "NWSAF_NetworkId" {
   value = google_compute_network.network.id
 }
 
-output "networkGatewayIpv4" {
+output "NWSAF_NetworkGatewayIpv4" {
   value = google_compute_network.network.gateway_ipv4
 }
 
-output "networkNumericId" {
+output "NWSAF_NetworkNumericId" {
   value = google_compute_network.network.numeric_id
 }
 
-output "networkSelfLink" {
+output "NWSAF_NetworkSelfLink" {
   value = google_compute_network.network.self_link
 }
 
-output "networkName" {
+output "NWSAF_NetworkName" {
   value = google_compute_network.network.name
 }
 

@@ -18,26 +18,26 @@ variable "networkRouterNetwork" {
 }
 
 variable "networkRouterDescription" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "networkRouterBgp" {
   type = object({
-    asn = string
-    advertise_mode = optional(string, null)
+    asn               = string
+    advertise_mode    = optional(string, null)
     advertised_groups = optional(list(string), null)
     advertised_ip_ranges = optional(object({
-      range = string
+      range       = string
       description = optional(string, null)
     }), null)
     keepalive_interval = optional(number, null)
-    identifier_range = optional(string, null)
+    identifier_range   = optional(string, null)
   })
   default = null
 }
 
 variable "networkRouterEncryptedInterconnectRouter" {
-  type = bool
+  type    = bool
   default = null
 }

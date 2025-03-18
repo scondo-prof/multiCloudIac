@@ -11,7 +11,7 @@ output "subnetworkGatewayAddress" {
 }
 
 output "subnetworkIpv4CidrRange" {
-  value = google_compute_subnetwork.subnetwork.ip_cidr_range  
+  value = google_compute_subnetwork.subnetwork.ip_cidr_range
 }
 
 output "subnetworkIpv6CidrRange" {

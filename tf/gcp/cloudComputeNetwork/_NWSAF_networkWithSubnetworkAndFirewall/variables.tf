@@ -11,32 +11,10 @@ variable "resourceName" {
   type = string
 }
 
-variable "deployedDate" {
-  type = string
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "createdBy" {
-  type    = string
-  default = "scott-condo"
-}
-
-variable "tfModule" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
-}
-
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Network#argument-reference
 
 variable "NWSAF_NetworkDescription" {
-  type = string
+  type    = string
   default = null
 }
 
@@ -49,9 +27,9 @@ variable "NWSAF_NetworkRoutingMode" {
   type = string
   validation {
     condition = var.NWSAF_NetworkRoutingMode == null || can(contains([
-    "REGIONAL",
-    "GLOBAL"
-], var.NWSAF_NetworkRoutingMode))
+      "REGIONAL",
+      "GLOBAL"
+    ], var.NWSAF_NetworkRoutingMode))
     error_message = "Valid inputs for | variable: var.NWSAF_NetworkRoutingMode | are: REGIONAL, GLOBAL"
   }
   default = null
@@ -60,19 +38,19 @@ variable "NWSAF_NetworkRoutingMode" {
 variable "NWSAF_NetworkMaximumTransmissionUnitBytes" {
   type = number
   validation {
-    condition = var.NWSAF_NetworkMaximumTransmissionUnitBytes == null || can(var.NWSAF_NetworkMaximumTransmissionUnitBytes >= 1300 && var.NWSAF_NetworkMaximumTransmissionUnitBytes <= 8896)
+    condition     = var.NWSAF_NetworkMaximumTransmissionUnitBytes == null || can(var.NWSAF_NetworkMaximumTransmissionUnitBytes >= 1300 && var.NWSAF_NetworkMaximumTransmissionUnitBytes <= 8896)
     error_message = "var.NWSAF_NetworkMaximumTransmissionUnitBytes must be Greater than or Equal to 1300 AND Less Than or Equal to 8896"
   }
   default = null
 }
 
 variable "NWSAF_NetworkEnableUlaInternalIpv6" {
-  type = bool
+  type    = bool
   default = null
 }
 
 variable "NWSAF_NetworkInternalIpv6Range" {
-  type = string
+  type    = string
   default = null
 }
 
@@ -80,9 +58,9 @@ variable "NWSAF_NetworkFirewallPolicyEnforcementOrder" {
   type = string
   validation {
     condition = var.NWSAF_NetworkFirewallPolicyEnforcementOrder == null || can(contains([
-    "BEFORE_CLASSIC_FIREWALL",
-    "AFTER_CLASSIC_FIREWALL"
-], var.NWSAF_NetworkFirewallPolicyEnforcementOrder))
+      "BEFORE_CLASSIC_FIREWALL",
+      "AFTER_CLASSIC_FIREWALL"
+    ], var.NWSAF_NetworkFirewallPolicyEnforcementOrder))
     error_message = "Valid inputs for | variable: var.NWSAF_NetworkFirewallPolicyEnforcementOrder | are: BEFORE_CLASSIC_FIREWALL, AFTER_CLASSIC_FIREWALL"
   }
   default = null
@@ -102,7 +80,7 @@ variable "NWSAF_SubnetworkNetwork" {
 }
 
 variable "NWSAF_SubnetworkDescription" {
-  type = string
+  type    = string
   default = null
 }
 
@@ -112,7 +90,7 @@ variable "NWSAF_SubnetworkIpCidrRange" {
 }
 
 variable "NWSAF_SubnetworkReservedInternalRange" {
-  type = string
+  type    = string
   default = null
 }
 
@@ -120,12 +98,12 @@ variable "NWSAF_SubnetworkPurpose" {
   type = string
   validation {
     condition = var.NWSAF_SubnetworkPurpose == null || can(contains([
-    "PRIVATE",
-    "REGIONAL_MANAGED_PROXY",
-    "GLOBAL_MANAGED_PROXY",
-    "PRIVATE_SERVICE_CONNECT",
-    "PEER_MIGRATION"
-], var.NWSAF_SubnetworkPurpose))
+      "PRIVATE",
+      "REGIONAL_MANAGED_PROXY",
+      "GLOBAL_MANAGED_PROXY",
+      "PRIVATE_SERVICE_CONNECT",
+      "PEER_MIGRATION"
+    ], var.NWSAF_SubnetworkPurpose))
     error_message = "Valid inputs for | variable: var.NWSAF_SubnetworkPurpose | are: PRIVATE, REGIONAL_MANAGED_PROXY, GLOBAL_MANAGED_PROXY, PRIVATE_SERVICE_CONNECT, PEER_MIGRATION"
   }
   default = null
@@ -135,9 +113,9 @@ variable "NWSAF_SubnetworkRole" {
   type = string
   validation {
     condition = var.NWSAF_SubnetworkRole == null || can(contains([
-    "ACTIVE",
-    "BACKUP"
-], var.NWSAF_SubnetworkRole))
+      "ACTIVE",
+      "BACKUP"
+    ], var.NWSAF_SubnetworkRole))
     error_message = "Valid inputs for | variable: var.NWSAF_SubnetworkRole | are: ACTIVE, BACKUP"
   }
   default = null
@@ -145,30 +123,30 @@ variable "NWSAF_SubnetworkRole" {
 
 variable "NWSAF_SubnetworkSecondaryIpRange" {
   type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Subnetwork#nested_secondary_ip_range
-    range_name = string
-    ip_cidr_range = optional(string, null)
+    range_name              = string
+    ip_cidr_range           = optional(string, null)
     reserved_internal_range = optional(string, null)
   })
   default = null
 }
 
 variable "NWSAF_SubnetworkPrivateIpGoogleAccess" {
-  type = bool
+  type    = bool
   default = null
 }
 
 variable "NWSAF_SubnetworkPrivateIpv6GoogleAccess" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "NWSAF_SubnetworkLogConfig" {
   type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Subnetwork#nested_log_config
     aggregation_interval = optional(string, null)
-    flow_sampling = optional(number, null)
-    metadata = optional(string, null)
-    metadata_fields = optional(list(string), null)
-    filter_expr = optional(string, null)
+    flow_sampling        = optional(number, null)
+    metadata             = optional(string, null)
+    metadata_fields      = optional(list(string), null)
+    filter_expr          = optional(string, null)
   })
   default = null
 }
@@ -177,10 +155,10 @@ variable "NWSAF_SubnetworkStackType" {
   type = string
   validation {
     condition = var.NWSAF_SubnetworkStackType == null || can(contains([
-    "IPV4_ONLY",
-    "IPV4_IPV6",
-    "IPV6_ONLY"
-], var.NWSAF_SubnetworkStackType))
+      "IPV4_ONLY",
+      "IPV4_IPV6",
+      "IPV6_ONLY"
+    ], var.NWSAF_SubnetworkStackType))
     error_message = "Valid inputs for | variable: var.NWSAF_SubnetworkStackType | are: IPV4_ONLY, IPV4_IPV6, IPV6_ONLY"
   }
   default = null
@@ -190,21 +168,21 @@ variable "NWSAF_SubnetworkIpv6AccessType" {
   type = string
   validation {
     condition = var.NWSAF_SubnetworkIpv6AccessType == null || can(contains([
-    "EXTERNAL",
-    "INTERNAL"
-], var.NWSAF_SubnetworkIpv6AccessType))
+      "EXTERNAL",
+      "INTERNAL"
+    ], var.NWSAF_SubnetworkIpv6AccessType))
     error_message = "Valid inputs for | variable: var.NWSAF_SubnetworkIpv6AccessType | are: EXTERNAL, INTERNAL"
   }
   default = null
 }
 
 variable "NWSAF_SubnetworkExternalIpv6Prefix" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "NWSAF_SubnetworkSendSecondaryIpRangeIfEmpty" {
-  type = bool
+  type    = bool
   default = null
 }
 

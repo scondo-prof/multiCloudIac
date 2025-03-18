@@ -13,39 +13,39 @@ provider "google" {
 }
 
 module "network" {
-  source = "../genericNetwork"
-gcpProjectId = var.gcpProjectId
-gcpRegion = var.gcpRegion
-resourceName = var.resourceName
-networkDescription = var.NWSAF_NetworkDescription
-networkAutoCreateSubNetworks = var.NWSAF_NetworkAutoCreateSubNetworks
-networkRoutingMode = var.NWSAF_NetworkRoutingMode
-networkMaximumTransmissionUnitBytes = var.NWSAF_NetworkMaximumTransmissionUnitBytes
-networkEnableUlaInternalIpv6 = var.NWSAF_NetworkEnableUlaInternalIpv6
-networkInternalIpv6Range = var.NWSAF_NetworkInternalIpv6Range
-networkFirewallPolicyEnforcementOrder = var.NWSAF_NetworkFirewallPolicyEnforcementOrder
-networkDeleteDefaultRoutesOnCreate = var.NWSAF_NetworkDeleteDefaultRoutesOnCreate
+  source                                = "../genericNetwork"
+  gcpProjectId                          = var.gcpProjectId
+  gcpRegion                             = var.gcpRegion
+  resourceName                          = var.resourceName
+  networkDescription                    = var.NWSAF_NetworkDescription
+  networkAutoCreateSubNetworks          = var.NWSAF_NetworkAutoCreateSubNetworks
+  networkRoutingMode                    = var.NWSAF_NetworkRoutingMode
+  networkMaximumTransmissionUnitBytes   = var.NWSAF_NetworkMaximumTransmissionUnitBytes
+  networkEnableUlaInternalIpv6          = var.NWSAF_NetworkEnableUlaInternalIpv6
+  networkInternalIpv6Range              = var.NWSAF_NetworkInternalIpv6Range
+  networkFirewallPolicyEnforcementOrder = var.NWSAF_NetworkFirewallPolicyEnforcementOrder
+  networkDeleteDefaultRoutesOnCreate    = var.NWSAF_NetworkDeleteDefaultRoutesOnCreate
 }
 
 module "subnetwork" {
-  source = "../genericSubnetwork"
-gcpProjectId = var.gcpProjectId
-gcpRegion = var.gcpRegion
-resourceName = var.resourceName
-subnetworkNetwork = var.NWSAF_SubnetworkNetwork
-subnetworkDescription = var.NWSAF_SubnetworkDescription
-subnetworkIpCidrRange = var.NWSAF_SubnetworkIpCidrRange
-subnetworkReservedInternalRange = var.NWSAF_SubnetworkReservedInternalRange
-subnetworkPurpose = var.NWSAF_SubnetworkPurpose
-subnetworkRole = var.NWSAF_SubnetworkRole
-subnetworkSecondaryIpRange = var.NWSAF_SubnetworkSecondaryIpRange
-subnetworkPrivateIpGoogleAccess = var.NWSAF_SubnetworkPrivateIpGoogleAccess
-subnetworkPrivateIpv6GoogleAccess = var.NWSAF_SubnetworkPrivateIpv6GoogleAccess
-subnetworkLogConfig = var.NWSAF_SubnetworkLogConfig
-subnetworkStackType = var.NWSAF_SubnetworkStackType
-subnetworkIpv6AccessType = var.NWSAF_SubnetworkIpv6AccessType
-subnetworkExternalIpv6Prefix = var.NWSAF_SubnetworkExternalIpv6Prefix
-subnetworkSendSecondaryIpRangeIfEmpty = var.NWSAF_SubnetworkSendSecondaryIpRangeIfEmpty
+  source                                = "../genericSubnetwork"
+  gcpProjectId                          = var.gcpProjectId
+  gcpRegion                             = var.gcpRegion
+  resourceName                          = var.resourceName
+  subnetworkNetwork                     = var.NWSAF_SubnetworkNetwork
+  subnetworkDescription                 = var.NWSAF_SubnetworkDescription
+  subnetworkIpCidrRange                 = var.NWSAF_SubnetworkIpCidrRange
+  subnetworkReservedInternalRange       = var.NWSAF_SubnetworkReservedInternalRange
+  subnetworkPurpose                     = var.NWSAF_SubnetworkPurpose
+  subnetworkRole                        = var.NWSAF_SubnetworkRole
+  subnetworkSecondaryIpRange            = var.NWSAF_SubnetworkSecondaryIpRange
+  subnetworkPrivateIpGoogleAccess       = var.NWSAF_SubnetworkPrivateIpGoogleAccess
+  subnetworkPrivateIpv6GoogleAccess     = var.NWSAF_SubnetworkPrivateIpv6GoogleAccess
+  subnetworkLogConfig                   = var.NWSAF_SubnetworkLogConfig
+  subnetworkStackType                   = var.NWSAF_SubnetworkStackType
+  subnetworkIpv6AccessType              = var.NWSAF_SubnetworkIpv6AccessType
+  subnetworkExternalIpv6Prefix          = var.NWSAF_SubnetworkExternalIpv6Prefix
+  subnetworkSendSecondaryIpRangeIfEmpty = var.NWSAF_SubnetworkSendSecondaryIpRangeIfEmpty
 }
 
 module "ingressFirewall" {
