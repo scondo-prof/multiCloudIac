@@ -101,9 +101,31 @@ resource "google_sql_database_instance" "databaseInstance" {
       }
 
       dynamic "ip_configuration" {
-        for_each = settings.value[""] != null ? [settings.value[""]]: []
+        for_each = settings.value["ip_configuration"] != null ? [settings.value["ip_configuration"]]: []
         content {
+          ipv4_enabled = ip_configuration.value["ipv4_enabled"]
+          private_network = ip_configuration.value["private_network"]
+          ssl_mode = ip_configuration.value["ssl_mode"]
+          server_ca_mode = ip_configuration.value["server_ca_mode"]
+          allocated_ip_range = ip_configuration.value["allocated_ip_range"]
+          enable_private_path_for_google_cloud_services = ip_configuration.value["enable_private_path_for_google_cloud_services"]
           
+          dynamic "authorized_networks" {
+            for_each = ip_configuration.value["authorized_networks"] != null ? [ip_configuration.value["authorized_networks"]]: []
+            content {
+              expiration_time = authorized_networks.value["expiration_time"]
+              name = authorized_networks.value["name"]
+              value = authorized_networks.value["value"]
+            }
+          }
+
+          dynamic "psc_config" {
+            for_each = ip_configuration.value["psc_config"] != null ? [ip_configuration.value["psc_config"]]: []
+            content {
+              psc_enabled = psc_config.value["psc_enabled"]
+              allowed_consumer_projects = psc_config.value["allowed_consumer_projects"]
+            }
+          }
         }
       }
 

@@ -95,6 +95,24 @@ variable "databaseInstanceSettings" {
       }), null)
     }), null)
 
-    
+    ip_configuration = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#ipv4_enabled-1
+      ipv4_enabled = optional(bool, null)
+      private_network = optional(string, null)
+      ssl_mode = optional(string, null)
+      server_ca_mode = optional(string, null)
+      allocated_ip_range = optional(string, null)
+      enable_private_path_for_google_cloud_services = optional(bool, null)
+
+      authorized_networks = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#expiration_time-1
+        expiration_time = optional(string, null)
+        name = optional(string, null)
+        value = string
+      }), null)
+
+      psc_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#psc_enabled-1
+        psc_enabled = optional(bool, null)
+        allowed_consumer_projects = optional(list(string), null)
+      }), null)
+    }), null)
   })
 }
