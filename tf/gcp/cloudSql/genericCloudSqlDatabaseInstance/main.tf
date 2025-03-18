@@ -34,51 +34,69 @@ resource "google_sql_database_instance" "databaseInstance" {
       time_zone = settings.value["time_zone"]
       
       dynamic "advanced_machine_features" {
-        for_each = settings.value[""] != null ? [settings.value[""]]: []
+        for_each = settings.value["advanced_machine_features"] != null ? [settings.value["advanced_machine_features"]]: []
         content {
-          
+          threads_per_core = advanced_machine_features.value["threads_per_core"]
         }
       }
 
       dynamic "database_flags" {
-        for_each = settings.value[""] != null ? [settings.value[""]]: []
+        for_each = settings.value["database_flags"] != null ? [settings.value["database_flags"]]: []
         content {
-          
+          name = database_flags.value["name"]
+          value = database_flags.value["value"]
         }
       }
 
       dynamic "active_directory_config" {
-        for_each = settings.value[""] != null ? [settings.value[""]]: []
+        for_each = settings.value["active_directory_config"] != null ? [settings.value["active_directory_config"]]: []
         content {
-          
+          domain = active_directory_config.value["domain"]
         }
       }
 
       dynamic "data_cache_config" {
-        for_each = settings.value[""] != null ? [settings.value[""]]: []
+        for_each = settings.value["data_cache_config"] != null ? [settings.value["data_cache_config"]]: []
         content {
-          
+          data_cache_enabled = data_cache_config.value["data_cache_enabled"]
         }
       }
       
       dynamic "deny_maintenance_period" {
-        for_each = settings.value[""] != null ? [settings.value[""]]: []
+        for_each = settings.value["deny_maintenance_period"] != null ? [settings.value["deny_maintenance_period"]]: []
         content {
-          
+          end_date = deny_maintenance_period.value["end_date"]
+          start_date = deny_maintenance_period.value["start_date"]
+          time = deny_maintenance_period.value["time"]
         }
       }
 
       dynamic "sql_server_audit_config" {
-        for_each = settings.value[""] != null ? [settings.value[""]]: []
+        for_each = settings.value["sql_server_audit_config"] != null ? [settings.value["sql_server_audit_config"]]: []
         content {
-          
+          bucket = sql_server_audit_config.value["bucket"]
+          upload_interval = sql_server_audit_config.value["upload_interval"]
+          retention_interval = sql_server_audit_config.value["retention_interval"]
         }
       }
 
       dynamic "backup_configuration" {
-        for_each = settings.value[""] != null ? [settings.value[""]]: []
+        for_each = settings.value["backup_configuration"] != null ? [settings.value["backup_configuration"]]: []
         content {
+          binary_log_enabled = backup_configuration.value["binary_log_enabled"]
+          enabled = backup_configuration.value["enabled"]
+          start_time = backup_configuration.value["start_time"]
+          point_in_time_recovery_enabled = backup_configuration.value["point_in_time_recovery_enabled"]
+          location = backup_configuration.value["location"]
+          transaction_log_retention_days = backup_configuration.value["transaction_log_retention_days"]
           
+          dynamic "backup_retention_settings" {
+            for_each = backup_configuration.value["backup_retention_settings"] != null ? [backup_configuration.value["backup_retention_settings"]]: []
+            content {
+              retained_backups = backup_retention_settings.value["retained_backups"]
+              retention_unit = backup_retention_settings.value["retention_unit"]
+            }
+          }
         }
       }
 
@@ -117,7 +135,7 @@ resource "google_sql_database_instance" "databaseInstance" {
         }
       }
 
-      
+
     }
   }
 

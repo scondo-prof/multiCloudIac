@@ -36,7 +36,7 @@ variable "additionalTags" {
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#argument-reference
 
 variable "databaseInstanceSettings" {
-  type = object({
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#tier-1
     tier = string
     edition = optional(string, null)
     activation_policy = optional(string, null)
@@ -51,5 +51,50 @@ variable "databaseInstanceSettings" {
     disk_size = optional(number, null)
     pricing_plan = optional(string, null)
     time_zone = optional(string, null)
+
+    advanced_machine_features = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#threads_per_core-1
+      threads_per_core = optional(number, null)
+    }), null)
+
+    database_flags = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#name-9
+      name = string
+      value = string
+    }), null)
+
+    active_directory_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#domain-1
+      domain = string
+    }), null)
+
+    data_cache_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#data_cache_enabled-1
+      data_cache_enabled = optional(bool, null)
+    }), null)
+
+    deny_maintenance_period = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#end_date-1
+      end_date = string
+      start_date = string
+      time = string
+    }), null)
+
+    sql_server_audit_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#bucket-1
+      bucket = optional(string, null)
+      upload_interval = optional(string, null)
+      retention_interval = optional(string, null)
+    }), null)    
+
+    backup_configuration = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#binary_log_enabled-1
+      binary_log_enabled = optional(bool, null)
+      enabled = optional(bool, null)
+      start_time = optional(string, null)
+      point_in_time_recovery_enabled = optional(string, null)
+      location = optional(string, null)
+      transaction_log_retention_days = optional(number, null)
+
+      backup_configuration = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#retained_backups-1
+        retained_backups = optional(number, null)
+        retention_unit = optional(string, null)
+      }), null)
+    }), null)
+
+    
   })
 }
