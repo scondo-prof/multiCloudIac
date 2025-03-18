@@ -8,19 +8,27 @@ terraform {
 }
 
 provider "google" {
-  project = var.projectId
-  region  = var.region
+  project = var.gcpProjectId
+  region  = var.gcpRegion
 }
 
 resource "google_vpc_access_connector" "vpcAccessConnector" {
-  name = var.resourceName
-  subnet {
-    name       = var.vpcAccessConnectorSubnet
-    project_id = var.projectId
-  }
+  name = "${var.resourceName}-vac"
+  network = var.vpcAccessConnectorNetwork
+  ip_cidr_range = var.vpcAccessConnectorIpCidrRange
   machine_type  = var.vpcAccessConnectorMachineType
+  min_throughput = var.vpcAccessConnectorMinThroughput
   min_instances = var.vpcAccessConnectorMinInstances
   max_instances = var.vpcAccessConnectorMaxInstances
-  region        = var.region
-  project       = var.projectId
+  max_throughput = var.vpcAccessConnectorMaxThroughput
+  dynamic "subnet" {
+    for_each = var.vpcAccessConnectorSubnet != null ? [var.vpcAccessConnectorSubnet]: []
+    content {
+      name = subnet.value["name"]
+      project_id = subnet.value["project_id"]
+    }
+  }
+  
+  region        = var.gcpRegion
+  project       = var.gcpProjectId
 }
