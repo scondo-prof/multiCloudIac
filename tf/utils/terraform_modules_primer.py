@@ -9,33 +9,13 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/_NWSAF_networkWithSubnetworkAndFirewall",
-            "source_path": "../_NWSAF_networkWithSubnetworkAndFirewall",
-            "destination_path": "../gcp/cloudComputeNetwork/_NWEIPN_networkWithExternalIpNat",
+            "project_path": "../gcp/cloudComputeNetwork/_NWEIPN_networkWithExternalIpNat",
+            "source_path": "../../gcp/cloudComputeNetwork/_NWEIPN_networkWithExternalIpNat",
+            "destination_path": "./temp/",
         },
-        "previous_variable_prefix": "NWSAF_",
-        "new_variable_prefix": "NWEIPN_NWSAF_",
-        "module_name": "NWSAF",
-    },
-    {
-        "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/_NWEA_natWithExternalAddress",
-            "source_path": "../_NWEA_natWithExternalAddress",
-            "destination_path": "../gcp/cloudComputeNetwork/_NWEIPN_networkWithExternalIpNat",
-        },
-        "previous_variable_prefix": "NWEA_",
-        "new_variable_prefix": "NWEIPN_NWEA_",
-        "module_name": "NWEA",
-    },
-    {
-        "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/genericVpcAccessConnector",
-            "source_path": "../genericVpcAccessConnector",
-            "destination_path": "../gcp/cloudComputeNetwork/_NWEIPN_networkWithExternalIpNat",
-        },
-        "previous_variable_prefix": "vpcAccessConnector",
-        "new_variable_prefix": "NWEIPN_VpcAccessConnector",
-        "module_name": "vpcAccessConnector",
+        "previous_variable_prefix": "NWEIPN_",
+        "new_variable_prefix": "CSCRAPFG_NWEIPN_",
+        "module_name": "NWEIPN",
     },
 ]
 
