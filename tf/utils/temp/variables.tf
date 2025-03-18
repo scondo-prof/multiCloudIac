@@ -11,149 +11,117 @@ variable "resourceName" {
   type = string
 }
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#argument-reference
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Subnetwork#argument-reference
 
-variable "NWEA_NatSourceSubnetworkIpRangesToNat" {
+variable "NWSAF_SubnetworkNetwork" {
+  type = string
+}
+
+variable "NWSAF_SubnetworkDescription" {
+  type = string
+  default = null
+}
+
+variable "NWSAF_SubnetworkIpCidrRange" {
+  type    = string
+  default = null
+}
+
+variable "NWSAF_SubnetworkReservedInternalRange" {
+  type = string
+  default = null
+}
+
+variable "NWSAF_SubnetworkPurpose" {
   type = string
   validation {
-    condition = contains([
-    "ALL_SUBNETWORKS_ALL_IP_RANGES",
-    "ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES",
-    "LIST_OF_SUBNETWORKS"
-], var.NWEA_NatSourceSubnetworkIpRangesToNat)
-    error_message = "Valid inputs for | variable: var.NWEA_NatSourceSubnetworkIpRangesToNat | are: ALL_SUBNETWORKS_ALL_IP_RANGES, ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, LIST_OF_SUBNETWORKS"
+    condition = var.NWSAF_SubnetworkPurpose == null || can(contains([
+    "PRIVATE",
+    "REGIONAL_MANAGED_PROXY",
+    "GLOBAL_MANAGED_PROXY",
+    "PRIVATE_SERVICE_CONNECT",
+    "PEER_MIGRATION"
+], var.NWSAF_SubnetworkPurpose))
+    error_message = "Valid inputs for | variable: var.NWSAF_SubnetworkPurpose | are: PRIVATE, REGIONAL_MANAGED_PROXY, GLOBAL_MANAGED_PROXY, PRIVATE_SERVICE_CONNECT, PEER_MIGRATION"
   }
+  default = null
 }
 
-variable "NWEA_NatRouterName" {
-  type = string
-}
-
-variable "NWEA_NatIpAllocateOption" {
+variable "NWSAF_SubnetworkRole" {
   type = string
   validation {
-    condition = var.NWEA_NatIpAllocateOption == null || can(contains([
-    "ALL_SUBNETWORKS_ALL_IP_RANGES",
-    "ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES",
-    "LIST_OF_SUBNETWORKS"
-], var.NWEA_NatIpAllocateOption))
-    error_message = "Valid inputs for | variable: var.NWEA_NatIpAllocateOption | are: ALL_SUBNETWORKS_ALL_IP_RANGES, ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, LIST_OF_SUBNETWORKS"
+    condition = var.NWSAF_SubnetworkRole == null || can(contains([
+    "ACTIVE",
+    "BACKUP"
+], var.NWSAF_SubnetworkRole))
+    error_message = "Valid inputs for | variable: var.NWSAF_SubnetworkRole | are: ACTIVE, BACKUP"
   }
   default = null
 }
 
-variable "NWEA_NatInitialNatIps" {
-  type = list(string)
-  default = null
-}
-
-
-variable "NWEA_NatIps" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEA_NatDrainNatIps" {
-  type = list(string)
-  default = null
-}
-
-variable "NWEA_NatSubnetwork" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#nested_subnetwork
-  type = object({
-    name = string
-    source_ip_ranges_to_NWEA_Nat = list(string)
-    secondary_ip_range_names = optional(list(string), null)
+variable "NWSAF_SubnetworkSecondaryIpRange" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Subnetwork#nested_secondary_ip_range
+    range_name = string
+    ip_cidr_range = optional(string, null)
+    reserved_internal_range = optional(string, null)
   })
   default = null
 }
 
-variable "NWEA_NatMinPortsPerVm" {
-  type    = number
-  default = null
-}
-
-variable "NWEA_NatMaxPortsPerVm" {
-  type = number
-  default = null
-}
-
-variable "NWEA_NatEnableDynamicPortAllocation" {
+variable "NWSAF_SubnetworkPrivateIpGoogleAccess" {
   type = bool
   default = null
 }
 
-variable "NWEA_NatUdpIdleTimeoutSec" {
-  type = number
+variable "NWSAF_SubnetworkPrivateIpv6GoogleAccess" {
+  type = string
   default = null
 }
 
-variable "NWEA_NatIcmpIdleTimeoutSec" {
-  type = number
-  default = null
-}
-
-variable "NWEA_NatTcpEstablishedIdleTimeoutSec" {
-  type = number
-  default = null
-}
-
-variable "NWEA_NatTcpTransitoryIdleTimeoutSec" {
-  type = number
-  default = null
-}
-
-variable "NWEA_NatTcpTimeWaitTimeoutSec" {
-  type = number
-  default = null
-}
-
-variable "NWEA_NatLogConfig" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#nested_log_config
-    enable = bool
-    filter = string
+variable "NWSAF_SubnetworkLogConfig" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Subnetwork#nested_log_config
+    aggregation_interval = optional(string, null)
+    flow_sampling = optional(number, null)
+    metadata = optional(string, null)
+    metadata_fields = optional(list(string), null)
+    filter_expr = optional(string, null)
   })
   default = null
 }
 
-variable "NWEA_NatEndpointTypes" {
-  type = list(string)
-  default = null
-}
-
-variable "NWEA_NatRules" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#nested_rules
-    rule_number = number
-    description = optional(string, null)
-    match = string
-
-    action = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#nested_rules_rules_action
-      source_NWEA_Nat_active_ips = optional(list(string), null)
-      source_NWEA_Nat_drain_ips = optional(list(string), null)
-    })
-  })
-  default = null
-}
-
-variable "NWEA_NatEnableEndpointIndependentMapping" {
-  type = bool
-  default = null
-}
-
-variable "NWEA_NatAutoNetworkTier" {
+variable "NWSAF_SubnetworkStackType" {
   type = string
   validation {
-    condition = var.NWEA_NatAutoNetworkTier == null || can(contains([
-    "PREMIUM",
-    "STANDARD"
-], var.NWEA_NatAutoNetworkTier))
-    error_message = "Valid inputs for | variable: var.NWEA_NatAutoNetworkTier | are: PREMIUM, STANDARD"
+    condition = var.NWSAF_SubnetworkStackType == null || can(contains([
+    "IPV4_ONLY",
+    "IPV4_IPV6",
+    "IPV6_ONLY"
+], var.NWSAF_SubnetworkStackType))
+    error_message = "Valid inputs for | variable: var.NWSAF_SubnetworkStackType | are: IPV4_ONLY, IPV4_IPV6, IPV6_ONLY"
   }
   default = null
 }
 
+variable "NWSAF_SubnetworkIpv6AccessType" {
+  type = string
+  validation {
+    condition = var.NWSAF_SubnetworkIpv6AccessType == null || can(contains([
+    "EXTERNAL",
+    "INTERNAL"
+], var.NWSAF_SubnetworkIpv6AccessType))
+    error_message = "Valid inputs for | variable: var.NWSAF_SubnetworkIpv6AccessType | are: EXTERNAL, INTERNAL"
+  }
+  default = null
+}
 
+variable "NWSAF_SubnetworkExternalIpv6Prefix" {
+  type = string
+  default = null
+}
 
-
-
+variable "NWSAF_SubnetworkSendSecondaryIpRangeIfEmpty" {
+  type = bool
+  default = null
+}
 
 #---

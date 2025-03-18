@@ -8,8 +8,8 @@ terraform {
 }
 
 provider "google" {
-  project = var.projectId
-  region  = var.region
+  project = var.gcpProjectId
+  region  = var.gcpRegion
 }
 
 resource "google_compute_subnetwork" "subnetwork" {
@@ -32,7 +32,7 @@ resource "google_compute_subnetwork" "subnetwork" {
 
   private_ip_google_access = var.subnetworkPrivateIpGoogleAccess
   private_ipv6_google_access = var.subnetworkPrivateIpv6GoogleAccess
-  region        = var.region
+  region        = var.gcpRegion
   
   dynamic "log_config" {
     for_each = var.subnetworkLogConfig != null ? [var.subnetworkLogConfig]: []
@@ -48,7 +48,7 @@ resource "google_compute_subnetwork" "subnetwork" {
   stack_type = var.subnetworkStackType
   ipv6_access_type = var.subnetworkIpv6AccessType
   external_ipv6_prefix = var.subnetworkExternalIpv6Prefix
-  project       = var.projectId
+  project       = var.gcpProjectId
   send_secondary_ip_range_if_empty = var.subnetworkSendSecondaryIpRangeIfEmpty
   
 }

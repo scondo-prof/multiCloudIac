@@ -1,29 +1,23 @@
 
-    module "nat" {
-  source = "../genericNetworkRouterNat"
+    module "subnetwork" {
+  source = "../genericSubnetwork"
 gcpProjectId = var.gcpProjectId
 gcpRegion = var.gcpRegion
 resourceName = var.resourceName
-natSourceSubnetworkIpRangesToNat = var.NWEA_NatSourceSubnetworkIpRangesToNat
-natRouterName = var.NWEA_NatRouterName
-natIpAllocateOption = var.NWEA_NatIpAllocateOption
-natInitialNatIps = var.NWEA_NatInitialNatIps
-natIps = var.NWEA_NatIps
-natDrainNatIps = var.NWEA_NatDrainNatIps
-natSubnetwork = var.NWEA_NatSubnetwork
-natMinPortsPerVm = var.NWEA_NatMinPortsPerVm
-natMaxPortsPerVm = var.NWEA_NatMaxPortsPerVm
-natEnableDynamicPortAllocation = var.NWEA_NatEnableDynamicPortAllocation
-natUdpIdleTimeoutSec = var.NWEA_NatUdpIdleTimeoutSec
-natIcmpIdleTimeoutSec = var.NWEA_NatIcmpIdleTimeoutSec
-natTcpEstablishedIdleTimeoutSec = var.NWEA_NatTcpEstablishedIdleTimeoutSec
-natTcpTransitoryIdleTimeoutSec = var.NWEA_NatTcpTransitoryIdleTimeoutSec
-natTcpTimeWaitTimeoutSec = var.NWEA_NatTcpTimeWaitTimeoutSec
-natLogConfig = var.NWEA_NatLogConfig
-natEndpointTypes = var.NWEA_NatEndpointTypes
-natRules = var.NWEA_NatRules
-natEnableEndpointIndependentMapping = var.NWEA_NatEnableEndpointIndependentMapping
-natAutoNetworkTier = var.NWEA_NatAutoNetworkTier
+subnetworkNetwork = var.NWSAF_SubnetworkNetwork
+subnetworkDescription = var.NWSAF_SubnetworkDescription
+subnetworkIpCidrRange = var.NWSAF_SubnetworkIpCidrRange
+subnetworkReservedInternalRange = var.NWSAF_SubnetworkReservedInternalRange
+subnetworkPurpose = var.NWSAF_SubnetworkPurpose
+subnetworkRole = var.NWSAF_SubnetworkRole
+subnetworkSecondaryIpRange = var.NWSAF_SubnetworkSecondaryIpRange
+subnetworkPrivateIpGoogleAccess = var.NWSAF_SubnetworkPrivateIpGoogleAccess
+subnetworkPrivateIpv6GoogleAccess = var.NWSAF_SubnetworkPrivateIpv6GoogleAccess
+subnetworkLogConfig = var.NWSAF_SubnetworkLogConfig
+subnetworkStackType = var.NWSAF_SubnetworkStackType
+subnetworkIpv6AccessType = var.NWSAF_SubnetworkIpv6AccessType
+subnetworkExternalIpv6Prefix = var.NWSAF_SubnetworkExternalIpv6Prefix
+subnetworkSendSecondaryIpRangeIfEmpty = var.NWSAF_SubnetworkSendSecondaryIpRangeIfEmpty
 }
 
 #---

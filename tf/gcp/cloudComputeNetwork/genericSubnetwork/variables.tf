@@ -1,8 +1,8 @@
-variable "projectId" {
+variable "gcpProjectId" {
   type = string
 }
 
-variable "region" {
+variable "gcpRegion" {
   type    = string
   default = "us-east1"
 }

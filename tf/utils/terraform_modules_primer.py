@@ -9,13 +9,13 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/genericNetworkRouterNat",
-            "source_path": "../genericNetworkRouterNat",
+            "project_path": "../gcp/cloudComputeNetwork/genericSubnetwork",
+            "source_path": "../genericSubnetwork",
             "destination_path": "./temp/",
         },
-        "previous_variable_prefix": "nat",
-        "new_variable_prefix": "NWEA_Nat",
-        "module_name": "nat",
+        "previous_variable_prefix": "subnetwork",
+        "new_variable_prefix": "NWSAF_Subnetwork",
+        "module_name": "subnetwork",
     },
 ]
 
