@@ -1,12 +1,40 @@
 variable "gcpProjectId" {
-  type = string
+  type    = string
   default = "p3-prod-aa94d"
 }
 
 variable "gcpRegion" {
-  type = string
+  type    = string
   default = "us-east1"
 }
+
+variable "resourceName" {
+  type = string
+}
+
+variable "projectName" {
+  type = string
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = null
+}
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_notification_channel
 
 variable "notificationChannelType" {
   type = string
@@ -48,28 +76,6 @@ variable "notificationChannelSensitiveLabels" {
     service_key = optional(string, null)
   })
   default = null
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "createdBy" {
-  type    = string
-  default = "scott-condo"
-}
-
-variable "notificationChannelAdditionalUserLabels" {
-  type    = map(string)
-  default = null
-}
-
-variable "resourceName" {
-  type = string
 }
 
 variable "notificationChannelEnabled" {

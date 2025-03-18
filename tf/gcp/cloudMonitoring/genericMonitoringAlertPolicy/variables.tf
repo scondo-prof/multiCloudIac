@@ -12,6 +12,30 @@ variable "resourceName" {
   type = string
 }
 
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "projectName" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = null
+}
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
+
 variable "alertPolicyCombiner" {
   type = string
   validation {
@@ -136,24 +160,6 @@ variable "alertPolicyAlertStrategy" { #https://registry.terraform.io/providers/h
       renotify_interval          = optional(number, null)
     }), null)
   })
-  default = null
-}
-
-variable "createdBy" {
-  type    = string
-  default = "scott-condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "additionalAlertPolicyUserLabels" {
-  type    = map(string)
   default = null
 }
 

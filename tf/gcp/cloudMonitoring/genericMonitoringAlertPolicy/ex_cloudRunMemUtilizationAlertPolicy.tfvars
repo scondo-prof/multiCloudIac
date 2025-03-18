@@ -6,7 +6,7 @@ alertPolicyConditions = {
   condition_monitoring_query_language = {
     duration = "300s"
     trigger = {
-        percent = 50
+      percent = 50
     }
     query = <<EOT
 fetch cloud_run_revision

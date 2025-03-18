@@ -167,10 +167,11 @@ resource "google_monitoring_alert_policy" "alertPolicy" {
   }
 
   user_labels = merge({
-    "created-by"    = var.createdBy
-    "deployed-date" = var.deployedDate
-    "project"       = var.projectName
-  }, var.additionalAlertPolicyUserLabels)
+    project       = var.projectName
+    deployed-date = var.deployedDate
+    created-by    = var.createdBy
+    tf-module     = var.tfModule
+  }, var.additionalTags)
 
   severity = var.alertPolicySeverity
 
