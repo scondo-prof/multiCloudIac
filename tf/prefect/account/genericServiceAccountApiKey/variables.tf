@@ -13,14 +13,14 @@ variable "prefectApiKey" {
   sensitive = true
 }
 
-#2024-12-15T20:27:03Z must be in this format (RFC3339) if none is given it will never expire
-variable "serviceAccountApiKeyExpiration" {
-  type = string
-  default = null
-}
-
 variable "resourceName" {
   type = string
+}
+# https://registry.terraform.io/providers/PrefectHQ/prefect/latest/docs/resources/service_account#schema
+
+variable "serviceAccountId" {
+  type = string
+  default = null
 }
 
 variable "serviceAccountRoleName" {
@@ -29,5 +29,15 @@ variable "serviceAccountRoleName" {
     condition = contains(["Admin", "Member", "Owner"], var.serviceAccountRoleName)
     error_message = "Ensure Variable serviceAccountRoleName is one of the following values: Admin, Member, Owner"
   }
-  default = "Admin"
+  default = null
+}
+
+variable "serviceAccountApiKeyExpiration" {
+  type = string
+  default = null
+}
+
+variable "serviceAccountOldKeyExpiresInSeconds" {
+  type = number
+  default = null
 }
