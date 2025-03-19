@@ -205,3 +205,38 @@ variable "databaseInstanceReplicaConfiguration" {
 
   default = null
 }
+
+variable "databaseInstanceRootPassword" {
+  type = string
+  default = null
+}
+
+variable "databaseInstanceEncryptionKeyName" {
+  type = string
+  default = null
+}
+
+variable "databaseInstanceDeletionProtection" {
+  type = bool
+  default = null
+}
+
+variable "databaseInstanceRestoreBackupContext" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#backup_run_id-1
+    backup_run_id = string
+    instance_id = optional(string, null)
+    project = optional(string, null)
+  })
+  default = null
+}
+
+variable "databaseInstanceClone" {
+  type = object({
+    source_instance_name = string
+    point_in_time = optional(string, null)
+    preferred_zone = optional(string, null)
+    database_names = optional(list(string), null)
+    allocated_ip_range = optional(string, null)
+  })
+  default = null
+}

@@ -197,21 +197,27 @@ resource "google_sql_database_instance" "databaseInstance" {
     }
   }
 
-  root_password = var.databaseInstance
-  encryption_key_name = var.databaseInstance
-  deletion_protection = var.databaseInstance
+  root_password = var.databaseInstanceRootPassword
+  encryption_key_name = var.databaseInstanceEncryptionKeyName
+  deletion_protection = var.databaseInstanceDeletionProtection
   
   dynamic "restore_backup_context" {
-    for_each = var.databaseInstance != null ? [var.databaseInstance]: []
+    for_each = var.databaseInstanceRestoreBackupContext != null ? [var.databaseInstanceRestoreBackupContext]: []
     content {
-      
+      backup_run_id = restore_backup_context.value["backup_run_id"]
+      instance_id = restore_backup_context.value["instance_id"]
+      project = restore_backup_context.value["project"]
     }
   }
 
   dynamic "clone" {
-    for_each = var.databaseInstance != null ? [var.databaseInstance]: []
+    for_each = var.databaseInstanceClone != null ? [var.databaseInstanceClone]: []
     content {
-      
+      source_instance_name = clone.value["source_instance_name"]
+      point_in_time = clone.value["point_in_time"]
+      preferred_zone = clone.value["preferred_zone"]
+      database_names = clone.value["database_names"]
+      allocated_ip_range = clone.value["allocated_ip_range"]
     }
   }
 }
