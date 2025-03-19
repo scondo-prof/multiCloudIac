@@ -1,157 +1,115 @@
-output "CSCRAPFG_NWEIPN_NWSAF_NetworkId" {
-  value = module.NWEIPN.NWEIPN_NWSAF_NetworkId
+output "databaseInstanceSelfLink"{
+    value = google_sql_database_instance.databaseInstance.self_link
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_NetworkGatewayIpv4" {
-  value = module.NWEIPN.NWEIPN_NWSAF_NetworkGatewayIpv4
+output "CSDIU_DatabaseInstanceConnectionName" {
+  value = module.databaseInstance.databaseInstanceConnectionName
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_NetworkNumericId" {
-  value = module.NWEIPN.NWEIPN_NWSAF_NetworkNumericId
+output "CSDIU_DatabaseInstanceDnsName" {
+  value = module.databaseInstance.databaseInstanceDnsName
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_NetworkSelfLink" {
-  value = module.NWEIPN.NWEIPN_NWSAF_NetworkSelfLink
+output "CSDIU_DatabaseInstanceServiceAccountEmailAddress" {
+  value = module.databaseInstance.databaseInstanceServiceAccountEmailAddress
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_NetworkName" {
-  value = module.NWEIPN.NWEIPN_NWSAF_NetworkName
+output "CSDIU_DatabaseInstanceFirstIpAddress" {
+  value = module.databaseInstance.databaseInstanceFirstIpAddress
 }
 
-
-
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkId" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkId
+output "CSDIU_DatabaseInstanceAvailableMaintenanceVersion" {
+  value = module.databaseInstance.databaseInstanceAvailableMaintenanceVersion
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkCreationTimestamp" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkCreationTimestamp
+output "CSDIU_DatabaseInstancePublicIp" {
+  value = module.databaseInstance.databaseInstancePublicIp
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkGatewayAddress" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkGatewayAddress
+output "CSDIU_DatabaseInstancePrivateIpAddress" {
+  value = module.databaseInstance.databaseInstancePrivateIpAddress
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkIpv4CidrRange" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkIpv4CidrRange
+output "CSDIU_DatabaseInstancePscServiceAttachmentLink" {
+  value = module.databaseInstance.databaseInstancePscServiceAttachmentLink
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkIpv6CidrRange" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkIpv6CidrRange
+output "CSDIU_DatabaseInstanceInstanceType" {
+  value = module.databaseInstance.databaseInstanceInstanceType
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkInternalIpv6Prefix" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkInternalIpv6Prefix
+output "CSDIU_DatabaseInstanceRootPassword" {
+  value = module.databaseInstance.databaseInstanceRootPassword
+  sensitive = true
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkSelfLink" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkSelfLink
+#---
+output "databaseId"{
+    value = google_sql_database.database.id
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkName" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkName
+output "databaseSelfLink"{
+    value = google_sql_database.database.self_link
 }
 
-
-
-output "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallId" {
-  value = module.NWEIPN.NWEIPN_NWSAF_IngressFirewallId
+output "CSDIU_DatabaseName" {
+  value = module.database.databaseName
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallCreationTimestamp" {
-  value = module.NWEIPN.NWEIPN_NWSAF_IngressFirewallCreationTimestamp
+#---
+output "CSDIU_DatabaseUserName" {
+  value = module.databaseUser.databaseUserName
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallSelfLink" {
-  value = module.NWEIPN.NWEIPN_NWSAF_IngressFirewallSelfLink
+output "CSDIU_DatabaseUserPassword" {
+  value = module.databaseUser.databaseUserPassword
+  sensitive = true
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallName" {
-  value = module.NWEIPN.NWEIPN_NWSAF_IngressFirewallName
+#---
+output "CSDIU_SecretId" {
+  value = module.secret.secretId
 }
 
-
-output "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallId" {
-  value = module.NWEIPN.NWEIPN_NWSAF_EgressFirewallId
+output "CSDIU_SecretName" {
+  value = module.secret.secretName
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallCreationTimestamp" {
-  value = module.NWEIPN.NWEIPN_NWSAF_EgressFirewallCreationTimestamp
+output "CSDIU_SecretCreateTime" {
+  value = module.secret.secretCreateTime
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallSelfLink" {
-  value = module.NWEIPN.NWEIPN_NWSAF_EgressFirewallSelfLink
+output "CSDIU_SecretTerraformLabels" {
+  value = module.secret.secretTerraformLabels
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallName" {
-  value = module.NWEIPN.NWEIPN_NWSAF_EgressFirewallName
+output "CSDIU_SecretEffectiveLabels" {
+  value = module.secret.secretEffectiveLabels
 }
 
-
-
-
-output "CSCRAPFG_NWEIPN_NWEA_NetworkAddressId" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkAddressId
+output "CSDIU_SecretEffectiveAnnotations" {
+  value = module.secret.secretEffectiveAnnotations
 }
 
-output "CSCRAPFG_NWEIPN_NWEA_NetworkAddressSelfLink" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkAddressSelfLink
+#---
+output "CSDIU_SecretVersionId" {
+  value = module.secretVersion.secretVersionId
 }
 
-output "CSCRAPFG_NWEIPN_NWEA_NetworkAddressExternalIp" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkAddressExternalIp
+output "CSDIU_SecretVersionName" {
+  value = module.secretVersion.secretVersionName
 }
 
-
-
-output "CSCRAPFG_NWEIPN_NWEA_NetworkRouterId" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkRouterId
+output "CSDIU_SecretVersionVersion" {
+  value = module.secretVersion.secretVersionVersion
 }
 
-output "CSCRAPFG_NWEIPN_NWEA_NetworkRouterName" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkRouterName
+output "CSDIU_SecretVersionCreateTime" {
+  value = module.secretVersion.secretVersionCreateTime
 }
 
-output "CSCRAPFG_NWEIPN_NWEA_NetworkRouterSelfLink" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkRouterSelfLink
+output "CSDIU_SecretVersionDestroyTime" {
+  value = module.secretVersion.secretVersionDestroyTime
 }
-
-output "CSCRAPFG_NWEIPN_NWEA_NetworkRouterCreationTimestamp" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkRouterCreationTimestamp
-}
-
-
-
-output "CSCRAPFG_NWEIPN_NWEA_NatId" {
-  value = module.NWEIPN.NWEIPN_NWEA_NatId
-}
-
-output "CSCRAPFG_NWEIPN_NWEA_NatName" {
-  value = module.NWEIPN.NWEIPN_NWEA_NatName
-}
-
-
-output "CSCRAPFG_NWEIPN_VpcAccessConnectorId" {
-  value = module.NWEIPN.NWEIPN_VpcAccessConnectorId
-}
-
-output "CSCRAPFG_NWEIPN_VpcAccessConnectorState" {
-  value = module.NWEIPN.NWEIPN_VpcAccessConnectorState
-}
-
-output "CSCRAPFG_NWEIPN_VpcAccessConnectorName" {
-  value = module.NWEIPN.NWEIPN_VpcAccessConnectorName
-}
-
-output "CSCRAPFG_NWEIPN_VpcAccessConnectorSelfLink" {
-  value = module.NWEIPN.NWEIPN_VpcAccessConnectorSelfLink
-}
-
-output "CSCRAPFG_NWEIPN_VpcAccessConnectorConnectedProjects" {
-  value = module.NWEIPN.NWEIPN_VpcAccessConnectorConnectedProjects
-}
-
-
-
 
 #---

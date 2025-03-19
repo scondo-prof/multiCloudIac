@@ -1,5 +1,5 @@
-output "databaseInstanceSelfLink"{
-    value = google_sql_database_instance.databaseInstance.self_link
+output "databaseInstanceSelfLink" {
+  value = google_sql_database_instance.databaseInstance.self_link
 }
 
 output "databaseInstanceConnectionName" {
@@ -39,6 +39,6 @@ output "databaseInstanceInstanceType" {
 }
 
 output "databaseInstanceRootPassword" {
-  value = google_sql_database_instance.databaseInstance.root_password
+  value     = google_sql_database_instance.databaseInstance.root_password
   sensitive = true
 }

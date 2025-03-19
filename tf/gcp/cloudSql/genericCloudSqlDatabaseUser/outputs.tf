@@ -3,6 +3,6 @@ output "databaseUserName" {
 }
 
 output "databaseUserPassword" {
-  value = google_sql_user.databaseUser.password
+  value     = google_sql_user.databaseUser.password
   sensitive = true
 }

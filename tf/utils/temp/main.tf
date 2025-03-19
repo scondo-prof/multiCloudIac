@@ -1,97 +1,95 @@
 
-    module "NWEIPN" {
-  source = "../../gcp/cloudComputeNetwork/_NWEIPN_networkWithExternalIpNat"
-gcpProjectId = var.gcpProjectId
-gcpRegion = var.gcpRegion
-resourceName = var.resourceName
-NWEIPN_NWSAF_NetworkDescription = var.CSCRAPFG_NWEIPN_NWSAF_NetworkDescription
-NWEIPN_NWSAF_NetworkAutoCreateSubNetworks = var.CSCRAPFG_NWEIPN_NWSAF_NetworkAutoCreateSubNetworks
-NWEIPN_NWSAF_NetworkRoutingMode = var.CSCRAPFG_NWEIPN_NWSAF_NetworkRoutingMode
-NWEIPN_NWSAF_NetworkMaximumTransmissionUnitBytes = var.CSCRAPFG_NWEIPN_NWSAF_NetworkMaximumTransmissionUnitBytes
-NWEIPN_NWSAF_NetworkEnableUlaInternalIpv6 = var.CSCRAPFG_NWEIPN_NWSAF_NetworkEnableUlaInternalIpv6
-NWEIPN_NWSAF_NetworkInternalIpv6Range = var.CSCRAPFG_NWEIPN_NWSAF_NetworkInternalIpv6Range
-NWEIPN_NWSAF_NetworkFirewallPolicyEnforcementOrder = var.CSCRAPFG_NWEIPN_NWSAF_NetworkFirewallPolicyEnforcementOrder
-NWEIPN_NWSAF_NetworkDeleteDefaultRoutesOnCreate = var.CSCRAPFG_NWEIPN_NWSAF_NetworkDeleteDefaultRoutesOnCreate
-NWEIPN_NWSAF_SubnetworkNetwork = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkNetwork
-NWEIPN_NWSAF_SubnetworkDescription = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkDescription
-NWEIPN_NWSAF_SubnetworkIpCidrRange = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkIpCidrRange
-NWEIPN_NWSAF_SubnetworkReservedInternalRange = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkReservedInternalRange
-NWEIPN_NWSAF_SubnetworkPurpose = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkPurpose
-NWEIPN_NWSAF_SubnetworkRole = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkRole
-NWEIPN_NWSAF_SubnetworkSecondaryIpRange = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkSecondaryIpRange
-NWEIPN_NWSAF_SubnetworkPrivateIpGoogleAccess = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkPrivateIpGoogleAccess
-NWEIPN_NWSAF_SubnetworkPrivateIpv6GoogleAccess = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkPrivateIpv6GoogleAccess
-NWEIPN_NWSAF_SubnetworkLogConfig = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkLogConfig
-NWEIPN_NWSAF_SubnetworkStackType = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkStackType
-NWEIPN_NWSAF_SubnetworkIpv6AccessType = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkIpv6AccessType
-NWEIPN_NWSAF_SubnetworkExternalIpv6Prefix = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkExternalIpv6Prefix
-NWEIPN_NWSAF_SubnetworkSendSecondaryIpRangeIfEmpty = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkSendSecondaryIpRangeIfEmpty
-NWEIPN_NWSAF_IngressFirewallNetwork = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallNetwork
-NWEIPN_NWSAF_IngressFirewallRulesAllow = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallRulesAllow
-NWEIPN_NWSAF_IngressFirewallDeny = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallDeny
-NWEIPN_NWSAF_IngressFirewallDescription = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallDescription
-NWEIPN_NWSAF_IngressFirewallDestinationRanges = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallDestinationRanges
-NWEIPN_NWSAF_IngressFirewallDirection = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallDirection
-NWEIPN_NWSAF_IngressFirewallDisabled = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallDisabled
-NWEIPN_NWSAF_IngressFirewallLogConfig = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallLogConfig
-NWEIPN_NWSAF_IngressFirewallPriority = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallPriority
-NWEIPN_NWSAF_IngressFirewallSourceRanges = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallSourceRanges
-NWEIPN_NWSAF_IngressFirewallSourceServiceAccounts = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallSourceServiceAccounts
-NWEIPN_NWSAF_IngressFirewallSourceTags = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallSourceTags
-NWEIPN_NWSAF_IngressFirewallTargetServiceAccounts = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallTargetServiceAccounts
-NWEIPN_NWSAF_IngressFirewallTargetTags = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallTargetTags
-NWEIPN_NWSAF_EgressFirewallNetwork = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallNetwork
-NWEIPN_NWSAF_EgressFirewallRulesAllow = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallRulesAllow
-NWEIPN_NWSAF_EgressFirewallDeny = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallDeny
-NWEIPN_NWSAF_EgressFirewallDescription = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallDescription
-NWEIPN_NWSAF_EgressFirewallDestinationRanges = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallDestinationRanges
-NWEIPN_NWSAF_EgressFirewallDirection = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallDirection
-NWEIPN_NWSAF_EgressFirewallDisabled = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallDisabled
-NWEIPN_NWSAF_EgressFirewallLogConfig = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallLogConfig
-NWEIPN_NWSAF_EgressFirewallPriority = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallPriority
-NWEIPN_NWSAF_EgressFirewallSourceRanges = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallSourceRanges
-NWEIPN_NWSAF_EgressFirewallSourceServiceAccounts = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallSourceServiceAccounts
-NWEIPN_NWSAF_EgressFirewallSourceTags = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallSourceTags
-NWEIPN_NWSAF_EgressFirewallTargetServiceAccounts = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallTargetServiceAccounts
-NWEIPN_NWSAF_EgressFirewallTargetTags = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallTargetTags
-deployedDate = var.deployedDate
-projectName = var.projectName
-createdBy = var.createdBy
-tfModule = var.tfModule
-additionalTags = var.additionalTags
-NWEIPN_NWEA_NetworkAddressAddress = var.CSCRAPFG_NWEIPN_NWEA_NetworkAddressAddress
-NWEIPN_NWEA_NetworkAddressType = var.CSCRAPFG_NWEIPN_NWEA_NetworkAddressType
-NWEIPN_NWEA_NetworkAddressNetworkTier = var.CSCRAPFG_NWEIPN_NWEA_NetworkAddressNetworkTier
-NWEIPN_NWEA_NetworkRouterNetwork = var.CSCRAPFG_NWEIPN_NWEA_NetworkRouterNetwork
-NWEIPN_NWEA_NetworkRouterDescription = var.CSCRAPFG_NWEIPN_NWEA_NetworkRouterDescription
-NWEIPN_NWEA_NetworkRouterBgp = var.CSCRAPFG_NWEIPN_NWEA_NetworkRouterBgp
-NWEIPN_NWEA_NetworkRouterEncryptedInterconnectRouter = var.CSCRAPFG_NWEIPN_NWEA_NetworkRouterEncryptedInterconnectRouter
-NWEIPN_NWEA_NatSourceSubnetworkIpRangesToNat = var.CSCRAPFG_NWEIPN_NWEA_NatSourceSubnetworkIpRangesToNat
-NWEIPN_NWEA_NatIpAllocateOption = var.CSCRAPFG_NWEIPN_NWEA_NatIpAllocateOption
-NWEIPN_NWEA_NatInitialNatIps = var.CSCRAPFG_NWEIPN_NWEA_NatInitialNatIps
-NWEIPN_NWEA_NatDrainNatIps = var.CSCRAPFG_NWEIPN_NWEA_NatDrainNatIps
-NWEIPN_NWEA_NatSubnetwork = var.CSCRAPFG_NWEIPN_NWEA_NatSubnetwork
-NWEIPN_NWEA_NatMinPortsPerVm = var.CSCRAPFG_NWEIPN_NWEA_NatMinPortsPerVm
-NWEIPN_NWEA_NatMaxPortsPerVm = var.CSCRAPFG_NWEIPN_NWEA_NatMaxPortsPerVm
-NWEIPN_NWEA_NatEnableDynamicPortAllocation = var.CSCRAPFG_NWEIPN_NWEA_NatEnableDynamicPortAllocation
-NWEIPN_NWEA_NatUdpIdleTimeoutSec = var.CSCRAPFG_NWEIPN_NWEA_NatUdpIdleTimeoutSec
-NWEIPN_NWEA_NatIcmpIdleTimeoutSec = var.CSCRAPFG_NWEIPN_NWEA_NatIcmpIdleTimeoutSec
-NWEIPN_NWEA_NatTcpEstablishedIdleTimeoutSec = var.CSCRAPFG_NWEIPN_NWEA_NatTcpEstablishedIdleTimeoutSec
-NWEIPN_NWEA_NatTcpTransitoryIdleTimeoutSec = var.CSCRAPFG_NWEIPN_NWEA_NatTcpTransitoryIdleTimeoutSec
-NWEIPN_NWEA_NatTcpTimeWaitTimeoutSec = var.CSCRAPFG_NWEIPN_NWEA_NatTcpTimeWaitTimeoutSec
-NWEIPN_NWEA_NatLogConfig = var.CSCRAPFG_NWEIPN_NWEA_NatLogConfig
-NWEIPN_NWEA_NatEndpointTypes = var.CSCRAPFG_NWEIPN_NWEA_NatEndpointTypes
-NWEIPN_NWEA_NatRules = var.CSCRAPFG_NWEIPN_NWEA_NatRules
-NWEIPN_NWEA_NatEnableEndpointIndependentMapping = var.CSCRAPFG_NWEIPN_NWEA_NatEnableEndpointIndependentMapping
-NWEIPN_NWEA_NatAutoNetworkTier = var.CSCRAPFG_NWEIPN_NWEA_NatAutoNetworkTier
-NWEIPN_VpcAccessConnectorNetwork = var.CSCRAPFG_NWEIPN_VpcAccessConnectorNetwork
-NWEIPN_VpcAccessConnectorIpCidrRange = var.CSCRAPFG_NWEIPN_VpcAccessConnectorIpCidrRange
-NWEIPN_VpcAccessConnectorMachineType = var.CSCRAPFG_NWEIPN_VpcAccessConnectorMachineType
-NWEIPN_VpcAccessConnectorMinThroughput = var.CSCRAPFG_NWEIPN_VpcAccessConnectorMinThroughput
-NWEIPN_VpcAccessConnectorMinInstances = var.CSCRAPFG_NWEIPN_VpcAccessConnectorMinInstances
-NWEIPN_VpcAccessConnectorMaxInstances = var.CSCRAPFG_NWEIPN_VpcAccessConnectorMaxInstances
-NWEIPN_VpcAccessConnectorMaxThroughput = var.CSCRAPFG_NWEIPN_VpcAccessConnectorMaxThroughput
-NWEIPN_VpcAccessConnectorSubnet = var.CSCRAPFG_NWEIPN_VpcAccessConnectorSubnet
+module "databaseInstance" {
+  source                               = "../genericCloudSqlDatabaseInstance"
+  gcpProjectId                         = var.gcpProjectId
+  gcpRegion                            = var.gcpRegion
+  databaseInstanceSettings             = var.CSDIU_DatabaseInstanceSettings
+  projectName                          = var.projectName
+  deployedDate                         = var.deployedDate
+  createdBy                            = var.createdBy
+  tfModule                             = var.tfModule
+  additionalTags                       = var.additionalTags
+  databaseInstanceDatabaseVersion      = var.CSDIU_DatabaseInstanceDatabaseVersion
+  databseInstanceName                  = var.databseInstanceName
+  databaseInstanceMaintenanceVersion   = var.CSDIU_DatabaseInstanceMaintenanceVersion
+  databaseInstanceMasterInstanceName   = var.CSDIU_DatabaseInstanceMasterInstanceName
+  databaseInstanceReplicaConfiguration = var.CSDIU_DatabaseInstanceReplicaConfiguration
+  databaseInstanceRootPassword         = var.CSDIU_DatabaseInstanceRootPassword
+  databaseInstanceEncryptionKeyName    = var.CSDIU_DatabaseInstanceEncryptionKeyName
+  databaseInstanceDeletionProtection   = var.CSDIU_DatabaseInstanceDeletionProtection
+  databaseInstanceRestoreBackupContext = var.CSDIU_DatabaseInstanceRestoreBackupContext
+  databaseInstanceClone                = var.CSDIU_DatabaseInstanceClone
+}
+
+#---
+
+module "database" {
+  source                 = "../genericCloudSqlDatabase"
+  gcpProjectId           = var.gcpProjectId
+  gcpRegion              = var.gcpRegion
+  resourceName           = var.resourceName
+  databaseInstance       = var.CSDIU_DatabaseInstance
+  databaseCharset        = var.CSDIU_DatabaseCharset
+  databaseCollation      = var.CSDIU_DatabaseCollation
+  databaseDeletionPolicy = var.CSDIU_DatabaseDeletionPolicy
+}
+
+#---
+
+module "databaseUser" {
+  source                     = "../genericCloudSqlDatabaseUser"
+  gcpProjectId               = var.gcpProjectId
+  gcpRegion                  = var.gcpRegion
+  databaseUserInstance       = var.CSDIU_DatabaseUserInstance
+  resourceName               = var.resourceName
+  databaseUserPassword       = var.CSDIU_DatabaseUserPassword
+  databaseUserType           = var.CSDIU_DatabaseUserType
+  databaseUserDeletionPolicy = var.CSDIU_DatabaseUserDeletionPolicy
+  databaseUserHost           = var.CSDIU_DatabaseUserHost
+  databaseUserPasswordPolicy = var.CSDIU_DatabaseUserPasswordPolicy
+}
+
+#---
+
+module "secret" {
+  source                       = "../../secretsManager/genericSecret"
+  gcpProjectId                 = var.gcpProjectId
+  gcpRegion                    = var.gcpRegion
+  secretReplicationAuto        = var.CSDIU_SecretReplicationAuto
+  secretReplicationUserManaged = var.CSDIU_SecretReplicationUserManaged
+  resourceName                 = var.resourceName
+  projectName                  = var.projectName
+  deployedDate                 = var.deployedDate
+  createdBy                    = var.createdBy
+  tfModule                     = var.tfModule
+  additionalTags               = var.additionalTags
+  secretAnnotations            = var.CSDIU_SecretAnnotations
+  secretVersionAliases         = var.CSDIU_SecretVersionAliases
+  secretVersionDestroyTtl      = var.CSDIU_SecretVersionDestroyTtl
+  secretTopics                 = var.CSDIU_SecretTopics
+  secretExpireTime             = var.CSDIU_SecretExpireTime
+  secretTtl                    = var.CSDIU_SecretTtl
+  secretRotation               = var.CSDIU_SecretRotation
+}
+
+#---
+
+module "secretVersion" {
+  source               = "../../secretsManager/genericSecretVersion"
+  gcpProjectId         = var.gcpProjectId
+  gcpRegion            = var.gcpRegion
+  secretVersionObjects = concat([{
+    secret_data = module.databaseUser.databaseUserName
+  },
+  {
+    secret_data = module.databaseUser.databaseUserPassword
+  },
+  {
+    secret_data = module.database.databaseName
+  },
+  ], var.CSDIU_SecretVersionObjects)
+  
+  secretVersionSecret  = module.secret.secretName
 }
 
 #---
