@@ -1,5 +1,5 @@
 variable "gcpProjectId" {
-  type = string
+  type    = string
   default = "p3-prod-aa94d"
 }
 
@@ -30,14 +30,14 @@ variable "tfModule" {
 }
 
 variable "additionalTags" {
-  type = map(string)
+  type    = map(string)
   default = {}
 }
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret#argument-reference
 
 variable "secretReplicationAuto" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret#nested_replication_auto
+  type = object({                                   #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret#nested_replication_auto
     customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret#nested_replication_auto_customer_managed_encryption
       kms_key_name = string
     }), null)
@@ -47,7 +47,7 @@ variable "secretReplicationAuto" {
 }
 
 variable "secretReplicationUserManaged" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret#replicas-1
+  type = object({       #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret#replicas-1
     replicas = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret#location-2
       location = string
       customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret#nested_replication_user_managed_replicas_replicas_customer_managed_encryption
@@ -59,17 +59,17 @@ variable "secretReplicationUserManaged" {
 }
 
 variable "secretAnnotations" {
-  type = map(string)
+  type    = map(string)
   default = null
 }
 
 variable "secretVersionAliases" {
-  type = map(string)
+  type    = map(string)
   default = null
 }
 
 variable "secretVersionDestroyTtl" {
-  type = number
+  type    = number
   default = null
 }
 
@@ -81,19 +81,19 @@ variable "secretTopics" {
 }
 
 variable "secretExpireTime" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "secretTtl" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "secretRotation" {
   type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret#nested_rotation
     next_rotation_time = optional(string, null)
-    rotation_period = optional(string, null)
+    rotation_period    = optional(string, null)
   })
   default = null
 }

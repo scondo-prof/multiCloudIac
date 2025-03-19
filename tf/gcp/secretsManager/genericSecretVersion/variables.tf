@@ -11,11 +11,12 @@ variable "gcpRegion" {
 
 variable "secretVersionObjects" {
   type = list(object({
-    enabled = optional(bool, null)
-    secret_data = sensitive(string)
-    deletion_policy = optional(string, null)
+    enabled               = optional(bool, null)
+    secret_data           = string
+    deletion_policy       = optional(string, null)
     is_secret_data_base64 = optional(bool, null)
   }))
+  sensitive = true
 }
 
 variable "secretVersionSecret" {

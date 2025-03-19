@@ -1,5 +1,5 @@
 variable "projectId" {
-  type = string
+  type    = string
   default = "p3-prod-aa94d"
 }
 
