@@ -17,16 +17,30 @@ resource "google_secret_manager_secret" "secret" {
   replication {
     
     dynamic "auto" {
-      for_each = var.secret != null ? [var.secret]: []
+      for_each = var.secretReplicationAuto != null ? [var.secretReplicationAuto]: []
       content {
-        
+        dynamic "customer_managed_encryption" {
+          for_each = auto.value["customer_managed_encryption"] != null ? [auto.value["customer_managed_encryption"]]: []
+          content {
+            kms_key_name = customer_managed_encryption.value["kms_key_name"]
+          }
+        }
       }
     }
 
     dynamic "user_managed" {
-      for_each = var.secret != null ? [var.secret]: []
+      for_each = var.secretReplicationUserManaged != null ? [var.secretReplicationUserManaged]: []
       content {
-        
+        replicas {
+          location = replicas.value["location"]
+
+          dynamic "customer_managed_encryption" {
+            for_each = replicas.value["customer_managed_encryption"] != null ? [replicas.value["customer_managed_encryption"]]: []
+            content {
+              kms_key_name = customer_managed_encryption.value["kms_key_name"]
+            }
+          }
+        }
       }
     }
   }
