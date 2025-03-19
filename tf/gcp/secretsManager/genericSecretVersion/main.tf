@@ -8,13 +8,15 @@ terraform {
 }
 
 provider "google" {
-  project = var.projectId
+  project = var.gcpProjectId
   region  = var.gcpRegion
 }
 
 resource "google_secret_manager_secret_version" "secretVersion" {
-  secret_data     = var.secretVersionSecretData
-  secret          = var.secretVersionSecret
-  enabled         = var.secretVersionEnabled
-  deletion_policy = var.secretVersionDeletionPolicy
+  count = length(var.secretVersionObjects)
+  secret = var.secretVersionSecret
+  enabled = var.secretVersionObjects[count.index]["enabled"]
+  secret_data = var.secretVersionObjects[count.index]["secret_data"]
+  deletion_policy = var.secretVersionObjects[count.index]["deletion_policy"]
+  is_secret_data_base64 = var.secretVersionObjects[count.index]["is_secret_data_base64"]
 }

@@ -1,4 +1,4 @@
-variable "projectId" {
+variable "gcpProjectId" {
   type = string
 }
 
@@ -7,24 +7,17 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
-variable "secretVersionSecretData" {
-  type = string
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret_version#argument-reference
+
+variable "secretVersionObjects" {
+  type = list(object({
+    enabled = optional(bool, null)
+    secret_data = sensitive(string)
+    deletion_policy = optional(string, null)
+    is_secret_data_base64 = optional(bool, null)
+  }))
 }
 
 variable "secretVersionSecret" {
   type = string
-}
-
-variable "secretVersionEnabled" {
-  type    = bool
-  default = true
-}
-
-variable "secretVersionDeletionPolicy" {
-  type = string
-  validation {
-    condition     = contains(["ABANDON", "DISABLE", "DELETE"], var.secretVersionDeletionPolicy)
-    error_message = "The only valid options for secretVersionDeletionPolicy are ABANDON, DISABLE, DELETE."
-  }
-  default = "DELETE"
 }
