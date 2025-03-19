@@ -19,25 +19,25 @@ variable "resourceName" {
 # https://registry.terraform.io/providers/PrefectHQ/prefect/latest/docs/resources/service_account#schema
 
 variable "serviceAccountId" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "serviceAccountRoleName" {
   type = string
   validation {
-    condition = contains(["Admin", "Member", "Owner"], var.serviceAccountRoleName)
+    condition     = contains(["Admin", "Member", "Owner"], var.serviceAccountRoleName)
     error_message = "Ensure Variable serviceAccountRoleName is one of the following values: Admin, Member, Owner"
   }
   default = null
 }
 
 variable "serviceAccountApiKeyExpiration" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "serviceAccountOldKeyExpiresInSeconds" {
-  type = number
+  type    = number
   default = null
 }

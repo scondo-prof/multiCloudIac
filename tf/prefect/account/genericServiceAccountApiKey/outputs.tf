@@ -3,7 +3,7 @@ output "serviceAccountActorId" {
 }
 
 output "serviceAccountApiKey" {
-  value = prefect_service_account.serviceAccount.api_key
+  value     = prefect_service_account.serviceAccount.api_key
   sensitive = true
 }
 

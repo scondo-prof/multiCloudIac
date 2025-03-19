@@ -13,7 +13,9 @@ provider "prefect" {
 }
 
 resource "prefect_block" "prefectBlock" {
-  data      = jsonencode(var.prefectBlockData)
-  name      = "${var.resourceName}-prefect-block"
-  type_slug = var.prefectBlockTypeSlug
+  data         = file(var.prefectBlockData)
+  name         = "${var.resourceName}-prefect-block"
+  type_slug    = var.prefectBlockTypeSlug
+  account_id   = var.prefectAccountId
+  workspace_id = var.prefectWorkspaceId
 }
