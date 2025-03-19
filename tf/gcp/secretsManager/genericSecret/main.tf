@@ -54,24 +54,25 @@ resource "google_secret_manager_secret" "secret" {
     tf-module     = var.tfModule
   }, var.additionalTags)
 
-  annotations = var.secret
-  version_aliases = var.secret
-  version_destroy_ttl = var.secret
+  annotations = var.secretAnnotations
+  version_aliases = var.secretVersionAliases
+  version_destroy_ttl = var.secretVersionDestroyTtl
 
   dynamic "topics" {
-    for_each = var.secret != null ? [var.secret]: []
+    for_each = var.secretTopics != null ? [var.secretTopics]: []
       content {
-        
+        name = topics.value["name"]
       }
   }
 
-  expire_time = var.secret
-  ttl = var.secret
+  expire_time = var.secretExpireTime
+  ttl = var.secretTtl
 
   dynamic "rotation" {
-    for_each = var.secret != null ? [var.secret]: []
+    for_each = var.secretRotation != null ? [var.secretRotation]: []
       content {
-        
+        next_rotation_time = rotation.value["next_rotation_time"]
+        rotation_period = rotation.value["rotation_period"]
       }
   }
 

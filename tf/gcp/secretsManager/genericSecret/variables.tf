@@ -1,5 +1,6 @@
-variable "projectId" {
+variable "gcpProjectId" {
   type = string
+  default = "p3-prod-aa94d"
 }
 
 variable "gcpRegion" {
@@ -55,4 +56,44 @@ variable "secretReplicationUserManaged" {
 
     })
   })
+}
+
+variable "secretAnnotations" {
+  type = map(string)
+  default = null
+}
+
+variable "secretVersionAliases" {
+  type = map(string)
+  default = null
+}
+
+variable "secretVersionDestroyTtl" {
+  type = number
+  default = null
+}
+
+variable "secretTopics" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret#nested_topics
+    name = string
+  })
+  default = null
+}
+
+variable "secretExpireTime" {
+  type = string
+  default = null
+}
+
+variable "secretTtl" {
+  type = string
+  default = null
+}
+
+variable "secretRotation" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret#nested_rotation
+    next_rotation_time = optional(string, null)
+    rotation_period = optional(string, null)
+  })
+  default = null
 }
