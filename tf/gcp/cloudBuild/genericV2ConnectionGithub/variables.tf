@@ -1,4 +1,4 @@
-variable "projectId" {
+variable "gcpProjectId" {
   type = string
 }
 

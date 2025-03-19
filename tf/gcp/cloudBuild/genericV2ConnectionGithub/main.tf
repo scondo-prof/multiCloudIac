@@ -1,5 +1,5 @@
 provider "google" {
-  project = var.projectId
+  project = var.gcpProjectId
   region  = var.gcpRegion
 }
 
@@ -14,5 +14,5 @@ resource "google_cloudbuildv2_connection" "connection" {
     }
   }
   disabled = var.connectionDisabled
-  project  = var.projectId
+  project  = var.gcpProjectId
 }
