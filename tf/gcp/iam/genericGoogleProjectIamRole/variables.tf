@@ -7,13 +7,13 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_iam_custom_role#argument-reference
-
-variable "roleId" {
+variable "resourceName" {
   type = string
 }
 
-variable "resourceName" {
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_iam_custom_role#argument-reference
+
+variable "roleId" {
   type = string
 }
 
@@ -25,19 +25,19 @@ variable "roleStage" {
   type = string
   validation {
     condition = var.roleStage == null || can(contains([
-    "ALPHA",
-    "BETA",
-    "GA",
-    "DEPRECATED",
-    "DISABLED",
-    "EAP"
-], var.roleStage))
+      "ALPHA",
+      "BETA",
+      "GA",
+      "DEPRECATED",
+      "DISABLED",
+      "EAP"
+    ], var.roleStage))
     error_message = "Valid inputs for | variable: var.roleStage | are: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
   }
   default = null
 }
 
 variable "roleDescription" {
-  type = string
+  type    = string
   default = null
 }

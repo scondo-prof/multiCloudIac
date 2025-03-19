@@ -9,23 +9,33 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../gcp/secretsManager/genericSecret",
-            "source_path": "../genericSecret",
-            "destination_path": "../gcp/secretsManager/_SWSV_secretWithSecretVersion",
+            "project_path": "../gcp/iam/genericServiceAccount",
+            "source_path": "../genericServiceAccount",
+            "destination_path": "./temp",
         },
-        "previous_variable_prefix": "secret",
-        "new_variable_prefix": "SWSV_Secret",
-        "module_name": "Secret",
+        "previous_variable_prefix": "serviceAccount",
+        "new_variable_prefix": "serviceAccount",
+        "module_name": "serviceAccount",
     },
     {
         "paths": {
-            "project_path": "../gcp/secretsManager/genericSecretVersion",
-            "source_path": "../genericSecretVersion",
-            "destination_path": "../gcp/secretsManager/_SWSV_secretWithSecretVersion",
+            "project_path": "../gcp/iam/genericGoogleProjectIamRole",
+            "source_path": "../genericGoogleProjectIamRole",
+            "destination_path": "./temp",
         },
-        "previous_variable_prefix": "secretVersion",
-        "new_variable_prefix": "SWSV_SecretVersion",
-        "module_name": "SecretVersion",
+        "previous_variable_prefix": "role",
+        "new_variable_prefix": "role",
+        "module_name": "role",
+    },
+    {
+        "paths": {
+            "project_path": "../gcp/iam/genericProjectIamBinding",
+            "source_path": "../genericProjectIamBinding",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "iamBinding",
+        "new_variable_prefix": "iamBinding",
+        "module_name": "iamBinding",
     },
 ]
 

@@ -23,7 +23,7 @@ variable "serviceAccountDisabled" {
 }
 
 variable "serviceAccountDescription" {
-  type = string
+  type    = string
   default = null
 }
 
