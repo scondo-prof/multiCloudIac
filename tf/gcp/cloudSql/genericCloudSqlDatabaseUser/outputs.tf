@@ -1,8 +1,8 @@
-output "name" {
+output "databaseUserName" {
   value = google_sql_user.databaseUser.name
 }
 
-output "password" {
+output "databaseUserPassword" {
   value = google_sql_user.databaseUser.password
   sensitive = true
 }
