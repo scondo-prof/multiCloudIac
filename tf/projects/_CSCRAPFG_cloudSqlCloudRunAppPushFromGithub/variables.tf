@@ -675,36 +675,425 @@ variable "CSCRAPFG_NWEIPN_VpcAccessConnectorSubnet" {
 
 
 #---
+variable "gcpProjectId" {
+  type = string
+}
 
+variable "gcpRegion" {
+  type    = string
+  default = "us-east1"
+}
 
-variable "CSCRAPFG_DatabaseInstanceDatabaseVersion" {
+variable "resourceName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "projectName" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = null
+}
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#argument-reference
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceSettings" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#tier-1
+    tier                         = string
+    edition                      = optional(string, null)
+    activation_policy            = optional(string, null)
+    availability_type            = optional(string, null)
+    collation                    = optional(string, null)
+    connector_enforcement        = optional(string, null)
+    deletion_protection_enabled  = optional(bool, null)
+    enable_google_ml_integration = optional(bool, null)
+    enable_dataplex_integration  = optional(bool, null)
+    disk_autoresize              = optional(bool, null)
+    disk_autoresize_limit        = optional(number, null)
+    disk_size                    = optional(number, null)
+    pricing_plan                 = optional(string, null)
+    time_zone                    = optional(string, null)
+
+    advanced_machine_features = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#threads_per_core-1
+      threads_per_core = optional(number, null)
+    }), null)
+
+    database_flags = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#name-9
+      name  = string
+      value = string
+    }), null)
+
+    active_directory_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#domain-1
+      domain = string
+    }), null)
+
+    data_cache_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#data_cache_enabled-1
+      data_cache_enabled = optional(bool, null)
+    }), null)
+
+    deny_maintenance_period = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#end_date-1
+      end_date   = string
+      start_date = string
+      time       = string
+    }), null)
+
+    sql_server_audit_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#bucket-1
+      bucket             = optional(string, null)
+      upload_interval    = optional(string, null)
+      retention_interval = optional(string, null)
+    }), null)
+
+    backup_configuration = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#binary_log_enabled-1
+      binary_log_enabled             = optional(bool, null)
+      enabled                        = optional(bool, null)
+      start_time                     = optional(string, null)
+      point_in_time_recovery_enabled = optional(string, null)
+      location                       = optional(string, null)
+      transaction_log_retention_days = optional(number, null)
+
+      backup_configuration = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#retained_backups-1
+        retained_backups = optional(number, null)
+        retention_unit   = optional(string, null)
+      }), null)
+    }), null)
+
+    ip_configuration = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#ipv4_enabled-1
+      ipv4_enabled                                  = optional(bool, null)
+      private_network                               = optional(string, null)
+      ssl_mode                                      = optional(string, null)
+      server_ca_mode                                = optional(string, null)
+      allocated_ip_range                            = optional(string, null)
+      enable_private_path_for_google_cloud_services = optional(bool, null)
+
+      authorized_networks = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#expiration_time-1
+        expiration_time = optional(string, null)
+        name            = optional(string, null)
+        value           = string
+      }), null)
+
+      psc_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#psc_enabled-1
+        psc_enabled               = optional(bool, null)
+        allowed_consumer_projects = optional(list(string), null)
+      }), null)
+    }), null)
+
+    location_preference = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#follow_gae_application-1
+      follow_gae_application = optional(string, null)
+      zone                   = optional(string, null)
+      secondary_zone         = optional(string, null)
+    }), null)
+
+    maintenance_window = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#day-1
+      day          = optional(number, null)
+      hour         = optional(number, null)
+      update_track = optional(string, null)
+    }), null)
+
+    insights_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#query_insights_enabled-1
+      query_insights_enabled  = optional(bool, null)
+      query_string_length     = optional(number, null)
+      record_application_tags = optional(bool, null)
+      record_client_address   = optional(bool, null)
+      query_plans_per_minute  = optional(number, null)
+    }), null)
+
+    password_validation_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#min_length-1
+      min_length                  = optional(number, null)
+      complexity                  = optional(bool, null)
+      reuse_interval              = optional(number, null)
+      disallow_username_substring = optional(bool, null)
+      password_change_interval    = optional(number, null)
+      enable_password_policy      = optional(bool, null)
+    }), null)
+  })
+
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceDatabaseVersion" {
   type = string
   validation {
-    condition     = contains(["MYSQL_5_6", "MYSQL_5_7", "MYSQL_8_0", "POSTGRES_9_6", "POSTGRES_10", "POSTGRES_11", "POSTGRES_12", "POSTGRES_13", "POSTGRES_14", "POSTGRES_15", "SQLSERVER_2017_STANDARD", "SQLSERVER_2017_ENTERPRISE", "SQLSERVER_2017_EXPRESS", "SQLSERVER_2017_WEB", "SQLSERVER_2019_STANDARD", "SQLSERVER_2019_ENTERPRISE", "SQLSERVER_2019_EXPRESS", "SQLSERVER_2019_WEB"], var.CSCRAPFG_DatabaseInstanceDatabaseVersion)
-    error_message = "The only valid options for CSCRAPFG_DatabaseInstanceDatabaseVersion are MYSQL_5_6, MYSQL_5_7, MYSQL_8_0, POSTGRES_9_6,POSTGRES_10, POSTGRES_11, POSTGRES_12, POSTGRES_13, POSTGRES_14, POSTGRES_15, SQLSERVER_2017_STANDARD, SQLSERVER_2017_ENTERPRISE, SQLSERVER_2017_EXPRESS, SQLSERVER_2017_WEB. SQLSERVER_2019_STANDARD, SQLSERVER_2019_ENTERPRISE, SQLSERVER_2019_EXPRESS, SQLSERVER_2019_WEB."
+    condition = contains([
+      "MYSQL_5_6",
+      "MYSQL_5_7",
+      "MYSQL_8_0",
+      "MYSQL_8_4",
+      "POSTGRES_9_6",
+      "POSTGRES_10",
+      "POSTGRES_11",
+      "POSTGRES_12",
+      "POSTGRES_13",
+      "POSTGRES_14",
+      "POSTGRES_15",
+      "POSTGRES_16",
+      "POSTGRES_17",
+      "SQLSERVER_2017_STANDARD",
+      "SQLSERVER_2017_ENTERPRISE",
+      "SQLSERVER_2017_EXPRESS",
+      "SQLSERVER_2017_WEB. SQLSERVER_2019_STANDARD",
+      "SQLSERVER_2019_ENTERPRISE",
+      "SQLSERVER_2019_EXPRESS",
+      "SQLSERVER_2019_WEB"
+    ], var.CSCRAPFG_CSDIU_DatabaseInstanceDatabaseVersion)
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_CSDIU_DatabaseInstanceDatabaseVersion | are: MYSQL_5_6, MYSQL_5_7, MYSQL_8_0, MYSQL_8_4, POSTGRES_9_6,POSTGRES_10, POSTGRES_11, POSTGRES_12, POSTGRES_13, POSTGRES_14, POSTGRES_15, POSTGRES_16, POSTGRES_17, SQLSERVER_2017_STANDARD, SQLSERVER_2017_ENTERPRISE, SQLSERVER_2017_EXPRESS, SQLSERVER_2017_WEB. SQLSERVER_2019_STANDARD, SQLSERVER_2019_ENTERPRISE, SQLSERVER_2019_EXPRESS, SQLSERVER_2019_WEB"
   }
 }
 
-variable "CSCRAPFG_DatabaseInstanceRootPassword" {
-  type = string
+variable "databseInstanceName" {
+  type    = string
+  default = null
 }
 
-variable "CSCRAPFG_DatabaseInstanceDeletionProtection" {
+variable "CSCRAPFG_CSDIU_DatabaseInstanceMaintenanceVersion" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceMasterInstanceName" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceReplicaConfiguration" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#ca_certificate-1
+    ca_certificate            = optional(string, null)
+    client_certificate        = optional(string, null)
+    client_key                = optional(string, null)
+    connect_retry_interval    = optional(number, null)
+    dump_file_path            = optional(string, null)
+    failover_target           = optional(string, null)
+    master_heartbeat_period   = optional(number, null)
+    password                  = optional(string, null)
+    ssl_cipher                = optional(string, null)
+    username                  = optional(string, null)
+    verify_server_certificate = optional(bool, null)
+  })
+
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceRootPassword" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceEncryptionKeyName" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceDeletionProtection" {
   type    = bool
-  default = false
+  default = null
 }
 
-variable "CSCRAPFG_DatabaseInstanceTier" {
-  type = string
+variable "CSCRAPFG_CSDIU_DatabaseInstanceRestoreBackupContext" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#backup_run_id-1
+    backup_run_id = string
+    instance_id   = optional(string, null)
+    project       = optional(string, null)
+  })
+  default = null
 }
 
-variable "CSCRAPFG_DatabaseInstanceEdition" {
+variable "CSCRAPFG_CSDIU_DatabaseInstanceClone" {
+  type = object({
+    source_instance_name = string
+    point_in_time        = optional(string, null)
+    preferred_zone       = optional(string, null)
+    database_names       = optional(list(string), null)
+    allocated_ip_range   = optional(string, null)
+  })
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_CSCRAPFG_CSDIU_Database#argument-reference
+
+variable "CSCRAPFG_CSDIU_DatabaseCharset" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseCollation" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseDeletionPolicy" {
   type = string
   validation {
-    condition     = contains(["ENTERPRISE", "ENTERPRISE_PLUS"], var.CSCRAPFG_DatabaseInstanceEdition)
-    error_message = "The only valid options for CSCRAPFG_DatabaseInstanceEdition are ENTERPRISE, ENTERPRISE_PLUS."
+    condition = var.CSCRAPFG_CSDIU_DatabaseDeletionPolicy == null || can(contains([
+      "ABANDON",
+      "DELETE"
+    ], var.CSCRAPFG_CSDIU_DatabaseDeletionPolicy))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_CSDIU_DatabaseDeletionPolicy | are: ABANDON, DELETE"
   }
-  default = "ENTERPRISE"
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_user#argument-reference
+
+variable "CSCRAPFG_CSDIU_DatabaseUserPassword" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseUserType" {
+  type = string
+  validation {
+    condition = var.CSCRAPFG_CSDIU_DatabaseUserType == null || can(contains([
+      "BUILT_IN",
+      "CLOUD_IAM_USER",
+      "CLOUD_IAM_SERVICE_ACCOUNT",
+      "CLOUD_IAM_GROUP",
+      "CLOUD_IAM_GROUP_USER",
+      "CLOUD_IAM_GROUP_SERVICE_ACCOUNT"
+    ], var.CSCRAPFG_CSDIU_DatabaseUserType))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_CSDIU_DatabaseUserType | are: BUILT_IN, CLOUD_IAM_USER, CLOUD_IAM_SERVICE_ACCOUNT, CLOUD_IAM_GROUP, CLOUD_IAM_GROUP_USER, CLOUD_IAM_GROUP_SERVICE_ACCOUNT"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseUserDeletionPolicy" {
+  type = string
+  validation {
+    condition = var.CSCRAPFG_CSDIU_DatabaseUserDeletionPolicy == null || can(contains([
+      "ABANDON"
+    ], var.CSCRAPFG_CSDIU_DatabaseUserDeletionPolicy))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_CSDIU_DatabaseUserDeletionPolicy | are: ABANDON"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseUserHost" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseUserPasswordPolicy" {
+  type = object({
+    allowed_failed_attempts      = optional(number, null)
+    password_expiration_duration = optional(number, null)
+    enable_failed_attempts_check = optional(bool, null)
+    enable_password_verification = optional(bool, null)
+  })
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#argument-reference
+
+variable "CSCRAPFG_CSDIU_SecretReplicationAuto" {
+  type = object({                                   #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#nested_replication_auto
+    customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#nested_replication_auto_customer_managed_encryption
+      kms_key_name = string
+    }), null)
+  })
+
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretReplicationUserManaged" {
+  type = object({       #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#replicas-1
+    replicas = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#location-2
+      location = string
+      customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#nested_replication_user_managed_replicas_replicas_customer_managed_encryption
+        kms_key_name = string
+      }), null)
+
+    })
+  })
+}
+
+variable "CSCRAPFG_CSDIU_SecretAnnotations" {
+  type    = map(string)
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretVersionAliases" {
+  type    = map(string)
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretVersionDestroyTtl" {
+  type    = number
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretTopics" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#nested_topics
+    name = string
+  })
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretExpireTime" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretTtl" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretRotation" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#nested_rotation
+    next_rotation_time = optional(string, null)
+    rotation_period    = optional(string, null)
+  })
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret_version#argument-reference
+
+variable "CSCRAPFG_CSDIU_SecretVersionObjects" {
+  type = list(object({
+    enabled               = optional(bool, null)
+    secret_data           = sensitive(string)
+    deletion_policy       = optional(string, null)
+    is_secret_data_base64 = optional(bool, null)
+  }))
+  default = []
+}
+
+
+
+#---
+variable "gcpProjectId" {
+  type    = string
+  default = "p3-prod-aa94d"
+}
+
+variable "gcpRegion" {
+  type    = string
+  default = "us-east1"
+}
+
+variable "resourceName" {
+  type = string
 }
 
 variable "projectName" {
@@ -720,139 +1109,6 @@ variable "createdBy" {
   default = "scott-condo"
 }
 
-variable "CSCRAPFG_DatabaseInstanceActivationPolicy" {
-  type = string
-  validation {
-    condition     = contains(["ALWAYS", "NEVER", "ON_DEMAND"], var.CSCRAPFG_DatabaseInstanceActivationPolicy)
-    error_message = "The only valid options for CSCRAPFG_DatabaseInstanceActivationPolicy are ALWAYS, NEVER or ON_DEMAND."
-  }
-  default = "ALWAYS"
-}
-
-variable "CSCRAPFG_DatabaseInstanceAvailabilityType" {
-  type = string
-  validation {
-    condition     = contains(["REGIONAL", "ZONAL"], var.CSCRAPFG_DatabaseInstanceAvailabilityType)
-    error_message = "The only valid options for CSCRAPFG_DatabaseInstanceAvailabilityType are REGIONAL, ZONAL."
-  }
-  default = "ZONAL"
-}
-
-variable "CSCRAPFG_DatabaseInstanceCollation" {
-  type    = string
-  default = null
-}
-
-variable "CSCRAPFG_DatabaseInstanceDiskAutoresize" {
-  type    = bool
-  default = true
-}
-
-variable "CSCRAPFG_DatabaseInstanceDiskAutoresizeLimit" {
-  type    = number
-  default = 0
-}
-
-variable "CSCRAPFG_DatabaseInstanceDiskSize" {
-  type    = number
-  default = 10
-}
-
-variable "CSCRAPFG_DatabaseInstanceDiskType" {
-  type = string
-  validation {
-    condition     = contains(["PD_SSD", "PD_HDD"], var.CSCRAPFG_DatabaseInstanceDiskType)
-    error_message = "The only valid options for CSCRAPFG_DatabaseInstanceDiskType are REGIONAL, ZONAL."
-  }
-  default = "PD_SSD"
-}
-
-variable "CSCRAPFG_DatabaseInstanceAuthorizedNetworkIpRange" {
-  type = string
-}
-
-variable "CSCRAPFG_DatabaseDeletionPolicy" {
-  type = string
-  validation {
-    condition     = contains(["ABANDON", "DELETE"], var.CSCRAPFG_DatabaseDeletionPolicy)
-    error_message = "The only valid options for CSCRAPFG_DatabaseDeletionPolicy are 'ABANDON', 'DELETE'."
-  }
-}
-
-variable "CSCRAPFG_DatabaseUserPassword" {
-  type = string
-}
-
-variable "CSCRAPFG_DatabaseUserType" {
-  type    = string
-  default = "BUILT-IN"
-}
-
-variable "CSCRAPFG_DatabaseUserDeletionPolicy" {
-  type = string
-  validation {
-    condition     = contains(["ABANDON"], var.CSCRAPFG_DatabaseUserDeletionPolicy)
-    error_message = "Variable CSCRAPFG_DatabaseUserDeletionPolicy must be the value ABANDON or null"
-  }
-  default = "ABANDON"
-}
-
-variable "CSCRAPFG_DatabasePublicIpSecretVersionEnabled" {
-  type    = bool
-  default = true
-}
-
-variable "CSCRAPFG_DatabasePublicIpSecretVersionDeletionPolicy" {
-  type = string
-  validation {
-    condition     = contains(["ABANDON", "DISABLE", "DELETE"], var.CSCRAPFG_DatabasePublicIpSecretVersionDeletionPolicy)
-    error_message = "The only valid options for CSCRAPFG_DatabasePublicIpSecretVersionDeletionPolicy are ABANDON, DISABLE, DELETE."
-  }
-  default = "DELETE"
-}
-
-variable "CSCRAPFG_DatabaseUserNameSecretVersionEnabled" {
-  type    = bool
-  default = true
-}
-
-variable "CSCRAPFG_DatabaseUserNameSecretVersionDeletionPolicy" {
-  type = string
-  validation {
-    condition     = contains(["ABANDON", "DISABLE", "DELETE"], var.CSCRAPFG_DatabaseUserNameSecretVersionDeletionPolicy)
-    error_message = "The only valid options for CSCRAPFG_DatabaseUserNameSecretVersionDeletionPolicy are ABANDON, DISABLE, DELETE."
-  }
-  default = "DELETE"
-}
-
-variable "CSCRAPFG_DatabaseUserPasswordSecretVersionEnabled" {
-  type    = bool
-  default = true
-}
-
-variable "CSCRAPFG_DatabaseUserPasswordSecretVersionDeletionPolicy" {
-  type = string
-  validation {
-    condition     = contains(["ABANDON", "DISABLE", "DELETE"], var.CSCRAPFG_DatabaseUserPasswordSecretVersionDeletionPolicy)
-    error_message = "The only valid options for CSCRAPFG_DatabaseUserPasswordSecretVersionDeletionPolicy are ABANDON, DISABLE, DELETE."
-  }
-  default = "DELETE"
-}
-
-variable "CSCRAPFG_DatabaseNameSecretVersionEnabled" {
-  type    = bool
-  default = true
-}
-
-variable "CSCRAPFG_DatabaseNameSecretVersionDeletionPolicy" {
-  type = string
-  validation {
-    condition     = contains(["ABANDON", "DISABLE", "DELETE"], var.CSCRAPFG_DatabaseNameSecretVersionDeletionPolicy)
-    error_message = "The only valid options for CSCRAPFG_DatabaseNameSecretVersionDeletionPolicy are ABANDON, DISABLE, DELETE."
-  }
-  default = "DELETE"
-}
-
 variable "CSCRAPFG_CRDPFG_SecretVersionSecretData" {
   type = string
 }
@@ -866,156 +1122,203 @@ variable "CSCRAPFG_CRDPFG_SecretVersionDeletionPolicy" {
   type = string
   validation {
     condition     = contains(["ABANDON", "DISABLE", "DELETE"], var.CSCRAPFG_CRDPFG_SecretVersionDeletionPolicy)
-    error_message = "The only valid options for CSCRAPFG_CRDPFG_SecretDeletionPolicy are ABANDON, DISABLE, DELETE."
+    error_message = "The only valid options for CSCRAPFG_CRDPFG_SecretVersionDeletionPolicy are ABANDON, DISABLE, DELETE."
   }
   default = "DELETE"
 }
 
-variable "CSCRAPFG__CloudBuildTriggerServiceAccountDisabled" {
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerServiceAccountDisabled" {
   type    = bool
   default = false
 }
 
-variable "CSCRAPFG__CloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists" {
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists" {
   type    = bool
   default = true
 }
 
-variable "CSCRAPFG_CloudBuildTriggerRoleId" {
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerRoleId" {
   type = string
 }
 
-variable "CSCRAPFG__CloudBuildTriggerRoleStage" {
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerRoleStage" {
   type = string
   validation {
-    condition     = contains(["ALPHA", "BETA", "GA", "DEPRECATED", "DISABLED", "EAP"], var.CSCRAPFG__CloudBuildTriggerRoleStage)
-    error_message = "Variable CSCRAPFG__RoleStage only has valid values of: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
+    condition     = contains(["ALPHA", "BETA", "GA", "DEPRECATED", "DISABLED", "EAP"], var.CSCRAPFG_CRDPFG_CloudBuildTriggerRoleStage)
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudBuildTriggerRoleStage only has valid values of: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
   }
   default = "GA"
 }
 
-variable "CSCRAPFG__CloudBuildTriggerYamlPath" {
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerYamlPath" {
   type    = string
   default = "cloudbuild.yaml"
 }
 
-variable "CSCRAPFG_CloudBuildTriggerGithubRepoName" {
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerGithubRepoName" {
   type = string
 }
 
-variable "CSCRAPFG__CloudBuildTriggerBranchName" {
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerBranchName" {
   type    = string
   default = "main"
 }
 
-variable "CSCRAPFG_CloudBuildTriggerArtifactRepoName" {
-  type = string
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerArtifactRepoName" {
+  type    = string
+  default = "dash-apps"
 }
 
-variable "CSCRAPFG__CloudBuildTriggerBucketName" {
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerBucketName" {
   type    = string
   default = "gs://dash_build_logs"
 }
 
-variable "CSCRAPFG__CloudRunConcurrentRequests" {
+variable "CSCRAPFG_CRDPFG_CloudRunConcurrentRequests" {
   type = number
   validation {
-    condition     = var.CSCRAPFG__CloudRunConcurrentRequests >= 1 && var.CSCRAPFG__CloudRunConcurrentRequests <= 250
-    error_message = "Variable CSCRAPFG__ConcurrentRequests must be greater than or equal to 1 and less than or equal to 250"
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunConcurrentRequests >= 1 && var.CSCRAPFG_CRDPFG_CloudRunConcurrentRequests <= 250
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunConcurrentRequests must be greater than or equal to 1 and less than or equal to 250"
   }
   default = 80
 }
 
-variable "CSCRAPFG__CloudRunRequestsTimeout" {
+variable "CSCRAPFG_CRDPFG_CloudRunRequestsTimeout" {
   type = number
   validation {
-    condition     = var.CSCRAPFG__CloudRunRequestsTimeout >= 1 && var.CSCRAPFG__CloudRunRequestsTimeout <= 3000
-    error_message = "Variable CSCRAPFG__RequestsTimeout must be greater than or equal to 1 second and less than or equal to 900 seconds"
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunRequestsTimeout >= 1 && var.CSCRAPFG_CRDPFG_CloudRunRequestsTimeout <= 3000
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunRequestsTimeout must be greater than or equal to 1 second and less than or equal to 900 seconds"
   }
   default = 300
 }
 
-variable "CSCRAPFG__CloudRunPortNumber" {
+variable "CSCRAPFG_CRDPFG_CloudRunPortNumber" {
   type = number
   validation {
-    condition     = var.CSCRAPFG__CloudRunPortNumber >= 1 && var.CSCRAPFG__CloudRunPortNumber <= 65535
-    error_message = "Variable CSCRAPFG__PortNumber must be greater than 1 and less than 65335"
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunPortNumber >= 1 && var.CSCRAPFG_CRDPFG_CloudRunPortNumber <= 65535
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunPortNumber must be greater than 1 and less than 65335"
   }
   default = 8080
 }
 
-variable "CSCRAPFG__CloudRunMinInstances" {
+variable "CSCRAPFG_CRDPFG_CloudRunMinInstances" {
   type = number
   validation {
-    condition     = var.CSCRAPFG__CloudRunMinInstances >= 0
-    error_message = "Variable CSCRAPFG__MinInstances must be greater than or equal to 0"
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunMinInstances >= 0
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunMinInstances must be greater than or equal to 0"
   }
   default = 0
 }
 
-variable "CSCRAPFG__CloudRunMaxInstances" {
+variable "CSCRAPFG_CRDPFG_CloudRunMaxInstances" {
   type = number
   validation {
-    condition     = var.CSCRAPFG__CloudRunMaxInstances >= 1 && var.CSCRAPFG__CloudRunMaxInstances <= 10
-    error_message = "Variable CSCRAPFG__MaxInstances must be greater than or equal to 1 instance or less than or equal to 10 instances"
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunMaxInstances >= 1 && var.CSCRAPFG_CRDPFG_CloudRunMaxInstances <= 10
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunMaxInstances must be greater than or equal to 1 instance or less than or equal to 10 instances"
   }
   default = 5
 }
 
-variable "CSCRAPFG__CloudRunVpcConnector" {
-  type    = string
-  default = "dash"
-}
-
-variable "CSCRAPFG__CloudRunNumberOfVcpus" {
-  type = number
-  validation {
-    condition     = contains([1, 2, 4], var.CSCRAPFG__CloudRunNumberOfVcpus)
-    error_message = "Variable CSCRAPFG__NumberOfVcpus must be greater than or equal to 1 or less than or equal to 16."
-  }
-  default = 2
-}
-
-variable "CSCRAPFG__CloudRunAmountOfMemory" {
-  type = number
-  validation {
-    condition     = var.CSCRAPFG__CloudRunAmountOfMemory >= 1 && var.CSCRAPFG__CloudRunAmountOfMemory <= 16
-    error_message = "Variable CSCRAPFG__AmountOfMemory must be greater than or equal to 1 or less than or equal to 16."
-  }
-  default = 2
-}
-
-variable "CSCRAPFG__CloudRunEnvVariableName" {
+variable "CSCRAPFG_CRDPFG_CloudRunEnvVariableName" {
   type    = string
   default = "ENV_VARS"
 }
 
+variable "CSCRAPFG_CRDPFG_CloudRunVpcConnector" {
+  type    = string
+  default = "dash"
+}
 
-#     _NEXTAUTH_SECRET   = var.nextAuthSecret
-#     _SALT              = var.salt
-#     _ENCRYPTION_KEY    = var.encryptionKey
-#     _NEXTAUTH_URL      = var.nextAuthUrl
-#     _DATABASE_HOST     = module.databaseDatabaseInstanceDatabaseUser.databaseInstancePublicIp
-#     _DATABASE_USERNAME = module.databaseDatabaseInstanceDatabaseUser.databaseUserName
-#     _DATABASE_PASSWORD = module.databaseDatabaseInstanceDatabaseUser.databaseUserPassword
-#     _DATABASE_NAME     = module.databaseDatabaseInstanceDatabaseUser.databaseInstanceName
-variable "CSCRAPFG__CloudBuildTriggerAdditionalSubstitutions" {
+variable "CSCRAPFG_CRDPFG_CloudRunAmountOfMemory" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunAmountOfMemory >= 1 && var.CSCRAPFG_CRDPFG_CloudRunAmountOfMemory <= 16
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunAmountOfMemory must be greater than or equal to 1 or less than or equal to 16."
+  }
+  default = 2
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunNumberOfVcpus" {
+  type = number
+  validation {
+    condition     = contains([1, 2, 4], var.CSCRAPFG_CRDPFG_CloudRunNumberOfVcpus)
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunNumberOfVcpus must be greater than or equal to 1 or less than or equal to 16."
+  }
+  default = 2
+}
+
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerAdditionalSubstitutions" {
   description = "Additional substitutions for the Cloud Build trigger"
   type        = map(string)
   default     = {}
 }
 
-variable "CSCRAPFG__CloudRunAlertPolicyNotificationChannelId" {
+variable "CSCRAPFG_CRDPFG_CloudRunAlertPolicyNotificationChannelId" {
   type    = string
   default = "11762886701350469070"
 }
 
-variable "CSCRAPFG__CloudRunAlertPolicyNotificationRateLimit" {
+variable "CSCRAPFG_CRDPFG_CloudRunAlertPolicyNotificationRateLimit" {
   type    = string
   default = "600s"
 }
 
-variable "CSCRAPFG__CloudRunAlertPolicyAutoClose" {
+variable "CSCRAPFG_CRDPFG_CloudRunAlertPolicyAutoClose" {
   type    = string
   default = "604800s"
 }
+
+#-- 
+
+variable "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent >= 0 && var.CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent <= 100
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
+
+  default = 50
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent >= 0 && var.CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent <= 100
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
+
+  default = 80
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunInfraAlertPolicyNotificationChannels" {
+  type = list(string)
+}
+
+variable "additionalLabels" {
+  type    = map(string)
+  default = {}
+}
+
+#--
+
+variable "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent >= 0 && var.CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent <= 100
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
+
+  default = 50
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent >= 0 && var.CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent <= 100
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
+
+  default = 50
+}
+
+#---

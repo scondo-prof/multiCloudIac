@@ -1,9 +1,3 @@
-provider "google" {
-  project = var.projectId
-  region  = var.gcpRegion
-}
-
-
 
     module "NWEIPN" {
   source = "../../gcp/cloudComputeNetwork/_NWEIPN_networkWithExternalIpNat"
@@ -102,75 +96,88 @@ NWEIPN_VpcAccessConnectorSubnet = var.CSCRAPFG_NWEIPN_VpcAccessConnectorSubnet
 
 #---
 
-module "CSDIU" {
-  source = "../../gcp/googleCloudSql/_CSDIU_cloudSqlDatabaseInstanceUser"
-
-  projectId                                             = var.projectId
-  gcpRegion                                             = var.gcpRegion
-  resourceName                                          = var.resourceName
-  CSDIU_DatabaseInstanceDatabaseVersion                 = var.CSCRAPFG_DatabaseInstanceDatabaseVersion
-  CSDIU_DatabaseInstanceRootPassword                    = var.CSCRAPFG_DatabaseInstanceRootPassword
-  CSDIU_DatabaseInstanceDeletionProtection              = var.CSCRAPFG_DatabaseInstanceDeletionProtection
-  CSDIU_DatabaseInstanceTier                            = var.CSCRAPFG_DatabaseInstanceTier
-  CSDIU_DatabaseInstanceEdition                         = var.CSCRAPFG_DatabaseInstanceEdition
-  projectName                                           = var.projectName
-  deployedDate                                          = var.deployedDate
-  createdBy                                             = var.createdBy
-  CSDIU_DatabaseInstanceActivationPolicy                = var.CSCRAPFG_DatabaseInstanceActivationPolicy
-  CSDIU_DatabaseInstanceAvailabilityType                = var.CSCRAPFG_DatabaseInstanceAvailabilityType
-  CSDIU_DatabaseInstanceCollation                       = var.CSCRAPFG_DatabaseInstanceCollation
-  CSDIU_DatabaseInstanceDiskAutoresize                  = var.CSCRAPFG_DatabaseInstanceDiskAutoresize
-  CSDIU_DatabaseInstanceDiskAutoresizeLimit             = var.CSCRAPFG_DatabaseInstanceDiskAutoresizeLimit
-  CSDIU_DatabaseInstanceDiskSize                        = var.CSCRAPFG_DatabaseInstanceDiskSize
-  CSDIU_DatabaseInstanceDiskType                        = var.CSCRAPFG_DatabaseInstanceDiskType
-  CSDIU_DatabaseInstanceAuthorizedNetworkIpRange        = var.CSCRAPFG_DatabaseInstanceAuthorizedNetworkIpRange
-  CSDIU_DatabaseDeletionPolicy                          = var.CSCRAPFG_DatabaseDeletionPolicy
-  CSDIU_DatabaseUserPassword                            = var.CSCRAPFG_DatabaseUserPassword
-  CSDIU_DatabaseUserType                                = var.CSCRAPFG_DatabaseUserType
-  CSDIU_DatabaseUserDeletionPolicy                      = var.CSCRAPFG_DatabaseUserDeletionPolicy
-  CSDIU_DatabasePublicIpSecretVersionEnabled            = var.CSCRAPFG_DatabasePublicIpSecretVersionEnabled
-  CSDIU_DatabasePublicIpSecretVersionDeletionPolicy     = var.CSCRAPFG_DatabasePublicIpSecretVersionDeletionPolicy
-  CSDIU_DatabaseUserNameSecretVersionEnabled            = var.CSCRAPFG_DatabaseUserNameSecretVersionEnabled
-  CSDIU_DatabaseUserNameSecretVersionDeletionPolicy     = var.CSCRAPFG_DatabaseUserNameSecretVersionDeletionPolicy
-  CSDIU_DatabaseUserPasswordSecretVersionEnabled        = var.CSCRAPFG_DatabaseUserPasswordSecretVersionEnabled
-  CSDIU_DatabaseUserPasswordSecretVersionDeletionPolicy = var.CSCRAPFG_DatabaseUserPasswordSecretVersionDeletionPolicy
-  CSDIU_DatabaseNameSecretVersionEnabled                = var.CSCRAPFG_DatabaseNameSecretVersionEnabled
-  CSDIU_DatabaseNameSecretVersionDeletionPolicy         = var.CSCRAPFG_DatabaseNameSecretVersionDeletionPolicy
+    module "CSDIU" {
+  source = "../../gcp/cloudSql/_CSDIU_cloudSqlDatabaseInstanceUser"
+gcpProjectId = var.gcpProjectId
+gcpRegion = var.gcpRegion
+CSDIU_DatabaseInstanceSettings = var.CSCRAPFG_CSDIU_DatabaseInstanceSettings
+projectName = var.projectName
+deployedDate = var.deployedDate
+createdBy = var.createdBy
+tfModule = var.tfModule
+additionalTags = var.additionalTags
+CSDIU_DatabaseInstanceDatabaseVersion = var.CSCRAPFG_CSDIU_DatabaseInstanceDatabaseVersion
+databseInstanceName = var.databseInstanceName
+CSDIU_DatabaseInstanceMaintenanceVersion = var.CSCRAPFG_CSDIU_DatabaseInstanceMaintenanceVersion
+CSDIU_DatabaseInstanceMasterInstanceName = var.CSCRAPFG_CSDIU_DatabaseInstanceMasterInstanceName
+CSDIU_DatabaseInstanceReplicaConfiguration = var.CSCRAPFG_CSDIU_DatabaseInstanceReplicaConfiguration
+CSDIU_DatabaseInstanceRootPassword = var.CSCRAPFG_CSDIU_DatabaseInstanceRootPassword
+CSDIU_DatabaseInstanceEncryptionKeyName = var.CSCRAPFG_CSDIU_DatabaseInstanceEncryptionKeyName
+CSDIU_DatabaseInstanceDeletionProtection = var.CSCRAPFG_CSDIU_DatabaseInstanceDeletionProtection
+CSDIU_DatabaseInstanceRestoreBackupContext = var.CSCRAPFG_CSDIU_DatabaseInstanceRestoreBackupContext
+CSDIU_DatabaseInstanceClone = var.CSCRAPFG_CSDIU_DatabaseInstanceClone
+resourceName = var.resourceName
+CSDIU_DatabaseCharset = var.CSCRAPFG_CSDIU_DatabaseCharset
+CSDIU_DatabaseCollation = var.CSCRAPFG_CSDIU_DatabaseCollation
+CSDIU_DatabaseDeletionPolicy = var.CSCRAPFG_CSDIU_DatabaseDeletionPolicy
+CSDIU_DatabaseUserPassword = var.CSCRAPFG_CSDIU_DatabaseUserPassword
+CSDIU_DatabaseUserType = var.CSCRAPFG_CSDIU_DatabaseUserType
+CSDIU_DatabaseUserDeletionPolicy = var.CSCRAPFG_CSDIU_DatabaseUserDeletionPolicy
+CSDIU_DatabaseUserHost = var.CSCRAPFG_CSDIU_DatabaseUserHost
+CSDIU_DatabaseUserPasswordPolicy = var.CSCRAPFG_CSDIU_DatabaseUserPasswordPolicy
+CSDIU_SecretReplicationAuto = var.CSCRAPFG_CSDIU_SecretReplicationAuto
+CSDIU_SecretReplicationUserManaged = var.CSCRAPFG_CSDIU_SecretReplicationUserManaged
+CSDIU_SecretAnnotations = var.CSCRAPFG_CSDIU_SecretAnnotations
+CSDIU_SecretVersionAliases = var.CSCRAPFG_CSDIU_SecretVersionAliases
+CSDIU_SecretVersionDestroyTtl = var.CSCRAPFG_CSDIU_SecretVersionDestroyTtl
+CSDIU_SecretTopics = var.CSCRAPFG_CSDIU_SecretTopics
+CSDIU_SecretExpireTime = var.CSCRAPFG_CSDIU_SecretExpireTime
+CSDIU_SecretTtl = var.CSCRAPFG_CSDIU_SecretTtl
+CSDIU_SecretRotation = var.CSCRAPFG_CSDIU_SecretRotation
+CSDIU_SecretVersionObjects = var.CSCRAPFG_CSDIU_SecretVersionObjects
 }
 
-module "CRDPFG" {
+#---
+
+    module "CRDPFG" {
   source = "../_CRDPFG_cloudRunDeploymentPushFromGithub"
-
-  projectId                                                       = var.projectId
-  gcpRegion                                                       = var.gcpRegion
-  resourceName                                                    = var.resourceName
-  projectName                                                     = var.projectName
-  deployedDate                                                    = var.deployedDate
-  createdBy                                                       = var.createdBy
-  CRDPFG_SecretVersionSecretData                                  = var.CSCRAPFG_CRDPFG_SecretVersionSecretData
-  CRDPFG_SecretVersionEnabled                                     = var.CSCRAPFG_CRDPFG_SecretVersionEnabled
-  CRDPFG_SecretVersionDeletionPolicy                              = var.CSCRAPFG_CRDPFG_SecretVersionDeletionPolicy
-  CRDPFG_CloudBuildTriggerServiceAccountAccountId                 = "${var.resourceName}-prod"
-  CRDPFG_CloudBuildTriggerServiceAccountDisabled                  = var.CSCRAPFG__CloudBuildTriggerServiceAccountDisabled
-  CRDPFG_CloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists = var.CSCRAPFG__CloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists
-  CRDPFG_CloudBuildTriggerRoleId                                  = "${var.CSCRAPFG_CloudBuildTriggerRoleId}Prod"
-  CRDPFG_CloudBuildTriggerRoleStage                               = var.CSCRAPFG__CloudBuildTriggerRoleStage
-  CRDPFG_CloudBuildTriggerYamlPath                                = var.CSCRAPFG__CloudBuildTriggerYamlPath
-  CRDPFG_CloudBuildTriggerGithubRepoName                          = var.CSCRAPFG_CloudBuildTriggerGithubRepoName
-  CRDPFG_CloudBuildTriggerBranchName                              = var.CSCRAPFG__CloudBuildTriggerBranchName
-  CRDPFG_CloudBuildTriggerArtifactRepoName                        = var.CSCRAPFG_CloudBuildTriggerArtifactRepoName
-  CRDPFG_CloudBuildTriggerBucketName                              = var.CSCRAPFG__CloudBuildTriggerBucketName
-  CRDPFG_CloudRunConcurrentRequests                               = var.CSCRAPFG__CloudRunConcurrentRequests
-  CRDPFG_CloudRunRequestsTimeout                                  = var.CSCRAPFG__CloudRunRequestsTimeout
-  CRDPFG_CloudRunPortNumber                                       = var.CSCRAPFG__CloudRunPortNumber
-  CRDPFG_CloudRunMinInstances                                     = var.CSCRAPFG__CloudRunMinInstances
-  CRDPFG_CloudRunMaxInstances                                     = var.CSCRAPFG__CloudRunMaxInstances
-  CRDPFG_CloudRunVpcConnector                                     = module.NWEIPN.NWEIPN_VpcAccessConnectorName #module.networkWithExternalIpNat.vpcAccessConnectorName
-  CRDPFG_CloudRunNumberOfVcpus                                    = var.CSCRAPFG__CloudRunNumberOfVcpus
-  CRDPFG_CloudRunAmountOfMemory                                   = var.CSCRAPFG__CloudRunAmountOfMemory
-  CRDPFG_CloudRunEnvVariableName                                  = var.CSCRAPFG__CloudRunEnvVariableName
-  CRDPFG_CloudBuildTriggerAdditionalSubstitutions                 = var.CSCRAPFG__CloudBuildTriggerAdditionalSubstitutions
-  CRDPFG_CloudRunAlertPolicyNotificationChannelId                 = var.CSCRAPFG__CloudRunAlertPolicyNotificationChannelId
-  CRDPFG_CloudRunAlertPolicyNotificationRateLimit                 = var.CSCRAPFG__CloudRunAlertPolicyNotificationRateLimit
-  CRDPFG_CloudRunAlertPolicyAutoClose                             = var.CSCRAPFG__CloudRunAlertPolicyAutoClose
+gcpProjectId = var.gcpProjectId
+gcpRegion = var.gcpRegion
+resourceName = var.resourceName
+projectName = var.projectName
+deployedDate = var.deployedDate
+createdBy = var.createdBy
+CRDPFG_SecretVersionSecretData = var.CSCRAPFG_CRDPFG_SecretVersionSecretData
+CRDPFG_SecretVersionEnabled = var.CSCRAPFG_CRDPFG_SecretVersionEnabled
+CRDPFG_SecretVersionDeletionPolicy = var.CSCRAPFG_CRDPFG_SecretVersionDeletionPolicy
+CRDPFG_CloudBuildTriggerServiceAccountDisabled = var.CSCRAPFG_CRDPFG_CloudBuildTriggerServiceAccountDisabled
+CRDPFG_CloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists = var.CSCRAPFG_CRDPFG_CloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists
+CRDPFG_CloudBuildTriggerRoleId = var.CSCRAPFG_CRDPFG_CloudBuildTriggerRoleId
+CRDPFG_CloudBuildTriggerRoleStage = var.CSCRAPFG_CRDPFG_CloudBuildTriggerRoleStage
+CRDPFG_CloudBuildTriggerYamlPath = var.CSCRAPFG_CRDPFG_CloudBuildTriggerYamlPath
+CRDPFG_CloudBuildTriggerGithubRepoName = var.CSCRAPFG_CRDPFG_CloudBuildTriggerGithubRepoName
+CRDPFG_CloudBuildTriggerBranchName = var.CSCRAPFG_CRDPFG_CloudBuildTriggerBranchName
+CRDPFG_CloudBuildTriggerArtifactRepoName = var.CSCRAPFG_CRDPFG_CloudBuildTriggerArtifactRepoName
+CRDPFG_CloudBuildTriggerBucketName = var.CSCRAPFG_CRDPFG_CloudBuildTriggerBucketName
+CRDPFG_CloudRunConcurrentRequests = var.CSCRAPFG_CRDPFG_CloudRunConcurrentRequests
+CRDPFG_CloudRunRequestsTimeout = var.CSCRAPFG_CRDPFG_CloudRunRequestsTimeout
+CRDPFG_CloudRunPortNumber = var.CSCRAPFG_CRDPFG_CloudRunPortNumber
+CRDPFG_CloudRunMinInstances = var.CSCRAPFG_CRDPFG_CloudRunMinInstances
+CRDPFG_CloudRunMaxInstances = var.CSCRAPFG_CRDPFG_CloudRunMaxInstances
+CRDPFG_CloudRunVpcConnector = var.CSCRAPFG_CRDPFG_CloudRunVpcConnector
+CRDPFG_CloudRunNumberOfVcpus = var.CSCRAPFG_CRDPFG_CloudRunNumberOfVcpus
+CRDPFG_CloudRunAmountOfMemory = var.CSCRAPFG_CRDPFG_CloudRunAmountOfMemory
+CRDPFG_CloudRunEnvVariableName = var.CSCRAPFG_CRDPFG_CloudRunEnvVariableName
+CRDPFG_CloudBuildTriggerAdditionalSubstitutions = var.CSCRAPFG_CRDPFG_CloudBuildTriggerAdditionalSubstitutions
+CRDPFG_CloudRunAlertPolicyNotificationChannelId = var.CSCRAPFG_CRDPFG_CloudRunAlertPolicyNotificationChannelId
+CRDPFG_CloudRunAlertPolicyNotificationRateLimit = var.CSCRAPFG_CRDPFG_CloudRunAlertPolicyNotificationRateLimit
+CRDPFG_CloudRunAlertPolicyAutoClose = var.CSCRAPFG_CRDPFG_CloudRunAlertPolicyAutoClose
+CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent = var.CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent
+CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent = var.CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent
+CRDPFG_CloudRunInfraAlertPolicyNotificationChannels = var.CSCRAPFG_CRDPFG_CloudRunInfraAlertPolicyNotificationChannels
+additionalLabels = var.additionalLabels
+CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent = var.CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent
+CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent = var.CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent
 }
+
+#---

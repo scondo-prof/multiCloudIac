@@ -249,10 +249,6 @@ variable "CSDIU_DatabaseInstanceClone" {
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_CSDIU_Database#argument-reference
 
-variable "CSDIU_DatabaseInstance" {
-  type = string
-}
-
 variable "CSDIU_DatabaseCharset" {
   type    = string
   default = null
@@ -278,10 +274,6 @@ variable "CSDIU_DatabaseDeletionPolicy" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_user#argument-reference
-
-variable "CSDIU_DatabaseUserInstance" {
-  type = string
-}
 
 variable "CSDIU_DatabaseUserPassword" {
   type    = string
@@ -408,10 +400,6 @@ variable "CSDIU_SecretVersionObjects" {
     is_secret_data_base64 = optional(bool, null)
   }))
   default = []
-}
-
-variable "CSDIU_SecretVersionSecret" {
-  type = string
 }
 
 #---

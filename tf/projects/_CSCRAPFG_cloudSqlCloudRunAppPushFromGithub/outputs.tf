@@ -151,79 +151,127 @@ output "CSCRAPFG_NWEIPN_VpcAccessConnectorConnectedProjects" {
   value = module.NWEIPN.NWEIPN_VpcAccessConnectorConnectedProjects
 }
 
+
+
+
 #---
-
-
-output "CSCRAPFG_DatabaseInstanceSelfLink" {
-  value = module.CSDIU.CSDIU_DatabaseInstanceSelfLink
+output "databaseInstanceSelfLink" {
+  value = module.CSDIU.databaseInstanceSelfLink
 }
 
-output "CSCRAPFG_DatabaseInstanceConnectionName" {
+output "CSCRAPFG_CSDIU_DatabaseInstanceConnectionName" {
   value = module.CSDIU.CSDIU_DatabaseInstanceConnectionName
 }
 
-output "CSCRAPFG_DatabaseInstanceDnsName" {
+output "CSCRAPFG_CSDIU_DatabaseInstanceDnsName" {
   value = module.CSDIU.CSDIU_DatabaseInstanceDnsName
 }
 
-output "CSCRAPFG_DatabaseInstancePublicIp" {
+output "CSCRAPFG_CSDIU_DatabaseInstanceServiceAccountEmailAddress" {
+  value = module.CSDIU.CSDIU_DatabaseInstanceServiceAccountEmailAddress
+}
+
+output "CSCRAPFG_CSDIU_DatabaseInstanceFirstIpAddress" {
+  value = module.CSDIU.CSDIU_DatabaseInstanceFirstIpAddress
+}
+
+output "CSCRAPFG_CSDIU_DatabaseInstanceAvailableMaintenanceVersion" {
+  value = module.CSDIU.CSDIU_DatabaseInstanceAvailableMaintenanceVersion
+}
+
+output "CSCRAPFG_CSDIU_DatabaseInstancePublicIp" {
   value = module.CSDIU.CSDIU_DatabaseInstancePublicIp
 }
 
-output "CSCRAPFG_DatabaseInstanceRootPassword" {
-  value     = module.CSDIU.CSDIU_DatabaseInstanceRootPassword
+output "CSCRAPFG_CSDIU_DatabaseInstancePrivateIpAddress" {
+  value = module.CSDIU.CSDIU_DatabaseInstancePrivateIpAddress
+}
+
+output "CSCRAPFG_CSDIU_DatabaseInstancePscServiceAttachmentLink" {
+  value = module.CSDIU.CSDIU_DatabaseInstancePscServiceAttachmentLink
+}
+
+output "CSCRAPFG_CSDIU_DatabaseInstanceInstanceType" {
+  value = module.CSDIU.CSDIU_DatabaseInstanceInstanceType
+}
+
+output "CSCRAPFG_CSDIU_DatabaseInstanceRootPassword" {
+  value = module.CSDIU.CSDIU_DatabaseInstanceRootPassword
   sensitive = true
 }
 
-output "CSCRAPFG_DatabaseInstanceName" {
-  value = module.CSDIU.CSDIU_DatabaseInstanceName
+
+output "databaseId" {
+  value = module.CSDIU.databaseId
 }
 
-output "CSCRAPFG_DatabaseId" {
-  value = module.CSDIU.CSDIU_DatabaseId
+output "databaseSelfLink" {
+  value = module.CSDIU.databaseSelfLink
 }
 
-output "CSCRAPFG_DatabaseSelfLink" {
-  value = module.CSDIU.CSDIU_DatabaseSelfLink
-}
-
-output "CSCRAPFG_DatabaseName" {
+output "CSCRAPFG_CSDIU_DatabaseName" {
   value = module.CSDIU.CSDIU_DatabaseName
 }
 
-output "CSCRAPFG_DatabaseUserName" {
+
+output "CSCRAPFG_CSDIU_DatabaseUserName" {
   value = module.CSDIU.CSDIU_DatabaseUserName
 }
 
-output "CSCRAPFG_DatabaseUserPassword" {
-  value     = module.CSDIU.CSDIU_DatabaseUserPassword
+output "CSCRAPFG_CSDIU_DatabaseUserPassword" {
+  value = module.CSDIU.CSDIU_DatabaseUserPassword
   sensitive = true
 }
 
-output "CSCRAPFG_DatabaseSecretId" {
-  value = module.CSDIU.CSDIU_DatabaseSecretId
+
+output "CSCRAPFG_CSDIU_SecretId" {
+  value = module.CSDIU.CSDIU_SecretId
 }
 
-output "CSCRAPFG_DatabaseSecretName" {
-  value = module.CSDIU.CSDIU_DatabaseSecretName
+output "CSCRAPFG_CSDIU_SecretName" {
+  value = module.CSDIU.CSDIU_SecretName
 }
 
-output "CSCRAPFG_DatabasePublicIpSecretVersionName" {
-  value = module.CSDIU.CSDIU_DatabasePublicIpSecretVersionName
+output "CSCRAPFG_CSDIU_SecretCreateTime" {
+  value = module.CSDIU.CSDIU_SecretCreateTime
 }
 
-output "CSCRAPFG_DatabaseUserNameSecretVersionName" {
-  value = module.CSDIU.CSDIU_DatabaseUserNameSecretVersionName
+output "CSCRAPFG_CSDIU_SecretTerraformLabels" {
+  value = module.CSDIU.CSDIU_SecretTerraformLabels
 }
 
-output "CSCRAPFG_DatabaseUserPasswordSecretVersionName" {
-  value = module.CSDIU.CSDIU_DatabaseUserPasswordSecretVersionName
+output "CSCRAPFG_CSDIU_SecretEffectiveLabels" {
+  value = module.CSDIU.CSDIU_SecretEffectiveLabels
 }
 
-output "CSCRAPFG_DatabaseNameSecretVersionName" {
-  value = module.databaseNameSecretVersion.CSDIU_DatabaseNameSecretVersionName
+output "CSCRAPFG_CSDIU_SecretEffectiveAnnotations" {
+  value = module.CSDIU.CSDIU_SecretEffectiveAnnotations
 }
 
+
+output "CSCRAPFG_CSDIU_SecretVersionId" {
+  value = module.CSDIU.CSDIU_SecretVersionId
+}
+
+output "CSCRAPFG_CSDIU_SecretVersionName" {
+  value = module.CSDIU.CSDIU_SecretVersionName
+}
+
+output "CSCRAPFG_CSDIU_SecretVersionVersion" {
+  value = module.CSDIU.CSDIU_SecretVersionVersion
+}
+
+output "CSCRAPFG_CSDIU_SecretVersionCreateTime" {
+  value = module.CSDIU.CSDIU_SecretVersionCreateTime
+}
+
+output "CSCRAPFG_CSDIU_SecretVersionDestroyTime" {
+  value = module.CSDIU.CSDIU_SecretVersionDestroyTime
+}
+
+
+
+#---
 output "CSCRAPFG_CRDPFG_SecretId" {
   value = module.CRDPFG.CRDPFG_SecretId
 }
@@ -232,46 +280,68 @@ output "CSCRAPFG_CRDPFG_SecretName" {
   value = module.CRDPFG.CRDPFG_SecretName
 }
 
-output "CSCRAPFG_CRDPFG_SecretVersionId" {
-  value = module.CRDPFG.CRDPFG_SecretVersionId
-}
-
 output "CSCRAPFG_CRDPFG_SecretVersionName" {
   value = module.CRDPFG.CRDPFG_SecretVersionName
 }
 
-output "CSCRAPFG__ServiceAccountId" {
+output "CSCRAPFG_CRDPFG_SecretVersionId" {
+  value = module.CRDPFG.CRDPFG_SecretVersionId
+}
+
+output "CSCRAPFG_CRDPFG_CloudbuildTriggerServiceAccountId" {
   value = module.CRDPFG.CRDPFG_CloudbuildTriggerServiceAccountId
 }
 
-output "CSCRAPFG__ServiceAccountEmail" {
+output "CSCRAPFG_CRDPFG_CloudbuildTriggerServiceAccountEmail" {
   value = module.CRDPFG.CRDPFG_CloudbuildTriggerServiceAccountEmail
 }
 
-output "CSCRAPFG__ServiceAccountDisplayName" {
+output "CSCRAPFG_CRDPFG_CloudbuildTriggerServiceAccountDisplayName" {
   value = module.CRDPFG.CRDPFG_CloudbuildTriggerServiceAccountDisplayName
 }
 
-output "CSCRAPFG__RoleId" {
+output "CSCRAPFG_CRDPFG_CloudbuildTriggerRoleId" {
   value = module.CRDPFG.CRDPFG_CloudbuildTriggerRoleId
 }
 
-output "CSCRAPFG__RoleName" {
+output "CSCRAPFG_CRDPFG_CloudbuildTriggerRoleName" {
   value = module.CRDPFG.CRDPFG_CloudbuildTriggerRoleName
 }
 
-output "CSCRAPFG__CloudBuildTriggerId" {
+output "CSCRAPFG_CRDPFG_CloudbuildTriggerId" {
   value = module.CRDPFG.CRDPFG_CloudbuildTriggerId
 }
 
-output "CSCRAPFG__CloudBuildTriggerName" {
+output "CSCRAPFG_CRDPFG_CloudbuildTriggerName" {
   value = module.CRDPFG.CRDPFG_CloudbuildTriggerName
 }
 
-output "CSCRAPFG__AlertPolicyId" {
+output "CSCRAPFG_CRDPFG_CloudRunAlertPolicyId" {
   value = module.CRDPFG.CRDPFG_CloudRunAlertPolicyId
 }
 
-output "CSCRAPFG__AlertPolicyName" {
+output "CSCRAPFG_CRDPFG_CloudRunAlertPolicyName" {
   value = module.CRDPFG.CRDPFG_CloudRunAlertPolicyName
 }
+
+#--
+
+output "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyId" {
+  value = module.CRDPFG.CRDPFG_CloudRunMemAlertPolicyId
+}
+
+output "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyName" {
+  value = module.CRDPFG.CRDPFG_CloudRunMemAlertPolicyName
+}
+
+#--
+
+output "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyId" {
+  value = module.CRDPFG.CRDPFG_CloudRunCpuAlertPolicyId
+}
+
+output "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyName" {
+  value = module.CRDPFG.CRDPFG_CloudRunCpuAlertPolicyName
+}
+
+#---

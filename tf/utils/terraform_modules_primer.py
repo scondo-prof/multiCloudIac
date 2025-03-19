@@ -9,53 +9,33 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../gcp/cloudSql/genericCloudSqlDatabaseInstance",
-            "source_path": "../genericCloudSqlDatabaseInstance",
-            "destination_path": "./temp/",
+            "project_path": "../gcp/cloudComputeNetwork/_NWEIPN_networkWithExternalIpNat",
+            "source_path": "../../gcp/cloudComputeNetwork/_NWEIPN_networkWithExternalIpNat",
+            "destination_path": "../projects/_CSCRAPFG_cloudSqlCloudRunAppPushFromGithub",
         },
-        "previous_variable_prefix": "databaseInstance",
-        "new_variable_prefix": "CSDIU_DatabaseInstance",
-        "module_name": "databaseInstance",
+        "previous_variable_prefix": "NWEIPN_",
+        "new_variable_prefix": "CSCRAPFG_NWEIPN_",
+        "module_name": "NWEIPN",
     },
     {
         "paths": {
-            "project_path": "../gcp/cloudSql/genericCloudSqlDatabase",
-            "source_path": "../genericCloudSqlDatabase",
-            "destination_path": "./temp/",
+            "project_path": "../gcp/cloudSql/_CSDIU_cloudSqlDatabaseInstanceUser",
+            "source_path": "../../gcp/cloudSql/_CSDIU_cloudSqlDatabaseInstanceUser",
+            "destination_path": "../projects/_CSCRAPFG_cloudSqlCloudRunAppPushFromGithub",
         },
-        "previous_variable_prefix": "database",
-        "new_variable_prefix": "CSDIU_Database",
-        "module_name": "database",
+        "previous_variable_prefix": "CSDIU_",
+        "new_variable_prefix": "CSCRAPFG_CSDIU_",
+        "module_name": "CSDIU",
     },
     {
         "paths": {
-            "project_path": "../gcp/cloudSql/genericCloudSqlDatabaseUser",
-            "source_path": "../genericCloudSqlDatabaseUser",
-            "destination_path": "./temp/",
+            "project_path": "../projects/_CRDPFG_cloudRunDeploymentPushFromGithub",
+            "source_path": "../_CRDPFG_cloudRunDeploymentPushFromGithub",
+            "destination_path": "../projects/_CSCRAPFG_cloudSqlCloudRunAppPushFromGithub",
         },
-        "previous_variable_prefix": "databaseUser",
-        "new_variable_prefix": "CSDIU_DatabaseUser",
-        "module_name": "databaseUser",
-    },
-    {
-        "paths": {
-            "project_path": "../gcp/secretsManager/genericSecret",
-            "source_path": "../../secretsManager/genericSecret",
-            "destination_path": "./temp/",
-        },
-        "previous_variable_prefix": "secret",
-        "new_variable_prefix": "CSDIU_Secret",
-        "module_name": "secret",
-    },
-    {
-        "paths": {
-            "project_path": "../gcp/secretsManager/genericSecretVersion",
-            "source_path": "../../secretsManager/genericSecretVersion",
-            "destination_path": "./temp/",
-        },
-        "previous_variable_prefix": "secretVersion",
-        "new_variable_prefix": "CSDIU_SecretVersion",
-        "module_name": "secretVersion",
+        "previous_variable_prefix": "CRDPFG_",
+        "new_variable_prefix": "CSCRAPFG_CRDPFG_",
+        "module_name": "CRDPFG",
     },
 ]
 
