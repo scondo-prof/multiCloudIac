@@ -33,7 +33,7 @@ lambdaPermissionUrlAuthType = var.AGRAMVKUP_LambdaPermissionUrlAuthType
 lambdaPermissionPrincipal = var.AGRAMVKUP_LambdaPermissionPrincipal
 lambdaPermissionQualifier = var.AGRAMVKUP_LambdaPermissionQualifier
 lambdaPermissionSourceAccount = var.AGRAMVKUP_LambdaPermissionSourceAccount
-lambdaPermissionSourceArn = var.AGRAMVKUP_LambdaPermissionSourceArn
+lambdaPermissionSourceArn = "${module.restApi.restApiExecutionArn}/*"
 lambdaPermissionStatementId = var.AGRAMVKUP_LambdaPermissionStatementId
 lambdaPermissionStatementIdPrefix = var.AGRAMVKUP_LambdaPermissionStatementIdPrefix
 lambdaPermissionPrincipalOrgId = var.AGRAMVKUP_LambdaPermissionPrincipalOrgId
@@ -44,8 +44,8 @@ lambdaPermissionPrincipalOrgId = var.AGRAMVKUP_LambdaPermissionPrincipalOrgId
     module "restApiResource" {
   source = "../../aws/apiGateway/genericResource"
 awsRegion = var.awsRegion
-resourceRestApiId = var.AGRAMVKUP_RestApiResourceRestApiId
-resourceParentId = var.AGRAMVKUP_RestApiResourceParentId
+resourceRestApiId = module.restApi.restApiId
+resourceParentId = module.restApi.restApiRootResourceId
 resourcePathPart = var.AGRAMVKUP_RestApiResourcePathPart
 }
 
@@ -54,8 +54,8 @@ resourcePathPart = var.AGRAMVKUP_RestApiResourcePathPart
     module "restApiMethod" {
   source = "../../aws/apiGateway/genericMethod"
 awsRegion = var.awsRegion
-methodRestApiId = var.AGRAMVKUP_RestApiMethodRestApiId
-methodResourceId = var.AGRAMVKUP_RestApiMethodResourceId
+methodRestApiId = module.restApi.restApiId
+methodResourceId = module.restApiResource.resourceId
 methodHttpMethod = var.AGRAMVKUP_RestApiMethodHttpMethod
 methodAuthorization = var.AGRAMVKUP_RestApiMethodAuthorization
 methodAuthorizerId = var.AGRAMVKUP_RestApiMethodAuthorizerId
@@ -63,7 +63,7 @@ methodAuthorizationScopes = var.AGRAMVKUP_RestApiMethodAuthorizationScopes
 methodApiKeyRequired = var.AGRAMVKUP_RestApiMethodApiKeyRequired
 methodOperationName = var.AGRAMVKUP_RestApiMethodOperationName
 methodRequestModels = var.AGRAMVKUP_RestApiMethodRequestModels
-methodRequestValidatorId = var.AGRAMVKUP_RestApiMethodRequestValidatorId
+methodRequestValidatorId = module.restApiRequestValidator.requestValidatorId
 methodRequestParameters = var.AGRAMVKUP_RestApiMethodRequestParameters
 }
 
@@ -208,75 +208,6 @@ deploymentVariables = var.AGRAMVKUP_RestApiDeploymentVariables
 }
 
 #---
-
-
-# module "restApi" {
-#   source                           = "../../aws/apiGateway/genericRestApi"
-#   awsRegion                        = var.awsRegion
-#   restApiKeySource                 = var.AGRAMVKUP_RestApiKeySource
-#   restApiBinaryMediaTypes          = var.AGRAMVKUP_RestApiBinaryMediaTypes
-#   restApiBody                      = var.AGRAMVKUP_RestApiBody
-#   restApiDescription               = var.AGRAMVKUP_RestApiDescription
-#   restApiDisableExecuteApiEndpoint = var.AGRAMVKUP_RestApiDisableExecuteApiEndpoint
-#   restApiEndpointConfiguration     = var.AGRAMVKUP_RestApiEndpointConfiguration
-#   restApiMinimumCompressionSize    = var.AGRAMVKUP_RestApiMinimumCompressionSize
-#   resourceName                     = var.resourceName
-#   restApiFailOnWarnings            = var.AGRAMVKUP_RestApiFailOnWarnings
-#   restApiParameters                = var.AGRAMVKUP_RestApiParameters
-#   restApiPolicy                    = var.AGRAMVKUP_RestApiPolicy
-#   restApiPutRestApiMode            = var.AGRAMVKUP_RestApiPutRestApiMode
-#   projectName                      = var.projectName
-#   creator                          = var.creator
-#   deployedDate                     = var.deployedDate
-#   additionalTags                   = var.additionalTags
-# }
-
-# #---
-
-# module "lambdaPermission" {
-#   source = "../../aws/lambda/genericLambdaFunctionPermission"
-
-#   awsRegion                         = var.awsRegion
-#   lambdaPermissionAction            = var.AGRAMVKUP_LambdaPermissionAction
-#   lambdaPermissionEventSourceToken  = var.AGRAMVKUP_LambdaPermissionEventSourceToken
-#   lambdaPermissionFunctionName      = var.AGRAMVKUP_LambdaPermissionFunctionName
-#   lambdaPermissionUrlAuthType       = var.AGRAMVKUP_LambdaPermissionUrlAuthType
-#   lambdaPermissionPrincipal         = var.AGRAMVKUP_LambdaPermissionPrincipal
-#   lambdaPermissionQualifier         = var.AGRAMVKUP_LambdaPermissionQualifier
-#   lambdaPermissionSourceAccount     = var.AGRAMVKUP_LambdaPermissionSourceAccount
-#   lambdaPermissionSourceArn         = "${module.restApi.restApiExecutionArn}/*"
-#   lambdaPermissionStatementId       = var.AGRAMVKUP_LambdaPermissionStatementId
-#   lambdaPermissionStatementIdPrefix = var.AGRAMVKUP_LambdaPermissionStatementIdPrefix
-#   lambdaPermissionPrincipalOrgId    = var.AGRAMVKUP_LambdaPermissionPrincipalOrgId
-# }
-
-# #---
-
-# module "resource" {
-#   source            = "../../aws/apiGateway/genericResource"
-#   awsRegion         = var.awsRegion
-#   resourceRestApiId = module.restApi.restApiId
-#   resourceParentId  = module.restApi.restApiRootResourceId
-#   resourcePathPart  = var.AGRAMVKUP_ResourcePathPart
-# }
-
-# #---
-
-# module "method" {
-#   source                    = "../../aws/apiGateway/genericMethod"
-#   awsRegion                 = var.awsRegion
-#   methodRestApiId           = module.restApi.restApiId
-#   methodResourceId          = module.resource.resourceId
-#   methodHttpMethod          = var.AGRAMVKUP_MethodHttpMethod
-#   methodAuthorization       = var.AGRAMVKUP_MethodAuthorization
-#   methodAuthorizerId        = var.AGRAMVKUP_MethodAuthorizerId
-#   methodAuthorizationScopes = var.AGRAMVKUP_MethodAuthorizationScopes
-#   methodApiKeyRequired      = var.AGRAMVKUP_MethodApiKeyRequired
-#   methodOperationName       = var.AGRAMVKUP_MethodOperationName
-#   methodRequestModels       = var.AGRAMVKUP_MethodRequestModels
-#   methodRequestValidatorId  = module.requestValidator.requestValidatorId
-#   methodRequestParameters   = var.AGRAMVKUP_MethodRequestParameters
-# }
 
 # module "methodResponse" {
 #   source = "../../aws/apiGateway/genericMethodResponse"

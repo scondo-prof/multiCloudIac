@@ -151,11 +151,6 @@ variable "AGRAMVKUP_LambdaPermissionSourceAccount" {
   default = null
 }
 
-variable "AGRAMVKUP_LambdaPermissionSourceArn" {
-  type    = string
-  default = null
-}
-
 variable "AGRAMVKUP_LambdaPermissionStatementId" {
   type    = string
   default = null
@@ -175,14 +170,6 @@ variable "AGRAMVKUP_LambdaPermissionPrincipalOrgId" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/AGRAMVKUP_RestApiResources/api_gateway_AGRAMVKUP_RestApiResource#argument-reference
 
-variable "AGRAMVKUP_RestApiResourceRestApiId" {
-  type = string
-}
-
-variable "AGRAMVKUP_RestApiResourceParentId" {
-  type = string
-}
-
 variable "AGRAMVKUP_RestApiResourcePathPart" {
   type = string
 }
@@ -190,14 +177,6 @@ variable "AGRAMVKUP_RestApiResourcePathPart" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiMethod#argument-reference
-
-variable "AGRAMVKUP_RestApiMethodRestApiId" {
-  type = string
-}
-
-variable "AGRAMVKUP_RestApiMethodResourceId" {
-  type = string
-}
 
 variable "AGRAMVKUP_RestApiMethodHttpMethod" {
   type = string
@@ -250,11 +229,6 @@ variable "AGRAMVKUP_RestApiMethodOperationName" {
 
 variable "AGRAMVKUP_RestApiMethodRequestModels" {
   type    = map(string)
-  default = null
-}
-
-variable "AGRAMVKUP_RestApiMethodRequestValidatorId" {
-  type    = string
   default = null
 }
 
