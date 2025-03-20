@@ -9,33 +9,23 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../gcp/iam/genericServiceAccount",
-            "source_path": "../genericServiceAccount",
+            "project_path": "../aws/sns/genericSnsTopic",
+            "source_path": "../genericSnsTopic",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "serviceAccount",
-        "new_variable_prefix": "serviceAccount",
-        "module_name": "serviceAccount",
+        "previous_variable_prefix": "snsTopic",
+        "new_variable_prefix": "TWS_SnsTopic",
+        "module_name": "snsTopic",
     },
     {
         "paths": {
-            "project_path": "../gcp/iam/genericGoogleProjectIamRole",
-            "source_path": "../genericGoogleProjectIamRole",
+            "project_path": "../aws/sns/genericSnsTopicSubscription",
+            "source_path": "../genericSnsTopicSubscription",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "role",
-        "new_variable_prefix": "role",
-        "module_name": "role",
-    },
-    {
-        "paths": {
-            "project_path": "../gcp/iam/genericProjectIamBinding",
-            "source_path": "../genericProjectIamBinding",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "iamBinding",
-        "new_variable_prefix": "iamBinding",
-        "module_name": "iamBinding",
+        "previous_variable_prefix": "snsTopicSubscription",
+        "new_variable_prefix": "TWS_SnsTopicSubscription",
+        "module_name": "snsTopicSubscription",
     },
 ]
 

@@ -31,212 +31,216 @@ variable "additionalTags" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic#argument-reference
 
-variable "snsTopicPolicy" {
+variable "TWS_SnsTopicPolicy" {
   type    = string
   default = null
 }
 
-variable "snsTopicDeliveryPolicy" {
+variable "TWS_SnsTopicDeliveryPolicy" {
   type    = string
   default = null
 }
 
-variable "snsTopicApplicationSuccessFeedbackRoleArn" {
+variable "TWS_SnsTopicApplicationSuccessFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "snsTopicApplicationSuccessFeedbackSampleRate" {
+variable "TWS_SnsTopicApplicationSuccessFeedbackSampleRate" {
   type = number
   validation {
-    condition     = var.snsTopicApplicationSuccessFeedbackSampleRate == null || can(var.snsTopicApplicationSuccessFeedbackSampleRate >= 0 && var.snsTopicApplicationSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable snsTopicApplicationSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
+    condition     = var.TWS_SnsTopicApplicationSuccessFeedbackSampleRate == null || can(var.TWS_SnsTopicApplicationSuccessFeedbackSampleRate >= 0 && var.TWS_SnsTopicApplicationSuccessFeedbackSampleRate <= 100)
+    error_message = "Variable TWS_SnsTopicApplicationSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
   }
   default = null
 }
 
-variable "snsTopicApplicationFailureFeedbackRoleArn" {
+variable "TWS_SnsTopicApplicationFailureFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "snsTopicHttpSuccessFeedbackRoleArn" {
+variable "TWS_SnsTopicHttpSuccessFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "snsTopicHttpSuccessFeedbackSampleRate" {
+variable "TWS_SnsTopicHttpSuccessFeedbackSampleRate" {
   type = number
   validation {
-    condition     = var.snsTopicHttpSuccessFeedbackSampleRate == null || can(var.snsTopicHttpSuccessFeedbackSampleRate >= 0 && var.snsTopicHttpSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable snsTopicHttpSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
+    condition     = var.TWS_SnsTopicHttpSuccessFeedbackSampleRate == null || can(var.TWS_SnsTopicHttpSuccessFeedbackSampleRate >= 0 && var.TWS_SnsTopicHttpSuccessFeedbackSampleRate <= 100)
+    error_message = "Variable TWS_SnsTopicHttpSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
   }
   default = null
 }
 
-variable "snsTopicHttpFailureFeedbackRoleArn" {
+variable "TWS_SnsTopicHttpFailureFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "snsTopicKmsMasterKeyId" {
+variable "TWS_SnsTopicKmsMasterKeyId" {
   type    = string
   default = null
 }
 
-variable "snsTopicSignatureVersion" {
+variable "TWS_SnsTopicSignatureVersion" {
   type = number
   validation {
-    condition     = var.snsTopicSignatureVersion == null || can(var.snsTopicSignatureVersion == 1 || var.snsTopicSignatureVersion == 2)
-    error_message = "Variable snsTopicSignatureVersion must be 1 or 2"
+    condition     = var.TWS_SnsTopicSignatureVersion == null || can(var.TWS_SnsTopicSignatureVersion == 1 || var.TWS_SnsTopicSignatureVersion == 2)
+    error_message = "Variable TWS_SnsTopicSignatureVersion must be 1 or 2"
   }
   default = null
 }
 
-variable "snsTopicTracingConfig" {
+variable "TWS_SnsTopicTracingConfig" {
   type = string
   validation {
-    condition     = var.snsTopicTracingConfig == null || can(contains(["PassThrough", "Active"], var.snsTopicTracingConfig))
-    error_message = "Valid inputs for | variable: snsTopicTracingConfig | are: PassThrough, Active, null"
+    condition     = var.TWS_SnsTopicTracingConfig == null || can(contains(["PassThrough", "Active"], var.TWS_SnsTopicTracingConfig))
+    error_message = "Valid inputs for | variable: TWS_SnsTopicTracingConfig | are: PassThrough, Active, null"
   }
   default = null
 }
 
-variable "snsTopicFifoTopic" {
+variable "TWS_SnsTopicFifoTopic" {
   type    = bool
   default = false
 }
 
-variable "snsTopicArchivePolicy" {
+variable "TWS_SnsTopicArchivePolicy" {
   type    = string
   default = null
 }
 
-variable "snsTopicContentBasedDeduplication" {
+variable "TWS_SnsTopicContentBasedDeduplication" {
   type    = bool
   default = false
 }
 
-variable "snsTopicLambdaSuccessFeedbackRoleArn" {
+variable "TWS_SnsTopicLambdaSuccessFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "snsTopicLambdaSuccessFeedbackSampleRate" {
+variable "TWS_SnsTopicLambdaSuccessFeedbackSampleRate" {
   type = number
   validation {
-    condition     = var.snsTopicLambdaSuccessFeedbackSampleRate == null || can(var.snsTopicLambdaSuccessFeedbackSampleRate >= 0 && var.snsTopicLambdaSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable snsTopicLambdaSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
+    condition     = var.TWS_SnsTopicLambdaSuccessFeedbackSampleRate == null || can(var.TWS_SnsTopicLambdaSuccessFeedbackSampleRate >= 0 && var.TWS_SnsTopicLambdaSuccessFeedbackSampleRate <= 100)
+    error_message = "Variable TWS_SnsTopicLambdaSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
   }
   default = null
 }
 
-variable "snsTopicLambdaFailureFeedbackRoleArn" {
+variable "TWS_SnsTopicLambdaFailureFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "snsTopicSqsSuccessFeedbackRoleArn" {
+variable "TWS_SnsTopicSqsSuccessFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "snsTopicSqsSuccessFeedbackSampleRate" {
+variable "TWS_SnsTopicSqsSuccessFeedbackSampleRate" {
   type = number
   validation {
-    condition     = var.snsTopicSqsSuccessFeedbackSampleRate == null || can(var.snsTopicSqsSuccessFeedbackSampleRate >= 0 && var.snsTopicSqsSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable snsTopicSqsSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
+    condition     = var.TWS_SnsTopicSqsSuccessFeedbackSampleRate == null || can(var.TWS_SnsTopicSqsSuccessFeedbackSampleRate >= 0 && var.TWS_SnsTopicSqsSuccessFeedbackSampleRate <= 100)
+    error_message = "Variable TWS_SnsTopicSqsSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
   }
   default = null
 }
 
-variable "snsTopicSqsFailureFeedbackRoleArn" {
+variable "TWS_SnsTopicSqsFailureFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "snsTopicFirehoseSuccessFeedbackRoleArn" {
+variable "TWS_SnsTopicFirehoseSuccessFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "snsTopicFirehoseSuccessFeedbackSampleRate" {
+variable "TWS_SnsTopicFirehoseSuccessFeedbackSampleRate" {
   type = number
   validation {
-    condition     = var.snsTopicFirehoseSuccessFeedbackSampleRate == null || can(var.snsTopicFirehoseSuccessFeedbackSampleRate >= 0 && var.snsTopicFirehoseSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable snsTopicFirehoseSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
+    condition     = var.TWS_SnsTopicFirehoseSuccessFeedbackSampleRate == null || can(var.TWS_SnsTopicFirehoseSuccessFeedbackSampleRate >= 0 && var.TWS_SnsTopicFirehoseSuccessFeedbackSampleRate <= 100)
+    error_message = "Variable TWS_SnsTopicFirehoseSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
   }
   default = null
 }
 
-variable "snsTopicFirehoseFailureFeedbackRoleArn" {
+variable "TWS_SnsTopicFirehoseFailureFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "snsTopicSubscriptionEndpoint" {
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription#argument-reference
+
+variable "TWS_SnsTopicSubscriptionEndpoint" {
   type = string
 }
 
-variable "snsTopicSubscriptionProtocal" {
+variable "TWS_SnsTopicSubscriptionProtocal" {
   type = string
 
   validation {
-    condition     = var.snsTopicSubscriptionProtocal == null || contains(["sqs", "sms", "lambda", "firehose", "application", "email", "email-json", "http", "https"], var.snsTopicSubscriptionProtocal)
-    error_message = "The only valid options for snsTopicSubscriptionProtocal are 'sqs', 'sms', 'lambda', 'firehose', 'application', 'email', 'email-json', 'http', 'https'."
+    condition     = var.TWS_SnsTopicSubscriptionProtocal == null || contains(["sqs", "sms", "lambda", "firehose", "application", "email", "email-json", "http", "https"], var.TWS_SnsTopicSubscriptionProtocal)
+    error_message = "The only valid options for TWS_SnsTopicSubscriptionProtocal are 'sqs', 'sms', 'lambda', 'firehose', 'application', 'email', 'email-json', 'http', 'https'."
   }
 }
-
-variable "snsTopicSubscriptionSubscriptionRoleArn" {
+variable "TWS_SnsTopicSubscriptionSubscriptionRoleArn" {
   type    = string
   default = null
 }
 
-variable "snsTopicSubscriptionConfirmationTimeoutInMinutes" {
+variable "TWS_SnsTopicSubscriptionTopicArn" {
+  type = string
+}
+
+variable "TWS_SnsTopicSubscriptionConfirmationTimeoutInMinutes" {
   type    = number
   default = 1
 }
 
-variable "snsTopicSubscriptionDeliveryPolicy" {
+variable "TWS_SnsTopicSubscriptionDeliveryPolicy" {
   type    = string
   default = null
 }
 
-variable "snsTopicSubscriptionEndpointAutoConfirms" {
+variable "TWS_SnsTopicSubscriptionEndpointAutoConfirms" {
   type    = bool
   default = false
 }
 
-variable "snsTopicSubscriptionFilterPolicy" {
+variable "TWS_SnsTopicSubscriptionFilterPolicy" {
   type    = string
   default = null
 }
 
-
-variable "snsTopicSubscriptionFilterPolicyScope" {
+variable "TWS_SnsTopicSubscriptionFilterPolicyScope" {
   type = string
   validation {
-    condition     = var.snsTopicSubscriptionFilterPolicyScope == null || can(contains(["MessageAttributes", "MessageBody"], var.snsTopicSubscriptionFilterPolicyScope))
-    error_message = "Valid inputs for | variable: snsTopicSubscriptionFilterPolicyScope | are: MessageAttributes, MessageBody, null"
+    condition     = var.TWS_SnsTopicSubscriptionFilterPolicyScope == null || can(contains(["MessageAttributes", "MessageBody"], var.TWS_SnsTopicSubscriptionFilterPolicyScope))
+    error_message = "Valid inputs for | variable: TWS_SnsTopicSubscriptionFilterPolicyScope | are: MessageAttributes, MessageBody, null"
   }
   default = null
 }
 
-variable "snsTopicSubscriptionRawMessageDelivery" {
+variable "TWS_SnsTopicSubscriptionRawMessageDelivery" {
   type    = bool
   default = false
 }
 
-variable "snsTopicSubscriptionRedrivePolicy" {
+variable "TWS_SnsTopicSubscriptionRedrivePolicy" {
   type    = string
   default = null
 }
 
-#(Optional) JSON String with the archived message replay 
-#policy that will be used in the subscription. Refer to the 
-#SNS docs for more details.
-#https://docs.aws.amazon.com/sns/latest/dg/message-archiving-and-replay-subscriber.html
-variable "snsTopicSubscriptionReplayPolicy" {
+variable "TWS_SnsTopicSubscriptionReplayPolicy" {
   type    = string
   default = null
 }
+
+#---

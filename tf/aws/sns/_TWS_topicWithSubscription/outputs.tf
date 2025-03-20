@@ -1,11 +1,14 @@
-output "snsTopicArn" {
+output "TWS_SnsTopicArn" {
   value = module.snsTopic.snsTopicArn
 }
 
-output "snsTopicName" {
+output "TWS_SnsTopicName" {
   value = module.snsTopic.snsTopicName
 }
 
-output "snsTopicSubscriptionArn" {
+#---
+output "topicSubscriptionArn" {
   value = module.snsTopicSubscription.topicSubscriptionArn
 }
+
+#---

@@ -1,26 +1,16 @@
-output "serviceAccountId" {
-  value = module.serviceAccount.serviceAccountId
+output "TWS_SnsTopicArn" {
+  value = module.snsTopic.snsTopicArn
 }
 
-output "serviceAccountEmail" {
-  value = module.serviceAccount.serviceAccountEmail
+output "TWS_SnsTopicName" {
+  value = module.snsTopic.snsTopicName
 }
 
-output "serviceAccountDisplayName" {
-  value = module.serviceAccount.serviceAccountDisplayName
-}
+
 
 #---
-output "roleId" {
-  value = module.role.roleId
-}
-
-output "roleName" {
-  value = module.role.roleName
-}
-
-output "roleRoleId" {
-  value = module.role.roleRoleId
+output "topicSubscriptionArn" {
+  value = module.snsTopicSubscription.topicSubscriptionArn
 }
 
 #---
