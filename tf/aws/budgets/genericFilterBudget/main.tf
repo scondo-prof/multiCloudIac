@@ -13,13 +13,20 @@ provider "aws" {
 
 resource "aws_budgets_budget" "budget" {
   budget_type  = var.budgetType
-  time_unit = var.budget
-  account_id = var.budget
+  time_unit = var.budgetTimeUnit
+  account_id = var.budgetAccountId
   
   dynamic "auto_adjust_data" {
-    for_each = var.budget != null ? [var.budget]: []
+    for_each = var.budgetAutoAdjustData != null ? [var.budgetAutoAdjustData]: []
     content {
+      auto_adjust_type = auto_adjust_data.value["auto_adjust_type"]
       
+      dynamic "historical_options" {
+        for_each = auto_adjust_data.value["historical_options"] != null ? [auto_adjust_data.value["historical_options"]]: []
+        content {
+          budget_adjustment_period = historical_options.value["budget_adjustment_period"]
+        }
+      }
     }
   }
 
