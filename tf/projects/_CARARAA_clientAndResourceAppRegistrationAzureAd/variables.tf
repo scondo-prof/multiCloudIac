@@ -289,10 +289,6 @@ variable "CARARAA_AzureAdResourceApplicationPermissionScopeAdminConsentDisplayNa
   type = string
 }
 
-variable "CARARAA_AzureAdResourceApplicationPermissionScopeApplicationObjectId" {
-  type = string
-}
-
 variable "CARARAA_AzureAdResourceApplicationPermissionScopeType" {
   type    = string
   default = "User"
@@ -316,24 +312,13 @@ variable "CARARAA_AzureAdResourceApplicationPermissionScopeValue" {
 
 #https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_pre_authorized#argument-reference
 
-variable "CARARAA_AzureAdResourceApplicationPreAuthorizedApplicationObjectId" {
-  type = string
-}
-
-variable "CARARAA_AzureAdResourceApplicationPreAuthorizedApplicationClientId" {
-  type = string
-}
-
 variable "CARARAA_AzureAdResourceApplicationPreAuthorizedPermissionIds" {
-  type = list(string)
+  type    = list(string)
+  default = []
 }
 
 #---
 #https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_password#argument-reference
-
-variable "CARARAA_AzureAdClientApplicationPasswordApplicationObjectId" {
-  type = string
-}
 
 variable "CARARAA_AzureAdClientApplicationPasswordEndDate" { #https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_password#end_date
   type    = string
@@ -354,14 +339,6 @@ variable "CARARAA_AzureAdClientApplicationPasswordStartDate" { #https://registry
 
 #https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_api_access#argument-reference
 
-variable "CARARAA_AzureAdClientApplicationApiAccessApiClientId" {
-  type = string
-}
-
-variable "CARARAA_AzureAdClientApplicationApiAccessApplicationObjectId" {
-  type = string
-}
-
 variable "CARARAA_AzureAdClientApplicationApiAccessRoleIds" {
   type    = list(string)
   default = null
@@ -369,7 +346,7 @@ variable "CARARAA_AzureAdClientApplicationApiAccessRoleIds" {
 
 variable "CARARAA_AzureAdClientApplicationApiAccessScopeIds" {
   type    = list(string)
-  default = null
+  default = []
 }
 
 #---

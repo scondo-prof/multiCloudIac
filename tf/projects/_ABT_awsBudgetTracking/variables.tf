@@ -339,7 +339,7 @@ variable "ABT_budgetNotification" {
 }
 
 variable "ABT_budgetNotificationSubscriberSnsTopicArns" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 

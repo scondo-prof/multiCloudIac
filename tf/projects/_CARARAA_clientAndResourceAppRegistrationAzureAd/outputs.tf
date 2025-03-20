@@ -35,6 +35,6 @@ output "CARARAA_AzureAdClientApplicationPasswordKeyId" {
 }
 
 output "CARARAA_AzureAdClientApplicationPasswordValue" {
-  value = module.azureAdClientApplicationPassword.azureAdApplicationPasswordValue
+  value     = module.azureAdClientApplicationPassword.azureAdApplicationPasswordValue
   sensitive = true
 }

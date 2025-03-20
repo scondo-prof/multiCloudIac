@@ -564,8 +564,8 @@ variable "AGRAMVKUP_RestApiStageCacheClusterSize" {
 
 variable "AGRAMVKUP_RestApiStageCanarySettings" {
   type = object({
-    deployment_id            = string
-    percent_traffic          = optional(string, null)
+    deployment_id                             = string
+    percent_traffic                           = optional(string, null)
     AGRAMVKUP_RestApiStage_variable_overrides = optional(map(string), null)
     use_AGRAMVKUP_RestApiStage_cache          = optional(bool, null)
   })
