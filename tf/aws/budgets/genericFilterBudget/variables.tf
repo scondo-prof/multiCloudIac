@@ -109,3 +109,34 @@ variable "budgetNamePrefix" {
   type = string
   default = null
 }
+
+variable "budgetNotification" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#budget-notification
+    comparison_operator = string
+    threshold = number
+    threshold_type = string
+    notification_type = string
+    subscriber_email_addresses = optional(list(string), null)
+    subscriber_sns_topic_arns = optional(list(string), null)
+  })
+  default = null
+}
+
+variable "budgetPlannedLimit" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#planned-budget-limits
+    start_time = string
+    amount = number
+    unit = string
+  })
+  default = null
+}
+
+variable "budgetTimePeriodEnd" {
+  type = string
+  default = null
+}
+
+variable "budgetTimePeriodStart" {
+  type = string
+  default = null
+}

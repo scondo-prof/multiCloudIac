@@ -61,16 +61,23 @@ resource "aws_budgets_budget" "budget" {
   name_prefix = var.budgetNamePrefix
   
   dynamic "notification" {
-    for_each = var.budget != null ? [var.budget]: []
+    for_each = var.budgetNotification != null ? [var.budgetNotification]: []
     content {
-      
+      comparison_operator = notification.value["comparison_operator"]
+      threshold = notification.value["threshold"]
+      threshold_type = notification.value["threshold_type"]
+      notification_type = notification.value["notification_type"]
+      subscriber_email_addresses = notification.value["subscriber_email_addresses"]
+      subscriber_sns_topic_arns = notification.value["subscriber_sns_topic_arns"]
     }
   }
 
   dynamic "planned_limit" {
-    for_each = var.budget != null ? [var.budget]: []
+    for_each = var.budgetPlannedLimit != null ? [var.budgetPlannedLimit]: []
     content {
-      
+      start_time = planned_limit.value["start_time"]
+      amount = planned_limit.value["amount"]
+      unit = planned_limit.value["unit"]
     }
   }
 
@@ -80,6 +87,6 @@ resource "aws_budgets_budget" "budget" {
     DeployedDate = var.deployedDate
     TfModule     = var.tfModule
   }, var.additionalTags)
-  time_period_end = var.budget
-  time_period_start = var.budget  
+  time_period_end = var.budgetTimePeriodEnd
+  time_period_start = var.budgetTimePeriodStart
 }
