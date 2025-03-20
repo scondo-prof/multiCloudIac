@@ -12,23 +12,48 @@ provider "aws" {
 }
 
 resource "aws_budgets_budget" "budget" {
-  name         = "${var.resourceName}-budget"
   budget_type  = var.budgetType
-  limit_amount = var.budgetLimitAmount
-  limit_unit   = var.budgetLimitUnit
-  time_unit    = var.budgetTimeUnit
-
-  cost_filter {
-    name   = var.budgetCostFilterName
-    values = var.budgetCostFilterValues
+  time_unit = var.budget
+  account_id = var.budget
+  
+  dynamic "auto_adjust_data" {
+    for_each = var.budget != null ? [var.budget]: []
+    content {
+      
+    }
   }
 
-  notification {
-    comparison_operator       = var.budgetNotificationComparisonOperator
-    threshold                 = var.budgetNotificationThreshold
-    threshold_type            = var.budgetNotificationThresholdType
-    notification_type         = var.budgetNotificationType
-    subscriber_sns_topic_arns = var.snsTopicArns
+  dynamic "cost_filter" {
+    for_each = var.budget != null ? [var.budget]: []
+    content {
+      
+    }
+  }
+
+  dynamic "cost_types" {
+    for_each = var.budget != null ? [var.budget]: []
+    content {
+      
+    }
+  }
+
+  limit_amount = var.budget
+  limit_unit = var.budget
+  name         = var.budget
+  name_prefix = var.budget
+  
+  dynamic "notification" {
+    for_each = var.budget != null ? [var.budget]: []
+    content {
+      
+    }
+  }
+
+  dynamic "planned_limit" {
+    for_each = var.budget != null ? [var.budget]: []
+    content {
+      
+    }
   }
 
   tags = merge({
@@ -37,4 +62,6 @@ resource "aws_budgets_budget" "budget" {
     DeployedDate = var.deployedDate
     TfModule     = var.tfModule
   }, var.additionalTags)
+  time_period_end = var.budget
+  time_period_start = var.budget  
 }
