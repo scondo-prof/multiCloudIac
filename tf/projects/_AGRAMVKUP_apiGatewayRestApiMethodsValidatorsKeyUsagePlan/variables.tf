@@ -241,14 +241,6 @@ variable "AGRAMVKUP_RestApiMethodRequestParameters" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method_response#argument-reference
 
-variable "AGRAMVKUP_RestApiMethodResponseRestApiId" {
-  type = string
-}
-
-variable "AGRAMVKUP_RestApiMethodResponseResourceId" {
-  type = string
-}
-
 variable "AGRAMVKUP_RestApiMethodResponseHttpMethod" {
   type = string
   validation {
@@ -283,10 +275,6 @@ variable "AGRAMVKUP_RestApiMethodResponseParameters" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_request_validator#argument-reference
 
-variable "AGRAMVKUP_RestApiRequestValidatorRestApiId" {
-  type = string
-}
-
 variable "AGRAMVKUP_RestApiRequestValidatorValidateRequestBody" {
   type    = bool
   default = null
@@ -300,10 +288,6 @@ variable "AGRAMVKUP_RestApiRequestValidatorValidateRequestParameters" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiModel#argument-reference
-
-variable "AGRAMVKUP_RestApiModelRestApiId" {
-  type = string
-}
 
 variable "AGRAMVKUP_RestApiModelName" {
   type = string
@@ -325,14 +309,6 @@ variable "AGRAMVKUP_RestApiModelSchemaFile" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiIntegration#argument-reference
-
-variable "AGRAMVKUP_RestApiIntegrationRestApiId" {
-  type = string
-}
-
-variable "AGRAMVKUP_RestApiIntegrationResourceId" {
-  type = string
-}
 
 variable "AGRAMVKUP_RestApiIntegrationHttpMethod" {
   type = string
@@ -506,15 +482,13 @@ variable "AGRAMVKUP_RestApiUsagePlanDescription" {
 
 variable "AGRAMVKUP_RestApiUsagePlanApiStages" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan#api_id-1
   type = object({
-    api_id = string
-    stage  = string
     throttle = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan#path-1
       path        = string
       burst_limit = optional(number, null)
       rate_limit  = optional(number, null)
     }), null)
   })
-  default = null
+  default = {}
 }
 
 variable "AGRAMVKUP_RestApiUsagePlanQuotaSettings" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan#limit-1
@@ -543,10 +517,6 @@ variable "AGRAMVKUP_RestApiUsagePlanProductCode" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan_key#argument-reference
 
-variable "AGRAMVKUP_RestApiUsagePlanKeyId" {
-  type = string
-}
-
 variable "AGRAMVKUP_RestApiUsagePlanKeyType" {
   type = string
   validation {
@@ -557,21 +527,9 @@ variable "AGRAMVKUP_RestApiUsagePlanKeyType" {
   }
 }
 
-variable "AGRAMVKUP_RestApiUsagePlanKeyUsagePlanId" {
-  type = string
-}
-
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiStage#argument-reference
-
-variable "AGRAMVKUP_RestApiStageRestApiId" {
-  type = string
-}
-
-variable "AGRAMVKUP_RestApiStageDeploymentId" {
-  type = string
-}
 
 variable "AGRAMVKUP_RestApiStageAccessLogSettings" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiStage#access-log-settings
   type = object({
@@ -646,10 +604,6 @@ variable "AGRAMVKUP_RestApiStageXrayTracingEnabled" {
 variable "AGRAMVKUP_RestApiDeploymentDescription" {
   type    = string
   default = null
-}
-
-variable "AGRAMVKUP_RestApiDeploymentRestApiId" {
-  type = string
 }
 
 variable "AGRAMVKUP_RestApiDeploymentTriggers" {
