@@ -11,7 +11,6 @@ output "CECC_EcrRepositoryUrl" {
 }
 
 #---
-
 output "CECC_CodebuildProjectArn" {
   value = module.codebuildProject.codebuildProjectArn
 }
@@ -25,57 +24,53 @@ output "CECC_CodebuildProjectName" {
 }
 
 #---
-
-output "CECC_CredentialsArn" {
-  value = module.credentials.credentialsArn
+output "CECC_CodebuildCredentialsArn" {
+  value = module.codebuildCredentials.credentialsArn
 }
 
 #---
-
-output "CECC_WebhookPayloadUrl" {
-  value = module.webhook.webhookPayloadUrl
+output "CECC_CodebuildWebhookPayloadUrl" {
+  value = module.codebuildWebhook.webhookPayloadUrl
 }
 
-output "CECC_WebhookUrl" {
-  value = module.webhook.webhookUrl
+output "CECC_CodebuildWebhookUrl" {
+  value = module.codebuildWebhook.webhookUrl
 }
 
 #---
+output "CECC_CodebuildRoleName" {
+  value = module.codebuildRole.iamRoleName
+}
 
 output "CECC_CodebuildRoleArn" {
   value = module.codebuildRole.iamRoleArn
 }
 
-output "CECC_CodebuildRoleName" {
-  value = module.codebuildRole.iamRoleName
+#---
+output "CECC_CodebuildRolePolicyArn" {
+  value = module.codebuildRolePolicy.iamPolicyArn
+}
+
+output "CECC_CodebuildRolePolicyName" {
+  value = module.codebuildRolePolicy.iamPolicyName
 }
 
 #---
-
-output "CECC_CodebuildPolicyArn" {
-  value = module.codebuildPolicy.iamPolicyArn
+output "CECC_CodebuildLogGroupArn" {
+  value = module.codebuildLogGroup.logGroupArn
 }
 
-output "CECC_CodebuildPolicyName" {
-  value = module.codebuildPolicy.iamPolicyName
-}
-
-#---
-
-output "CECC_LogGroupArn" {
-  value = module.logGroup.logGroupArn
-}
-
-output "CECC_LogGroupName" {
-  value = module.logGroup.logGroupName
+output "CECC_CodebuildLogGroupName" {
+  value = module.codebuildLogGroup.logGroupName
 }
 
 #---
-
-output "CECC_EcrAccessPolicyArn" {
-  value = module.ecrAccessPolicy.iamPolicyArn
+output "CECC_CodebuildRoleEcrPolicyArn" {
+  value = module.codebuildRoleEcrPolicy.iamPolicyArn
 }
 
-output "CECC_EcrAccessPolicyName" {
-  value = module.ecrAccessPolicy.iamPolicyName
+output "CECC_CodebuildRoleEcrPolicyName" {
+  value = module.codebuildRoleEcrPolicy.iamPolicyName
 }
+
+#---
