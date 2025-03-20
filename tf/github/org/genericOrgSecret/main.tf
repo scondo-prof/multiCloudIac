@@ -13,8 +13,9 @@ provider "github" {
 }
 
 resource "github_actions_organization_secret" "secret" {
-  secret_name             = "${var.resourceName}_secret"
-  visibility              = var.secretVisibility
+  secret_name             = upper(replace("${var.resourceName}_SECRET", "-", "_"))
+  encrypted_value         = var.secretEncryptedValue
   plaintext_value         = var.secretPlaintextValue
-  selected_repository_ids = var.secretRepositoryIds
+  visibility              = var.secretVisibility
+  selected_repository_ids = var.secretSelectedRepositoryIds
 }

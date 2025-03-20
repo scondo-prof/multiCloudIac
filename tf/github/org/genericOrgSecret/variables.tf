@@ -12,21 +12,33 @@ variable "resourceName" {
   type = string
 }
 
-variable "secretVisibility" {
-  type = string
-  validation {
-    condition     = contains(["all", "private", "selected"], var.secretVisibility)
-    error_message = "Variable secretVisibility can only be set to the following values: all, private, selected"
-  }
-  default = "private"
+#https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_organization_secret#argument-reference
+
+variable "secretEncryptedValue" {
+  type      = string
+  default   = null
+  sensitive = true
 }
 
 variable "secretPlaintextValue" {
   type      = string
+  default   = null
   sensitive = true
 }
 
-variable "secretRepositoryIds" {
+variable "secretVisibility" {
+  type = string
+  validation {
+    condition = contains([
+      "all",
+      "private",
+      "selected"
+    ], var.secretVisibility)
+    error_message = "Valid inputs for | variable: var.secretVisibility | are: all, private, selected"
+  }
+}
+
+variable "secretSelectedRepositoryIds" {
   type    = list(string)
   default = null
 }
