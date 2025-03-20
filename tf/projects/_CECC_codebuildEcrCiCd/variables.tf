@@ -29,6 +29,11 @@ variable "additionalTags" {
   default = {}
 }
 
+variable "awsAccountId" {
+  type    = string
+  default = "us-east1"
+}
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository#argument-reference
 
 variable "CECC_EcrRepositoryEncryptionConfiguration" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository#encryption_configuration
@@ -179,13 +184,18 @@ variable "CECC_CodebuildProjectEnvironmentComputeType" {
 #   default = null
 # }
 
+variable "codebuildProjectEcrRepoImageTag" {
+  type    = string
+  default = "latest"
+}
+
 variable "CECC_CodebuildProjectEnvironmentEnvironmentVariable" {
   type = map(object({
     name  = string
     type  = optional(string, null)
     value = string
   }))
-  default = null
+  default = {}
 }
 
 variable "CECC_CodebuildProjectEnvironmentImagePullCredentialsType" {
@@ -229,14 +239,6 @@ variable "CECC_CodebuildProjectEnvironmentType" {
     ], var.CECC_CodebuildProjectEnvironmentType)
     error_message = "Valid inputs for | variable: var.CECC_CodebuildProjectEnvironmentType | are: LINUX_CONTAINER, LINUX_GPU_CONTAINER, WINDOWS_SERVER_2019_CONTAINER, ARM_CONTAINER, LINUX_LAMBDA_CONTAINER"
   }
-}
-
-variable "resourceName" {
-  type = string
-}
-
-variable "CECC_CodebuildProjectServiceRole" {
-  type = string
 }
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#source
@@ -370,7 +372,6 @@ variable "CECC_CodebuildProjectLogsConfig" { #https://registry.terraform.io/prov
   type = object({
 
     cloudwatch_logs = optional(object({
-      group_name  = optional(string, null)
       status      = optional(string, null)
       stream_name = optional(string, null)
     }), null)
@@ -382,7 +383,7 @@ variable "CECC_CodebuildProjectLogsConfig" { #https://registry.terraform.io/prov
       bucket_owner_access = optional(string, null)
     }), null)
   })
-  default = null
+  default = {}
 }
 
 variable "CECC_CodebuildProjectVisibility" {
@@ -482,12 +483,12 @@ variable "CECC_CodebuildCredentialsAuthType" {
   type = string
   validation {
     condition = contains([
-    "OAUTH",
-    "BASIC_AUTH",
-    "PERSONAL_ACCESS_TOKEN",
-    "CODECONNECTIONS",
-    "SECRETS_MANAGER"
-], var.CECC_CodebuildCredentialsAuthType)
+      "OAUTH",
+      "BASIC_AUTH",
+      "PERSONAL_ACCESS_TOKEN",
+      "CODECONNECTIONS",
+      "SECRETS_MANAGER"
+    ], var.CECC_CodebuildCredentialsAuthType)
     error_message = "Valid inputs for | variable: var.CECC_CodebuildCredentialsAuthType | are: OAUTH, BASIC_AUTH, PERSONAL_ACCESS_TOKEN, CODECONNECTIONS, SECRETS_MANAGER"
   }
 }
@@ -508,9 +509,6 @@ variable "CECC_CodebuildCredentialsUserName" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_CECC_CodebuildWebhook#argument-reference
-variable "CECC_CodebuildWebhookProjectName" {
-  type = string
-}
 
 variable "CECC_CodebuildWebhookBuildType" {
   type = string
@@ -630,6 +628,7 @@ variable "CECC_CodebuildRolePolicyDocumentStatements" {
     Condition = optional(map(map(string)), {})
     Principal = optional(map(list(string)), {})
   }))
+  default = []
 }
 
 #---
@@ -700,13 +699,6 @@ variable "CECC_CodebuildLogGroupKmsKeyId" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
-variable "CECC_CodebuildRolePolicyAttachmentRoleName" {
-  type = string
-}
-
-variable "CECC_CodebuildRolePolicyAttachmentPolicyArn" {
-  type = string
-}
 
 #---
 
@@ -737,17 +729,11 @@ variable "CECC_CodebuildRoleEcrPolicyDocumentStatements" {
     Condition = optional(map(map(string)), {})
     Principal = optional(map(list(string)), {})
   }))
+  default = []
 }
 
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
-variable "CECC_CodebuildRoleEcrPolicyAttachmentRoleName" {
-  type = string
-}
-
-variable "CECC_CodebuildRoleEcrPolicyAttachmentPolicyArn" {
-  type = string
-}
 
 #---
