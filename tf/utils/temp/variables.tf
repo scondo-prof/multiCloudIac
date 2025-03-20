@@ -31,148 +31,219 @@ variable "additionalTags" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic#argument-reference
 
-variable "TWS_SnsTopicPolicy" {
+variable "ABT_TWS_SnsTopicPolicy" {
   type    = string
   default = null
 }
 
-variable "TWS_SnsTopicDeliveryPolicy" {
+variable "ABT_TWS_SnsTopicDeliveryPolicy" {
   type    = string
   default = null
 }
 
-variable "TWS_SnsTopicApplicationSuccessFeedbackRoleArn" {
+variable "ABT_TWS_SnsTopicApplicationSuccessFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "TWS_SnsTopicApplicationSuccessFeedbackSampleRate" {
+variable "ABT_TWS_SnsTopicApplicationSuccessFeedbackSampleRate" {
   type = number
   validation {
-    condition     = var.TWS_SnsTopicApplicationSuccessFeedbackSampleRate == null || can(var.TWS_SnsTopicApplicationSuccessFeedbackSampleRate >= 0 && var.TWS_SnsTopicApplicationSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable TWS_SnsTopicApplicationSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
+    condition     = var.ABT_TWS_SnsTopicApplicationSuccessFeedbackSampleRate == null || can(var.ABT_TWS_SnsTopicApplicationSuccessFeedbackSampleRate >= 0 && var.ABT_TWS_SnsTopicApplicationSuccessFeedbackSampleRate <= 100)
+    error_message = "Variable ABT_TWS_SnsTopicApplicationSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
   }
   default = null
 }
 
-variable "TWS_SnsTopicApplicationFailureFeedbackRoleArn" {
+variable "ABT_TWS_SnsTopicApplicationFailureFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "TWS_SnsTopicHttpSuccessFeedbackRoleArn" {
+variable "ABT_TWS_SnsTopicHttpSuccessFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "TWS_SnsTopicHttpSuccessFeedbackSampleRate" {
+variable "ABT_TWS_SnsTopicHttpSuccessFeedbackSampleRate" {
   type = number
   validation {
-    condition     = var.TWS_SnsTopicHttpSuccessFeedbackSampleRate == null || can(var.TWS_SnsTopicHttpSuccessFeedbackSampleRate >= 0 && var.TWS_SnsTopicHttpSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable TWS_SnsTopicHttpSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
+    condition     = var.ABT_TWS_SnsTopicHttpSuccessFeedbackSampleRate == null || can(var.ABT_TWS_SnsTopicHttpSuccessFeedbackSampleRate >= 0 && var.ABT_TWS_SnsTopicHttpSuccessFeedbackSampleRate <= 100)
+    error_message = "Variable ABT_TWS_SnsTopicHttpSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
   }
   default = null
 }
 
-variable "TWS_SnsTopicHttpFailureFeedbackRoleArn" {
+variable "ABT_TWS_SnsTopicHttpFailureFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "TWS_SnsTopicKmsMasterKeyId" {
+variable "ABT_TWS_SnsTopicKmsMasterKeyId" {
   type    = string
   default = null
 }
 
-variable "TWS_SnsTopicSignatureVersion" {
+variable "ABT_TWS_SnsTopicSignatureVersion" {
   type = number
   validation {
-    condition     = var.TWS_SnsTopicSignatureVersion == null || can(var.TWS_SnsTopicSignatureVersion == 1 || var.TWS_SnsTopicSignatureVersion == 2)
-    error_message = "Variable TWS_SnsTopicSignatureVersion must be 1 or 2"
+    condition     = var.ABT_TWS_SnsTopicSignatureVersion == null || can(var.ABT_TWS_SnsTopicSignatureVersion == 1 || var.ABT_TWS_SnsTopicSignatureVersion == 2)
+    error_message = "Variable ABT_TWS_SnsTopicSignatureVersion must be 1 or 2"
   }
   default = null
 }
 
-variable "TWS_SnsTopicTracingConfig" {
+variable "ABT_TWS_SnsTopicTracingConfig" {
   type = string
   validation {
-    condition     = var.TWS_SnsTopicTracingConfig == null || can(contains(["PassThrough", "Active"], var.TWS_SnsTopicTracingConfig))
-    error_message = "Valid inputs for | variable: TWS_SnsTopicTracingConfig | are: PassThrough, Active, null"
+    condition     = var.ABT_TWS_SnsTopicTracingConfig == null || can(contains(["PassThrough", "Active"], var.ABT_TWS_SnsTopicTracingConfig))
+    error_message = "Valid inputs for | variable: ABT_TWS_SnsTopicTracingConfig | are: PassThrough, Active, null"
   }
   default = null
 }
 
-variable "TWS_SnsTopicFifoTopic" {
+variable "ABT_TWS_SnsTopicFifoTopic" {
   type    = bool
   default = false
 }
 
-variable "TWS_SnsTopicArchivePolicy" {
+variable "ABT_TWS_SnsTopicArchivePolicy" {
   type    = string
   default = null
 }
 
-variable "TWS_SnsTopicContentBasedDeduplication" {
+variable "ABT_TWS_SnsTopicContentBasedDeduplication" {
   type    = bool
   default = false
 }
 
-variable "TWS_SnsTopicLambdaSuccessFeedbackRoleArn" {
+variable "ABT_TWS_SnsTopicLambdaSuccessFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "TWS_SnsTopicLambdaSuccessFeedbackSampleRate" {
+variable "ABT_TWS_SnsTopicLambdaSuccessFeedbackSampleRate" {
   type = number
   validation {
-    condition     = var.TWS_SnsTopicLambdaSuccessFeedbackSampleRate == null || can(var.TWS_SnsTopicLambdaSuccessFeedbackSampleRate >= 0 && var.TWS_SnsTopicLambdaSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable TWS_SnsTopicLambdaSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
+    condition     = var.ABT_TWS_SnsTopicLambdaSuccessFeedbackSampleRate == null || can(var.ABT_TWS_SnsTopicLambdaSuccessFeedbackSampleRate >= 0 && var.ABT_TWS_SnsTopicLambdaSuccessFeedbackSampleRate <= 100)
+    error_message = "Variable ABT_TWS_SnsTopicLambdaSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
   }
   default = null
 }
 
-variable "TWS_SnsTopicLambdaFailureFeedbackRoleArn" {
+variable "ABT_TWS_SnsTopicLambdaFailureFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "TWS_SnsTopicSqsSuccessFeedbackRoleArn" {
+variable "ABT_TWS_SnsTopicSqsSuccessFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "TWS_SnsTopicSqsSuccessFeedbackSampleRate" {
+variable "ABT_TWS_SnsTopicSqsSuccessFeedbackSampleRate" {
   type = number
   validation {
-    condition     = var.TWS_SnsTopicSqsSuccessFeedbackSampleRate == null || can(var.TWS_SnsTopicSqsSuccessFeedbackSampleRate >= 0 && var.TWS_SnsTopicSqsSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable TWS_SnsTopicSqsSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
+    condition     = var.ABT_TWS_SnsTopicSqsSuccessFeedbackSampleRate == null || can(var.ABT_TWS_SnsTopicSqsSuccessFeedbackSampleRate >= 0 && var.ABT_TWS_SnsTopicSqsSuccessFeedbackSampleRate <= 100)
+    error_message = "Variable ABT_TWS_SnsTopicSqsSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
   }
   default = null
 }
 
-variable "TWS_SnsTopicSqsFailureFeedbackRoleArn" {
+variable "ABT_TWS_SnsTopicSqsFailureFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "TWS_SnsTopicFirehoseSuccessFeedbackRoleArn" {
+variable "ABT_TWS_SnsTopicFirehoseSuccessFeedbackRoleArn" {
   type    = string
   default = null
 }
 
-variable "TWS_SnsTopicFirehoseSuccessFeedbackSampleRate" {
+variable "ABT_TWS_SnsTopicFirehoseSuccessFeedbackSampleRate" {
   type = number
   validation {
-    condition     = var.TWS_SnsTopicFirehoseSuccessFeedbackSampleRate == null || can(var.TWS_SnsTopicFirehoseSuccessFeedbackSampleRate >= 0 && var.TWS_SnsTopicFirehoseSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable TWS_SnsTopicFirehoseSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
+    condition     = var.ABT_TWS_SnsTopicFirehoseSuccessFeedbackSampleRate == null || can(var.ABT_TWS_SnsTopicFirehoseSuccessFeedbackSampleRate >= 0 && var.ABT_TWS_SnsTopicFirehoseSuccessFeedbackSampleRate <= 100)
+    error_message = "Variable ABT_TWS_SnsTopicFirehoseSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
   }
   default = null
 }
 
-variable "TWS_SnsTopicFirehoseFailureFeedbackRoleArn" {
+variable "ABT_TWS_SnsTopicFirehoseFailureFeedbackRoleArn" {
   type    = string
   default = null
 }
+
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription#argument-reference
+
+variable "ABT_TWS_SnsTopicSubscriptionEndpoint" {
+  type = string
+}
+
+variable "ABT_TWS_SnsTopicSubscriptionProtocal" {
+  type = string
+
+  validation {
+    condition     = var.ABT_TWS_SnsTopicSubscriptionProtocal == null || contains(["sqs", "sms", "lambda", "firehose", "application", "email", "email-json", "http", "https"], var.ABT_TWS_SnsTopicSubscriptionProtocal)
+    error_message = "The only valid options for ABT_TWS_SnsTopicSubscriptionProtocal are 'sqs', 'sms', 'lambda', 'firehose', 'application', 'email', 'email-json', 'http', 'https'."
+  }
+}
+variable "ABT_TWS_SnsTopicSubscriptionSubscriptionRoleArn" {
+  type    = string
+  default = null
+}
+
+variable "ABT_TWS_SnsTopicSubscriptionTopicArn" {
+  type = string
+}
+
+variable "ABT_TWS_SnsTopicSubscriptionConfirmationTimeoutInMinutes" {
+  type    = number
+  default = 1
+}
+
+variable "ABT_TWS_SnsTopicSubscriptionDeliveryPolicy" {
+  type    = string
+  default = null
+}
+
+variable "ABT_TWS_SnsTopicSubscriptionEndpointAutoConfirms" {
+  type    = bool
+  default = false
+}
+
+variable "ABT_TWS_SnsTopicSubscriptionFilterPolicy" {
+  type    = string
+  default = null
+}
+
+variable "ABT_TWS_SnsTopicSubscriptionFilterPolicyScope" {
+  type = string
+  validation {
+    condition     = var.ABT_TWS_SnsTopicSubscriptionFilterPolicyScope == null || can(contains(["MessageAttributes", "MessageBody"], var.ABT_TWS_SnsTopicSubscriptionFilterPolicyScope))
+    error_message = "Valid inputs for | variable: ABT_TWS_SnsTopicSubscriptionFilterPolicyScope | are: MessageAttributes, MessageBody, null"
+  }
+  default = null
+}
+
+variable "ABT_TWS_SnsTopicSubscriptionRawMessageDelivery" {
+  type    = bool
+  default = false
+}
+
+variable "ABT_TWS_SnsTopicSubscriptionRedrivePolicy" {
+  type    = string
+  default = null
+}
+
+variable "ABT_TWS_SnsTopicSubscriptionReplayPolicy" {
+  type    = string
+  default = null
+}
+
+
 
 #---
 variable "awsRegion" {
@@ -180,71 +251,104 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription#argument-reference
-
-variable "TWS_SnsTopicSubscriptionEndpoint" {
+variable "resourceName" {
   type = string
 }
 
-variable "TWS_SnsTopicSubscriptionProtocal" {
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#argument-reference
+
+variable "ABT_budgetType" {
+  type    = string
+  default = "COST"
+}
+
+variable "ABT_budgetLimitAmount" {
+  type = number
+}
+
+variable "ABT_budgetLimitUnit" {
+  type    = string
+  default = "USD"
+}
+
+variable "ABT_budgetTimeUnit" {
   type = string
 
   validation {
-    condition     = var.TWS_SnsTopicSubscriptionProtocal == null || contains(["sqs", "sms", "lambda", "firehose", "application", "email", "email-json", "http", "https"], var.TWS_SnsTopicSubscriptionProtocal)
-    error_message = "The only valid options for TWS_SnsTopicSubscriptionProtocal are 'sqs', 'sms', 'lambda', 'firehose', 'application', 'email', 'email-json', 'http', 'https'."
+    condition     = contains(["MONTHLY", "QUARTERLY", "ANNUALLY", "DAILY"], var.ABT_budgetTimeUnit)
+    error_message = "The only valid options for ABT_budgetTimeUnit are 'MONTHLY', 'QUARTERLY', 'ANNUALLY', 'DAILY'."
   }
 }
-variable "TWS_SnsTopicSubscriptionSubscriptionRoleArn" {
-  type    = string
-  default = null
-}
 
-variable "TWS_SnsTopicSubscriptionTopicArn" {
+variable "ABT_budgetCostFilterName" {
   type = string
-}
 
-variable "TWS_SnsTopicSubscriptionConfirmationTimeoutInMinutes" {
-  type    = number
-  default = 1
-}
-
-variable "TWS_SnsTopicSubscriptionDeliveryPolicy" {
-  type    = string
-  default = null
-}
-
-variable "TWS_SnsTopicSubscriptionEndpointAutoConfirms" {
-  type    = bool
-  default = false
-}
-
-variable "TWS_SnsTopicSubscriptionFilterPolicy" {
-  type    = string
-  default = null
-}
-
-variable "TWS_SnsTopicSubscriptionFilterPolicyScope" {
-  type = string
   validation {
-    condition     = var.TWS_SnsTopicSubscriptionFilterPolicyScope == null || can(contains(["MessageAttributes", "MessageBody"], var.TWS_SnsTopicSubscriptionFilterPolicyScope))
-    error_message = "Valid inputs for | variable: TWS_SnsTopicSubscriptionFilterPolicyScope | are: MessageAttributes, MessageBody, null"
+    condition     = contains(["PurchaseType", "UsageTypeGroup", "Service", "Operation", "UsageType", "BillingEntity", "CostCategory", "LinkedAccount", "TagKeyValue", "LegalEntityName", "InvoicingEntity", "AZ", "Region", "InstanceType"], var.ABT_budgetCostFilterName)
+    error_message = "The only valid options for ABT_budgetCostFilterName are 'PurchaseType', 'UsageTypeGroup', 'Service', 'Operation', 'UsageType', 'BillingEntity', 'CostCategory', 'LinkedAccount', 'TagKeyValue', 'LegalEntityName', 'InvoicingEntity', 'AZ', 'Region', 'InstanceType'."
   }
-  default = null
 }
 
-variable "TWS_SnsTopicSubscriptionRawMessageDelivery" {
-  type    = bool
-  default = false
+
+variable "ABT_budgetCostFilterValues" {
+  type = list(string)
 }
 
-variable "TWS_SnsTopicSubscriptionRedrivePolicy" {
-  type    = string
-  default = null
+variable "ABT_budgetNotificationComparisonOperator" {
+  type = string
+
+  validation {
+    condition     = contains(["LESS_THAN", "EQUAL_TO", "GREATER_THAN"], var.ABT_budgetNotificationComparisonOperator)
+    error_message = "The only valid options for ABT_budgetNotificationComparisonOperator are 'LESS_THAN', 'EQUAL_TO', 'GREATER_THAN'."
+  }
 }
 
-variable "TWS_SnsTopicSubscriptionReplayPolicy" {
-  type    = string
-  default = null
+variable "ABT_budgetNotificationThreshold" {
+  type = number
+}
+
+variable "ABT_budgetNotificationThresholdType" {
+  type = string
+
+  validation {
+    condition     = contains(["PERCENTAGE", "ABSOLUTE_VALUE"], var.ABT_budgetNotificationThresholdType)
+    error_message = "The only valid options for ABT_budgetNotificationThresholdType are 'PERCENTAGE', 'ABSOLUTE_VALUE'."
+  }
+}
+
+variable "ABT_budgetNotificationType" {
+  type = string
+
+  validation {
+    condition     = contains(["ACTUAL", "FORECASTED"], var.ABT_budgetNotificationType)
+    error_message = "The only valid options for ABT_budgetNotificationType are 'ACTUAL', 'FORECASTED'."
+  }
+}
+
+variable "snsTopicArns" {
+  type = list(string)
 }
 
 #---

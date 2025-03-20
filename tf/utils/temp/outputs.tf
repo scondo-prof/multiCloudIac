@@ -1,16 +1,25 @@
-output "TWS_SnsTopicArn" {
-  value = module.snsTopic.snsTopicArn
+output "ABT_TWS_SnsTopicArn" {
+  value = module.TWS.TWS_SnsTopicArn
 }
 
-output "TWS_SnsTopicName" {
-  value = module.snsTopic.snsTopicName
+output "ABT_TWS_SnsTopicName" {
+  value = module.TWS.TWS_SnsTopicName
+}
+
+
+output "topicSubscriptionArn" {
+  value = module.TWS.topicSubscriptionArn
 }
 
 
 
 #---
-output "topicSubscriptionArn" {
-  value = module.snsTopicSubscription.topicSubscriptionArn
+output "ABT_budgetArn" {
+  value = module.budget.budgetArn
+}
+
+output "ABT_budgetName" {
+  value = module.budget.budgetName
 }
 
 #---

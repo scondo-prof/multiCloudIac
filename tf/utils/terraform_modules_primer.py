@@ -9,23 +9,23 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../aws/sns/genericSnsTopic",
-            "source_path": "../genericSnsTopic",
+            "project_path": "../aws/sns/_TWS_topicWithSubscription",
+            "source_path": "../../aws/sns/_TWS_topicWithSubscription",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "snsTopic",
-        "new_variable_prefix": "TWS_SnsTopic",
-        "module_name": "snsTopic",
+        "previous_variable_prefix": "TWS_",
+        "new_variable_prefix": "ABT_TWS_",
+        "module_name": "TWS",
     },
     {
         "paths": {
-            "project_path": "../aws/sns/genericSnsTopicSubscription",
-            "source_path": "../genericSnsTopicSubscription",
+            "project_path": "../aws/budgets/genericFilterBudget",
+            "source_path": "../../aws/budgets/genericFilterBudget",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "snsTopicSubscription",
-        "new_variable_prefix": "TWS_SnsTopicSubscription",
-        "module_name": "snsTopicSubscription",
+        "previous_variable_prefix": "budget",
+        "new_variable_prefix": "ABT_budget",
+        "module_name": "budget",
     },
 ]
 

@@ -1,79 +1,72 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
 
-provider "aws" {
-  region = var.awsRegion
-}
-
-
-module "snsTopic" {
+    module "TWS" {
   source = "../../aws/sns/_TWS_topicWithSubscription"
-
-  awsRegion                                        = var.awsRegion
-  resourceName                                     = var.resourceName
-  snsTopicPolicy                                   = var.ABT_SnsTopicPolicy != null ? jsonencode(var.ABT_SnsTopicPolicy) : null
-  snsTopicDeliveryPolicy                           = var.ABT_SnsTopicDeliveryPolicy != null ? jsonencode(var.ABT_SnsTopicDeliveryPolicy) : null
-  snsTopicApplicationSuccessFeedbackRoleArn        = var.ABT_SnsTopicApplicationSuccessFeedbackRoleArn
-  snsTopicApplicationSuccessFeedbackSampleRate     = var.ABT_SnsTopicApplicationSuccessFeedbackSampleRate
-  snsTopicApplicationFailureFeedbackRoleArn        = var.ABT_SnsTopicApplicationFailureFeedbackRoleArn
-  snsTopicHttpSuccessFeedbackRoleArn               = var.ABT_SnsTopicHttpSuccessFeedbackRoleArn
-  snsTopicHttpSuccessFeedbackSampleRate            = var.ABT_SnsTopicHttpSuccessFeedbackSampleRate
-  snsTopicHttpFailureFeedbackRoleArn               = var.ABT_SnsTopicHttpFailureFeedbackRoleArn
-  snsTopicKmsMasterKeyId                           = var.ABT_SnsTopicKmsMasterKeyId
-  snsTopicSignatureVersion                         = var.ABT_SnsTopicSignatureVersion
-  snsTopicTracingConfig                            = var.ABT_SnsTopicTracingConfig
-  snsTopicFifoTopic                                = var.ABT_SnsTopicFifoTopic
-  snsTopicArchivePolicy                            = var.ABT_SnsTopicArchivePolicy != null ? jsonencode(var.ABT_SnsTopicArchivePolicy) : null
-  snsTopicContentBasedDeduplication                = var.ABT_SnsTopicContentBasedDeduplication
-  snsTopicLambdaSuccessFeedbackRoleArn             = var.ABT_SnsTopicLambdaSuccessFeedbackRoleArn
-  snsTopicLambdaSuccessFeedbackSampleRate          = var.ABT_SnsTopicLambdaSuccessFeedbackSampleRate
-  snsTopicLambdaFailureFeedbackRoleArn             = var.ABT_SnsTopicLambdaFailureFeedbackRoleArn
-  snsTopicSqsSuccessFeedbackRoleArn                = var.ABT_SnsTopicSqsSuccessFeedbackRoleArn
-  snsTopicSqsSuccessFeedbackSampleRate             = var.ABT_SnsTopicSqsSuccessFeedbackSampleRate
-  snsTopicSqsFailureFeedbackRoleArn                = var.ABT_SnsTopicSqsFailureFeedbackRoleArn
-  snsTopicFirehoseSuccessFeedbackRoleArn           = var.ABT_SnsTopicFirehoseSuccessFeedbackRoleArn
-  snsTopicFirehoseSuccessFeedbackSampleRate        = var.ABT_SnsTopicFirehoseSuccessFeedbackSampleRate
-  snsTopicFirehoseFailureFeedbackRoleArn           = var.ABT_SnsTopicFirehoseFailureFeedbackRoleArn
-  projectName                                      = var.projectName
-  creator                                          = var.creator
-  deployedDate                                     = var.deployedDate
-  snsTopicAdditionalTags                           = var.additionalTags
-  snsTopicSubscriptionEndpoint                     = var.ABT_SnsTopicSubscriptionEndpoint
-  snsTopicSubscriptionProtocal                     = var.ABT_SnsTopicSubscriptionProtocal
-  snsTopicSubscriptionSubscriptionRoleArn          = var.ABT_SnsTopicSubscriptionSubscriptionRoleArn
-  snsTopicSubscriptionConfirmationTimeoutInMinutes = var.ABT_SnsTopicSubscriptionConfirmationTimeoutInMinutes
-  snsTopicSubscriptionDeliveryPolicy               = var.ABT_SnsTopicSubscriptionDeliveryPolicy != null ? jsonencode(var.ABT_SnsTopicSubscriptionDeliveryPolicy) : null
-  snsTopicSubscriptionEndpointAutoConfirms         = var.ABT_SnsTopicSubscriptionEndpointAutoConfirms
-  snsTopicSubscriptionFilterPolicy                 = var.ABT_SnsTopicSubscriptionFilterPolicy != null ? jsonencode(var.ABT_SnsTopicSubscriptionFilterPolicy) : null
-  snsTopicSubscriptionFilterPolicyScope            = var.ABT_SnsTopicSubscriptionFilterPolicyScope
-  snsTopicSubscriptionRawMessageDelivery           = var.ABT_SnsTopicSubscriptionRawMessageDelivery
-  snsTopicSubscriptionRedrivePolicy                = var.ABT_SnsTopicSubscriptionRedrivePolicy != null ? jsonencode(var.ABT_SnsTopicSubscriptionRedrivePolicy) : null
-  snsTopicSubscriptionReplayPolicy                 = var.ABT_SnsTopicSubscriptionReplayPolicy != null ? jsonencode(var.ABT_SnsTopicSubscriptionReplayPolicy) : null
+awsRegion = var.awsRegion
+resourceName = var.resourceName
+TWS_SnsTopicPolicy = var.ABT_TWS_SnsTopicPolicy
+TWS_SnsTopicDeliveryPolicy = var.ABT_TWS_SnsTopicDeliveryPolicy
+TWS_SnsTopicApplicationSuccessFeedbackRoleArn = var.ABT_TWS_SnsTopicApplicationSuccessFeedbackRoleArn
+TWS_SnsTopicApplicationSuccessFeedbackSampleRate = var.ABT_TWS_SnsTopicApplicationSuccessFeedbackSampleRate
+TWS_SnsTopicApplicationFailureFeedbackRoleArn = var.ABT_TWS_SnsTopicApplicationFailureFeedbackRoleArn
+TWS_SnsTopicHttpSuccessFeedbackRoleArn = var.ABT_TWS_SnsTopicHttpSuccessFeedbackRoleArn
+TWS_SnsTopicHttpSuccessFeedbackSampleRate = var.ABT_TWS_SnsTopicHttpSuccessFeedbackSampleRate
+TWS_SnsTopicHttpFailureFeedbackRoleArn = var.ABT_TWS_SnsTopicHttpFailureFeedbackRoleArn
+TWS_SnsTopicKmsMasterKeyId = var.ABT_TWS_SnsTopicKmsMasterKeyId
+TWS_SnsTopicSignatureVersion = var.ABT_TWS_SnsTopicSignatureVersion
+TWS_SnsTopicTracingConfig = var.ABT_TWS_SnsTopicTracingConfig
+TWS_SnsTopicFifoTopic = var.ABT_TWS_SnsTopicFifoTopic
+TWS_SnsTopicArchivePolicy = var.ABT_TWS_SnsTopicArchivePolicy
+TWS_SnsTopicContentBasedDeduplication = var.ABT_TWS_SnsTopicContentBasedDeduplication
+TWS_SnsTopicLambdaSuccessFeedbackRoleArn = var.ABT_TWS_SnsTopicLambdaSuccessFeedbackRoleArn
+TWS_SnsTopicLambdaSuccessFeedbackSampleRate = var.ABT_TWS_SnsTopicLambdaSuccessFeedbackSampleRate
+TWS_SnsTopicLambdaFailureFeedbackRoleArn = var.ABT_TWS_SnsTopicLambdaFailureFeedbackRoleArn
+TWS_SnsTopicSqsSuccessFeedbackRoleArn = var.ABT_TWS_SnsTopicSqsSuccessFeedbackRoleArn
+TWS_SnsTopicSqsSuccessFeedbackSampleRate = var.ABT_TWS_SnsTopicSqsSuccessFeedbackSampleRate
+TWS_SnsTopicSqsFailureFeedbackRoleArn = var.ABT_TWS_SnsTopicSqsFailureFeedbackRoleArn
+TWS_SnsTopicFirehoseSuccessFeedbackRoleArn = var.ABT_TWS_SnsTopicFirehoseSuccessFeedbackRoleArn
+TWS_SnsTopicFirehoseSuccessFeedbackSampleRate = var.ABT_TWS_SnsTopicFirehoseSuccessFeedbackSampleRate
+TWS_SnsTopicFirehoseFailureFeedbackRoleArn = var.ABT_TWS_SnsTopicFirehoseFailureFeedbackRoleArn
+projectName = var.projectName
+createdBy = var.createdBy
+deployedDate = var.deployedDate
+tfModule = var.tfModule
+additionalTags = var.additionalTags
+TWS_SnsTopicSubscriptionEndpoint = var.ABT_TWS_SnsTopicSubscriptionEndpoint
+TWS_SnsTopicSubscriptionProtocal = var.ABT_TWS_SnsTopicSubscriptionProtocal
+TWS_SnsTopicSubscriptionSubscriptionRoleArn = var.ABT_TWS_SnsTopicSubscriptionSubscriptionRoleArn
+TWS_SnsTopicSubscriptionTopicArn = var.ABT_TWS_SnsTopicSubscriptionTopicArn
+TWS_SnsTopicSubscriptionConfirmationTimeoutInMinutes = var.ABT_TWS_SnsTopicSubscriptionConfirmationTimeoutInMinutes
+TWS_SnsTopicSubscriptionDeliveryPolicy = var.ABT_TWS_SnsTopicSubscriptionDeliveryPolicy
+TWS_SnsTopicSubscriptionEndpointAutoConfirms = var.ABT_TWS_SnsTopicSubscriptionEndpointAutoConfirms
+TWS_SnsTopicSubscriptionFilterPolicy = var.ABT_TWS_SnsTopicSubscriptionFilterPolicy
+TWS_SnsTopicSubscriptionFilterPolicyScope = var.ABT_TWS_SnsTopicSubscriptionFilterPolicyScope
+TWS_SnsTopicSubscriptionRawMessageDelivery = var.ABT_TWS_SnsTopicSubscriptionRawMessageDelivery
+TWS_SnsTopicSubscriptionRedrivePolicy = var.ABT_TWS_SnsTopicSubscriptionRedrivePolicy
+TWS_SnsTopicSubscriptionReplayPolicy = var.ABT_TWS_SnsTopicSubscriptionReplayPolicy
 }
 
-module "budget" {
+#---
+
+    module "budget" {
   source = "../../aws/budgets/genericFilterBudget"
-
-  resourceName                         = var.resourceName
-  budgetType                           = var.ABT_BudgetType
-  budgetLimitAmount                    = var.ABT_BudgetLimitAmount
-  budgetLimitUnit                      = var.ABT_BudgetLimitUnit
-  budgetTimeUnit                       = var.ABT_BudgetTimeUnit
-  budgetCostFilterName                 = var.ABT_BudgetCostFilterName
-  budgetCostFilterValues               = var.ABT_BudgetCostFilterValues
-  budgetNotificationComparisonOperator = var.ABT_BudgetNotificationComparisonOperator
-  budgetNotificationThreshold          = var.ABT_BudgetNotificationThreshold
-  budgetNotificationThresholdType      = var.ABT_BudgetNotificationThresholdType
-  budgetNotificationType               = var.ABT_BudgetNotificationType
-  snsTopicArns                         = concat([module.snsTopic.snsTopicArn], var.ABT_AdditionalSnsTopicArns)
-  projectName                          = var.projectName
-  creator                              = var.creator
-  deployedDate                         = var.deployedDate
-  awsBudgetAdditionalTags              = var.additionalTags
+awsRegion = var.awsRegion
+resourceName = var.resourceName
+budgetType = var.ABT_budgetType
+budgetLimitAmount = var.ABT_budgetLimitAmount
+budgetLimitUnit = var.ABT_budgetLimitUnit
+budgetTimeUnit = var.ABT_budgetTimeUnit
+budgetCostFilterName = var.ABT_budgetCostFilterName
+budgetCostFilterValues = var.ABT_budgetCostFilterValues
+budgetNotificationComparisonOperator = var.ABT_budgetNotificationComparisonOperator
+budgetNotificationThreshold = var.ABT_budgetNotificationThreshold
+budgetNotificationThresholdType = var.ABT_budgetNotificationThresholdType
+budgetNotificationType = var.ABT_budgetNotificationType
+snsTopicArns = var.snsTopicArns
+projectName = var.projectName
+createdBy = var.createdBy
+deployedDate = var.deployedDate
+tfModule = var.tfModule
+additionalTags = var.additionalTags
 }
+
+#---
