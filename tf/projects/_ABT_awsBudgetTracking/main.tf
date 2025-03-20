@@ -50,23 +50,27 @@ TWS_SnsTopicSubscriptionReplayPolicy = var.ABT_TWS_SnsTopicSubscriptionReplayPol
     module "budget" {
   source = "../../aws/budgets/genericFilterBudget"
 awsRegion = var.awsRegion
-resourceName = var.resourceName
 budgetType = var.ABT_budgetType
+budgetTimeUnit = var.ABT_budgetTimeUnit
+budgetAccountId = var.ABT_budgetAccountId
+budgetAutoAdjustData = var.ABT_budgetAutoAdjustData
+budgetCostFilter = var.ABT_budgetCostFilter
+budgetCostTypes = var.ABT_budgetCostTypes
 budgetLimitAmount = var.ABT_budgetLimitAmount
 budgetLimitUnit = var.ABT_budgetLimitUnit
-budgetTimeUnit = var.ABT_budgetTimeUnit
-budgetCostFilterName = var.ABT_budgetCostFilterName
-budgetCostFilterValues = var.ABT_budgetCostFilterValues
-budgetNotificationComparisonOperator = var.ABT_budgetNotificationComparisonOperator
-budgetNotificationThreshold = var.ABT_budgetNotificationThreshold
-budgetNotificationThresholdType = var.ABT_budgetNotificationThresholdType
-budgetNotificationType = var.ABT_budgetNotificationType
-snsTopicArns = var.snsTopicArns
+budgetName = var.ABT_budgetName
+budgetNamePrefix = var.ABT_budgetNamePrefix
+budgetNotification = merge({
+  subscriber_sns_topic_arns = concat([module.TWS.ABT_TWS_SnsTopicArn], var.ABT_budgetNotification["subscriber_sns_topic_arns"])
+}, var.ABT_budgetNotification)
+budgetPlannedLimit = var.ABT_budgetPlannedLimit
 projectName = var.projectName
 createdBy = var.createdBy
 deployedDate = var.deployedDate
 tfModule = var.tfModule
 additionalTags = var.additionalTags
+budgetTimePeriodEnd = var.ABT_budgetTimePeriodEnd
+budgetTimePeriodStart = var.ABT_budgetTimePeriodStart
 }
 
 #---

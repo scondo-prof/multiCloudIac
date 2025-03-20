@@ -3,10 +3,6 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
-variable "resourceName" {
-  type = string
-}
-
 variable "projectName" {
   type = string
 }
@@ -39,17 +35,17 @@ variable "budgetTimeUnit" {
   type = string
   validation {
     condition = contains([
-    "MONTHLY",
-    "QUARTERLY",
-    "ANNUALLY",
-    "DAILY"
-], var.budgetTimeUnit)
+      "MONTHLY",
+      "QUARTERLY",
+      "ANNUALLY",
+      "DAILY"
+    ], var.budgetTimeUnit)
     error_message = "Valid inputs for | variable: var.budgetTimeUnit | are: MONTHLY, QUARTERLY, ANNUALLY, DAILY"
   }
 }
 
 variable "budgetAccountId" {
-  type = string
+  type    = string
   default = null
 }
 
@@ -57,7 +53,7 @@ variable "budgetAutoAdjustData" {
   type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#auto-adjust-data
     auto_adjust_type = string
 
-    historical_options = object({  #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#historical-options
+    historical_options = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#historical-options
       budget_adjustment_period = number
     })
   })
@@ -67,7 +63,7 @@ variable "budgetAutoAdjustData" {
 
 variable "budgetCostFilter" {
   type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#cost-filter
-    name = string
+    name   = string
     values = list(string)
   })
   default = null
@@ -75,49 +71,49 @@ variable "budgetCostFilter" {
 
 variable "budgetCostTypes" {
   type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#cost-types
-    include_credit = optional(bool, null)
-    include_discount = optional(bool, null)
+    include_credit             = optional(bool, null)
+    include_discount           = optional(bool, null)
     include_other_subscription = optional(bool, null)
-    include_recurring = optional(bool, null)
-    include_refund = optional(bool, null)
-    include_subscription = optional(bool, null)
-    include_support = optional(bool, null)
-    include_tax = optional(bool, null)
-    include_upfront = optional(bool, null)
-    use_amortized = optional(bool, null)
-    use_blended = optional(bool, null)
+    include_recurring          = optional(bool, null)
+    include_refund             = optional(bool, null)
+    include_subscription       = optional(bool, null)
+    include_support            = optional(bool, null)
+    include_tax                = optional(bool, null)
+    include_upfront            = optional(bool, null)
+    use_amortized              = optional(bool, null)
+    use_blended                = optional(bool, null)
   })
   default = null
 }
 
 variable "budgetLimitAmount" {
-  type = number
+  type    = number
   default = null
 }
 
 variable "budgetLimitUnit" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "budgetName" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "budgetNamePrefix" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "budgetNotification" {
   type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#budget-notification
-    comparison_operator = string
-    threshold = number
-    threshold_type = string
-    notification_type = string
+    comparison_operator        = string
+    threshold                  = number
+    threshold_type             = string
+    notification_type          = string
     subscriber_email_addresses = optional(list(string), null)
-    subscriber_sns_topic_arns = optional(list(string), null)
+    subscriber_sns_topic_arns  = optional(list(string), null)
   })
   default = null
 }
@@ -125,18 +121,18 @@ variable "budgetNotification" {
 variable "budgetPlannedLimit" {
   type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#planned-budget-limits
     start_time = string
-    amount = number
-    unit = string
+    amount     = number
+    unit       = string
   })
   default = null
 }
 
 variable "budgetTimePeriodEnd" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "budgetTimePeriodStart" {
-  type = string
+  type    = string
   default = null
 }

@@ -18,6 +18,14 @@ output "ABT_budgetArn" {
   value = module.budget.budgetArn
 }
 
+output "ABT_budgetId" {
+  value = module.budget.budgetId
+}
+
+output "ABT_budgetTagsAll" {
+  value = module.budget.budgetTagsAll
+}
+
 output "ABT_budgetName" {
   value = module.budget.budgetName
 }

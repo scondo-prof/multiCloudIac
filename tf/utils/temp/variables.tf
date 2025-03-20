@@ -251,10 +251,6 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
-variable "resourceName" {
-  type = string
-}
-
 variable "projectName" {
   type = string
 }
@@ -280,75 +276,113 @@ variable "additionalTags" {
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#argument-reference
 
 variable "ABT_budgetType" {
-  type    = string
-  default = "COST"
-}
-
-variable "ABT_budgetLimitAmount" {
-  type = number
-}
-
-variable "ABT_budgetLimitUnit" {
-  type    = string
-  default = "USD"
+  type = string
 }
 
 variable "ABT_budgetTimeUnit" {
   type = string
-
   validation {
-    condition     = contains(["MONTHLY", "QUARTERLY", "ANNUALLY", "DAILY"], var.ABT_budgetTimeUnit)
-    error_message = "The only valid options for ABT_budgetTimeUnit are 'MONTHLY', 'QUARTERLY', 'ANNUALLY', 'DAILY'."
+    condition = contains([
+      "MONTHLY",
+      "QUARTERLY",
+      "ANNUALLY",
+      "DAILY"
+    ], var.ABT_budgetTimeUnit)
+    error_message = "Valid inputs for | variable: var.ABT_budgetTimeUnit | are: MONTHLY, QUARTERLY, ANNUALLY, DAILY"
   }
 }
 
-variable "ABT_budgetCostFilterName" {
-  type = string
-
-  validation {
-    condition     = contains(["PurchaseType", "UsageTypeGroup", "Service", "Operation", "UsageType", "BillingEntity", "CostCategory", "LinkedAccount", "TagKeyValue", "LegalEntityName", "InvoicingEntity", "AZ", "Region", "InstanceType"], var.ABT_budgetCostFilterName)
-    error_message = "The only valid options for ABT_budgetCostFilterName are 'PurchaseType', 'UsageTypeGroup', 'Service', 'Operation', 'UsageType', 'BillingEntity', 'CostCategory', 'LinkedAccount', 'TagKeyValue', 'LegalEntityName', 'InvoicingEntity', 'AZ', 'Region', 'InstanceType'."
-  }
+variable "ABT_budgetAccountId" {
+  type    = string
+  default = null
 }
 
+variable "ABT_budgetAutoAdjustData" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#auto-adjust-data
+    auto_adjust_type = string
 
-variable "ABT_budgetCostFilterValues" {
-  type = list(string)
+    historical_options = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#historical-options
+      ABT_budget_adjustment_period = number
+    })
+  })
+
+  default = null
 }
 
-variable "ABT_budgetNotificationComparisonOperator" {
-  type = string
-
-  validation {
-    condition     = contains(["LESS_THAN", "EQUAL_TO", "GREATER_THAN"], var.ABT_budgetNotificationComparisonOperator)
-    error_message = "The only valid options for ABT_budgetNotificationComparisonOperator are 'LESS_THAN', 'EQUAL_TO', 'GREATER_THAN'."
-  }
+variable "ABT_budgetCostFilter" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#cost-filter
+    name   = string
+    values = list(string)
+  })
+  default = null
 }
 
-variable "ABT_budgetNotificationThreshold" {
-  type = number
+variable "ABT_budgetCostTypes" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#cost-types
+    include_credit             = optional(bool, null)
+    include_discount           = optional(bool, null)
+    include_other_subscription = optional(bool, null)
+    include_recurring          = optional(bool, null)
+    include_refund             = optional(bool, null)
+    include_subscription       = optional(bool, null)
+    include_support            = optional(bool, null)
+    include_tax                = optional(bool, null)
+    include_upfront            = optional(bool, null)
+    use_amortized              = optional(bool, null)
+    use_blended                = optional(bool, null)
+  })
+  default = null
 }
 
-variable "ABT_budgetNotificationThresholdType" {
-  type = string
-
-  validation {
-    condition     = contains(["PERCENTAGE", "ABSOLUTE_VALUE"], var.ABT_budgetNotificationThresholdType)
-    error_message = "The only valid options for ABT_budgetNotificationThresholdType are 'PERCENTAGE', 'ABSOLUTE_VALUE'."
-  }
+variable "ABT_budgetLimitAmount" {
+  type    = number
+  default = null
 }
 
-variable "ABT_budgetNotificationType" {
-  type = string
-
-  validation {
-    condition     = contains(["ACTUAL", "FORECASTED"], var.ABT_budgetNotificationType)
-    error_message = "The only valid options for ABT_budgetNotificationType are 'ACTUAL', 'FORECASTED'."
-  }
+variable "ABT_budgetLimitUnit" {
+  type    = string
+  default = null
 }
 
-variable "snsTopicArns" {
-  type = list(string)
+variable "ABT_budgetName" {
+  type    = string
+  default = null
+}
+
+variable "ABT_budgetNamePrefix" {
+  type    = string
+  default = null
+}
+
+variable "ABT_budgetNotification" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#ABT_budget-notification
+    comparison_operator        = string
+    threshold                  = number
+    threshold_type             = string
+    notification_type          = string
+    subscriber_email_addresses = optional(list(string), null)
+    subscriber_sns_topic_arns  = optional(list(string), null)
+  })
+  default = null
+}
+
+variable "ABT_budgetPlannedLimit" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#planned-ABT_budget-limits
+    start_time = string
+    amount     = number
+    unit       = string
+  })
+  default = null
+}
+
+variable "ABT_budgetTimePeriodEnd" {
+  type    = string
+  default = null
+}
+
+variable "ABT_budgetTimePeriodStart" {
+  type    = string
+  default = null
 }
 
 #---
