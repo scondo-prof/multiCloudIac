@@ -1,74 +1,210 @@
 
-    module "TWS" {
-  source = "../../aws/sns/_TWS_topicWithSubscription"
+    module "restApi" {
+  source = "../../aws/apiGateway/genericRestApi"
 awsRegion = var.awsRegion
+restApiKeySource = var.AGRAMVKUP_RestApiKeySource
+restApiBinaryMediaTypes = var.AGRAMVKUP_RestApiBinaryMediaTypes
+restApiBody = var.AGRAMVKUP_RestApiBody
+restApiDescription = var.AGRAMVKUP_RestApiDescription
+restApiDisableExecuteApiEndpoint = var.AGRAMVKUP_RestApiDisableExecuteApiEndpoint
+restApiEndpointConfiguration = var.AGRAMVKUP_RestApiEndpointConfiguration
+restApiMinimumCompressionSize = var.AGRAMVKUP_RestApiMinimumCompressionSize
 resourceName = var.resourceName
-TWS_SnsTopicPolicy = var.ABT_TWS_SnsTopicPolicy
-TWS_SnsTopicDeliveryPolicy = var.ABT_TWS_SnsTopicDeliveryPolicy
-TWS_SnsTopicApplicationSuccessFeedbackRoleArn = var.ABT_TWS_SnsTopicApplicationSuccessFeedbackRoleArn
-TWS_SnsTopicApplicationSuccessFeedbackSampleRate = var.ABT_TWS_SnsTopicApplicationSuccessFeedbackSampleRate
-TWS_SnsTopicApplicationFailureFeedbackRoleArn = var.ABT_TWS_SnsTopicApplicationFailureFeedbackRoleArn
-TWS_SnsTopicHttpSuccessFeedbackRoleArn = var.ABT_TWS_SnsTopicHttpSuccessFeedbackRoleArn
-TWS_SnsTopicHttpSuccessFeedbackSampleRate = var.ABT_TWS_SnsTopicHttpSuccessFeedbackSampleRate
-TWS_SnsTopicHttpFailureFeedbackRoleArn = var.ABT_TWS_SnsTopicHttpFailureFeedbackRoleArn
-TWS_SnsTopicKmsMasterKeyId = var.ABT_TWS_SnsTopicKmsMasterKeyId
-TWS_SnsTopicSignatureVersion = var.ABT_TWS_SnsTopicSignatureVersion
-TWS_SnsTopicTracingConfig = var.ABT_TWS_SnsTopicTracingConfig
-TWS_SnsTopicFifoTopic = var.ABT_TWS_SnsTopicFifoTopic
-TWS_SnsTopicArchivePolicy = var.ABT_TWS_SnsTopicArchivePolicy
-TWS_SnsTopicContentBasedDeduplication = var.ABT_TWS_SnsTopicContentBasedDeduplication
-TWS_SnsTopicLambdaSuccessFeedbackRoleArn = var.ABT_TWS_SnsTopicLambdaSuccessFeedbackRoleArn
-TWS_SnsTopicLambdaSuccessFeedbackSampleRate = var.ABT_TWS_SnsTopicLambdaSuccessFeedbackSampleRate
-TWS_SnsTopicLambdaFailureFeedbackRoleArn = var.ABT_TWS_SnsTopicLambdaFailureFeedbackRoleArn
-TWS_SnsTopicSqsSuccessFeedbackRoleArn = var.ABT_TWS_SnsTopicSqsSuccessFeedbackRoleArn
-TWS_SnsTopicSqsSuccessFeedbackSampleRate = var.ABT_TWS_SnsTopicSqsSuccessFeedbackSampleRate
-TWS_SnsTopicSqsFailureFeedbackRoleArn = var.ABT_TWS_SnsTopicSqsFailureFeedbackRoleArn
-TWS_SnsTopicFirehoseSuccessFeedbackRoleArn = var.ABT_TWS_SnsTopicFirehoseSuccessFeedbackRoleArn
-TWS_SnsTopicFirehoseSuccessFeedbackSampleRate = var.ABT_TWS_SnsTopicFirehoseSuccessFeedbackSampleRate
-TWS_SnsTopicFirehoseFailureFeedbackRoleArn = var.ABT_TWS_SnsTopicFirehoseFailureFeedbackRoleArn
+restApiFailOnWarnings = var.AGRAMVKUP_RestApiFailOnWarnings
+restApiParameters = var.AGRAMVKUP_RestApiParameters
+restApiPolicy = var.AGRAMVKUP_RestApiPolicy
+restApiPutRestApiMode = var.AGRAMVKUP_RestApiPutRestApiMode
 projectName = var.projectName
 createdBy = var.createdBy
 deployedDate = var.deployedDate
 tfModule = var.tfModule
 additionalTags = var.additionalTags
-TWS_SnsTopicSubscriptionEndpoint = var.ABT_TWS_SnsTopicSubscriptionEndpoint
-TWS_SnsTopicSubscriptionProtocal = var.ABT_TWS_SnsTopicSubscriptionProtocal
-TWS_SnsTopicSubscriptionSubscriptionRoleArn = var.ABT_TWS_SnsTopicSubscriptionSubscriptionRoleArn
-TWS_SnsTopicSubscriptionTopicArn = var.ABT_TWS_SnsTopicSubscriptionTopicArn
-TWS_SnsTopicSubscriptionConfirmationTimeoutInMinutes = var.ABT_TWS_SnsTopicSubscriptionConfirmationTimeoutInMinutes
-TWS_SnsTopicSubscriptionDeliveryPolicy = var.ABT_TWS_SnsTopicSubscriptionDeliveryPolicy
-TWS_SnsTopicSubscriptionEndpointAutoConfirms = var.ABT_TWS_SnsTopicSubscriptionEndpointAutoConfirms
-TWS_SnsTopicSubscriptionFilterPolicy = var.ABT_TWS_SnsTopicSubscriptionFilterPolicy
-TWS_SnsTopicSubscriptionFilterPolicyScope = var.ABT_TWS_SnsTopicSubscriptionFilterPolicyScope
-TWS_SnsTopicSubscriptionRawMessageDelivery = var.ABT_TWS_SnsTopicSubscriptionRawMessageDelivery
-TWS_SnsTopicSubscriptionRedrivePolicy = var.ABT_TWS_SnsTopicSubscriptionRedrivePolicy
-TWS_SnsTopicSubscriptionReplayPolicy = var.ABT_TWS_SnsTopicSubscriptionReplayPolicy
 }
 
 #---
 
-    module "budget" {
-  source = "../../aws/budgets/genericFilterBudget"
+    module "lambdaPermission" {
+  source = "../../aws/lambda/genericLambdaFunctionPermission"
 awsRegion = var.awsRegion
-budgetType = var.ABT_budgetType
-budgetTimeUnit = var.ABT_budgetTimeUnit
-budgetAccountId = var.ABT_budgetAccountId
-budgetAutoAdjustData = var.ABT_budgetAutoAdjustData
-budgetCostFilter = var.ABT_budgetCostFilter
-budgetCostTypes = var.ABT_budgetCostTypes
-budgetLimitAmount = var.ABT_budgetLimitAmount
-budgetLimitUnit = var.ABT_budgetLimitUnit
-budgetName = var.ABT_budgetName
-budgetNamePrefix = var.ABT_budgetNamePrefix
-budgetNotification = var.ABT_budgetNotification
-budgetPlannedLimit = var.ABT_budgetPlannedLimit
+lambdaPermissionAction = var.AGRAMVKUP_LambdaPermissionAction
+lambdaPermissionEventSourceToken = var.AGRAMVKUP_LambdaPermissionEventSourceToken
+lambdaPermissionFunctionName = var.AGRAMVKUP_LambdaPermissionFunctionName
+lambdaPermissionUrlAuthType = var.AGRAMVKUP_LambdaPermissionUrlAuthType
+lambdaPermissionPrincipal = var.AGRAMVKUP_LambdaPermissionPrincipal
+lambdaPermissionQualifier = var.AGRAMVKUP_LambdaPermissionQualifier
+lambdaPermissionSourceAccount = var.AGRAMVKUP_LambdaPermissionSourceAccount
+lambdaPermissionSourceArn = var.AGRAMVKUP_LambdaPermissionSourceArn
+lambdaPermissionStatementId = var.AGRAMVKUP_LambdaPermissionStatementId
+lambdaPermissionStatementIdPrefix = var.AGRAMVKUP_LambdaPermissionStatementIdPrefix
+lambdaPermissionPrincipalOrgId = var.AGRAMVKUP_LambdaPermissionPrincipalOrgId
+}
+
+#---
+
+    module "restApiResource" {
+  source = "../../aws/apiGateway/genericResource"
+awsRegion = var.awsRegion
+resourceRestApiId = var.AGRAMVKUP_RestApiResourceRestApiId
+resourceParentId = var.AGRAMVKUP_RestApiResourceParentId
+resourcePathPart = var.AGRAMVKUP_RestApiResourcePathPart
+}
+
+#---
+
+    module "restApiMethod" {
+  source = "../../aws/apiGateway/genericMethod"
+awsRegion = var.awsRegion
+methodRestApiId = var.AGRAMVKUP_RestApiMethodRestApiId
+methodResourceId = var.AGRAMVKUP_RestApiMethodResourceId
+methodHttpMethod = var.AGRAMVKUP_RestApiMethodHttpMethod
+methodAuthorization = var.AGRAMVKUP_RestApiMethodAuthorization
+methodAuthorizerId = var.AGRAMVKUP_RestApiMethodAuthorizerId
+methodAuthorizationScopes = var.AGRAMVKUP_RestApiMethodAuthorizationScopes
+methodApiKeyRequired = var.AGRAMVKUP_RestApiMethodApiKeyRequired
+methodOperationName = var.AGRAMVKUP_RestApiMethodOperationName
+methodRequestModels = var.AGRAMVKUP_RestApiMethodRequestModels
+methodRequestValidatorId = var.AGRAMVKUP_RestApiMethodRequestValidatorId
+methodRequestParameters = var.AGRAMVKUP_RestApiMethodRequestParameters
+}
+
+#---
+
+    module "restApiMethodResponse" {
+  source = "../../aws/apiGateway/genericMethodResponse"
+awsRegion = var.awsRegion
+methodResponseRestApiId = var.AGRAMVKUP_RestApiMethodResponseRestApiId
+methodResponseResourceId = var.AGRAMVKUP_RestApiMethodResponseResourceId
+methodResponseHttpMethod = var.AGRAMVKUP_RestApiMethodResponseHttpMethod
+methodResponseStatusCode = var.AGRAMVKUP_RestApiMethodResponseStatusCode
+methodResponseModels = var.AGRAMVKUP_RestApiMethodResponseModels
+methodResponseParameters = var.AGRAMVKUP_RestApiMethodResponseParameters
+}
+
+#---
+
+    module "restApiRequestValidator" {
+  source = "../../aws/apiGateway/genericRequestValidator"
+awsRegion = var.awsRegion
+resourceName = var.resourceName
+requestValidatorRestApiId = var.AGRAMVKUP_RestApiRequestValidatorRestApiId
+requestValidatorValidateRequestBody = var.AGRAMVKUP_RestApiRequestValidatorValidateRequestBody
+requestValidatorValidateRequestParameters = var.AGRAMVKUP_RestApiRequestValidatorValidateRequestParameters
+}
+
+#---
+
+    module "restApiModel" {
+  source = "../../aws/apiGateway/genericModel"
+awsRegion = var.awsRegion
+modelRestApiId = var.AGRAMVKUP_RestApiModelRestApiId
+modelName = var.AGRAMVKUP_RestApiModelName
+modelDescription = var.AGRAMVKUP_RestApiModelDescription
+modelContentType = var.AGRAMVKUP_RestApiModelContentType
+modelSchemaFile = var.AGRAMVKUP_RestApiModelSchemaFile
+}
+
+#---
+
+    module "restApiIntegration" {
+  source = "../../aws/apiGateway/genericIntegration"
+awsRegion = var.awsRegion
+integrationRestApiId = var.AGRAMVKUP_RestApiIntegrationRestApiId
+integrationResourceId = var.AGRAMVKUP_RestApiIntegrationResourceId
+integrationHttpMethod = var.AGRAMVKUP_RestApiIntegrationHttpMethod
+integrationIntegrationHttpMethod = var.AGRAMVKUP_RestApiIntegrationIntegrationHttpMethod
+integrationType = var.AGRAMVKUP_RestApiIntegrationType
+integrationConnectionType = var.AGRAMVKUP_RestApiIntegrationConnectionType
+integrationConnectionId = var.AGRAMVKUP_RestApiIntegrationConnectionId
+integrationUri = var.AGRAMVKUP_RestApiIntegrationUri
+integrationCredentials = var.AGRAMVKUP_RestApiIntegrationCredentials
+integrationRequestTemplates = var.AGRAMVKUP_RestApiIntegrationRequestTemplates
+integrationRequestParameters = var.AGRAMVKUP_RestApiIntegrationRequestParameters
+integrationPassthroughBehavior = var.AGRAMVKUP_RestApiIntegrationPassthroughBehavior
+integrationCacheKeyParameters = var.AGRAMVKUP_RestApiIntegrationCacheKeyParameters
+integrationCacheNamespace = var.AGRAMVKUP_RestApiIntegrationCacheNamespace
+integrationContentHandling = var.AGRAMVKUP_RestApiIntegrationContentHandling
+integrationTimeoutMilliseconds = var.AGRAMVKUP_RestApiIntegrationTimeoutMilliseconds
+integrationTlsConfig = var.AGRAMVKUP_RestApiIntegrationTlsConfig
+}
+
+#---
+
+    module "restApiKey" {
+  source = "../../aws/apiGateway/genericApiKey"
+awsRegion = var.awsRegion
+resourceName = var.resourceName
+apiKeyCustomerId = var.AGRAMVKUP_RestApiKeyCustomerId
+apiKeyDescription = var.AGRAMVKUP_RestApiKeyDescription
+apiKeyEnabled = var.AGRAMVKUP_RestApiKeyEnabled
+apiKeyValue = var.AGRAMVKUP_RestApiKeyValue
 projectName = var.projectName
 createdBy = var.createdBy
 deployedDate = var.deployedDate
 tfModule = var.tfModule
 additionalTags = var.additionalTags
-budgetTimePeriodEnd = var.ABT_budgetTimePeriodEnd
-budgetTimePeriodStart = var.ABT_budgetTimePeriodStart
+}
+
+#---
+
+    module "restApiUsagePlan" {
+  source = "../../aws/apiGateway/genericUsagePlan"
+awsRegion = var.awsRegion
+resourceName = var.resourceName
+usagePlanDescription = var.AGRAMVKUP_RestApiUsagePlanDescription
+usagePlanApiStages = var.AGRAMVKUP_RestApiUsagePlanApiStages
+usagePlanQuotaSettings = var.AGRAMVKUP_RestApiUsagePlanQuotaSettings
+usagePlanThrottleSettings = var.AGRAMVKUP_RestApiUsagePlanThrottleSettings
+usagePlanProductCode = var.AGRAMVKUP_RestApiUsagePlanProductCode
+projectName = var.projectName
+createdBy = var.createdBy
+deployedDate = var.deployedDate
+tfModule = var.tfModule
+additionalTags = var.additionalTags
+}
+
+#---
+
+    module "restApiUsagePlanKey" {
+  source = "../../aws/apiGateway/genericUsagePlanKey"
+awsRegion = var.awsRegion
+usagePlanKeyId = var.AGRAMVKUP_RestApiUsagePlanKeyId
+usagePlanKeyType = var.AGRAMVKUP_RestApiUsagePlanKeyType
+usagePlanKeyUsagePlanId = var.AGRAMVKUP_RestApiUsagePlanKeyUsagePlanId
+}
+
+#---
+
+    module "restApiStage" {
+  source = "../../aws/apiGateway/genericStage"
+awsRegion = var.awsRegion
+stageRestApiId = var.AGRAMVKUP_RestApiStageRestApiId
+resourceName = var.resourceName
+stageDeploymentId = var.AGRAMVKUP_RestApiStageDeploymentId
+stageAccessLogSettings = var.AGRAMVKUP_RestApiStageAccessLogSettings
+stageCacheClusterEnabled = var.AGRAMVKUP_RestApiStageCacheClusterEnabled
+stageCacheClusterSize = var.AGRAMVKUP_RestApiStageCacheClusterSize
+stageCanarySettings = var.AGRAMVKUP_RestApiStageCanarySettings
+stageClientCertificateId = var.AGRAMVKUP_RestApiStageClientCertificateId
+stageDescription = var.AGRAMVKUP_RestApiStageDescription
+stageDocumentationVersion = var.AGRAMVKUP_RestApiStageDocumentationVersion
+stageVariables = var.AGRAMVKUP_RestApiStageVariables
+projectName = var.projectName
+createdBy = var.createdBy
+deployedDate = var.deployedDate
+tfModule = var.tfModule
+additionalTags = var.additionalTags
+stageXrayTracingEnabled = var.AGRAMVKUP_RestApiStageXrayTracingEnabled
+}
+
+#---
+
+    module "restApiDeployment" {
+  source = "../../aws/apiGateway/genericDeployment"
+awsRegion = var.awsRegion
+deploymentDescription = var.AGRAMVKUP_RestApiDeploymentDescription
+deploymentRestApiId = var.AGRAMVKUP_RestApiDeploymentRestApiId
+deploymentTriggers = var.AGRAMVKUP_RestApiDeploymentTriggers
+deploymentVariables = var.AGRAMVKUP_RestApiDeploymentVariables
 }
 
 #---

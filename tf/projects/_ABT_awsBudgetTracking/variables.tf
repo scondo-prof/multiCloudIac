@@ -335,8 +335,12 @@ variable "ABT_budgetNotification" {
     threshold_type             = string
     notification_type          = string
     subscriber_email_addresses = optional(list(string), null)
-    subscriber_sns_topic_arns  = optional(list(string), [])
   })
+}
+
+variable "ABT_budgetNotificationSubscriberSnsTopicArns" {
+  type = list(string)
+  default = []
 }
 
 variable "ABT_budgetPlannedLimit" {

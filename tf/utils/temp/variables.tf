@@ -29,359 +29,662 @@ variable "additionalTags" {
   default = {}
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_rest_api#argument-reference
 
-variable "ABT_TWS_SnsTopicPolicy" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicDeliveryPolicy" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicApplicationSuccessFeedbackRoleArn" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicApplicationSuccessFeedbackSampleRate" {
-  type = number
-  validation {
-    condition     = var.ABT_TWS_SnsTopicApplicationSuccessFeedbackSampleRate == null || can(var.ABT_TWS_SnsTopicApplicationSuccessFeedbackSampleRate >= 0 && var.ABT_TWS_SnsTopicApplicationSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable ABT_TWS_SnsTopicApplicationSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
-  }
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicApplicationFailureFeedbackRoleArn" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicHttpSuccessFeedbackRoleArn" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicHttpSuccessFeedbackSampleRate" {
-  type = number
-  validation {
-    condition     = var.ABT_TWS_SnsTopicHttpSuccessFeedbackSampleRate == null || can(var.ABT_TWS_SnsTopicHttpSuccessFeedbackSampleRate >= 0 && var.ABT_TWS_SnsTopicHttpSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable ABT_TWS_SnsTopicHttpSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
-  }
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicHttpFailureFeedbackRoleArn" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicKmsMasterKeyId" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicSignatureVersion" {
-  type = number
-  validation {
-    condition     = var.ABT_TWS_SnsTopicSignatureVersion == null || can(var.ABT_TWS_SnsTopicSignatureVersion == 1 || var.ABT_TWS_SnsTopicSignatureVersion == 2)
-    error_message = "Variable ABT_TWS_SnsTopicSignatureVersion must be 1 or 2"
-  }
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicTracingConfig" {
+variable "AGRAMVKUP_RestApiKeySource" {
   type = string
   validation {
-    condition     = var.ABT_TWS_SnsTopicTracingConfig == null || can(contains(["PassThrough", "Active"], var.ABT_TWS_SnsTopicTracingConfig))
-    error_message = "Valid inputs for | variable: ABT_TWS_SnsTopicTracingConfig | are: PassThrough, Active, null"
+    condition = var.AGRAMVKUP_RestApiKeySource == null || can(contains([
+      "HEADER",
+      "AUTHORIZER"
+    ], var.AGRAMVKUP_RestApiKeySource))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiKeySource | are: HEADER, AUTHORIZER"
   }
   default = null
 }
 
-variable "ABT_TWS_SnsTopicFifoTopic" {
+variable "AGRAMVKUP_RestApiBinaryMediaTypes" {
+  type    = list(string)
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiBody" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiDescription" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiDisableExecuteApiEndpoint" {
   type    = bool
-  default = false
-}
-
-variable "ABT_TWS_SnsTopicArchivePolicy" {
-  type    = string
   default = null
 }
 
-variable "ABT_TWS_SnsTopicContentBasedDeduplication" {
-  type    = bool
-  default = false
-}
-
-variable "ABT_TWS_SnsTopicLambdaSuccessFeedbackRoleArn" {
-  type    = string
+variable "AGRAMVKUP_RestApiEndpointConfiguration" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_rest_api#endpoint_configuration
+  type = object({
+    types            = list(string)
+    vpc_endpoint_ids = optional(list(string), null)
+  })
   default = null
 }
 
-variable "ABT_TWS_SnsTopicLambdaSuccessFeedbackSampleRate" {
+variable "AGRAMVKUP_RestApiMinimumCompressionSize" {
   type = number
   validation {
-    condition     = var.ABT_TWS_SnsTopicLambdaSuccessFeedbackSampleRate == null || can(var.ABT_TWS_SnsTopicLambdaSuccessFeedbackSampleRate >= 0 && var.ABT_TWS_SnsTopicLambdaSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable ABT_TWS_SnsTopicLambdaSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
+    condition     = var.AGRAMVKUP_RestApiMinimumCompressionSize == null || can(var.AGRAMVKUP_RestApiMinimumCompressionSize >= -1 && var.AGRAMVKUP_RestApiMinimumCompressionSize <= 10485760)
+    error_message = "var.AGRAMVKUP_RestApiMinimumCompressionSize must be Greater than or Equal to -1 AND Less Than or Equal to 10485760"
   }
   default = null
 }
 
-variable "ABT_TWS_SnsTopicLambdaFailureFeedbackRoleArn" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicSqsSuccessFeedbackRoleArn" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicSqsSuccessFeedbackSampleRate" {
-  type = number
-  validation {
-    condition     = var.ABT_TWS_SnsTopicSqsSuccessFeedbackSampleRate == null || can(var.ABT_TWS_SnsTopicSqsSuccessFeedbackSampleRate >= 0 && var.ABT_TWS_SnsTopicSqsSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable ABT_TWS_SnsTopicSqsSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
-  }
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicSqsFailureFeedbackRoleArn" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicFirehoseSuccessFeedbackRoleArn" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicFirehoseSuccessFeedbackSampleRate" {
-  type = number
-  validation {
-    condition     = var.ABT_TWS_SnsTopicFirehoseSuccessFeedbackSampleRate == null || can(var.ABT_TWS_SnsTopicFirehoseSuccessFeedbackSampleRate >= 0 && var.ABT_TWS_SnsTopicFirehoseSuccessFeedbackSampleRate <= 100)
-    error_message = "Variable ABT_TWS_SnsTopicFirehoseSuccessFeedbackSampleRate must be greater than or equal to 0 and less than or equal to 100"
-  }
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicFirehoseFailureFeedbackRoleArn" {
-  type    = string
-  default = null
-}
-
-
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sns_topic_subscription#argument-reference
-
-variable "ABT_TWS_SnsTopicSubscriptionEndpoint" {
-  type = string
-}
-
-variable "ABT_TWS_SnsTopicSubscriptionProtocal" {
-  type = string
-
-  validation {
-    condition     = var.ABT_TWS_SnsTopicSubscriptionProtocal == null || contains(["sqs", "sms", "lambda", "firehose", "application", "email", "email-json", "http", "https"], var.ABT_TWS_SnsTopicSubscriptionProtocal)
-    error_message = "The only valid options for ABT_TWS_SnsTopicSubscriptionProtocal are 'sqs', 'sms', 'lambda', 'firehose', 'application', 'email', 'email-json', 'http', 'https'."
-  }
-}
-variable "ABT_TWS_SnsTopicSubscriptionSubscriptionRoleArn" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicSubscriptionTopicArn" {
-  type = string
-}
-
-variable "ABT_TWS_SnsTopicSubscriptionConfirmationTimeoutInMinutes" {
-  type    = number
-  default = 1
-}
-
-variable "ABT_TWS_SnsTopicSubscriptionDeliveryPolicy" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicSubscriptionEndpointAutoConfirms" {
+variable "AGRAMVKUP_RestApiFailOnWarnings" {
   type    = bool
-  default = false
+  default = null
 }
 
-variable "ABT_TWS_SnsTopicSubscriptionFilterPolicy" {
+variable "AGRAMVKUP_RestApiParameters" {
+  type    = map(string)
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiPolicy" {
   type    = string
   default = null
 }
 
-variable "ABT_TWS_SnsTopicSubscriptionFilterPolicyScope" {
+variable "AGRAMVKUP_RestApiPutRestApiMode" {
   type = string
   validation {
-    condition     = var.ABT_TWS_SnsTopicSubscriptionFilterPolicyScope == null || can(contains(["MessageAttributes", "MessageBody"], var.ABT_TWS_SnsTopicSubscriptionFilterPolicyScope))
-    error_message = "Valid inputs for | variable: ABT_TWS_SnsTopicSubscriptionFilterPolicyScope | are: MessageAttributes, MessageBody, null"
+    condition = var.AGRAMVKUP_RestApiPutRestApiMode == null || can(contains([
+      "merge",
+      "overwrite"
+    ], var.AGRAMVKUP_RestApiPutRestApiMode))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiPutRestApiMode | are: merge, overwrite"
   }
   default = null
 }
-
-variable "ABT_TWS_SnsTopicSubscriptionRawMessageDelivery" {
-  type    = bool
-  default = false
-}
-
-variable "ABT_TWS_SnsTopicSubscriptionRedrivePolicy" {
-  type    = string
-  default = null
-}
-
-variable "ABT_TWS_SnsTopicSubscriptionReplayPolicy" {
-  type    = string
-  default = null
-}
-
-
 
 #---
-variable "awsRegion" {
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission#argument-reference
+variable "AGRAMVKUP_LambdaPermissionAction" {
+  type = string
+}
+
+#The Event Source Token to validate. Used with Alexa Skills.
+variable "AGRAMVKUP_LambdaPermissionEventSourceToken" {
   type    = string
-  default = "us-east-1"
+  default = null
 }
 
-variable "projectName" {
+variable "AGRAMVKUP_LambdaPermissionFunctionName" {
   type = string
 }
 
-variable "createdBy" {
+#Only supported for lambda:InvokeFunctionUrl action.
+variable "AGRAMVKUP_LambdaPermissionUrlAuthType" {
+  type = string
+  validation {
+    condition = var.AGRAMVKUP_LambdaPermissionUrlAuthType == null || can(contains([
+      "AWS_IAM",
+      "NONE"
+    ], var.AGRAMVKUP_LambdaPermissionUrlAuthType))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_LambdaPermissionUrlAuthType | are: AWS_IAM, and NONE"
+  }
+  default = null
+}
+
+variable "AGRAMVKUP_LambdaPermissionPrincipal" {
+  type = string
+}
+
+variable "AGRAMVKUP_LambdaPermissionQualifier" {
   type    = string
-  default = "scott-condo"
+  default = null
 }
 
-variable "deployedDate" {
+variable "AGRAMVKUP_LambdaPermissionSourceAccount" {
+  type    = number
+  default = null
+}
+
+variable "AGRAMVKUP_LambdaPermissionSourceArn" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_LambdaPermissionStatementId" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_LambdaPermissionStatementIdPrefix" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_LambdaPermissionPrincipalOrgId" {
+  type    = string
+  default = null
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/AGRAMVKUP_RestApiResources/api_gateway_AGRAMVKUP_RestApiResource#argument-reference
+
+variable "AGRAMVKUP_RestApiResourceRestApiId" {
   type = string
 }
 
-variable "tfModule" {
+variable "AGRAMVKUP_RestApiResourceParentId" {
   type = string
 }
 
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
-}
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#argument-reference
-
-variable "ABT_budgetType" {
+variable "AGRAMVKUP_RestApiResourcePathPart" {
   type = string
 }
 
-variable "ABT_budgetTimeUnit" {
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiMethod#argument-reference
+
+variable "AGRAMVKUP_RestApiMethodRestApiId" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiMethodResourceId" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiMethodHttpMethod" {
   type = string
   validation {
     condition = contains([
-      "MONTHLY",
-      "QUARTERLY",
-      "ANNUALLY",
-      "DAILY"
-    ], var.ABT_budgetTimeUnit)
-    error_message = "Valid inputs for | variable: var.ABT_budgetTimeUnit | are: MONTHLY, QUARTERLY, ANNUALLY, DAILY"
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "HEAD",
+      "OPTIONS",
+      "ANY"
+    ], var.AGRAMVKUP_RestApiMethodHttpMethod)
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiMethodHttpMethod | are: GET, POST, PUT, DELETE, HEAD, OPTIONS, ANY"
   }
 }
 
-variable "ABT_budgetAccountId" {
+variable "AGRAMVKUP_RestApiMethodAuthorization" {
+  type = string
+  validation {
+    condition = contains([
+      "NONE",
+      "CUSTOM",
+      "AWS_IAM",
+      "COGNITO_USER_POOLS"
+    ], var.AGRAMVKUP_RestApiMethodAuthorization)
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiMethodAuthorization | are: NONE, CUSTOM, AWS_IAM, COGNITO_USER_POOLS"
+  }
+}
+
+variable "AGRAMVKUP_RestApiMethodAuthorizerId" {
   type    = string
   default = null
 }
 
-variable "ABT_budgetAutoAdjustData" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#auto-adjust-data
-    auto_adjust_type = string
+variable "AGRAMVKUP_RestApiMethodAuthorizationScopes" {
+  type    = list(string)
+  default = null
+}
 
-    historical_options = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#historical-options
-      ABT_budget_adjustment_period = number
-    })
+variable "AGRAMVKUP_RestApiMethodApiKeyRequired" {
+  type    = bool
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiMethodOperationName" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiMethodRequestModels" {
+  type    = map(string)
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiMethodRequestValidatorId" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiMethodRequestParameters" {
+  type    = map(string)
+  default = null
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method_response#argument-reference
+
+variable "AGRAMVKUP_RestApiMethodResponseRestApiId" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiMethodResponseResourceId" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiMethodResponseHttpMethod" {
+  type = string
+  validation {
+    condition = contains([
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "HEAD",
+      "OPTIONS",
+      "ANY"
+    ], var.AGRAMVKUP_RestApiMethodResponseHttpMethod)
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiMethodResponseHttpMethod | are: GET, POST, PUT, DELETE, HEAD, OPTIONS, ANY"
+  }
+}
+
+variable "AGRAMVKUP_RestApiMethodResponseStatusCode" {
+  type = number
+}
+
+variable "AGRAMVKUP_RestApiMethodResponseModels" {
+  type    = map(string)
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiMethodResponseParameters" {
+  type    = map(string)
+  default = null
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_request_validator#argument-reference
+
+variable "AGRAMVKUP_RestApiRequestValidatorRestApiId" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiRequestValidatorValidateRequestBody" {
+  type    = bool
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiRequestValidatorValidateRequestParameters" {
+  type    = bool
+  default = null
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiModel#argument-reference
+
+variable "AGRAMVKUP_RestApiModelRestApiId" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiModelName" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiModelDescription" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiModelContentType" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiModelSchemaFile" {
+  type = string
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiIntegration#argument-reference
+
+variable "AGRAMVKUP_RestApiIntegrationRestApiId" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiIntegrationResourceId" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiIntegrationHttpMethod" {
+  type = string
+  validation {
+    condition = contains([
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "HEAD",
+      "OPTION",
+      "ANY"
+    ], var.AGRAMVKUP_RestApiIntegrationHttpMethod)
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiIntegrationHttpMethod | are: GET, POST, PUT, DELETE, HEAD, OPTION, ANY"
+  }
+}
+
+variable "AGRAMVKUP_RestApiIntegrationIntegrationHttpMethod" {
+  type = string
+  validation {
+    condition = var.AGRAMVKUP_RestApiIntegrationIntegrationHttpMethod == null || can(contains([
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "HEAD",
+      "OPTION",
+      "ANY"
+    ], var.AGRAMVKUP_RestApiIntegrationIntegrationHttpMethod))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiIntegrationIntegrationHttpMethod | are: GET, POST, PUT, DELETE, HEAD, OPTION, ANY"
+  }
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiIntegrationType" {
+  type = string
+  validation {
+    condition = var.AGRAMVKUP_RestApiIntegrationType == null || can(contains([
+      "HTTP",
+      "MOCK",
+      "AWS",
+      "AWS_PROXY",
+      "HTTP_PROX"
+    ], var.AGRAMVKUP_RestApiIntegrationType))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiIntegrationType | are: HTTP, MOCK, AWS, AWS_PROXY, HTTP_PROX"
+  }
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiIntegrationConnectionType" {
+  type = string
+  validation {
+    condition = var.AGRAMVKUP_RestApiIntegrationConnectionType == null || can(contains([
+      "INTERNET",
+      "VPC_LINK"
+    ], var.AGRAMVKUP_RestApiIntegrationConnectionType))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiIntegrationConnectionType | are: INTERNET, VPC_LINK"
+  }
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiIntegrationConnectionId" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiIntegrationUri" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiIntegrationCredentials" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiIntegrationRequestTemplates" {
+  type    = map(string)
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiIntegrationRequestParameters" {
+  type    = map(string)
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiIntegrationPassthroughBehavior" {
+  type = string
+  validation {
+    condition = var.AGRAMVKUP_RestApiIntegrationPassthroughBehavior == null || can(contains([
+      "WHEN_NO_MATCH",
+      "WHEN_NO_TEMPLATES",
+      "NEVER"
+    ], var.AGRAMVKUP_RestApiIntegrationPassthroughBehavior))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiIntegrationPassthroughBehavior | are: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, NEVER"
+  }
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiIntegrationCacheKeyParameters" {
+  type    = list(string)
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiIntegrationCacheNamespace" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiIntegrationContentHandling" {
+  type = string
+  validation {
+    condition = var.AGRAMVKUP_RestApiIntegrationContentHandling == null || can(contains([
+      "CONVERT_TO_BINARY",
+      "CONVERT_TO_TEXT"
+    ], var.AGRAMVKUP_RestApiIntegrationContentHandling))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiIntegrationContentHandling | are: CONVERT_TO_BINARY, CONVERT_TO_TEXT"
+  }
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiIntegrationTimeoutMilliseconds" {
+  type = number
+  validation {
+    condition     = var.AGRAMVKUP_RestApiIntegrationTimeoutMilliseconds == null || can(var.AGRAMVKUP_RestApiIntegrationTimeoutMilliseconds >= 50 && var.AGRAMVKUP_RestApiIntegrationTimeoutMilliseconds <= 300000)
+    error_message = "var.AGRAMVKUP_RestApiIntegrationTimeoutMilliseconds must be Greater than or Equal to 50 AND Less Than or Equal to 300000"
+  }
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiIntegrationTlsConfig" {
+  type = object({
+    insecure_skip_verification = optional(bool, null)
   })
-
   default = null
 }
 
-variable "ABT_budgetCostFilter" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#cost-filter
-    name   = string
-    values = list(string)
+#---
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_api_key#argument-reference
+
+variable "AGRAMVKUP_RestApiKeyCustomerId" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiKeyDescription" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiKeyEnabled" {
+  type    = bool
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiKeyValue" {
+  type    = string
+  default = null
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan#argument-reference
+
+variable "AGRAMVKUP_RestApiUsagePlanDescription" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiUsagePlanApiStages" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan#api_id-1
+  type = object({
+    api_id = string
+    stage  = string
+    throttle = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan#path-1
+      path        = string
+      burst_limit = optional(number, null)
+      rate_limit  = optional(number, null)
+    }), null)
   })
   default = null
 }
 
-variable "ABT_budgetCostTypes" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#cost-types
-    include_credit             = optional(bool, null)
-    include_discount           = optional(bool, null)
-    include_other_subscription = optional(bool, null)
-    include_recurring          = optional(bool, null)
-    include_refund             = optional(bool, null)
-    include_subscription       = optional(bool, null)
-    include_support            = optional(bool, null)
-    include_tax                = optional(bool, null)
-    include_upfront            = optional(bool, null)
-    use_amortized              = optional(bool, null)
-    use_blended                = optional(bool, null)
+variable "AGRAMVKUP_RestApiUsagePlanQuotaSettings" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan#limit-1
+  type = object({
+    limit  = optional(number, null)
+    offset = optional(number, null)
+    period = optional(string, null)
   })
   default = null
 }
 
-variable "ABT_budgetLimitAmount" {
-  type    = number
-  default = null
-}
-
-variable "ABT_budgetLimitUnit" {
-  type    = string
-  default = null
-}
-
-variable "ABT_budgetName" {
-  type    = string
-  default = null
-}
-
-variable "ABT_budgetNamePrefix" {
-  type    = string
-  default = null
-}
-
-variable "ABT_budgetNotification" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#ABT_budget-notification
-    comparison_operator        = string
-    threshold                  = number
-    threshold_type             = string
-    notification_type          = string
-    subscriber_email_addresses = optional(list(string), null)
-    subscriber_sns_topic_arns  = optional(list(string), null)
+variable "AGRAMVKUP_RestApiUsagePlanThrottleSettings" {
+  type = object({
+    burst_limit = optional(number, null)
+    rate_limit  = optional(number, null)
   })
   default = null
 }
 
-variable "ABT_budgetPlannedLimit" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ABT_budgets_ABT_budget#planned-ABT_budget-limits
-    start_time = string
-    amount     = number
-    unit       = string
+variable "AGRAMVKUP_RestApiUsagePlanProductCode" {
+  type    = string
+  default = null
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan_key#argument-reference
+
+variable "AGRAMVKUP_RestApiUsagePlanKeyId" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiUsagePlanKeyType" {
+  type = string
+  validation {
+    condition = contains([
+      "API_KEY"
+    ], var.AGRAMVKUP_RestApiUsagePlanKeyType)
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiUsagePlanKeyType | are: API_KEY"
+  }
+}
+
+variable "AGRAMVKUP_RestApiUsagePlanKeyUsagePlanId" {
+  type = string
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiStage#argument-reference
+
+variable "AGRAMVKUP_RestApiStageRestApiId" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiStageDeploymentId" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiStageAccessLogSettings" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiStage#access-log-settings
+  type = object({
+    destination_arn = string
+    format          = string
   })
   default = null
 }
 
-variable "ABT_budgetTimePeriodEnd" {
+variable "AGRAMVKUP_RestApiStageCacheClusterEnabled" {
+  type    = bool
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiStageCacheClusterSize" {
+  type = number
+  validation {
+    condition = var.AGRAMVKUP_RestApiStageCacheClusterSize == null || can(contains([
+      0.5,
+      1.6,
+      6.1,
+      13.5,
+      28.4,
+      58.2,
+      118,
+      237
+    ], var.AGRAMVKUP_RestApiStageCacheClusterSize))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiStageCacheClusterSize | are: 0.5, 1.6, 6.1, 13.5, 28.4, 58.2, 118 and 237"
+  }
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiStageCanarySettings" {
+  type = object({
+    deployment_id            = string
+    percent_traffic          = optional(string, null)
+    AGRAMVKUP_RestApiStage_variable_overrides = optional(map(string), null)
+    use_AGRAMVKUP_RestApiStage_cache          = optional(bool, null)
+  })
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiStageClientCertificateId" {
   type    = string
   default = null
 }
 
-variable "ABT_budgetTimePeriodStart" {
+variable "AGRAMVKUP_RestApiStageDescription" {
   type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiStageDocumentationVersion" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiStageVariables" {
+  type    = map(string)
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiStageXrayTracingEnabled" {
+  type    = bool
+  default = null
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiDeployment#argument-reference
+
+variable "AGRAMVKUP_RestApiDeploymentDescription" {
+  type    = string
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiDeploymentRestApiId" {
+  type = string
+}
+
+variable "AGRAMVKUP_RestApiDeploymentTriggers" {
+  type    = map(string)
+  default = null
+}
+
+variable "AGRAMVKUP_RestApiDeploymentVariables" {
+  type    = map(string)
   default = null
 }
 

@@ -61,7 +61,7 @@ budgetLimitUnit = var.ABT_budgetLimitUnit
 budgetName = var.ABT_budgetName
 budgetNamePrefix = var.ABT_budgetNamePrefix
 budgetNotification = merge({
-  subscriber_sns_topic_arns = concat([module.TWS.ABT_TWS_SnsTopicArn], var.ABT_budgetNotification["subscriber_sns_topic_arns"])
+  subscriber_sns_topic_arns = concat([module.TWS.ABT_TWS_SnsTopicArn], var.ABT_budgetNotificationSubscriberSnsTopicArns)
 }, var.ABT_budgetNotification)
 budgetPlannedLimit = var.ABT_budgetPlannedLimit
 projectName = var.projectName
