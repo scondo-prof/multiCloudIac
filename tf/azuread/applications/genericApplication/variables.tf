@@ -3,15 +3,15 @@ variable "azureAdTenantId" {
   default = "c251bfb1-a539-45ec-a5e0-8911fffbb0a9"
 }
 
+variable "resourceName" {
+  type = string
+}
+
 #https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application#argument-reference
 
 variable "azureAdApplicationDeviceOnlyAuthEnabled" {
   type    = bool
   default = false
-}
-
-variable "resourceName" {
-  type = string
 }
 
 variable "azureAdApplicationFallbackPublicClientEnabled" {

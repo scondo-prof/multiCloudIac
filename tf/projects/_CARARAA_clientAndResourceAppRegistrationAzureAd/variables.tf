@@ -3,13 +3,15 @@ variable "azureAdTenantId" {
   default = "c251bfb1-a539-45ec-a5e0-8911fffbb0a9"
 }
 
+variable "resourceName" {
+  type = string
+}
+
+#https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application#argument-reference
+
 variable "CARARAA_AzureAdResourceApplicationDeviceOnlyAuthEnabled" {
   type    = bool
   default = false
-}
-
-variable "resourceName" {
-  type = string
 }
 
 variable "CARARAA_AzureAdResourceApplicationFallbackPublicClientEnabled" {
@@ -133,13 +135,15 @@ variable "CARARAA_AzureAdResourceApplicationWeb" {
       id_token_issuance_enabled     = optional(bool, null)
     }), null)
 
-    logout_url    = optional(string)
-    redirect_uris = optional(list(string))
+    logout_url    = string
+    redirect_uris = list(string)
   })
   default = null
 }
 
-#--
+#---
+
+#https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application#argument-reference
 
 variable "CARARAA_AzureAdClientApplicationDeviceOnlyAuthEnabled" {
   type    = bool
@@ -273,13 +277,19 @@ variable "CARARAA_AzureAdClientApplicationWeb" {
   default = null
 }
 
-#--
+#---
+
+#https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_permission_scope#argument-reference
 
 variable "CARARAA_AzureAdResourceApplicationPermissionScopeAdminConsentDescription" {
   type = string
 }
 
 variable "CARARAA_AzureAdResourceApplicationPermissionScopeAdminConsentDisplayName" {
+  type = string
+}
+
+variable "CARARAA_AzureAdResourceApplicationPermissionScopeApplicationObjectId" {
   type = string
 }
 
@@ -302,14 +312,28 @@ variable "CARARAA_AzureAdResourceApplicationPermissionScopeValue" {
   type = string
 }
 
-#--
+#---
 
-variable "CARARAA_AdditionalAzureAdResourceApplicationPreAuthorizedPermissionIds" {
-  type    = list(string)
-  default = []
+#https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_pre_authorized#argument-reference
+
+variable "CARARAA_AzureAdResourceApplicationPreAuthorizedApplicationObjectId" {
+  type = string
 }
 
-#--
+variable "CARARAA_AzureAdResourceApplicationPreAuthorizedApplicationClientId" {
+  type = string
+}
+
+variable "CARARAA_AzureAdResourceApplicationPreAuthorizedPermissionIds" {
+  type = list(string)
+}
+
+#---
+#https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_password#argument-reference
+
+variable "CARARAA_AzureAdClientApplicationPasswordApplicationObjectId" {
+  type = string
+}
 
 variable "CARARAA_AzureAdClientApplicationPasswordEndDate" { #https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_password#end_date
   type    = string
@@ -326,14 +350,26 @@ variable "CARARAA_AzureAdClientApplicationPasswordStartDate" { #https://registry
   default = null
 }
 
-#--
+#---
 
-variable "CARARAA_AzureAdClientApplicationApiAccessApiAccessRoleIds" {
+#https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_api_access#argument-reference
+
+variable "CARARAA_AzureAdClientApplicationApiAccessApiClientId" {
+  type = string
+}
+
+variable "CARARAA_AzureAdClientApplicationApiAccessApplicationObjectId" {
+  type = string
+}
+
+variable "CARARAA_AzureAdClientApplicationApiAccessRoleIds" {
   type    = list(string)
   default = null
 }
 
-variable "CARARAA_AdditionalAzureAdClientApplicationApiAccessApiAccessScopeIds" {
+variable "CARARAA_AzureAdClientApplicationApiAccessScopeIds" {
   type    = list(string)
-  default = []
+  default = null
 }
+
+#---
