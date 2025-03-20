@@ -31,23 +31,34 @@ resource "aws_budgets_budget" "budget" {
   }
 
   dynamic "cost_filter" {
-    for_each = var.budget != null ? [var.budget]: []
+    for_each = var.budgetCostFilter != null ? [var.budgetCostFilter]: []
     content {
-      
+      name = cost_filter.value["name"]
+      values = cost_filter.value["values"]
     }
   }
 
   dynamic "cost_types" {
-    for_each = var.budget != null ? [var.budget]: []
+    for_each = var.budgetCostTypes != null ? [var.budgetCostTypes]: []
     content {
-      
+      include_credit = cost_types.value["include_credit"]
+      include_discount = cost_types.value["include_discount"]
+      include_other_subscription = cost_types.value["include_other_subscription"]
+      include_recurring = cost_types.value["include_recurring"]
+      include_refund = cost_types.value["include_refund"]
+      include_subscription = cost_types.value["include_subscription"]
+      include_support = cost_types.value["include_support"]
+      include_tax = cost_types.value["include_tax"]
+      include_upfront = cost_types.value["include_upfront"]
+      use_amortized = cost_types.value["use_amortized"]
+      use_blended = cost_types.value["use_blended"]
     }
   }
 
-  limit_amount = var.budget
-  limit_unit = var.budget
-  name         = var.budget
-  name_prefix = var.budget
+  limit_amount = var.budgetLimitAmount
+  limit_unit = var.budgetLimitUnit
+  name         = var.budgetName
+  name_prefix = var.budgetNamePrefix
   
   dynamic "notification" {
     for_each = var.budget != null ? [var.budget]: []
