@@ -1,10 +1,5 @@
 #https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs#schema
 
-variable "snowflakeAccountName" {
-  type    = string
-  default = null
-}
-
 variable "snowflakeAuthenticator" {
   type = string
   validation {
@@ -42,11 +37,6 @@ variable "snowflakeClientTimeout" {
   default = null
 }
 
-variable "snowflakeDisableConsoleLogin" {
-  type    = string
-  default = null
-}
-
 variable "snowflakeDisableQueryContextCache" {
   type    = bool
   default = null
@@ -57,35 +47,12 @@ variable "snowflakeDisableTelemetry" {
   default = null
 }
 
-variable "snowflakeDriverTracing" {
-  type = string
-  validation {
-    condition = var.snowflakeDriverTracing == null || can(contains([
-      "trace",
-      "debug",
-      "info",
-      "print",
-      "warning",
-      "err",
-      "fatal",
-      "panic"
-    ], var.snowflakeDriverTracing))
-    error_message = "Valid inputs for | variable: var.snowflakeDriverTracing | are: trace , debug , info , print , warning , error , fatal , panic"
-  }
-  default = null
-}
-
 variable "snowflakeExternalBrowserTimeout" {
   type    = number
   default = null
 }
 
 variable "snowflakeHost" {
-  type    = string
-  default = null
-}
-
-variable "snowflakeIncludeRetryReason" {
   type    = string
   default = null
 }
@@ -115,22 +82,12 @@ variable "snowflakeLoginTimeout" {
   default = null
 }
 
-variable "snowflakeMaxRetryCount" {
-  type    = number
-  default = null
-}
-
 variable "snowflakeOcspFailOpen" {
   type    = string
   default = null
 }
 
 variable "snowflakeOktaUrl" {
-  type    = string
-  default = null
-}
-
-variable "snowflakeOrganizationName" {
   type    = string
   default = null
 }
@@ -158,11 +115,6 @@ variable "snowflakePassword" {
 
 variable "snowflakePort" {
   type    = number
-  default = null
-}
-
-variable "snowflakePreveiwFeaturesEnabled" {
-  type    = list(string)
   default = null
 }
 
@@ -205,29 +157,11 @@ variable "snowflakeRole" {
   default = null
 }
 
-variable "snowflakeTmpDirectoryPath" {
-  type    = string
-  default = null
-}
-
 variable "snowflakeToken" {
   type      = string
   default   = null
   sensitive = true
 }
-
-
-# variable "snowflakeTokenAccessor" { #https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs#nestedblock--token_accessor
-#   type = object({
-#     client_id      = string
-#     client_secret  = string
-#     redirect_uri   = string
-#     refresh_token  = string
-#     token_endpoint = string
-#   })
-#   default   = null
-#   sensitive = true
-# }
 
 variable "snowflakeUser" {
   type    = string
@@ -253,11 +187,11 @@ variable "grantAccountRoleName" {
 }
 
 variable "grantAccountRoleParentRoleName" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "grantAccountRoleUserName" {
-  type = string
+  type    = string
   default = null
 }
