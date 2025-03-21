@@ -1,8 +1,10 @@
-resourceName = "eating-in-the-pig-troff"
+resourceName = "rats-in-the-kitchen"
 
-projectName = "fowl"
+projectName = "ratatouille"
 
-deployedDate = "12-05-2024"
+deployedDate = "03-21-2024"
+
+tfModule = "clcc"
 
 CECC_EcrRepositoryForceDelete = true
 
@@ -20,23 +22,23 @@ CECC_CodebuildProjectEnvironmentImage = "aws/codebuild/amazonlinux-x86_64-standa
 
 CECC_CodebuildProjectEnvironmentType = "LINUX_CONTAINER"
 
-CECC_CodebuildProjectSourceBuildspec = "tf/projects/_CECC_codebuildEcrCiCd/utils/buildspec.yaml"
+CECC_CodebuildProjectSourceBuildspec = "tf/utils/example_aws_lambda_container/buildspec.yaml"
 
 CECC_CodebuildProjectSourceGitCloneDepth = 1
 
-CECC_CodebuildProjectSourceLocation = "https://github.com/Bear-Cognition/multiCloudIac"
+CECC_CodebuildProjectSourceLocation = "https://github.com/scondo-prof/multiCloudIac"
 
 CECC_CodebuildProjectSourceType = "GITHUB"
 
-CECC_CredentialsAuthType = "PERSONAL_ACCESS_TOKEN"
+CECC_CodebuildCredentialsAuthType = "PERSONAL_ACCESS_TOKEN"
 
-CECC_CredentialsServerType = "GITHUB"
+CECC_CodebuildCredentialsServerType = "GITHUB"
 
-CECC_CredentialsToken = "fill"
+CECC_CodebuildCredentialsToken = "fill"
 
-CECC_WebhookBuildType = "BUILD"
+CECC_CodebuildWebhookBuildType = "BUILD"
 
-CECC_WebhookFilterGroup = {
+CECC_CodebuildWebhookFilterGroup = {
   filter = {
     event_filter = {
       type    = "EVENT"
@@ -44,7 +46,7 @@ CECC_WebhookFilterGroup = {
     }
     ref_filter = {
       type    = "HEAD_REF"
-      pattern = "refs/heads/dev/LFWLGSARModule"
+      pattern = "dev/integrateTfModuleTag"
     }
   }
 }
@@ -57,4 +59,4 @@ CECC_CodebuildRoleAssumeRolePolicy = [{
   }
 }]
 
-CECC_CodebuildRoleDescription = "slide in my muck"
+CECC_CodebuildRoleDescription = "i smell a rat"
