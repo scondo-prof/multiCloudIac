@@ -75,11 +75,12 @@ module "codebuildProject" {
   codebuildProjectDescription                         = var.CECC_CodebuildProjectDescription
   codebuildProjectFileSystemLocations                 = var.CECC_CodebuildProjectFileSystemLocations
   codebuildProjectEncryptionKey                       = var.CECC_CodebuildProjectEncryptionKey
-  codebuildProjectLogsConfig = merge({
+  codebuildProjectLogsConfig = {
     cloudwatch_logs = {
       group_name = module.codebuildLogGroup.logGroupName
+      status = var.CECC_CodebuildProjectCloudwatchLogsStatus
     }
-  }, var.CECC_CodebuildProjectLogsConfig)
+  }
   codebuildProjectVisibility             = var.CECC_CodebuildProjectVisibility
   codebuildProjectResourceAccessRole     = var.CECC_CodebuildProjectResourceAccessRole
   codebuildProjectQueuedTimeout          = var.CECC_CodebuildProjectQueuedTimeout
