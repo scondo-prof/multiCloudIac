@@ -30,9 +30,6 @@ variable "additionalTags" {
 }
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#argument-reference
-variable "LFWLGSAR_LambdaFunctionRole" {
-  type = string
-}
 
 variable "LFWLGSAR_LambdaFunctionArchitectures" {
   type    = list(string)

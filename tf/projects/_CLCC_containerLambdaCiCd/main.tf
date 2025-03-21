@@ -114,7 +114,6 @@ module "LFWLGSAR" {
   source                                      = "../_LFWLGSAR_lambdaFunctionWithLogGroupSecretAndRole"
   awsRegion                                   = var.awsRegion
   resourceName                                = var.resourceName
-  LFWLGSAR_LambdaFunctionRole                 = var.CLCC_LFWLGSAR_LambdaFunctionRole
   LFWLGSAR_LambdaFunctionArchitectures        = var.CLCC_LFWLGSAR_LambdaFunctionArchitectures
   LFWLGSAR_LambdaFunctionCodeSigningConfigArn = var.CLCC_LFWLGSAR_LambdaFunctionCodeSigningConfigArn
   LFWLGSAR_LambdaFunctionDeadLetterConfig     = var.CLCC_LFWLGSAR_LambdaFunctionDeadLetterConfig

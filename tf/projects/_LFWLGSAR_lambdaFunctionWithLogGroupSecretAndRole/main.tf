@@ -10,7 +10,7 @@ module "lambdaFunction" {
   lambdaFunctionDescription          = var.LFWLGSAR_LambdaFunctionDescription
   lambdaFunctionEnvironment = {
     variables = merge({
-      SECRET_NAME : module.secret.secretArn
+      SECRET_NAME : module.lambdaSecret.secretArn
     }, var.LFWLGSAR_LambdaFunctionEnvironmentVariables)
   }
   lambdaFunctionEphemeralStorage = var.LFWLGSAR_LambdaFunctionEphemeralStorage
@@ -23,7 +23,7 @@ module "lambdaFunction" {
   lambdaFunctionLayers           = var.LFWLGSAR_LambdaFunctionLayers
   lambdaFunctionLoggingConfig = merge({
     log_format = "JSON"
-    log_group  = module.logGroup.logGroupName
+    log_group  = module.lambdaLogGroup.logGroupName
   }, var.LFWLGSAR_LambdaFunctionLoggingConfig)
   lambdaFunctionMemorySize                     = var.LFWLGSAR_LambdaFunctionMemorySize
   lambdaFunctionPackageType                    = var.LFWLGSAR_LambdaFunctionPackageType

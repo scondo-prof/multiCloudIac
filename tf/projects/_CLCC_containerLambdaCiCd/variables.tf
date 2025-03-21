@@ -741,9 +741,6 @@ variable "CLCC_CECC_CodebuildRoleEcrPolicyDocumentStatements" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#argument-reference
-variable "CLCC_LFWLGSAR_LambdaFunctionRole" {
-  type = string
-}
 
 variable "CLCC_LFWLGSAR_LambdaFunctionArchitectures" {
   type    = list(string)
