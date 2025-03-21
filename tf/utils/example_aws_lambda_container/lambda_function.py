@@ -11,6 +11,6 @@ def lambda_handler(event: dict, context: dict) -> dict:
         secret_value = sm.get_secret_value(SecretId=os.getenv("SECRET_NAME"))
         print(f"Secret Value: {secret_value}")
         print("finish")
-        return {"response": 200, "success message": "slappinDAbass"}
+        return {"response": 200, "success message": "tappinTheTamb"}
     except KeyError as e:
         return {"response": 500, "failure message": e}
