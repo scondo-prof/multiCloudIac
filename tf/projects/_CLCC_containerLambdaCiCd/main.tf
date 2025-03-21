@@ -84,28 +84,17 @@ module "CECC" {
   CECC_CodebuildRolePolicyNamePrefix                       = var.CLCC_CECC_CodebuildRolePolicyNamePrefix
   CECC_CodebuildRolePolicyPath                             = var.CLCC_CECC_CodebuildRolePolicyPath
   CECC_CodebuildRolePolicyVersion                          = var.CLCC_CECC_CodebuildRolePolicyVersion
-  CECC_CodebuildRolePolicyDocumentStatements = concat([
-    {
-      Action = [
-        "lambda:UpdateFunctionCode"
-      ]
-      Effect = "Allow"
-      Resource = [
-        module.LFWLGSAR.LFWLGSAR_LambdaFunctionArn,
-      ]
-      Sid = "updateLambda"
-    }
-  ], var.CLCC_CECC_CodebuildRolePolicyDocumentStatements)
-  CECC_CodebuildLogGroupNamePrefix              = var.CLCC_CECC_CodebuildLogGroupNamePrefix
-  CECC_CodebuildLogGroupSkipDestroy             = var.CLCC_CECC_CodebuildLogGroupSkipDestroy
-  CECC_CodebuildLogGroupClass                   = var.CLCC_CECC_CodebuildLogGroupClass
-  CECC_CodebuildLogGroupRetentionInDays         = var.CLCC_CECC_CodebuildLogGroupRetentionInDays
-  CECC_CodebuildLogGroupKmsKeyId                = var.CLCC_CECC_CodebuildLogGroupKmsKeyId
-  CECC_CodebuildRoleEcrPolicyDescription        = var.CLCC_CECC_CodebuildRoleEcrPolicyDescription
-  CECC_CodebuildRoleEcrPolicyNamePrefix         = var.CLCC_CECC_CodebuildRoleEcrPolicyNamePrefix
-  CECC_CodebuildRoleEcrPolicyPath               = var.CLCC_CECC_CodebuildRoleEcrPolicyPath
-  CECC_CodebuildRoleEcrPolicyVersion            = var.CLCC_CECC_CodebuildRoleEcrPolicyVersion
-  CECC_CodebuildRoleEcrPolicyDocumentStatements = var.CLCC_CECC_CodebuildRoleEcrPolicyDocumentStatements
+  CECC_CodebuildRolePolicyDocumentStatements               = var.CLCC_CECC_CodebuildRolePolicyDocumentStatements
+  CECC_CodebuildLogGroupNamePrefix                         = var.CLCC_CECC_CodebuildLogGroupNamePrefix
+  CECC_CodebuildLogGroupSkipDestroy                        = var.CLCC_CECC_CodebuildLogGroupSkipDestroy
+  CECC_CodebuildLogGroupClass                              = var.CLCC_CECC_CodebuildLogGroupClass
+  CECC_CodebuildLogGroupRetentionInDays                    = var.CLCC_CECC_CodebuildLogGroupRetentionInDays
+  CECC_CodebuildLogGroupKmsKeyId                           = var.CLCC_CECC_CodebuildLogGroupKmsKeyId
+  CECC_CodebuildRoleEcrPolicyDescription                   = var.CLCC_CECC_CodebuildRoleEcrPolicyDescription
+  CECC_CodebuildRoleEcrPolicyNamePrefix                    = var.CLCC_CECC_CodebuildRoleEcrPolicyNamePrefix
+  CECC_CodebuildRoleEcrPolicyPath                          = var.CLCC_CECC_CodebuildRoleEcrPolicyPath
+  CECC_CodebuildRoleEcrPolicyVersion                       = var.CLCC_CECC_CodebuildRoleEcrPolicyVersion
+  CECC_CodebuildRoleEcrPolicyDocumentStatements            = var.CLCC_CECC_CodebuildRoleEcrPolicyDocumentStatements
 }
 
 #---
@@ -185,3 +174,42 @@ module "LFWLGSAR" {
   LFWLGSAR_LambdaLogGroupRetentionInDays                = var.CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays
   LFWLGSAR_LambdaLogGroupKmsKeyId                       = var.CLCC_LFWLGSAR_LambdaLogGroupKmsKeyId
 }
+
+module "codebuildLambdaBuildPolicy" {
+  source               = "../../aws/iam/genericIamPolicy"
+  awsRegion            = var.awsRegion
+  iamPolicyDescription = var.CLCC_CodebuildLambdaBuildPolicyDescription
+  iamPolicyNamePrefix  = var.CLCC_CodebuildLambdaBuildPolicyNamePrefix
+  resourceName         = "${module.CECC.CECC_CodebuildProjectName}-lambda-update"
+  iamPolicyPath        = var.CLCC_CodebuildLambdaBuildPolicyPath
+  iamPolicyVersion     = var.CLCC_CodebuildLambdaBuildPolicyVersion
+  iamPolicyDocumentStatements = concat([
+    {
+      Action = [
+        "lambda:UpdateFunctionCode"
+      ]
+      Effect = "Allow"
+      Resource = [
+        module.LFWLGSAR.LFWLGSAR_LambdaFunctionArn,
+      ]
+      Sid = "updateLambda"
+    }
+  ], var.CLCC_CodebuildLambdaBuildPolicyDocumentStatements)
+  projectName    = var.projectName
+  createdBy      = var.createdBy
+  deployedDate   = var.deployedDate
+  tfModule       = var.tfModule
+  additionalTags = var.additionalTags
+}
+
+#---
+
+module "codebuildLambdaBuildPolicyAttachment" {
+  source                    = "../../aws/iam/genericIamRolePolicyAttachment"
+  awsRegion                 = var.awsRegion
+  policyAttachmentRoleName  = module.CECC.CECC_CodebuildRoleName
+  policyAttachmentPolicyArn = module.codebuildLambdaBuildPolicy.iamPolicyArn
+}
+
+#---
+
