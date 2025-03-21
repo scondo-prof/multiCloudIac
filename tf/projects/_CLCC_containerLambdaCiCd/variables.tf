@@ -368,22 +368,16 @@ variable "CLCC_CECC_CodebuildProjectEncryptionKey" {
   default = null
 }
 
-variable "CLCC_CECC_CodebuildProjectLogsConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#logs_config 
-  type = object({
-
-    cloudwatch_logs = optional(object({
-      status      = optional(string, null)
-      stream_name = optional(string, null)
-    }), null)
-
-    s3_logs = optional(object({
-      encryption_disabled = optional(bool, null)
-      location            = optional(string, null)
-      status              = optional(string, null)
-      bucket_owner_access = optional(string, null)
-    }), null)
-  })
-  default = {}
+variable "CLCC_CECC_CodebuildProjectCloudwatchLogsStatus" {
+  type = string
+  validation {
+    condition = var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus == null || can(contains([
+      "ENABLED",
+      "DISABLED"
+    ], var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus))
+    error_message = "Valid inputs for | variable: var.CECC_CodebuildProjectCloudwatchLogsStatus | are: ENABLED, DISABLED"
+  }
+  default = null
 }
 
 variable "CLCC_CECC_CodebuildProjectVisibility" {

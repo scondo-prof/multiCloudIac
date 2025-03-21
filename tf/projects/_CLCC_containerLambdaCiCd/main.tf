@@ -55,7 +55,7 @@ module "CECC" {
   CECC_CodebuildProjectDescription                         = var.CLCC_CECC_CodebuildProjectDescription
   CECC_CodebuildProjectFileSystemLocations                 = var.CLCC_CECC_CodebuildProjectFileSystemLocations
   CECC_CodebuildProjectEncryptionKey                       = var.CLCC_CECC_CodebuildProjectEncryptionKey
-  CECC_CodebuildProjectLogsConfig                          = var.CLCC_CECC_CodebuildProjectLogsConfig
+  CECC_CodebuildProjectCloudwatchLogsStatus                = var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus
   CECC_CodebuildProjectVisibility                          = var.CLCC_CECC_CodebuildProjectVisibility
   CECC_CodebuildProjectResourceAccessRole                  = var.CLCC_CECC_CodebuildProjectResourceAccessRole
   CECC_CodebuildProjectQueuedTimeout                       = var.CLCC_CECC_CodebuildProjectQueuedTimeout
