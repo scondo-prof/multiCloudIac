@@ -739,49 +739,79 @@ variable "CLCC_CECC_CodebuildRoleEcrPolicyDocumentStatements" {
 
 
 #---
+variable "awsRegion" {
+  type    = string
+  default = "us-east-1"
+}
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#argument-reference
-variable "CLCC_LFWLGSAR_LambdaFunctionsRole" {
+variable "resourceName" {
   type = string
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsArchitectures" {
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#argument-reference
+variable "CLCC_LFWLGSAR_LambdaFunctionRole" {
+  type = string
+}
+
+variable "CLCC_LFWLGSAR_LambdaFunctionArchitectures" {
   type    = list(string)
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsCodeSigningConfigArn" {
+variable "CLCC_LFWLGSAR_LambdaFunctionCodeSigningConfigArn" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsDeadLetterConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#dead_letter_config
+variable "CLCC_LFWLGSAR_LambdaFunctionDeadLetterConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#dead_letter_config
   type = object({
     target_arn = string
   })
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsDescription" {
+variable "CLCC_LFWLGSAR_LambdaFunctionDescription" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsEnvironment" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#environment
+variable "CLCC_LFWLGSAR_LambdaFunctionEnvironment" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#environment
   type = object({
     variables = optional(map(string))
   })
   default = {}
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsEphemeralStorage" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#ephemeral_storage
+variable "CLCC_LFWLGSAR_LambdaFunctionEphemeralStorage" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#ephemeral_storage
   type = object({
     size = number
   })
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsFileSystemConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#file_system_config
+variable "CLCC_LFWLGSAR_LambdaFunctionFileSystemConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#file_system_config
   type = object({
     arn              = string
     local_mount_path = string
@@ -789,17 +819,17 @@ variable "CLCC_LFWLGSAR_LambdaFunctionsFileSystemConfig" { #https://registry.ter
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsFilename" {
+variable "CLCC_LFWLGSAR_LambdaFunctionFilename" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsHandler" {
+variable "CLCC_LFWLGSAR_LambdaFunctionHandler" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsImageConfig" {
+variable "CLCC_LFWLGSAR_LambdaFunctionImageConfig" {
   type = object({
     command           = optional(string, null)
     entry_point       = optional(string, null)
@@ -808,22 +838,22 @@ variable "CLCC_LFWLGSAR_LambdaFunctionsImageConfig" {
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsImageUri" {
+variable "CLCC_LFWLGSAR_LambdaFunctionImageUri" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsKmsKeyArn" {
+variable "CLCC_LFWLGSAR_LambdaFunctionKmsKeyArn" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsLayers" {
+variable "CLCC_LFWLGSAR_LambdaFunctionLayers" {
   type    = list(string)
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsLoggingConfig" {
+variable "CLCC_LFWLGSAR_LambdaFunctionLoggingConfig" {
   type = object({
     application_log_level = optional(string, null)
     system_log_level      = optional(string, null)
@@ -831,51 +861,51 @@ variable "CLCC_LFWLGSAR_LambdaFunctionsLoggingConfig" {
   default = {}
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsMemorySize" {
+variable "CLCC_LFWLGSAR_LambdaFunctionMemorySize" {
   type = number
   validation {
-    condition     = var.CLCC_LFWLGSAR_LambdaFunctionsMemorySize == null || can(var.CLCC_LFWLGSAR_LambdaFunctionsMemorySize >= 128 && var.CLCC_LFWLGSAR_LambdaFunctionsMemorySize <= 10240)
-    error_message = "var.CLCC_LFWLGSAR_LambdaFunctionsMemorySize must be Greater than or Equal to 128 AND Less Than or Equal to 10240"
+    condition     = var.CLCC_LFWLGSAR_LambdaFunctionMemorySize == null || can(var.CLCC_LFWLGSAR_LambdaFunctionMemorySize >= 128 && var.CLCC_LFWLGSAR_LambdaFunctionMemorySize <= 10240)
+    error_message = "var.CLCC_LFWLGSAR_LambdaFunctionMemorySize must be Greater than or Equal to 128 AND Less Than or Equal to 10240"
   }
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsPackageType" {
+variable "CLCC_LFWLGSAR_LambdaFunctionPackageType" {
   type = string
   validation {
-    condition = var.CLCC_LFWLGSAR_LambdaFunctionsPackageType == null || can(contains([
+    condition = var.CLCC_LFWLGSAR_LambdaFunctionPackageType == null || can(contains([
       "Zip",
       "Image"
-    ], var.CLCC_LFWLGSAR_LambdaFunctionsPackageType))
-    error_message = "Valid inputs for | variable: var.CLCC_LFWLGSAR_LambdaFunctionsPackageType | are: Zip, Image"
+    ], var.CLCC_LFWLGSAR_LambdaFunctionPackageType))
+    error_message = "Valid inputs for | variable: var.CLCC_LFWLGSAR_LambdaFunctionPackageType | are: Zip, Image"
   }
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsPublish" {
+variable "CLCC_LFWLGSAR_LambdaFunctionPublish" {
   type    = bool
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsReservedConcurrentExecutions" {
+variable "CLCC_LFWLGSAR_LambdaFunctionReservedConcurrentExecutions" {
   type    = number
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsReplaceSecurityGroupsOnDestroy" {
+variable "CLCC_LFWLGSAR_LambdaFunctionReplaceSecurityGroupsOnDestroy" {
   type    = bool
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsReplacementSecurityGroupIds" {
+variable "CLCC_LFWLGSAR_LambdaFunctionReplacementSecurityGroupIds" {
   type    = list(string)
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsRuntime" {
+variable "CLCC_LFWLGSAR_LambdaFunctionRuntime" {
   type = string
   validation {
-    condition = var.CLCC_LFWLGSAR_LambdaFunctionsRuntime == null || can(contains([
+    condition = var.CLCC_LFWLGSAR_LambdaFunctionRuntime == null || can(contains([
       "nodejs",
       "nodejs4.3",
       "nodejs6.10",
@@ -916,61 +946,61 @@ variable "CLCC_LFWLGSAR_LambdaFunctionsRuntime" {
       "java21",
       "python3.13",
       "nodejs22.x"
-    ], var.CLCC_LFWLGSAR_LambdaFunctionsRuntime))
-    error_message = "Valid inputs for | variable: var.CLCC_LFWLGSAR_LambdaFunctionsRuntime | are: nodejs, nodejs4.3, nodejs6.10, nodejs8.10, nodejs10.x, nodejs12.x, nodejs14.x, nodejs16.x, java8, java8.al2, java11, python2.7, python3.6, python3.7, python3.8, python3.9, dotnetcore1.0, dotnetcore2.0, dotnetcore2.1, dotnetcore3.1, dotnet6, dotnet8, nodejs4.3-edge, go1.x, ruby2.5, ruby2.7, provided, provided.al2, nodejs18.x, python3.10, java17, ruby3.2, ruby3.3, python3.11, nodejs20.x, provided.al2023, python3.12, java21, python3.13, nodejs22.x"
+    ], var.CLCC_LFWLGSAR_LambdaFunctionRuntime))
+    error_message = "Valid inputs for | variable: var.CLCC_LFWLGSAR_LambdaFunctionRuntime | are: nodejs, nodejs4.3, nodejs6.10, nodejs8.10, nodejs10.x, nodejs12.x, nodejs14.x, nodejs16.x, java8, java8.al2, java11, python2.7, python3.6, python3.7, python3.8, python3.9, dotnetcore1.0, dotnetcore2.0, dotnetcore2.1, dotnetcore3.1, dotnet6, dotnet8, nodejs4.3-edge, go1.x, ruby2.5, ruby2.7, provided, provided.al2, nodejs18.x, python3.10, java17, ruby3.2, ruby3.3, python3.11, nodejs20.x, provided.al2023, python3.12, java21, python3.13, nodejs22.x"
   }
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsS3Bucket" {
+variable "CLCC_LFWLGSAR_LambdaFunctionS3Bucket" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsS3Key" {
+variable "CLCC_LFWLGSAR_LambdaFunctionS3Key" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsS3ObjectVersion" {
+variable "CLCC_LFWLGSAR_LambdaFunctionS3ObjectVersion" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsSkipDestroy" {
+variable "CLCC_LFWLGSAR_LambdaFunctionSkipDestroy" {
   type    = bool
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsSourceCodeHash" {
+variable "CLCC_LFWLGSAR_LambdaFunctionSourceCodeHash" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsSnapStart" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#snap_start
+variable "CLCC_LFWLGSAR_LambdaFunctionSnapStart" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#snap_start
   type = object({
     apply_on = string
   })
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsTimeout" {
+variable "CLCC_LFWLGSAR_LambdaFunctionTimeout" {
   type = number
   validation {
-    condition     = var.CLCC_LFWLGSAR_LambdaFunctionsTimeout == null || can(var.CLCC_LFWLGSAR_LambdaFunctionsTimeout >= 3 && var.CLCC_LFWLGSAR_LambdaFunctionsTimeout <= 900)
-    error_message = "var.CLCC_LFWLGSAR_LambdaFunctionsTimeout must be Greater than or Equal to 3 AND Less Than or Equal to 900"
+    condition     = var.CLCC_LFWLGSAR_LambdaFunctionTimeout == null || can(var.CLCC_LFWLGSAR_LambdaFunctionTimeout >= 3 && var.CLCC_LFWLGSAR_LambdaFunctionTimeout <= 900)
+    error_message = "var.CLCC_LFWLGSAR_LambdaFunctionTimeout must be Greater than or Equal to 3 AND Less Than or Equal to 900"
   }
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsTracingConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#tracing_config
+variable "CLCC_LFWLGSAR_LambdaFunctionTracingConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#tracing_config
   type = object({
     mode = string
   })
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LambdaFunctionsVpcConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#vpc_config
+variable "CLCC_LFWLGSAR_LambdaFunctionVpcConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#vpc_config
   type = object({
     ipv6_allowed_for_dual_stack = optional(bool, null)
     security_group_ids          = list(string)

@@ -68,6 +68,6 @@ CLCC_LFWLGSAR_LambdaFunctionTimeout = 8
 CLCC_LFWLGSAR_SecretRecoveryWindowInDays = 0
 
 CLCC_LFWLGSAR_SecretVersionSecretString = {
-    "gustave" = "the chunky prince",
-    "nose man" = "may have to sleep with the fishes"
+  "gustave"  = "the chunky prince",
+  "nose man" = "may have to sleep with the fishes"
 }

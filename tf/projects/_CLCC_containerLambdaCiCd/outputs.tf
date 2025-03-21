@@ -76,24 +76,24 @@ output "CLCC_CECC_CodebuildRoleEcrPolicyName" {
 
 
 #---
-output "CLCC_LFWLGSAR_LambdaFunctionsArn" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionsArn
+output "CLCC_LFWLGSAR_LambdaFunctionArn" {
+  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionArn
 }
 
-output "CLCC_LFWLGSAR_LambdaFunctionsInvokeArn" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionsInvokeArn
+output "CLCC_LFWLGSAR_LambdaFunctionInvokeArn" {
+  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionInvokeArn
 }
 
-output "CLCC_LFWLGSAR_LambdaFunctionsName" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionsName
+output "CLCC_LFWLGSAR_LambdaFunctionName" {
+  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionName
 }
 
-output "CLCC_LFWLGSAR_LambdaFunctionsSigningJobArn" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionsSigningJobArn
+output "CLCC_LFWLGSAR_LambdaFunctionSigningJobArn" {
+  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionSigningJobArn
 }
 
-output "CLCC_LFWLGSAR_LambdaFunctionsQualifiedInvokeArn" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionsQualifiedInvokeArn
+output "CLCC_LFWLGSAR_LambdaFunctionQualifiedInvokeArn" {
+  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionQualifiedInvokeArn
 }
 
 

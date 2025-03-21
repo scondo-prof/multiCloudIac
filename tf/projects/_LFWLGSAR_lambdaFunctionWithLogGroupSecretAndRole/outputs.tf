@@ -1,20 +1,20 @@
-output "LFWLGSAR_LambdaFunctionsArn" {
+output "LFWLGSAR_LambdaFunctionArn" {
   value = module.lambdaFunction.lambdaFunctionArn
 }
 
-output "LFWLGSAR_LambdaFunctionsInvokeArn" {
+output "LFWLGSAR_LambdaFunctionInvokeArn" {
   value = module.lambdaFunction.lambdaFunctionInvokeArn
 }
 
-output "LFWLGSAR_LambdaFunctionsName" {
+output "LFWLGSAR_LambdaFunctionName" {
   value = module.lambdaFunction.lambdaFunctionName
 }
 
-output "LFWLGSAR_LambdaFunctionsSigningJobArn" {
+output "LFWLGSAR_LambdaFunctionSigningJobArn" {
   value = module.lambdaFunction.lambdaFunctionSigningJobArn
 }
 
-output "LFWLGSAR_LambdaFunctionsQualifiedInvokeArn" {
+output "LFWLGSAR_LambdaFunctionQualifiedInvokeArn" {
   value = module.lambdaFunction.lambdaFunctionQualifiedInvokeArn
 }
 

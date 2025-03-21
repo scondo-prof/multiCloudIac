@@ -3,49 +3,49 @@ module "lambdaFunction" {
   source                             = "../../aws/lambda/genericLambdaFunction"
   awsRegion                          = var.awsRegion
   resourceName                       = var.resourceName
-  lambdaFunctionRole                 = module.lambdaFunctionRole.iamRoleArn #var.LFWLGSAR_LambdaFunctionsRole
-  lambdaFunctionArchitectures        = var.LFWLGSAR_LambdaFunctionsArchitectures
-  lambdaFunctionCodeSigningConfigArn = var.LFWLGSAR_LambdaFunctionsCodeSigningConfigArn
-  lambdaFunctionDeadLetterConfig     = var.LFWLGSAR_LambdaFunctionsDeadLetterConfig
-  lambdaFunctionDescription          = var.LFWLGSAR_LambdaFunctionsDescription
+  lambdaFunctionRole                 = module.lambdaFunctionRole.iamRoleArn #var.LFWLGSAR_LambdaFunctionRole
+  lambdaFunctionArchitectures        = var.LFWLGSAR_LambdaFunctionArchitectures
+  lambdaFunctionCodeSigningConfigArn = var.LFWLGSAR_LambdaFunctionCodeSigningConfigArn
+  lambdaFunctionDeadLetterConfig     = var.LFWLGSAR_LambdaFunctionDeadLetterConfig
+  lambdaFunctionDescription          = var.LFWLGSAR_LambdaFunctionDescription
   lambdaFunctionEnvironment = {
     variables = merge({
       SECRET_NAME : module.secret.secretArn
-    }, var.LFWLGSAR_LambdaFunctionsEnvironment)
+    }, var.LFWLGSAR_LambdaFunctionEnvironmentVariables)
   }
-  lambdaFunctionEphemeralStorage = var.LFWLGSAR_LambdaFunctionsEphemeralStorage
-  lambdaFunctionFileSystemConfig = var.LFWLGSAR_LambdaFunctionsFileSystemConfig
-  lambdaFunctionFilename         = var.LFWLGSAR_LambdaFunctionsFilename
-  lambdaFunctionHandler          = var.LFWLGSAR_LambdaFunctionsHandler
-  lambdaFunctionImageConfig      = var.LFWLGSAR_LambdaFunctionsImageConfig
-  lambdaFunctionImageUri         = var.LFWLGSAR_LambdaFunctionsImageUri
-  lambdaFunctionKmsKeyArn        = var.LFWLGSAR_LambdaFunctionsKmsKeyArn
-  lambdaFunctionLayers           = var.LFWLGSAR_LambdaFunctionsLayers
+  lambdaFunctionEphemeralStorage = var.LFWLGSAR_LambdaFunctionEphemeralStorage
+  lambdaFunctionFileSystemConfig = var.LFWLGSAR_LambdaFunctionFileSystemConfig
+  lambdaFunctionFilename         = var.LFWLGSAR_LambdaFunctionFilename
+  lambdaFunctionHandler          = var.LFWLGSAR_LambdaFunctionHandler
+  lambdaFunctionImageConfig      = var.LFWLGSAR_LambdaFunctionImageConfig
+  lambdaFunctionImageUri         = var.LFWLGSAR_LambdaFunctionImageUri
+  lambdaFunctionKmsKeyArn        = var.LFWLGSAR_LambdaFunctionKmsKeyArn
+  lambdaFunctionLayers           = var.LFWLGSAR_LambdaFunctionLayers
   lambdaFunctionLoggingConfig = merge({
     log_format = "JSON"
     log_group  = module.logGroup.logGroupName
-  }, var.LFWLGSAR_LambdaFunctionsLoggingConfig)
-  lambdaFunctionMemorySize                     = var.LFWLGSAR_LambdaFunctionsMemorySize
-  lambdaFunctionPackageType                    = var.LFWLGSAR_LambdaFunctionsPackageType
-  lambdaFunctionPublish                        = var.LFWLGSAR_LambdaFunctionsPublish
-  lambdaFunctionReservedConcurrentExecutions   = var.LFWLGSAR_LambdaFunctionsReservedConcurrentExecutions
-  lambdaFunctionReplaceSecurityGroupsOnDestroy = var.LFWLGSAR_LambdaFunctionsReplaceSecurityGroupsOnDestroy
-  lambdaFunctionReplacementSecurityGroupIds    = var.LFWLGSAR_LambdaFunctionsReplacementSecurityGroupIds
-  lambdaFunctionRuntime                        = var.LFWLGSAR_LambdaFunctionsRuntime
-  lambdaFunctionS3Bucket                       = var.LFWLGSAR_LambdaFunctionsS3Bucket
-  lambdaFunctionS3Key                          = var.LFWLGSAR_LambdaFunctionsS3Key
-  lambdaFunctionS3ObjectVersion                = var.LFWLGSAR_LambdaFunctionsS3ObjectVersion
-  lambdaFunctionSkipDestroy                    = var.LFWLGSAR_LambdaFunctionsSkipDestroy
-  lambdaFunctionSourceCodeHash                 = var.LFWLGSAR_LambdaFunctionsSourceCodeHash
-  lambdaFunctionSnapStart                      = var.LFWLGSAR_LambdaFunctionsSnapStart
+  }, var.LFWLGSAR_LambdaFunctionLoggingConfig)
+  lambdaFunctionMemorySize                     = var.LFWLGSAR_LambdaFunctionMemorySize
+  lambdaFunctionPackageType                    = var.LFWLGSAR_LambdaFunctionPackageType
+  lambdaFunctionPublish                        = var.LFWLGSAR_LambdaFunctionPublish
+  lambdaFunctionReservedConcurrentExecutions   = var.LFWLGSAR_LambdaFunctionReservedConcurrentExecutions
+  lambdaFunctionReplaceSecurityGroupsOnDestroy = var.LFWLGSAR_LambdaFunctionReplaceSecurityGroupsOnDestroy
+  lambdaFunctionReplacementSecurityGroupIds    = var.LFWLGSAR_LambdaFunctionReplacementSecurityGroupIds
+  lambdaFunctionRuntime                        = var.LFWLGSAR_LambdaFunctionRuntime
+  lambdaFunctionS3Bucket                       = var.LFWLGSAR_LambdaFunctionS3Bucket
+  lambdaFunctionS3Key                          = var.LFWLGSAR_LambdaFunctionS3Key
+  lambdaFunctionS3ObjectVersion                = var.LFWLGSAR_LambdaFunctionS3ObjectVersion
+  lambdaFunctionSkipDestroy                    = var.LFWLGSAR_LambdaFunctionSkipDestroy
+  lambdaFunctionSourceCodeHash                 = var.LFWLGSAR_LambdaFunctionSourceCodeHash
+  lambdaFunctionSnapStart                      = var.LFWLGSAR_LambdaFunctionSnapStart
   projectName                                  = var.projectName
   createdBy                                    = var.createdBy
   deployedDate                                 = var.deployedDate
   tfModule                                     = var.tfModule
   additionalTags                               = var.additionalTags
-  lambdaFunctionTimeout                        = var.LFWLGSAR_LambdaFunctionsTimeout
-  lambdaFunctionTracingConfig                  = var.LFWLGSAR_LambdaFunctionsTracingConfig
-  lambdaFunctionVpcConfig                      = var.LFWLGSAR_LambdaFunctionsVpcConfig
+  lambdaFunctionTimeout                        = var.LFWLGSAR_LambdaFunctionTimeout
+  lambdaFunctionTracingConfig                  = var.LFWLGSAR_LambdaFunctionTracingConfig
+  lambdaFunctionVpcConfig                      = var.LFWLGSAR_LambdaFunctionVpcConfig
 }
 
 #---
