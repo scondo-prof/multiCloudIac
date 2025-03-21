@@ -1,82 +1,71 @@
-output "CECC_EcrRepositoryArn" {
-  value = module.ecrRepository.ecrRepositoryArn
+output "LFWLGSAR_LambdaFunctionsArn" {
+  value = module.lambdaFunction.lambdaFunctionArn
 }
 
-output "CECC_EcrRepositoryName" {
-  value = module.ecrRepository.ecrRepositoryName
+output "LFWLGSAR_LambdaFunctionsInvokeArn" {
+  value = module.lambdaFunction.lambdaFunctionInvokeArn
 }
 
-output "CECC_EcrRepositoryUrl" {
-  value = module.ecrRepository.ecrRepositoryUrl
+output "LFWLGSAR_LambdaFunctionsName" {
+  value = module.lambdaFunction.lambdaFunctionName
 }
 
-#---
-output "CECC_CodebuildProjectArn" {
-  value = module.codebuildProject.codebuildProjectArn
+output "LFWLGSAR_LambdaFunctionsSigningJobArn" {
+  value = module.lambdaFunction.lambdaFunctionSigningJobArn
 }
 
-output "CECC_CodebuildProjectBadgeUrl" {
-  value = module.codebuildProject.codebuildProjectBadgeUrl
-}
-
-output "CECC_CodebuildProjectName" {
-  value = module.codebuildProject.codebuildProjectName
+output "LFWLGSAR_LambdaFunctionsQualifiedInvokeArn" {
+  value = module.lambdaFunction.lambdaFunctionQualifiedInvokeArn
 }
 
 #---
-output "CECC_CodebuildCredentialsArn" {
-  value = module.codebuildCredentials.credentialsArn
+output "LFWLGSAR_LambdaFunctionRoleName" {
+  value = module.lambdaFunctionRole.iamRoleName
+}
+
+output "LFWLGSAR_LambdaFunctionRoleArn" {
+  value = module.lambdaFunctionRole.iamRoleArn
 }
 
 #---
-output "CECC_CodebuildWebhookPayloadUrl" {
-  value = module.codebuildWebhook.webhookPayloadUrl
+output "LFWLGSAR_LambdaGenericPolicyArn" {
+  value = module.lambdaGenericPolicy.iamPolicyArn
 }
 
-output "CECC_CodebuildWebhookUrl" {
-  value = module.codebuildWebhook.webhookUrl
-}
-
-#---
-output "CECC_CodebuildRoleName" {
-  value = module.codebuildRole.iamRoleName
-}
-
-output "CECC_CodebuildRoleArn" {
-  value = module.codebuildRole.iamRoleArn
+output "LFWLGSAR_LambdaGenericPolicyName" {
+  value = module.lambdaGenericPolicy.iamPolicyName
 }
 
 #---
-output "CECC_CodebuildRolePolicyArn" {
-  value = module.codebuildRolePolicy.iamPolicyArn
+output "LFWLGSAR_LambdaSecretArn" {
+  value = module.lambdaSecret.secretArn
 }
 
-output "CECC_CodebuildRolePolicyName" {
-  value = module.codebuildRolePolicy.iamPolicyName
-}
-
-#---
-output "CECC_CodebuildLogGroupArn" {
-  value = module.codebuildLogGroup.logGroupArn
-}
-
-output "CECC_CodebuildLogGroupName" {
-  value = module.codebuildLogGroup.logGroupName
+output "LFWLGSAR_LambdaSecretName" {
+  value = module.lambdaSecret.secretName
 }
 
 #---
-None
-
-#---
-output "CECC_CodebuildRoleEcrPolicyArn" {
-  value = module.codebuildRoleEcrPolicy.iamPolicyArn
-}
-
-output "CECC_CodebuildRoleEcrPolicyName" {
-  value = module.codebuildRoleEcrPolicy.iamPolicyName
+output "LFWLGSAR_LambdaSecretVersionId" {
+  value = module.lambdaSecretVersion.secretVersionId
 }
 
 #---
-None
+output "LFWLGSAR_LambdaSecretPolicyArn" {
+  value = module.lambdaSecretPolicy.iamPolicyArn
+}
+
+output "LFWLGSAR_LambdaSecretPolicyName" {
+  value = module.lambdaSecretPolicy.iamPolicyName
+}
+
+#---
+output "LFWLGSAR_LambdaLogGroupArn" {
+  value = module.lambdaLogGroup.logGroupArn
+}
+
+output "LFWLGSAR_LambdaLogGroupName" {
+  value = module.lambdaLogGroup.logGroupName
+}
 
 #---

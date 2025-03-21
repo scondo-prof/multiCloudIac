@@ -1,114 +1,60 @@
 
-    module "ecrRepository" {
-  source = "../../aws/ecr/genericEcrRepository"
+    module "lambdaFunction" {
+  source = "../../aws/lambda/genericLambdaFunction"
 awsRegion = var.awsRegion
 resourceName = var.resourceName
-ecrRepositoryEncryptionConfiguration = var.CECC_EcrRepositoryEncryptionConfiguration
-ecrRepositoryForceDelete = var.CECC_EcrRepositoryForceDelete
-ecrRepositoryImageTagMutability = var.CECC_EcrRepositoryImageTagMutability
-ecrRepositoryImageScanningConfiguration = var.CECC_EcrRepositoryImageScanningConfiguration
+lambdaFunctionRole = var.LFWLGSAR_LambdaFunctionsRole
+lambdaFunctionArchitectures = var.LFWLGSAR_LambdaFunctionsArchitectures
+lambdaFunctionCodeSigningConfigArn = var.LFWLGSAR_LambdaFunctionsCodeSigningConfigArn
+lambdaFunctionDeadLetterConfig = var.LFWLGSAR_LambdaFunctionsDeadLetterConfig
+lambdaFunctionDescription = var.LFWLGSAR_LambdaFunctionsDescription
+lambdaFunctionEnvironment = var.LFWLGSAR_LambdaFunctionsEnvironment
+lambdaFunctionEphemeralStorage = var.LFWLGSAR_LambdaFunctionsEphemeralStorage
+lambdaFunctionFileSystemConfig = var.LFWLGSAR_LambdaFunctionsFileSystemConfig
+lambdaFunctionFilename = var.LFWLGSAR_LambdaFunctionsFilename
+lambdaFunctionHandler = var.LFWLGSAR_LambdaFunctionsHandler
+lambdaFunctionImageConfig = var.LFWLGSAR_LambdaFunctionsImageConfig
+lambdaFunctionImageUri = var.LFWLGSAR_LambdaFunctionsImageUri
+lambdaFunctionKmsKeyArn = var.LFWLGSAR_LambdaFunctionsKmsKeyArn
+lambdaFunctionLayers = var.LFWLGSAR_LambdaFunctionsLayers
+lambdaFunctionLoggingConfig = var.LFWLGSAR_LambdaFunctionsLoggingConfig
+lambdaFunctionMemorySize = var.LFWLGSAR_LambdaFunctionsMemorySize
+lambdaFunctionPackageType = var.LFWLGSAR_LambdaFunctionsPackageType
+lambdaFunctionPublish = var.LFWLGSAR_LambdaFunctionsPublish
+lambdaFunctionReservedConcurrentExecutions = var.LFWLGSAR_LambdaFunctionsReservedConcurrentExecutions
+lambdaFunctionReplaceSecurityGroupsOnDestroy = var.LFWLGSAR_LambdaFunctionsReplaceSecurityGroupsOnDestroy
+lambdaFunctionReplacementSecurityGroupIds = var.LFWLGSAR_LambdaFunctionsReplacementSecurityGroupIds
+lambdaFunctionRuntime = var.LFWLGSAR_LambdaFunctionsRuntime
+lambdaFunctionS3Bucket = var.LFWLGSAR_LambdaFunctionsS3Bucket
+lambdaFunctionS3Key = var.LFWLGSAR_LambdaFunctionsS3Key
+lambdaFunctionS3ObjectVersion = var.LFWLGSAR_LambdaFunctionsS3ObjectVersion
+lambdaFunctionSkipDestroy = var.LFWLGSAR_LambdaFunctionsSkipDestroy
+lambdaFunctionSourceCodeHash = var.LFWLGSAR_LambdaFunctionsSourceCodeHash
+lambdaFunctionSnapStart = var.LFWLGSAR_LambdaFunctionsSnapStart
 projectName = var.projectName
 createdBy = var.createdBy
 deployedDate = var.deployedDate
 tfModule = var.tfModule
 additionalTags = var.additionalTags
+lambdaFunctionTimeout = var.LFWLGSAR_LambdaFunctionsTimeout
+lambdaFunctionTracingConfig = var.LFWLGSAR_LambdaFunctionsTracingConfig
+lambdaFunctionVpcConfig = var.LFWLGSAR_LambdaFunctionsVpcConfig
 }
 
 #---
 
-    module "codebuildProject" {
-  source = "../../aws/codebuild/genericCodebuildProject"
-awsRegion = var.awsRegion
-codebuildProjectArtifactsIdentifier = var.CECC_CodebuildProjectArtifactsIdentifier
-codebuildProjectArtifactsBucketOwnerAccess = var.CECC_CodebuildProjectArtifactsBucketOwnerAccess
-codebuildProjectArtifactsEncryptionDisabled = var.CECC_CodebuildProjectArtifactsEncryptionDisabled
-codebuildProjectArtifactsLocation = var.CECC_CodebuildProjectArtifactsLocation
-codebuildProjectArtifactsName = var.CECC_CodebuildProjectArtifactsName
-codebuildProjectArtifactsNamespaceType = var.CECC_CodebuildProjectArtifactsNamespaceType
-codebuildProjectArtifactsOverrideArtifactName = var.CECC_CodebuildProjectArtifactsOverrideArtifactName
-codebuildProjectArtifactsPackaging = var.CECC_CodebuildProjectArtifactsPackaging
-codebuildProjectArtifactsPath = var.CECC_CodebuildProjectArtifactsPath
-codebuildProjectArtifactsType = var.CECC_CodebuildProjectArtifactsType
-codebuildProjectEnvironmentCertificate = var.CECC_CodebuildProjectEnvironmentCertificate
-codebuildProjectEnvironmentComputeType = var.CECC_CodebuildProjectEnvironmentComputeType
-codebuildProjectEnvironmentFleet = var.CECC_CodebuildProjectEnvironmentFleet
-codebuildProjectEnvironmentEnvironmentVariable = var.CECC_CodebuildProjectEnvironmentEnvironmentVariable
-codebuildProjectEnvironmentImagePullCredentialsType = var.CECC_CodebuildProjectEnvironmentImagePullCredentialsType
-codebuildProjectEnvironmentImage = var.CECC_CodebuildProjectEnvironmentImage
-codebuildProjectEnvironmentPrivilegedMode = var.CECC_CodebuildProjectEnvironmentPrivilegedMode
-codebuildProjectEnvironmentRegistryCredential = var.CECC_CodebuildProjectEnvironmentRegistryCredential
-codebuildProjectEnvironmentType = var.CECC_CodebuildProjectEnvironmentType
-resourceName = var.resourceName
-codebuildProjectServiceRole = var.CECC_CodebuildProjectServiceRole
-codebuildProjectSourceBuildspec = var.CECC_CodebuildProjectSourceBuildspec
-codebuildProjectSourceGitCloneDepth = var.CECC_CodebuildProjectSourceGitCloneDepth
-codebuildProjectSourceGitSubmodulesConfig = var.CECC_CodebuildProjectSourceGitSubmodulesConfig
-codebuildProjectSourceInsecureSsl = var.CECC_CodebuildProjectSourceInsecureSsl
-codebuildProjectSourceLocation = var.CECC_CodebuildProjectSourceLocation
-codebuildProjectSourceReportBuildStatus = var.CECC_CodebuildProjectSourceReportBuildStatus
-codebuildProjectSourceBuildStatusConfig = var.CECC_CodebuildProjectSourceBuildStatusConfig
-codebuildProjectSourceType = var.CECC_CodebuildProjectSourceType
-codebuildProjectBadgeEnabled = var.CECC_CodebuildProjectBadgeEnabled
-codebuildProjectBuildBatchConfig = var.CECC_CodebuildProjectBuildBatchConfig
-codebuildProjectBuildTimeout = var.CECC_CodebuildProjectBuildTimeout
-codebuildProjectCache = var.CECC_CodebuildProjectCache
-codebuildProjectConcurrentBuildLimit = var.CECC_CodebuildProjectConcurrentBuildLimit
-codebuildProjectDescription = var.CECC_CodebuildProjectDescription
-codebuildProjectFileSystemLocations = var.CECC_CodebuildProjectFileSystemLocations
-codebuildProjectEncryptionKey = var.CECC_CodebuildProjectEncryptionKey
-codebuildProjectLogsConfig = var.CECC_CodebuildProjectLogsConfig
-codebuildProjectVisibility = var.CECC_CodebuildProjectVisibility
-codebuildProjectResourceAccessRole = var.CECC_CodebuildProjectResourceAccessRole
-codebuildProjectQueuedTimeout = var.CECC_CodebuildProjectQueuedTimeout
-codebuildProjectSecondaryArtifacts = var.CECC_CodebuildProjectSecondaryArtifacts
-codebuildProjectSecondarySources = var.CECC_CodebuildProjectSecondarySources
-codebuildProjectSecondarySourceVersion = var.CECC_CodebuildProjectSecondarySourceVersion
-codebuildProjectSourceVersion = var.CECC_CodebuildProjectSourceVersion
-projectName = var.projectName
-createdBy = var.createdBy
-deployedDate = var.deployedDate
-tfModule = var.tfModule
-additionalTags = var.additionalTags
-codebuildProjectVpcConfig = var.CECC_CodebuildProjectVpcConfig
-}
-
-#---
-
-    module "codebuildCredentials" {
-  source = "../../aws/codebuild/genericCodebuildSourceCredential"
-awsRegion = var.awsRegion
-credentialsAuthType = var.CECC_CodebuildCredentialsAuthType
-credentialsServerType = var.CECC_CodebuildCredentialsServerType
-credentialsToken = var.CECC_CodebuildCredentialsToken
-credentialsUserName = var.CECC_CodebuildCredentialsUserName
-}
-
-#---
-
-    module "codebuildWebhook" {
-  source = "../../aws/codebuild/genericCodebuildWebhook"
-awsRegion = var.awsRegion
-webhookProjectName = var.CECC_CodebuildWebhookProjectName
-webhookBuildType = var.CECC_CodebuildWebhookBuildType
-webhookBranchFilter = var.CECC_CodebuildWebhookBranchFilter
-webhookFilterGroup = var.CECC_CodebuildWebhookFilterGroup
-webhookScopeConfiguration = var.CECC_CodebuildWebhookScopeConfiguration
-}
-
-#---
-
-    module "codebuildRole" {
+    module "lambdaFunctionRole" {
   source = "../../aws/iam/genericIamRole"
 awsRegion = var.awsRegion
-iamRoleAssumeRolePolicyVersion = var.CECC_CodebuildRoleAssumeRolePolicyVersion
-iamRoleAssumeRolePolicy = var.CECC_CodebuildRoleAssumeRolePolicy
-iamRoleDescription = var.CECC_CodebuildRoleDescription
-iamRoleForceDetatchPolicies = var.CECC_CodebuildRoleForceDetatchPolicies
-iamRoleMaxSessionDuration = var.CECC_CodebuildRoleMaxSessionDuration
+iamRoleAssumeRolePolicyVersion = var.LFWLGSAR_LambdaFunctionRoleAssumeRolePolicyVersion
+iamRoleAssumeRolePolicy = var.LFWLGSAR_LambdaFunctionRoleAssumeRolePolicy
+iamRoleDescription = var.LFWLGSAR_LambdaFunctionRoleDescription
+iamRoleForceDetatchPolicies = var.LFWLGSAR_LambdaFunctionRoleForceDetatchPolicies
+iamRoleMaxSessionDuration = var.LFWLGSAR_LambdaFunctionRoleMaxSessionDuration
 resourceName = var.resourceName
-iamRoleNamePrefix = var.CECC_CodebuildRoleNamePrefix
-iamRolePath = var.CECC_CodebuildRolePath
-iamRolePermissionsBoundary = var.CECC_CodebuildRolePermissionsBoundary
+iamRoleNamePrefix = var.LFWLGSAR_LambdaFunctionRoleNamePrefix
+iamRolePath = var.LFWLGSAR_LambdaFunctionRolePath
+iamRolePermissionsBoundary = var.LFWLGSAR_LambdaFunctionRolePermissionsBoundary
 projectName = var.projectName
 createdBy = var.createdBy
 deployedDate = var.deployedDate
@@ -118,15 +64,15 @@ additionalTags = var.additionalTags
 
 #---
 
-    module "codebuildRolePolicy" {
+    module "lambdaGenericPolicy" {
   source = "../../aws/iam/genericIamPolicy"
 awsRegion = var.awsRegion
-iamPolicyDescription = var.CECC_CodebuildRolePolicyDescription
-iamPolicyNamePrefix = var.CECC_CodebuildRolePolicyNamePrefix
+iamPolicyDescription = var.LFWLGSAR_LambdaGenericPolicyDescription
+iamPolicyNamePrefix = var.LFWLGSAR_LambdaGenericPolicyNamePrefix
 resourceName = var.resourceName
-iamPolicyPath = var.CECC_CodebuildRolePolicyPath
-iamPolicyVersion = var.CECC_CodebuildRolePolicyVersion
-iamPolicyDocumentStatements = var.CECC_CodebuildRolePolicyDocumentStatements
+iamPolicyPath = var.LFWLGSAR_LambdaGenericPolicyPath
+iamPolicyVersion = var.LFWLGSAR_LambdaGenericPolicyVersion
+iamPolicyDocumentStatements = var.LFWLGSAR_LambdaGenericPolicyDocumentStatements
 projectName = var.projectName
 createdBy = var.createdBy
 deployedDate = var.deployedDate
@@ -136,56 +82,87 @@ additionalTags = var.additionalTags
 
 #---
 
-    module "codebuildLogGroup" {
+    module "lambdaGenericPolicyAttachment" {
+  source = "../../aws/iam/genericIamRolePolicyAttachment"
+awsRegion = var.awsRegion
+policyAttachmentRoleName = var.LFWLGSAR_LambdaGenericPolicyAttachmentRoleName
+policyAttachmentPolicyArn = var.LFWLGSAR_LambdaGenericPolicyAttachmentPolicyArn
+}
+
+#---
+
+    module "lambdaSecret" {
+  source = "../../aws/secretsmanager/genericSecret"
+awsRegion = var.awsRegion
+secretDescription = var.LFWLGSAR_LambdaSecretDescription
+secretKmsKeyId = var.LFWLGSAR_LambdaSecretKmsKeyId
+secretNamePrefix = var.LFWLGSAR_LambdaSecretNamePrefix
+resourceName = var.resourceName
+secretPolicy = var.LFWLGSAR_LambdaSecretPolicy
+secretRecoveryWindowInDays = var.LFWLGSAR_LambdaSecretRecoveryWindowInDays
+secretReplica = var.LFWLGSAR_LambdaSecretReplica
+secretForceSecretOverwrite = var.LFWLGSAR_LambdaSecretForceSecretOverwrite
+projectName = var.projectName
+createdBy = var.createdBy
+deployedDate = var.deployedDate
+tfModule = var.tfModule
+additionalTags = var.additionalTags
+}
+
+#---
+
+    module "lambdaSecretVersion" {
+  source = "../../aws/secretsmanager/genericSecretVersion"
+awsRegion = var.awsRegion
+secretVersionSecretId = var.LFWLGSAR_LambdaSecretVersionSecretId
+secretVersionSecretString = var.LFWLGSAR_LambdaSecretVersionSecretString
+secretVersionSecretBinary = var.LFWLGSAR_LambdaSecretVersionSecretBinary
+secretVersionStages = var.LFWLGSAR_LambdaSecretVersionStages
+}
+
+#---
+
+    module "lambdaSecretPolicy" {
+  source = "../../aws/iam/genericIamPolicy"
+awsRegion = var.awsRegion
+iamPolicyDescription = var.LFWLGSAR_LambdaSecretPolicyDescription
+iamPolicyNamePrefix = var.LFWLGSAR_LambdaSecretPolicyNamePrefix
+resourceName = var.resourceName
+iamPolicyPath = var.LFWLGSAR_LambdaSecretPolicyPath
+iamPolicyVersion = var.LFWLGSAR_LambdaSecretPolicyVersion
+iamPolicyDocumentStatements = var.LFWLGSAR_LambdaSecretPolicyDocumentStatements
+projectName = var.projectName
+createdBy = var.createdBy
+deployedDate = var.deployedDate
+tfModule = var.tfModule
+additionalTags = var.additionalTags
+}
+
+#---
+
+    module "lambdaSecretPolicyAttachment" {
+  source = "../../aws/iam/genericIamRolePolicyAttachment"
+awsRegion = var.awsRegion
+policyAttachmentRoleName = var.LFWLGSAR_LambdaSecretPolicyAttachmentRoleName
+policyAttachmentPolicyArn = var.LFWLGSAR_LambdaSecretPolicyAttachmentPolicyArn
+}
+
+#---
+
+    module "lambdaLogGroup" {
   source = "../../aws/cloudwatch/genericLogGroup"
 awsRegion = var.awsRegion
 resourceName = var.resourceName
-logGroupNamePrefix = var.CECC_CodebuildLogGroupNamePrefix
-logGroupSkipDestroy = var.CECC_CodebuildLogGroupSkipDestroy
-logGroupClass = var.CECC_CodebuildLogGroupClass
-logGroupRetentionInDays = var.CECC_CodebuildLogGroupRetentionInDays
-logGroupKmsKeyId = var.CECC_CodebuildLogGroupKmsKeyId
+logGroupNamePrefix = var.LFWLGSAR_LambdaLogGroupNamePrefix
+logGroupSkipDestroy = var.LFWLGSAR_LambdaLogGroupSkipDestroy
+logGroupClass = var.LFWLGSAR_LambdaLogGroupClass
+logGroupRetentionInDays = var.LFWLGSAR_LambdaLogGroupRetentionInDays
+logGroupKmsKeyId = var.LFWLGSAR_LambdaLogGroupKmsKeyId
 projectName = var.projectName
 createdBy = var.createdBy
 deployedDate = var.deployedDate
 tfModule = var.tfModule
 additionalTags = var.additionalTags
-}
-
-#---
-
-    module "codebuildRolePolicyAttachment" {
-  source = "../../aws/iam/genericIamRolePolicyAttachment"
-awsRegion = var.awsRegion
-policyAttachmentRoleName = var.CECC_CodebuildRolePolicyAttachmentRoleName
-policyAttachmentPolicyArn = var.CECC_CodebuildRolePolicyAttachmentPolicyArn
-}
-
-#---
-
-    module "codebuildRoleEcrPolicy" {
-  source = "../../aws/iam/genericIamPolicy"
-awsRegion = var.awsRegion
-iamPolicyDescription = var.CECC_CodebuildRoleEcrPolicyDescription
-iamPolicyNamePrefix = var.CECC_CodebuildRoleEcrPolicyNamePrefix
-resourceName = var.resourceName
-iamPolicyPath = var.CECC_CodebuildRoleEcrPolicyPath
-iamPolicyVersion = var.CECC_CodebuildRoleEcrPolicyVersion
-iamPolicyDocumentStatements = var.CECC_CodebuildRoleEcrPolicyDocumentStatements
-projectName = var.projectName
-createdBy = var.createdBy
-deployedDate = var.deployedDate
-tfModule = var.tfModule
-additionalTags = var.additionalTags
-}
-
-#---
-
-    module "codebuildRoleEcrPolicyAttachment" {
-  source = "../../aws/iam/genericIamRolePolicyAttachment"
-awsRegion = var.awsRegion
-policyAttachmentRoleName = var.CECC_CodebuildRoleEcrPolicyAttachmentRoleName
-policyAttachmentPolicyArn = var.CECC_CodebuildRoleEcrPolicyAttachmentPolicyArn
 }
 
 #---

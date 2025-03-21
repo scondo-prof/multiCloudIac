@@ -9,43 +9,13 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../aws/ecr/genericEcrRepository",
-            "source_path": "../../aws/ecr/genericEcrRepository",
+            "project_path": "../aws/lambda/genericLambdaFunction",
+            "source_path": "../../aws/lambda/genericLambdaFunction",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "ecrRepository",
-        "new_variable_prefix": "CECC_EcrRepository",
-        "module_name": "ecrRepository",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/codebuild/genericCodebuildProject",
-            "source_path": "../../aws/codebuild/genericCodebuildProject",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "codebuildProject",
-        "new_variable_prefix": "CECC_CodebuildProject",
-        "module_name": "codebuildProject",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/codebuild/genericCodebuildSourceCredential",
-            "source_path": "../../aws/codebuild/genericCodebuildSourceCredential",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "credentials",
-        "new_variable_prefix": "CECC_CodebuildCredentials",
-        "module_name": "codebuildCredentials",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/codebuild/genericCodebuildWebhook",
-            "source_path": "../../aws/codebuild/genericCodebuildWebhook",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "webhook",
-        "new_variable_prefix": "CECC_CodebuildWebhook",
-        "module_name": "codebuildWebhook",
+        "previous_variable_prefix": "lambdaFunction",
+        "new_variable_prefix": "LFWLGSAR_LambdaFunctions",
+        "module_name": "lambdaFunction",
     },
     {
         "paths": {
@@ -54,8 +24,8 @@ modules = [
             "destination_path": "./temp",
         },
         "previous_variable_prefix": "iamRole",
-        "new_variable_prefix": "CECC_CodebuildRole",
-        "module_name": "codebuildRole",
+        "new_variable_prefix": "LFWLGSAR_LambdaFunctionRole",
+        "module_name": "lambdaFunctionRole",
     },
     {
         "paths": {
@@ -64,8 +34,58 @@ modules = [
             "destination_path": "./temp",
         },
         "previous_variable_prefix": "iamPolicy",
-        "new_variable_prefix": "CECC_CodebuildRolePolicy",
-        "module_name": "codebuildRolePolicy",
+        "new_variable_prefix": "LFWLGSAR_LambdaGenericPolicy",
+        "module_name": "lambdaGenericPolicy",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/iam/genericIamRolePolicyAttachment",
+            "source_path": "../../aws/iam/genericIamRolePolicyAttachment",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "policyAttachment",
+        "new_variable_prefix": "LFWLGSAR_LambdaGenericPolicyAttachment",
+        "module_name": "lambdaGenericPolicyAttachment",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/secretsmanager/genericSecret",
+            "source_path": "../../aws/secretsmanager/genericSecret",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "secret",
+        "new_variable_prefix": "LFWLGSAR_LambdaSecret",
+        "module_name": "lambdaSecret",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/secretsmanager/genericSecretVersion",
+            "source_path": "../../aws/secretsmanager/genericSecretVersion",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "secretVersion",
+        "new_variable_prefix": "LFWLGSAR_LambdaSecretVersion",
+        "module_name": "lambdaSecretVersion",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/iam/genericIamPolicy",
+            "source_path": "../../aws/iam/genericIamPolicy",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "iamPolicy",
+        "new_variable_prefix": "LFWLGSAR_LambdaSecretPolicy",
+        "module_name": "lambdaSecretPolicy",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/iam/genericIamRolePolicyAttachment",
+            "source_path": "../../aws/iam/genericIamRolePolicyAttachment",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "policyAttachment",
+        "new_variable_prefix": "LFWLGSAR_LambdaSecretPolicyAttachment",
+        "module_name": "lambdaSecretPolicyAttachment",
     },
     {
         "paths": {
@@ -74,38 +94,8 @@ modules = [
             "destination_path": "./temp",
         },
         "previous_variable_prefix": "logGroup",
-        "new_variable_prefix": "CECC_CodebuildLogGroup",
-        "module_name": "codebuildLogGroup",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/iam/genericIamRolePolicyAttachment",
-            "source_path": "../../aws/iam/genericIamRolePolicyAttachment",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "policyAttachment",
-        "new_variable_prefix": "CECC_CodebuildRolePolicyAttachment",
-        "module_name": "codebuildRolePolicyAttachment",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/iam/genericIamPolicy",
-            "source_path": "../../aws/iam/genericIamPolicy",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "iamPolicy",
-        "new_variable_prefix": "CECC_CodebuildRoleEcrPolicy",
-        "module_name": "codebuildRoleEcrPolicy",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/iam/genericIamRolePolicyAttachment",
-            "source_path": "../../aws/iam/genericIamRolePolicyAttachment",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "policyAttachment",
-        "new_variable_prefix": "CECC_CodebuildRoleEcrPolicyAttachment",
-        "module_name": "codebuildRoleEcrPolicyAttachment",
+        "new_variable_prefix": "LFWLGSAR_LambdaLogGroup",
+        "module_name": "lambdaLogGroup",
     },
 ]
 
