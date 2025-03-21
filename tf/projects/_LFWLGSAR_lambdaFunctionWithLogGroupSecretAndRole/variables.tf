@@ -60,7 +60,7 @@ variable "LFWLGSAR_LambdaFunctionsEnvironment" { #https://registry.terraform.io/
   type = object({
     variables = optional(map(string))
   })
-  default = null
+  default = {}
 }
 
 variable "LFWLGSAR_LambdaFunctionsEphemeralStorage" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#ephemeral_storage
@@ -115,11 +115,9 @@ variable "LFWLGSAR_LambdaFunctionsLayers" {
 variable "LFWLGSAR_LambdaFunctionsLoggingConfig" {
   type = object({
     application_log_level = optional(string, null)
-    log_format            = string
-    log_group             = optional(string, null)
     system_log_level      = optional(string, null)
   })
-  default = null
+  default = {}
 }
 
 variable "LFWLGSAR_LambdaFunctionsMemorySize" {
@@ -286,6 +284,7 @@ variable "LFWLGSAR_LambdaFunctionRoleAssumeRolePolicy" {
     Condition = optional(map(map(string)), {})
     Principal = optional(map(list(string)), {})
   }))
+  default = []
 }
 
 variable "LFWLGSAR_LambdaFunctionRoleDescription" {
@@ -351,18 +350,12 @@ variable "LFWLGSAR_LambdaGenericPolicyDocumentStatements" {
     Condition = optional(map(map(string)), {})
     Principal = optional(map(list(string)), {})
   }))
+  default = []
 }
 
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
-variable "LFWLGSAR_LambdaGenericPolicyAttachmentRoleName" {
-  type = string
-}
-
-variable "LFWLGSAR_LambdaGenericPolicyAttachmentPolicyArn" {
-  type = string
-}
 
 #---
 
@@ -410,10 +403,6 @@ variable "LFWLGSAR_LambdaSecretForceSecretOverwrite" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
 
-variable "LFWLGSAR_LambdaSecretVersionSecretId" {
-  type = string
-}
-
 variable "LFWLGSAR_LambdaSecretVersionSecretString" {
   type    = map(string)
   default = null
@@ -458,18 +447,12 @@ variable "LFWLGSAR_LambdaSecretPolicyDocumentStatements" {
     Condition = optional(map(map(string)), {})
     Principal = optional(map(list(string)), {})
   }))
+  default = []
 }
 
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
-variable "LFWLGSAR_LambdaSecretPolicyAttachmentRoleName" {
-  type = string
-}
-
-variable "LFWLGSAR_LambdaSecretPolicyAttachmentPolicyArn" {
-  type = string
-}
 
 #---
 

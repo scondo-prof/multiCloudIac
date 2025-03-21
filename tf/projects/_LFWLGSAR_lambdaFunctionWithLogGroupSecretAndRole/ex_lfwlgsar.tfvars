@@ -15,6 +15,6 @@ LFWLGSAR_LambdaFunctionTimeout = 8
 LFWLGSAR_SecretRecoveryWindowInDays = 0
 
 LFWLGSAR_SecretVersionSecretString = {
-    "ronalds" = "burgers",
-    "noahs" = "arc"
+  "ronalds" = "burgers",
+  "noahs"   = "arc"
 }
