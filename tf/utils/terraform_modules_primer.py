@@ -9,23 +9,13 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../projects/_CARARAA_clientAndResourceAppRegistrationAzureAd",
-            "source_path": "../_CARARAA_clientAndResourceAppRegistrationAzureAd",
+            "project_path": "../azurerm/keyVault/genericKeyVaultSecret",
+            "source_path": "../../azurerm/keyVault/genericKeyVaultSecret",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "CARARAA",
-        "new_variable_prefix": "CR_CARARAA",
-        "module_name": "CARARAA",
-    },
-    {
-        "paths": {
-            "project_path": "../projects/_RGKVASAR_resourceGroupKeyVaultAndSecretAzureRm",
-            "source_path": "../_RGKVASAR_resourceGroupKeyVaultAndSecretAzureRm",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "RGKVASAR",
-        "new_variable_prefix": "CR_RGKVASAR",
-        "module_name": "RGKVASAR",
+        "previous_variable_prefix": "keyVaultSecret",
+        "new_variable_prefix": "RGKVASAR_KeyVaultSecret",
+        "module_name": "keyVaultSecret",
     },
 ]
 

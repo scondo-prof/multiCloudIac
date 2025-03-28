@@ -43,20 +43,19 @@ module "keyVault" {
 
 #---
 
+
 module "keyVaultSecret" {
   source                                     = "../../azurerm/keyVault/genericKeyVaultSecret"
   azurermKeyVaultPurgeSoftDeleteOnDestroy    = var.azurermKeyVaultPurgeSoftDeleteOnDestroy
   azurermKeyVaultRecoverSoftDeletedKeyVaults = var.azurermKeyVaultRecoverSoftDeletedKeyVaults
   azurermSubscriptionId                      = var.azurermSubscriptionId
-  resourceName                               = var.resourceName
-  keyVaultSecretValue                        = var.RGKVASAR_KeyVaultSecretValue
+  keyVaultSecretObjects                      = var.RGKVASAR_KeyVaultSecretObjects
   keyVaultSecretVaultId                      = module.keyVault.keyVaultId
-  keyVaultSecretContentType                  = var.RGKVASAR_KeyVaultSecretContentType
   projectName                                = var.projectName
   createdBy                                  = var.createdBy
   tfModule                                   = var.tfModule
   deployedDate                               = var.deployedDate
   additionalTags                             = var.additionalTags
-  keyVaultSecretNotBeforeDate                = var.RGKVASAR_KeyVaultSecretNotBeforeDate
-  keyVaultSecretExperiationDate              = var.RGKVASAR_KeyVaultSecretExperiationDate
 }
+
+#---

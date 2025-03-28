@@ -13,10 +13,6 @@ variable "azurermSubscriptionId" {
   default = "dad93de7-5388-43ff-86d8-5a1b9b2e87ce"
 }
 
-variable "resourceName" {
-  type = string
-}
-
 variable "projectName" {
   type = string
 }
