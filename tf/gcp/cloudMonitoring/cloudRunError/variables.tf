@@ -2,7 +2,7 @@ variable "resourceName" {
   type = string
 }
 
-variable "projectId" {
+variable "gcpProjectId" {
   type = string
 }
 

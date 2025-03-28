@@ -17,7 +17,7 @@ resource "google_monitoring_alert_policy" "cloudRunAlertPolicy" {
   enabled  = true
 
   notification_channels = [
-    "projects/${var.projectId}/notificationChannels/${var.cloudRunAlertPolicyNotificationChannelId}"
+    "projects/${var.gcpProjectId}/notificationChannels/${var.cloudRunAlertPolicyNotificationChannelId}"
   ]
 
   alert_strategy {

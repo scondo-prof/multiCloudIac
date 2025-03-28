@@ -1,82 +1,105 @@
-output "CR_CARARAA_AzureAdResourceApplicationIdUris" {
-  value = module.CARARAA.CARARAA_AzureAdResourceApplicationIdUris
+output "CRDPFG_SWSV_Cloudbuild_SecretId" {
+  value = module.SWSV_Cloudbuild.SWSV_SecretId
 }
 
-output "CR_CARARAA_AzureAdResourceApplicationObjectId" {
-  value = module.CARARAA.CARARAA_AzureAdResourceApplicationObjectId
+output "CRDPFG_SWSV_Cloudbuild_SecretName" {
+  value = module.SWSV_Cloudbuild.SWSV_SecretName
 }
 
-output "CR_CARARAA_AzureAdResourceApplicationClientId" {
-  value = module.CARARAA.CARARAA_AzureAdResourceApplicationClientId
+output "CRDPFG_SWSV_Cloudbuild_SecretCreateTime" {
+  value = module.SWSV_Cloudbuild.SWSV_SecretCreateTime
 }
 
-
-output "CR_CARARAA_AzureAdClientApplicationIdUris" {
-  value = module.CARARAA.CARARAA_AzureAdClientApplicationIdUris
+output "CRDPFG_SWSV_Cloudbuild_SecretTerraformLabels" {
+  value = module.SWSV_Cloudbuild.SWSV_SecretTerraformLabels
 }
 
-output "CR_CARARAA_AzureAdClientApplicationObjectId" {
-  value = module.CARARAA.CARARAA_AzureAdClientApplicationObjectId
+output "CRDPFG_SWSV_Cloudbuild_SecretEffectiveLabels" {
+  value = module.SWSV_Cloudbuild.SWSV_SecretEffectiveLabels
 }
 
-output "CR_CARARAA_AzureAdClientApplicationClientId" {
-  value = module.CARARAA.CARARAA_AzureAdClientApplicationClientId
-}
-
-
-output "CR_CARARAA_AzureAdResourceApplicationPermissionScopeId" {
-  value = module.CARARAA.CARARAA_AzureAdResourceApplicationPermissionScopeId
+output "CRDPFG_SWSV_Cloudbuild_SecretEffectiveAnnotations" {
+  value = module.SWSV_Cloudbuild.SWSV_SecretEffectiveAnnotations
 }
 
 
-
-output "CR_CARARAA_AzureAdClientApplicationPasswordKeyId" {
-  value = module.CARARAA.CARARAA_AzureAdClientApplicationPasswordKeyId
+output "CRDPFG_SWSV_Cloudbuild_SecretVersionId" {
+  value = module.SWSV_Cloudbuild.SWSV_SecretVersionId
 }
 
-output "CR_CARARAA_AzureAdClientApplicationPasswordValue" {
-  value = module.CARARAA.CARARAA_AzureAdClientApplicationPasswordValue
-  sensitive = true
+output "CRDPFG_SWSV_Cloudbuild_SecretVersionName" {
+  value = module.SWSV_Cloudbuild.SWSV_SecretVersionName
+}
+
+output "CRDPFG_SWSV_Cloudbuild_SecretVersionVersion" {
+  value = module.SWSV_Cloudbuild.SWSV_SecretVersionVersion
+}
+
+output "CRDPFG_SWSV_Cloudbuild_SecretVersionCreateTime" {
+  value = module.SWSV_Cloudbuild.SWSV_SecretVersionCreateTime
+}
+
+output "CRDPFG_SWSV_Cloudbuild_SecretVersionDestroyTime" {
+  value = module.SWSV_Cloudbuild.SWSV_SecretVersionDestroyTime
+}
+
+
+
+
+#---
+output "serviceAccountId" {
+  value = module.cloudbuildTrigger.serviceAccountId
+}
+
+output "serviceAccountEmail" {
+  value = module.cloudbuildTrigger.serviceAccountEmail
+}
+
+output "serviceAccountDisplayName" {
+  value = module.cloudbuildTrigger.serviceAccountDisplayName
+}
+
+output "serviceAccountRoleId" {
+  value = module.cloudbuildTrigger.serviceAccountRoleId
+}
+
+output "serviceAccountRoleName" {
+  value = module.cloudbuildTrigger.serviceAccountRoleName
+}
+
+output "cloudBuildTriggerId" {
+  value = module.cloudbuildTrigger.cloudBuildTriggerId
+}
+
+output "cloudBuildTriggerName" {
+  value = module.cloudbuildTrigger.cloudBuildTriggerName
 }
 
 #---
-output "CR_RGKVASAR_ResourceGroupId" {
-  value = module.RGKVASAR.RGKVASAR_ResourceGroupId
+output "CRDPFG_CloudRunAlertPolicyId" {
+  value = module.cloudRunAlertPolicy.cloudRunAlertPolicyId
 }
 
-output "CR_RGKVASAR_ResourceGroupName" {
-  value = module.RGKVASAR.RGKVASAR_ResourceGroupName
+output "CRDPFG_CloudRunAlertPolicyName" {
+  value = module.cloudRunAlertPolicy.cloudRunAlertPolicyName
 }
 
-
-output "CR_RGKVASAR_KeyVaultId" {
-  value = module.RGKVASAR.RGKVASAR_KeyVaultId
+#---
+output "CRDPFG_CloudRunMemAlertPolicyId" {
+  value = module.cloudRunMemAlertPolicy.alertPolicyId
 }
 
-output "CR_RGKVASAR_KeyVaultName" {
-  value = module.RGKVASAR.RGKVASAR_KeyVaultName
+output "CRDPFG_CloudRunMemAlertPolicyName" {
+  value = module.cloudRunMemAlertPolicy.alertPolicyName
 }
 
-output "CR_RGKVASAR_KeyVaultUri" {
-  value = module.RGKVASAR.RGKVASAR_KeyVaultUri
+#---
+output "CRDPFG_CloudRunCpuAlertPolicyId" {
+  value = module.cloudRunCpuAlertPolicy.alertPolicyId
 }
 
-
-output "CR_RGKVASAR_KeyVaultSecretId" {
-  value = module.RGKVASAR.RGKVASAR_KeyVaultSecretId
+output "CRDPFG_CloudRunCpuAlertPolicyName" {
+  value = module.cloudRunCpuAlertPolicy.alertPolicyName
 }
-
-output "CR_RGKVASAR_KeyVaultSecretName" {
-  value = module.RGKVASAR.RGKVASAR_KeyVaultSecretName
-}
-
-output "CR_RGKVASAR_KeyVaultSecretVersion" {
-  value = module.RGKVASAR.RGKVASAR_KeyVaultSecretVersion
-}
-
-
-
-
-
 
 #---
