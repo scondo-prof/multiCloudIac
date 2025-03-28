@@ -41,33 +41,16 @@ variable "additionalTags" {
 
 #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret#argument-reference
 
-variable "keyVaultSecretValue" {
-  type = string
+variable "keyVaultSecretObjects" {
+  type = list(object({
+    name            = string
+    value           = string
+    content_type    = optional(string, null)
+    not_before_date = optional(string, null)
+    expiration_date = optional(string, null)
+  }))
 }
 
 variable "keyVaultSecretVaultId" {
   type = string
-}
-
-variable "keyVaultSecretContentType" {
-  type = string
-  validation {
-    condition = var.keyVaultSecretContentType == null || can(contains([
-      "application/json",
-      "text/plain",
-      "application/x-pem-file"
-    ]))
-    error_message = "Valid inputs for | variable: keyVaultSecretContentType | are: application/json, text/plain, application/x-pem-file"
-  }
-  default = null
-}
-
-variable "keyVaultSecretNotBeforeDate" { #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret#not_before_date
-  type    = string
-  default = null
-}
-
-variable "keyVaultSecretExperiationDate" { #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret#expiration_date
-  type    = string
-  default = null
 }
