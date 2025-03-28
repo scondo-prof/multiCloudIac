@@ -372,10 +372,10 @@ variable "CLCC_CECC_CodebuildProjectCloudwatchLogsStatus" {
   type = string
   validation {
     condition = var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus == null || can(contains([
-      "ENABLED",
-      "DISABLED"
-    ], var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus))
-    error_message = "Valid inputs for | variable: var.CECC_CodebuildProjectCloudwatchLogsStatus | are: ENABLED, DISABLED"
+    "ENABLED",
+    "DISABLED"
+], var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus))
+    error_message = "Valid inputs for | variable: var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus | are: ENABLED, DISABLED"
   }
   default = null
 }
@@ -759,7 +759,7 @@ variable "CLCC_LFWLGSAR_LambdaFunctionDescription" {
 }
 
 variable "CLCC_LFWLGSAR_LambdaFunctionEnvironmentVariables" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#environment
-  type    = map(string)
+  type = map(string)
   default = {}
 }
 
@@ -794,6 +794,11 @@ variable "CLCC_LFWLGSAR_LambdaFunctionImageConfig" {
     entry_point       = optional(string, null)
     working_directory = optional(string, null)
   })
+  default = null
+}
+
+variable "CLCC_LFWLGSAR_LambdaFunctionImageUri" {
+  type    = string
   default = null
 }
 
@@ -1220,23 +1225,23 @@ variable "CLCC_LFWLGSAR_LambdaLogGroupKmsKeyId" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 
-variable "CLCC_CodebuildLambdaBuildPolicyDescription" {
+variable "CLCC_IamPolicyUpdateLambdaDescription" {
   type    = string
   default = null
 }
-variable "CLCC_CodebuildLambdaBuildPolicyNamePrefix" {
+variable "CLCC_IamPolicyUpdateLambdaNamePrefix" {
   type    = string
   default = null
 }
-variable "CLCC_CodebuildLambdaBuildPolicyPath" {
+variable "CLCC_IamPolicyUpdateLambdaPath" {
   type    = string
   default = "/"
 }
-variable "CLCC_CodebuildLambdaBuildPolicyVersion" {
+variable "CLCC_IamPolicyUpdateLambdaVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CLCC_CodebuildLambdaBuildPolicyDocumentStatements" {
+variable "CLCC_IamPolicyUpdateLambdaDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -1245,11 +1250,17 @@ variable "CLCC_CodebuildLambdaBuildPolicyDocumentStatements" {
     Condition = optional(map(map(string)), {})
     Principal = optional(map(list(string)), {})
   }))
-  default = []
 }
 
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
+variable "CLCC_PolicyAttachmentUpdateLambdaRoleName" {
+  type = string
+}
+
+variable "CLCC_PolicyAttachmentUpdateLambdaPolicyArn" {
+  type = string
+}
 
 #---

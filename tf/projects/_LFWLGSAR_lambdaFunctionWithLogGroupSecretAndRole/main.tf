@@ -3,7 +3,7 @@ module "lambdaFunction" {
   source                             = "../../aws/lambda/genericLambdaFunction"
   awsRegion                          = var.awsRegion
   resourceName                       = var.resourceName
-  lambdaFunctionRole                 = module.lambdaFunctionRole.iamRoleArn #var.LFWLGSAR_LambdaFunctionRole
+  lambdaFunctionRole                 = module.lambdaFunctionRole.iamRoleArn
   lambdaFunctionArchitectures        = var.LFWLGSAR_LambdaFunctionArchitectures
   lambdaFunctionCodeSigningConfigArn = var.LFWLGSAR_LambdaFunctionCodeSigningConfigArn
   lambdaFunctionDeadLetterConfig     = var.LFWLGSAR_LambdaFunctionDeadLetterConfig
