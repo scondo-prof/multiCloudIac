@@ -45,6 +45,7 @@ variable "keyVaultSecretObjects" {
     not_before_date = optional(string, null)
     expiration_date = optional(string, null)
   }))
+  sensitive = true
 }
 
 variable "keyVaultSecretVaultId" {

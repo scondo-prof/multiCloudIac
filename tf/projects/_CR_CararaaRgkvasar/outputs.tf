@@ -73,7 +73,3 @@ output "CR_RGKVASAR_KeyVaultSecretName" {
 output "CR_RGKVASAR_KeyVaultSecretVersion" {
   value = module.RGKVASAR.RGKVASAR_KeyVaultSecretVersion
 }
-
-
-
-#---

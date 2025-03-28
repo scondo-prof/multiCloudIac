@@ -49,6 +49,7 @@ variable "additionalTags" {
   default = {}
 }
 
+
 #https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application#argument-reference
 
 variable "CR_CARARAA_AzureAdResourceApplicationDeviceOnlyAuthEnabled" {
@@ -496,31 +497,17 @@ variable "CR_RGKVASAR_KeyVaultContact" { #https://registry.terraform.io/provider
 
 #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret#argument-reference
 
-variable "CR_RGKVASAR_KeyVaultSecretValue" {
-  type = string
-}
+#https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret#argument-reference
 
-variable "CR_RGKVASAR_KeyVaultSecretContentType" {
-  type = string
-  validation {
-    condition = var.CR_RGKVASAR_KeyVaultSecretContentType == null || can(contains([
-      "application/json",
-      "text/plain",
-      "application/x-pem-file"
-    ]))
-    error_message = "Valid inputs for | variable: CR_RGKVASAR_KeyVaultSecretContentType | are: application/json, text/plain, application/x-pem-file"
-  }
-  default = null
-}
-
-variable "CR_RGKVASAR_KeyVaultSecretNotBeforeDate" { #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret#not_before_date
-  type    = string
-  default = null
-}
-
-variable "CR_RGKVASAR_KeyVaultSecretExperiationDate" { #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret#expiration_date
-  type    = string
-  default = null
+variable "CR_RGKVASAR_KeyVaultSecretObjects" {
+  type = list(object({
+    name            = string
+    value           = string
+    content_type    = optional(string, null)
+    not_before_date = optional(string, null)
+    expiration_date = optional(string, null)
+  }))
+  sensitive = true
 }
 
 
