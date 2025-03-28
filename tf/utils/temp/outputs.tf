@@ -1,35 +1,79 @@
-output "RGKVASAR_ResourceGroupId" {
-  value = module.resourceGroup.resourceGroupId
+output "CR_CARARAA_AzureAdResourceApplicationIdUris" {
+  value = module.CARARAA.CARARAA_AzureAdResourceApplicationIdUris
 }
 
-output "RGKVASAR_ResourceGroupName" {
-  value = module.resourceGroup.resourceGroupName
+output "CR_CARARAA_AzureAdResourceApplicationObjectId" {
+  value = module.CARARAA.CARARAA_AzureAdResourceApplicationObjectId
+}
+
+output "CR_CARARAA_AzureAdResourceApplicationClientId" {
+  value = module.CARARAA.CARARAA_AzureAdResourceApplicationClientId
+}
+
+
+output "CR_CARARAA_AzureAdClientApplicationIdUris" {
+  value = module.CARARAA.CARARAA_AzureAdClientApplicationIdUris
+}
+
+output "CR_CARARAA_AzureAdClientApplicationObjectId" {
+  value = module.CARARAA.CARARAA_AzureAdClientApplicationObjectId
+}
+
+output "CR_CARARAA_AzureAdClientApplicationClientId" {
+  value = module.CARARAA.CARARAA_AzureAdClientApplicationClientId
+}
+
+
+output "CR_CARARAA_AzureAdResourceApplicationPermissionScopeId" {
+  value = module.CARARAA.CARARAA_AzureAdResourceApplicationPermissionScopeId
+}
+
+
+
+output "CR_CARARAA_AzureAdClientApplicationPasswordKeyId" {
+  value = module.CARARAA.CARARAA_AzureAdClientApplicationPasswordKeyId
+}
+
+output "CR_CARARAA_AzureAdClientApplicationPasswordValue" {
+  value = module.CARARAA.CARARAA_AzureAdClientApplicationPasswordValue
+  sensitive = true
 }
 
 #---
-output "RGKVASAR_KeyVaultId" {
-  value = module.keyVault.keyVaultId
+output "CR_RGKVASAR_ResourceGroupId" {
+  value = module.RGKVASAR.RGKVASAR_ResourceGroupId
 }
 
-output "RGKVASAR_KeyVaultName" {
-  value = module.keyVault.keyVaultName
+output "CR_RGKVASAR_ResourceGroupName" {
+  value = module.RGKVASAR.RGKVASAR_ResourceGroupName
 }
 
-output "RGKVASAR_KeyVaultUri" {
-  value = module.keyVault.keyVaultUri
+
+output "CR_RGKVASAR_KeyVaultId" {
+  value = module.RGKVASAR.RGKVASAR_KeyVaultId
 }
 
-#---
-output "RGKVASAR_KeyVaultSecretId" {
-  value = module.keyVaultSecret.keyVaultSecretId
+output "CR_RGKVASAR_KeyVaultName" {
+  value = module.RGKVASAR.RGKVASAR_KeyVaultName
 }
 
-output "RGKVASAR_KeyVaultSecretName" {
-  value = module.keyVaultSecret.keyVaultSecretName
+output "CR_RGKVASAR_KeyVaultUri" {
+  value = module.RGKVASAR.RGKVASAR_KeyVaultUri
 }
 
-output "RGKVASAR_KeyVaultSecretVersion" {
-  value = module.keyVaultSecret.keyVaultSecretVersion
+
+output "CR_RGKVASAR_KeyVaultSecretId" {
+  value = module.RGKVASAR.RGKVASAR_KeyVaultSecretId
 }
+
+output "CR_RGKVASAR_KeyVaultSecretName" {
+  value = module.RGKVASAR.RGKVASAR_KeyVaultSecretName
+}
+
+output "CR_RGKVASAR_KeyVaultSecretVersion" {
+  value = module.RGKVASAR.RGKVASAR_KeyVaultSecretVersion
+}
+
+
 
 #---

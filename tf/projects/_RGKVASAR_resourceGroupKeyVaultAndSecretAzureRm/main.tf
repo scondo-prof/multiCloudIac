@@ -50,7 +50,7 @@ module "keyVaultSecret" {
   azurermSubscriptionId                      = var.azurermSubscriptionId
   resourceName                               = var.resourceName
   keyVaultSecretValue                        = var.RGKVASAR_KeyVaultSecretValue
-  keyVaultSecretVaultId                      = module.keyVault.keyVaultId #var.RGKVASAR_KeyVaultSecretVaultId
+  keyVaultSecretVaultId                      = module.keyVault.keyVaultId
   keyVaultSecretContentType                  = var.RGKVASAR_KeyVaultSecretContentType
   projectName                                = var.projectName
   createdBy                                  = var.createdBy

@@ -9,33 +9,23 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../azurerm/base/genericResourceGroup",
-            "source_path": "../../azurerm/base/genericResourceGroup",
+            "project_path": "../projects/_CARARAA_clientAndResourceAppRegistrationAzureAd",
+            "source_path": "../_CARARAA_clientAndResourceAppRegistrationAzureAd",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "resourceGroup",
-        "new_variable_prefix": "RGKVASAR_ResourceGroup",
-        "module_name": "resourceGroup",
+        "previous_variable_prefix": "CARARAA",
+        "new_variable_prefix": "CR_CARARAA",
+        "module_name": "CARARAA",
     },
     {
         "paths": {
-            "project_path": "../azurerm/keyVault/genericKeyVault",
-            "source_path": "../../azurerm/keyVault/genericKeyVault",
+            "project_path": "../projects/_RGKVASAR_resourceGroupKeyVaultAndSecretAzureRm",
+            "source_path": "../_RGKVASAR_resourceGroupKeyVaultAndSecretAzureRm",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "keyVault",
-        "new_variable_prefix": "RGKVASAR_KeyVault",
-        "module_name": "keyVault",
-    },
-    {
-        "paths": {
-            "project_path": "../azurerm/keyVault/genericKeyVaultSecret",
-            "source_path": "../../azurerm/keyVault/genericKeyVaultSecret",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "keyVaultSecret",
-        "new_variable_prefix": "RGKVASAR_KeyVaultSecret",
-        "module_name": "keyVaultSecret",
+        "previous_variable_prefix": "RGKVASAR",
+        "new_variable_prefix": "CR_RGKVASAR",
+        "module_name": "RGKVASAR",
     },
 ]
 
