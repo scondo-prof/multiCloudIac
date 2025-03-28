@@ -1,163 +1,169 @@
-output "CLCC_CECC_EcrRepositoryArn" {
-  value = module.CLCC.CECC_EcrRepositoryArn
+output "CLFER_CLCC_CECC_EcrRepositoryArn" {
+  value = module.CLCC.CLCC_CECC_EcrRepositoryArn
 }
 
-output "CLCC_CECC_EcrRepositoryName" {
-  value = module.CLCC.CECC_EcrRepositoryName
+output "CLFER_CLCC_CECC_EcrRepositoryName" {
+  value = module.CLCC.CLCC_CECC_EcrRepositoryName
 }
 
-output "CLCC_CECC_EcrRepositoryUrl" {
-  value = module.CLCC.CECC_EcrRepositoryUrl
-}
-
-
-output "CLCC_CECC_CodebuildProjectArn" {
-  value = module.CLCC.CECC_CodebuildProjectArn
-}
-
-output "CLCC_CECC_CodebuildProjectBadgeUrl" {
-  value = module.CLCC.CECC_CodebuildProjectBadgeUrl
-}
-
-output "CLCC_CECC_CodebuildProjectName" {
-  value = module.CLCC.CECC_CodebuildProjectName
+output "CLFER_CLCC_CECC_EcrRepositoryUrl" {
+  value = module.CLCC.CLCC_CECC_EcrRepositoryUrl
 }
 
 
-output "CLCC_CECC_CodebuildCredentialsArn" {
-  value = module.CLCC.CECC_CodebuildCredentialsArn
+output "CLFER_CLCC_CECC_CodebuildProjectArn" {
+  value = module.CLCC.CLCC_CECC_CodebuildProjectArn
+}
+
+output "CLFER_CLCC_CECC_CodebuildProjectBadgeUrl" {
+  value = module.CLCC.CLCC_CECC_CodebuildProjectBadgeUrl
+}
+
+output "CLFER_CLCC_CECC_CodebuildProjectName" {
+  value = module.CLCC.CLCC_CECC_CodebuildProjectName
 }
 
 
-output "CLCC_CECC_CodebuildWebhookPayloadUrl" {
-  value = module.CLCC.CECC_CodebuildWebhookPayloadUrl
-}
-
-output "CLCC_CECC_CodebuildWebhookUrl" {
-  value = module.CLCC.CECC_CodebuildWebhookUrl
+output "CLFER_CLCC_CECC_CodebuildCredentialsArn" {
+  value = module.CLCC.CLCC_CECC_CodebuildCredentialsArn
 }
 
 
-output "CLCC_CECC_CodebuildRoleName" {
-  value = module.CLCC.CECC_CodebuildRoleName
+output "CLFER_CLCC_CECC_CodebuildWebhookPayloadUrl" {
+  value = module.CLCC.CLCC_CECC_CodebuildWebhookPayloadUrl
 }
 
-output "CLCC_CECC_CodebuildRoleArn" {
-  value = module.CLCC.CECC_CodebuildRoleArn
-}
-
-
-output "CLCC_CECC_CodebuildRolePolicyArn" {
-  value = module.CLCC.CECC_CodebuildRolePolicyArn
-}
-
-output "CLCC_CECC_CodebuildRolePolicyName" {
-  value = module.CLCC.CECC_CodebuildRolePolicyName
+output "CLFER_CLCC_CECC_CodebuildWebhookUrl" {
+  value = module.CLCC.CLCC_CECC_CodebuildWebhookUrl
 }
 
 
-output "CLCC_CECC_CodebuildLogGroupArn" {
-  value = module.CLCC.CECC_CodebuildLogGroupArn
+output "CLFER_CLCC_CECC_CodebuildRoleName" {
+  value = module.CLCC.CLCC_CECC_CodebuildRoleName
 }
 
-output "CLCC_CECC_CodebuildLogGroupName" {
-  value = module.CLCC.CECC_CodebuildLogGroupName
+output "CLFER_CLCC_CECC_CodebuildRoleArn" {
+  value = module.CLCC.CLCC_CECC_CodebuildRoleArn
 }
 
 
-output "CLCC_CECC_CodebuildRoleEcrPolicyArn" {
-  value = module.CLCC.CECC_CodebuildRoleEcrPolicyArn
+output "CLFER_CLCC_CECC_CodebuildRolePolicyArn" {
+  value = module.CLCC.CLCC_CECC_CodebuildRolePolicyArn
 }
 
-output "CLCC_CECC_CodebuildRoleEcrPolicyName" {
-  value = module.CLCC.CECC_CodebuildRoleEcrPolicyName
+output "CLFER_CLCC_CECC_CodebuildRolePolicyName" {
+  value = module.CLCC.CLCC_CECC_CodebuildRolePolicyName
+}
+
+
+output "CLFER_CLCC_CECC_CodebuildLogGroupArn" {
+  value = module.CLCC.CLCC_CECC_CodebuildLogGroupArn
+}
+
+output "CLFER_CLCC_CECC_CodebuildLogGroupName" {
+  value = module.CLCC.CLCC_CECC_CodebuildLogGroupName
+}
+
+
+output "CLFER_CLCC_CECC_CodebuildRoleEcrPolicyArn" {
+  value = module.CLCC.CLCC_CECC_CodebuildRoleEcrPolicyArn
+}
+
+output "CLFER_CLCC_CECC_CodebuildRoleEcrPolicyName" {
+  value = module.CLCC.CLCC_CECC_CodebuildRoleEcrPolicyName
+}
+
+
+
+
+output "CLFER_CLCC_LFWLGSAR_LambdaFunctionArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionArn
+}
+
+output "CLFER_CLCC_LFWLGSAR_LambdaFunctionInvokeArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionInvokeArn
+}
+
+output "CLFER_CLCC_LFWLGSAR_LambdaFunctionName" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionName
+}
+
+output "CLFER_CLCC_LFWLGSAR_LambdaFunctionSigningJobArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionSigningJobArn
+}
+
+output "CLFER_CLCC_LFWLGSAR_LambdaFunctionQualifiedInvokeArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionQualifiedInvokeArn
+}
+
+
+output "CLFER_CLCC_LFWLGSAR_LambdaFunctionRoleName" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionRoleName
+}
+
+output "CLFER_CLCC_LFWLGSAR_LambdaFunctionRoleArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionRoleArn
+}
+
+
+output "CLFER_CLCC_LFWLGSAR_LambdaGenericPolicyArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaGenericPolicyArn
+}
+
+output "CLFER_CLCC_LFWLGSAR_LambdaGenericPolicyName" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaGenericPolicyName
+}
+
+
+output "CLFER_CLCC_LFWLGSAR_LambdaSecretArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaSecretArn
+}
+
+output "CLFER_CLCC_LFWLGSAR_LambdaSecretName" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaSecretName
+}
+
+
+output "CLFER_CLCC_LFWLGSAR_LambdaSecretVersionId" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaSecretVersionId
+}
+
+
+output "CLFER_CLCC_LFWLGSAR_LambdaSecretPolicyArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaSecretPolicyArn
+}
+
+output "CLFER_CLCC_LFWLGSAR_LambdaSecretPolicyName" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaSecretPolicyName
+}
+
+
+output "CLFER_CLCC_LFWLGSAR_LambdaLogGroupArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaLogGroupArn
+}
+
+output "CLFER_CLCC_LFWLGSAR_LambdaLogGroupName" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaLogGroupName
+}
+
+
+
+
+output "CLFER_CLCC_IamPolicyUpdateLambdaArn" {
+  value = module.CLCC.CLCC_IamPolicyUpdateLambdaArn
+}
+
+output "CLFER_CLCC_IamPolicyUpdateLambdaName" {
+  value = module.CLCC.CLCC_IamPolicyUpdateLambdaName
 }
 
 
 
 #---
-output "CLCC_LFWLGSAR_LambdaFunctionArn" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionArn
+output "CLFER_EventRuleLambdaArn" {
+  value = module.eventRuleLambda.eventRuleArn
 }
 
-output "CLCC_LFWLGSAR_LambdaFunctionInvokeArn" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionInvokeArn
+output "CLFER_EventRuleLambdaName" {
+  value = module.eventRuleLambda.eventRuleName
 }
-
-output "CLCC_LFWLGSAR_LambdaFunctionName" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionName
-}
-
-output "CLCC_LFWLGSAR_LambdaFunctionSigningJobArn" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionSigningJobArn
-}
-
-output "CLCC_LFWLGSAR_LambdaFunctionQualifiedInvokeArn" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionQualifiedInvokeArn
-}
-
-
-output "CLCC_LFWLGSAR_LambdaFunctionRoleName" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionRoleName
-}
-
-output "CLCC_LFWLGSAR_LambdaFunctionRoleArn" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaFunctionRoleArn
-}
-
-
-output "CLCC_LFWLGSAR_LambdaGenericPolicyArn" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaGenericPolicyArn
-}
-
-output "CLCC_LFWLGSAR_LambdaGenericPolicyName" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaGenericPolicyName
-}
-
-
-output "CLCC_LFWLGSAR_LambdaSecretArn" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaSecretArn
-}
-
-output "CLCC_LFWLGSAR_LambdaSecretName" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaSecretName
-}
-
-
-output "CLCC_LFWLGSAR_LambdaSecretVersionId" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaSecretVersionId
-}
-
-
-output "CLCC_LFWLGSAR_LambdaSecretPolicyArn" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaSecretPolicyArn
-}
-
-output "CLCC_LFWLGSAR_LambdaSecretPolicyName" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaSecretPolicyName
-}
-
-
-output "CLCC_LFWLGSAR_LambdaLogGroupArn" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaLogGroupArn
-}
-
-output "CLCC_LFWLGSAR_LambdaLogGroupName" {
-  value = module.LFWLGSAR.LFWLGSAR_LambdaLogGroupName
-}
-
-
-
-#---
-output "CLCC_IamPolicyUpdateLambdaArn" {
-  value = module.iamPolicyUpdateLambda.iamPolicyArn
-}
-
-output "CLCC_IamPolicyUpdateLambdaName" {
-  value = module.iamPolicyUpdateLambda.iamPolicyName
-}
-
-#---
-None
-
-#---

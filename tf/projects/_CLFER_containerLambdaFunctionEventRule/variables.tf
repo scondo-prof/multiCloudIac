@@ -11,7 +11,7 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
 }
@@ -20,12 +20,19 @@ variable "deployedDate" {
   type = string
 }
 
+variable "tfModule" {
+  type = string
+}
+
 variable "additionalTags" {
   type    = map(string)
   default = {}
 }
 
-
+variable "awsAccountId" {
+  type    = string
+  default = "us-east1"
+}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository#argument-reference
 
@@ -63,6 +70,8 @@ variable "CLFER_CLCC_CECC_EcrRepositoryImageScanningConfiguration" {
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#argument-reference
+
+##https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#artifacts
 variable "CLFER_CLCC_CECC_CodebuildProjectArtifactsIdentifier" {
   type    = string
   default = null
@@ -168,23 +177,19 @@ variable "CLFER_CLCC_CECC_CodebuildProjectEnvironmentComputeType" {
   }
 }
 
-variable "CLFER_CLCC_CECC_CodebuildProjectEnvironmentFleet" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#fleet_arn-1
-    fleet_arn = optional(string, null)
-  })
-  default = null
-}
-
-variable "awsAccountId" {
-  type = string
-}
+# variable "CLFER_CLCC_CECC_CodebuildProjectEnvironmentFleet" {
+#   type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#fleet_arn-1
+#     fleet_arn = optional(string, null)
+#   })
+#   default = null
+# }
 
 variable "codebuildProjectEcrRepoImageTag" {
   type    = string
   default = "latest"
 }
 
-variable "CLFER_CLCC_CECC_CodebuildProjectEnvironmentEnvironmentVariables" {
+variable "CLFER_CLCC_CECC_CodebuildProjectEnvironmentEnvironmentVariable" {
   type = map(object({
     name  = string
     type  = optional(string, null)
@@ -363,30 +368,15 @@ variable "CLFER_CLCC_CECC_CodebuildProjectEncryptionKey" {
   default = null
 }
 
-variable "CLFER_CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStatus" {
+variable "CLFER_CLCC_CECC_CodebuildProjectCloudwatchLogsStatus" {
   type = string
   validation {
-    condition = var.CLFER_CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStatus == null || can(contains([
+    condition = var.CLFER_CLCC_CECC_CodebuildProjectCloudwatchLogsStatus == null || can(contains([
       "ENABLED",
       "DISABLED"
-    ], var.CLFER_CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStatus))
-    error_message = "Valid inputs for | variable: var.CLFER_CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStatus | are: ENABLED, DISABLED"
+    ], var.CLFER_CLCC_CECC_CodebuildProjectCloudwatchLogsStatus))
+    error_message = "Valid inputs for | variable: var.CLFER_CLCC_CECC_CodebuildProjectCloudwatchLogsStatus | are: ENABLED, DISABLED"
   }
-  default = null
-}
-
-variable "CLFER_CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStreamName" {
-  type    = string
-  default = null
-}
-
-variable "CLFER_CLCC_CECC_CodebuildProjectS3LogsConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#logs_config 
-  type = object({
-    encryption_disabled = optional(bool, null)
-    location            = optional(string, null)
-    status              = optional(string, null)
-    bucket_owner_access = optional(string, null)
-  })
   default = null
 }
 
@@ -470,6 +460,7 @@ variable "CLFER_CLCC_CECC_CodebuildProjectSourceVersion" {
   default = null
 }
 
+
 variable "CLFER_CLCC_CECC_CodebuildProjectVpcConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#vpc_config
   type = object({
     security_group_ids = list(string)
@@ -482,7 +473,7 @@ variable "CLFER_CLCC_CECC_CodebuildProjectVpcConfig" { #https://registry.terrafo
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_source_credential#argument-reference
-variable "CLFER_CLCC_CECC_CredentialsAuthType" {
+variable "CLFER_CLCC_CECC_CodebuildCredentialsAuthType" {
   type = string
   validation {
     condition = contains([
@@ -491,45 +482,46 @@ variable "CLFER_CLCC_CECC_CredentialsAuthType" {
       "PERSONAL_ACCESS_TOKEN",
       "CODECONNECTIONS",
       "SECRETS_MANAGER"
-    ], var.CLFER_CLCC_CECC_CredentialsAuthType)
-    error_message = "Valid inputs for | variable: var.CLFER_CLCC_CECC_CredentialsAuthType | are: OAUTH, BASIC_AUTH, PERSONAL_ACCESS_TOKEN, CODECONNECTIONS, SECRETS_MANAGER"
+    ], var.CLFER_CLCC_CECC_CodebuildCredentialsAuthType)
+    error_message = "Valid inputs for | variable: var.CLFER_CLCC_CECC_CodebuildCredentialsAuthType | are: OAUTH, BASIC_AUTH, PERSONAL_ACCESS_TOKEN, CODECONNECTIONS, SECRETS_MANAGER"
   }
 }
 
-variable "CLFER_CLCC_CECC_CredentialsServerType" {
+variable "CLFER_CLCC_CECC_CodebuildCredentialsServerType" {
   type = string
 }
 
-variable "CLFER_CLCC_CECC_CredentialsToken" {
+variable "CLFER_CLCC_CECC_CodebuildCredentialsToken" {
   type = string
 }
 
-variable "CLFER_CLCC_CECC_CredentialsUserName" {
+variable "CLFER_CLCC_CECC_CodebuildCredentialsUserName" {
   type    = string
   default = null
 }
 
 
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_webhook#argument-reference
-variable "CLFER_CLCC_CECC_WebhookBuildType" {
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_CLFER_CLCC_CECC_CodebuildWebhook#argument-reference
+
+variable "CLFER_CLCC_CECC_CodebuildWebhookBuildType" {
   type = string
   validation {
-    condition = var.CLFER_CLCC_CECC_WebhookBuildType == null || can(contains([
+    condition = var.CLFER_CLCC_CECC_CodebuildWebhookBuildType == null || can(contains([
       "BUILD",
       "BUILD_BATCH"
-    ], var.CLFER_CLCC_CECC_WebhookBuildType))
-    error_message = "Valid inputs for | variable: var.CLFER_CLCC_CECC_WebhookBuildType | are: BUILD, BUILD_BATCH"
+    ], var.CLFER_CLCC_CECC_CodebuildWebhookBuildType))
+    error_message = "Valid inputs for | variable: var.CLFER_CLCC_CECC_CodebuildWebhookBuildType | are: BUILD, BUILD_BATCH"
   }
   default = null
 }
 
-variable "CLFER_CLCC_CECC_WebhookBranchFilter" {
+variable "CLFER_CLCC_CECC_CodebuildWebhookBranchFilter" {
   type    = string
   default = null
 }
 
-variable "CLFER_CLCC_CECC_WebhookFilterGroup" {
+variable "CLFER_CLCC_CECC_CodebuildWebhookFilterGroup" {
   type = object({
     filter = map(object({
       type                    = string
@@ -540,7 +532,7 @@ variable "CLFER_CLCC_CECC_WebhookFilterGroup" {
   default = null
 }
 
-variable "CLFER_CLCC_CECC_WebhookScopeConfiguration" {
+variable "CLFER_CLCC_CECC_CodebuildWebhookScopeConfiguration" {
   type = object({
     name   = string
     scope  = string
@@ -604,23 +596,24 @@ variable "CLFER_CLCC_CECC_CodebuildRolePermissionsBoundary" {
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
-variable "CLFER_CLCC_CECC_CodebuildPolicyDescription" {
+
+variable "CLFER_CLCC_CECC_CodebuildRolePolicyDescription" {
   type    = string
   default = null
 }
-variable "CLFER_CLCC_CECC_CodebuildPolicyNamePrefix" {
+variable "CLFER_CLCC_CECC_CodebuildRolePolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CLFER_CLCC_CECC_CodebuildPolicyPath" {
+variable "CLFER_CLCC_CECC_CodebuildRolePolicyPath" {
   type    = string
   default = "/"
 }
-variable "CLFER_CLCC_CECC_CodebuildPolicyVersion" {
+variable "CLFER_CLCC_CECC_CodebuildRolePolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CLFER_CLCC_CECC_CodebuildPolicyDocumentAdditionalStatements" {
+variable "CLFER_CLCC_CECC_CodebuildRolePolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -635,32 +628,34 @@ variable "CLFER_CLCC_CECC_CodebuildPolicyDocumentAdditionalStatements" {
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group#argument-reference
-variable "CLFER_CLCC_CECC_LogGroupNamePrefix" {
+
+
+variable "CLFER_CLCC_CECC_CodebuildLogGroupNamePrefix" {
   type    = string
   default = null
 }
 
-variable "CLFER_CLCC_CECC_LogGroupSkipDestroy" {
+variable "CLFER_CLCC_CECC_CodebuildLogGroupSkipDestroy" {
   type    = bool
   default = null
 }
 
-variable "CLFER_CLCC_CECC_LogGroupClass" {
+variable "CLFER_CLCC_CECC_CodebuildLogGroupClass" {
   type = string
   validation {
-    condition = var.CLFER_CLCC_CECC_LogGroupClass == null || can(contains([
+    condition = var.CLFER_CLCC_CECC_CodebuildLogGroupClass == null || can(contains([
       "STANDARD",
       "INFREQUENT_ACCESS"
-    ], var.CLFER_CLCC_CECC_LogGroupClass))
-    error_message = "Valid inputs for | variable: var.CLFER_CLCC_CECC_LogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
+    ], var.CLFER_CLCC_CECC_CodebuildLogGroupClass))
+    error_message = "Valid inputs for | variable: var.CLFER_CLCC_CECC_CodebuildLogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
   }
   default = null
 }
 
-variable "CLFER_CLCC_CECC_LogGroupRetentionInDays" {
+variable "CLFER_CLCC_CECC_CodebuildLogGroupRetentionInDays" {
   type = number
   validation {
-    condition = var.CLFER_CLCC_CECC_LogGroupRetentionInDays == null || can(contains([
+    condition = var.CLFER_CLCC_CECC_CodebuildLogGroupRetentionInDays == null || can(contains([
       1,
       3,
       5,
@@ -684,37 +679,42 @@ variable "CLFER_CLCC_CECC_LogGroupRetentionInDays" {
       3288,
       3653,
       0
-    ], var.CLFER_CLCC_CECC_LogGroupRetentionInDays))
-    error_message = "Valid inputs for | variable: var.CLFER_CLCC_CECC_LogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
+    ], var.CLFER_CLCC_CECC_CodebuildLogGroupRetentionInDays))
+    error_message = "Valid inputs for | variable: var.CLFER_CLCC_CECC_CodebuildLogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
   }
   default = null
 }
 
-variable "CLFER_CLCC_CECC_LogGroupKmsKeyId" {
+variable "CLFER_CLCC_CECC_CodebuildLogGroupKmsKeyId" {
   type    = string
   default = null
 }
+
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
 
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
-variable "CLFER_CLCC_CECC_EcrAccessPolicyDescription" {
+
+variable "CLFER_CLCC_CECC_CodebuildRoleEcrPolicyDescription" {
   type    = string
   default = null
 }
-variable "CLFER_CLCC_CECC_EcrAccessPolicyNamePrefix" {
+variable "CLFER_CLCC_CECC_CodebuildRoleEcrPolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CLFER_CLCC_CECC_EcrAccessPolicyPath" {
+variable "CLFER_CLCC_CECC_CodebuildRoleEcrPolicyPath" {
   type    = string
   default = "/"
 }
-variable "CLFER_CLCC_CECC_EcrAccessPolicyVersion" {
+variable "CLFER_CLCC_CECC_CodebuildRoleEcrPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CLFER_CLCC_CECC_EcrAccessPolicyDocumentAdditionalStatements" {
+variable "CLFER_CLCC_CECC_CodebuildRoleEcrPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -728,39 +728,14 @@ variable "CLFER_CLCC_CECC_EcrAccessPolicyDocumentAdditionalStatements" {
 
 
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
 
-variable "CLFER_CLCC_UpdateLambdaPolicyDescription" {
-  type    = string
-  default = null
-}
-variable "CLFER_CLCC_UpdateLambdaPolicyNamePrefix" {
-  type    = string
-  default = null
-}
-variable "CLFER_CLCC_UpdateLambdaPolicyPath" {
-  type    = string
-  default = "/"
-}
-variable "CLFER_CLCC_UpdateLambdaPolicyVersion" {
-  type    = string
-  default = "2012-10-17"
-}
-variable "CLFER_CLCC_UpdateLambdaPolicyDocumentStatements" {
-  type = list(object({
-    Action    = list(string)
-    Effect    = string
-    Resource  = list(string)
-    Sid       = optional(string, "")
-    Condition = optional(map(map(string)), {})
-    Principal = optional(map(list(string)), {})
-  }))
-  default = []
-}
+
 
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#argument-reference
+
 variable "CLFER_CLCC_LFWLGSAR_LambdaFunctionArchitectures" {
   type    = list(string)
   default = null
@@ -840,11 +815,9 @@ variable "CLFER_CLCC_LFWLGSAR_LambdaFunctionLayers" {
 variable "CLFER_CLCC_LFWLGSAR_LambdaFunctionLoggingConfig" {
   type = object({
     application_log_level = optional(string, null)
-    log_format            = string
-    log_group             = optional(string, null)
     system_log_level      = optional(string, null)
   })
-  default = null
+  default = {}
 }
 
 variable "CLFER_CLCC_LFWLGSAR_LambdaFunctionMemorySize" {
@@ -1052,23 +1025,23 @@ variable "CLFER_CLCC_LFWLGSAR_LambdaFunctionRolePermissionsBoundary" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 
-variable "CLFER_CLCC_LFWLGSAR_LambdaPolicyDescription" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaGenericPolicyDescription" {
   type    = string
   default = null
 }
-variable "CLFER_CLCC_LFWLGSAR_LambdaPolicyNamePrefix" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaGenericPolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CLFER_CLCC_LFWLGSAR_LambdaPolicyPath" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaGenericPolicyPath" {
   type    = string
   default = "/"
 }
-variable "CLFER_CLCC_LFWLGSAR_LambdaPolicyVersion" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaGenericPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CLFER_CLCC_LFWLGSAR_LambdaPolicyDocumentStatements" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaGenericPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -1082,34 +1055,38 @@ variable "CLFER_CLCC_LFWLGSAR_LambdaPolicyDocumentStatements" {
 
 
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
 
-variable "CLFER_CLCC_LFWLGSAR_SecretDescription" {
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/CLFER_CLCC_LFWLGSAR_LambdaSecretsmanager_CLFER_CLCC_LFWLGSAR_LambdaSecret#argument-reference
+
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretDescription" {
   type    = string
   default = null
 }
 
-variable "CLFER_CLCC_LFWLGSAR_SecretKmsKeyId" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretKmsKeyId" {
   type    = string
   default = null
 }
 
-variable "CLFER_CLCC_LFWLGSAR_SecretNamePrefix" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretNamePrefix" {
   type    = string
   default = null
 }
 
-variable "CLFER_CLCC_LFWLGSAR_SecretPolicy" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretPolicy" {
   type    = string
   default = null
 }
 
-variable "CLFER_CLCC_LFWLGSAR_SecretRecoveryWindowInDays" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretRecoveryWindowInDays" {
   type    = number
   default = null
 }
 
-variable "CLFER_CLCC_LFWLGSAR_SecretReplica" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretReplica" {
   type = object({
     kms_key_id = optional(string, null)
     region     = string
@@ -1117,7 +1094,7 @@ variable "CLFER_CLCC_LFWLGSAR_SecretReplica" {
   default = null
 }
 
-variable "CLFER_CLCC_LFWLGSAR_SecretForceSecretOverwrite" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretForceSecretOverwrite" {
   type    = bool
   default = null
 }
@@ -1126,17 +1103,17 @@ variable "CLFER_CLCC_LFWLGSAR_SecretForceSecretOverwrite" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
 
-variable "CLFER_CLCC_LFWLGSAR_SecretVersionSecretString" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretVersionSecretString" {
   type    = map(string)
   default = null
 }
 
-variable "CLFER_CLCC_LFWLGSAR_SecretVersionSecretBinary" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretVersionSecretBinary" {
   type    = string
   default = null
 }
 
-variable "CLFER_CLCC_LFWLGSAR_SecretVersionStages" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretVersionStages" {
   type    = list(string)
   default = null
 }
@@ -1145,23 +1122,23 @@ variable "CLFER_CLCC_LFWLGSAR_SecretVersionStages" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 
-variable "CLFER_CLCC_LFWLGSAR_SecretPolicyDescription" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretPolicyDescription" {
   type    = string
   default = null
 }
-variable "CLFER_CLCC_LFWLGSAR_SecretPolicyNamePrefix" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretPolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CLFER_CLCC_LFWLGSAR_SecretPolicyPath" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretPolicyPath" {
   type    = string
   default = "/"
 }
-variable "CLFER_CLCC_LFWLGSAR_SecretPolicyVersion" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CLFER_CLCC_LFWLGSAR_SecretPolicyDocumentStatements" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaSecretPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -1175,33 +1152,39 @@ variable "CLFER_CLCC_LFWLGSAR_SecretPolicyDocumentStatements" {
 
 
 
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
+
+
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group#argument-reference
-variable "CLFER_CLCC_LFWLGSAR_LogGroupNamePrefix" {
+
+
+variable "CLFER_CLCC_LFWLGSAR_LambdaLogGroupNamePrefix" {
   type    = string
   default = null
 }
 
-variable "CLFER_CLCC_LFWLGSAR_LogGroupSkipDestroy" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaLogGroupSkipDestroy" {
   type    = bool
   default = null
 }
 
-variable "CLFER_CLCC_LFWLGSAR_LogGroupClass" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaLogGroupClass" {
   type = string
   validation {
-    condition = var.CLFER_CLCC_LFWLGSAR_LogGroupClass == null || can(contains([
+    condition = var.CLFER_CLCC_LFWLGSAR_LambdaLogGroupClass == null || can(contains([
       "STANDARD",
       "INFREQUENT_ACCESS"
-    ], var.CLFER_CLCC_LFWLGSAR_LogGroupClass))
-    error_message = "Valid inputs for | variable: var.CLFER_CLCC_LFWLGSAR_LogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
+    ], var.CLFER_CLCC_LFWLGSAR_LambdaLogGroupClass))
+    error_message = "Valid inputs for | variable: var.CLFER_CLCC_LFWLGSAR_LambdaLogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
   }
   default = null
 }
 
-variable "CLFER_CLCC_LFWLGSAR_LogGroupRetentionInDays" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays" {
   type = number
   validation {
-    condition = var.CLFER_CLCC_LFWLGSAR_LogGroupRetentionInDays == null || can(contains([
+    condition = var.CLFER_CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays == null || can(contains([
       1,
       3,
       5,
@@ -1225,76 +1208,112 @@ variable "CLFER_CLCC_LFWLGSAR_LogGroupRetentionInDays" {
       3288,
       3653,
       0
-    ], var.CLFER_CLCC_LFWLGSAR_LogGroupRetentionInDays))
-    error_message = "Valid inputs for | variable: var.CLFER_CLCC_LFWLGSAR_LogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
+    ], var.CLFER_CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays))
+    error_message = "Valid inputs for | variable: var.CLFER_CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
   }
   default = null
 }
 
-variable "CLFER_CLCC_LFWLGSAR_LogGroupKmsKeyId" {
+variable "CLFER_CLCC_LFWLGSAR_LambdaLogGroupKmsKeyId" {
   type    = string
   default = null
 }
 
+
+
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
+
+variable "CLFER_CLCC_IamPolicyUpdateLambdaDescription" {
+  type    = string
+  default = null
+}
+variable "CLFER_CLCC_IamPolicyUpdateLambdaNamePrefix" {
+  type    = string
+  default = null
+}
+variable "CLFER_CLCC_IamPolicyUpdateLambdaPath" {
+  type    = string
+  default = "/"
+}
+variable "CLFER_CLCC_IamPolicyUpdateLambdaVersion" {
+  type    = string
+  default = "2012-10-17"
+}
+variable "CLFER_CLCC_IamPolicyUpdateLambdaDocumentStatements" {
+  type = list(object({
+    Action    = list(string)
+    Effect    = string
+    Resource  = list(string)
+    Sid       = optional(string, "")
+    Condition = optional(map(map(string)), {})
+    Principal = optional(map(list(string)), {})
+  }))
+  default = []
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
 
 
 
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_rule#argument-reference
-variable "CLFER_EventRuleNamePrefix" {
+variable "CLFER_EventRuleLambdaNamePrefix" {
   type    = string
   default = null
 }
 
-variable "CLFER_EventRuleScheduleExpression" {
+variable "CLFER_EventRuleLambdaScheduleExpression" {
   type    = string
   default = null
 }
 
-variable "CLFER_EventRuleEventBusName" {
+variable "CLFER_EventRuleLambdaEventBusName" {
   type    = string
   default = null
 }
 
-variable "CLFER_EventRuleEventPattern" {
+variable "CLFER_EventRuleLambdaEventPattern" {
   type    = string
   default = null
 }
 
-variable "CLFER_EventRuleForceDestroy" {
+variable "CLFER_EventRuleLambdaForceDestroy" {
   type    = bool
   default = null
 }
 
-variable "CLFER_EventRuleDescription" {
+variable "CLFER_EventRuleLambdaDescription" {
   type    = string
   default = null
 }
 
-variable "CLFER_EventRuleRoleArn" {
+variable "CLFER_EventRuleLambdaRoleArn" {
   type    = string
   default = null
 }
 
-variable "CLFER_EventRuleState" {
+variable "CLFER_EventRuleLambdaState" {
   type = string
   validation {
-    condition = var.CLFER_EventRuleState == null || can(contains([
+    condition = var.CLFER_EventRuleLambdaState == null || can(contains([
       "DISABLED",
       "ENABLED",
       "ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS"
-    ], var.CLFER_EventRuleState))
-    error_message = "Valid inputs for | variable: var.CLFER_EventRuleState | are: DISABLED, ENABLED, and ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS"
+    ], var.CLFER_EventRuleLambdaState))
+    error_message = "Valid inputs for | variable: var.CLFER_EventRuleLambdaState | are: DISABLED, ENABLED, and ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS"
   }
   default = null
 }
 
 #---
-
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#argument-reference
 
-variable "CLFER_EventTargetBatchTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#batch_target
+variable "CLFER_EventTargetLambdaBatchTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#batch_target
   type = object({
     job_definition = string
     job_name       = string
@@ -1304,14 +1323,14 @@ variable "CLFER_EventTargetBatchTarget" { #https://registry.terraform.io/provide
   default = null
 }
 
-variable "CLFER_EventTargetDeadLetterConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#dead_letter_config
+variable "CLFER_EventTargetLambdaDeadLetterConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#dead_letter_config
   type = object({
     arn = optional(string, null)
   })
   default = null
 }
 
-variable "CLFER_EventTargetEcsTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#ecs_target
+variable "CLFER_EventTargetLambdaEcsTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#ecs_target
   type = object({
     task_definition_arn = string
 
@@ -1350,17 +1369,17 @@ variable "CLFER_EventTargetEcsTarget" { #https://registry.terraform.io/providers
   default = null
 }
 
-variable "CLFER_EventTargetEventBusName" {
+variable "CLFER_EventTargetLambdaEventBusName" {
   type    = string
   default = null
 }
 
-variable "CLFER_EventTargetForceDestroy" {
+variable "CLFER_EventTargetLambdaForceDestroy" {
   type    = bool
   default = null
 }
 
-variable "CLFER_EventTargetHttpTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#http_target
+variable "CLFER_EventTargetLambdaHttpTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#http_target
   type = object({
     header_parameters       = optional(map(string), null)
     path_parameter_values   = optional(list(string), null)
@@ -1369,17 +1388,17 @@ variable "CLFER_EventTargetHttpTarget" { #https://registry.terraform.io/provider
   default = null
 }
 
-variable "CLFER_EventTargetInput" {
+variable "CLFER_EventTargetLambdaInput" {
   type    = string
   default = null
 }
 
-variable "CLFER_EventTargetInputPath" {
+variable "CLFER_EventTargetLambdaInputPath" {
   type    = string
   default = null
 }
 
-variable "CLFER_EventTargetInputTransformer" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#input_transformer
+variable "CLFER_EventTargetLambdaInputTransformer" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#input_transformer
   type = object({
     input_template = string
     input_paths    = optional(map(string), null)
@@ -1387,19 +1406,19 @@ variable "CLFER_EventTargetInputTransformer" { #https://registry.terraform.io/pr
   default = null
 }
 
-variable "CLFER_EventTargetKinesisTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#kinesis_target
+variable "CLFER_EventTargetLambdaKinesisTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#kinesis_target
   type = object({
     partition_key_path = optional(string, null)
   })
   default = null
 }
 
-variable "CLFER_EventTargetRoleArn" {
+variable "CLFER_EventTargetLambdaRoleArn" {
   type    = string
   default = null
 }
 
-variable "CLFER_EventTargetRunCommandTargets" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#run_command_targets
+variable "CLFER_EventTargetLambdaRunCommandTargets" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#run_command_targets
   type = object({
     key   = string
     value = optional(list(string), null)
@@ -1407,7 +1426,7 @@ variable "CLFER_EventTargetRunCommandTargets" { #https://registry.terraform.io/p
   default = null
 }
 
-variable "CLFER_EventTargetRedshiftTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#redshift_target
+variable "CLFER_EventTargetLambdaRedshiftTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#redshift_target
   type = object({
     database            = string
     db_user             = optional(string, null)
@@ -1419,7 +1438,7 @@ variable "CLFER_EventTargetRedshiftTarget" { #https://registry.terraform.io/prov
   default = null
 }
 
-variable "CLFER_EventTargetRetryPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#retry_policy
+variable "CLFER_EventTargetLambdaRetryPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#retry_policy
   type = object({
     maximum_event_age_in_seconds = optional(number, null)
     maximum_retry_attempts       = optional(number, null)
@@ -1427,7 +1446,7 @@ variable "CLFER_EventTargetRetryPolicy" { #https://registry.terraform.io/provide
   default = null
 }
 
-variable "CLFER_EventTargetSagemakerPipelineTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#sagemaker_pipeline_target
+variable "CLFER_EventTargetLambdaSagemakerPipelineTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#sagemaker_pipeline_target
   type = object({
     pipeline_parameter_list = optional(object({
       name  = string
@@ -1437,14 +1456,14 @@ variable "CLFER_EventTargetSagemakerPipelineTarget" { #https://registry.terrafor
   default = null
 }
 
-variable "CLFER_EventTargetSqsTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#sqs_target
+variable "CLFER_EventTargetLambdaSqsTarget" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_event_target#sqs_target
   type = object({
     message_group_id = optional(string, null)
   })
   default = null
 }
 
-variable "CLFER_EventTargetId" {
+variable "CLFER_EventTargetLambdaId" {
   type    = string
   default = null
 }
@@ -1452,54 +1471,54 @@ variable "CLFER_EventTargetId" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_permission#argument-reference
-variable "CLFER_LambdaPermissionAction" {
+variable "CLFER_LambdaPermissionEventRuleAction" {
   type = string
 }
 
 #The Event Source Token to validate. Used with Alexa Skills.
-variable "CLFER_LambdaPermissionEventSourceToken" {
+variable "CLFER_LambdaPermissionEventRuleEventSourceToken" {
   type    = string
   default = null
 }
 
 #Only supported for lambda:InvokeFunctionUrl action.
-variable "CLFER_LambdaPermissionUrlAuthType" {
+variable "CLFER_LambdaPermissionEventRuleUrlAuthType" {
   type = string
   validation {
-    condition = var.CLFER_LambdaPermissionUrlAuthType == null || can(contains([
+    condition = var.CLFER_LambdaPermissionEventRuleUrlAuthType == null || can(contains([
       "AWS_IAM",
       "NONE"
-    ], var.CLFER_LambdaPermissionUrlAuthType))
-    error_message = "Valid inputs for | variable: var.CLFER_LambdaPermissionUrlAuthType | are: AWS_IAM, and NONE"
+    ], var.CLFER_LambdaPermissionEventRuleUrlAuthType))
+    error_message = "Valid inputs for | variable: var.CLFER_LambdaPermissionEventRuleUrlAuthType | are: AWS_IAM, and NONE"
   }
   default = null
 }
 
-variable "CLFER_LambdaPermissionPrincipal" {
+variable "CLFER_LambdaPermissionEventRulePrincipal" {
   type = string
 }
 
-variable "CLFER_LambdaPermissionQualifier" {
+variable "CLFER_LambdaPermissionEventRuleQualifier" {
   type    = string
   default = null
 }
 
-variable "CLFER_LambdaPermissionSourceAccount" {
+variable "CLFER_LambdaPermissionEventRuleSourceAccount" {
   type    = number
   default = null
 }
 
-variable "CLFER_LambdaPermissionStatementId" {
+variable "CLFER_LambdaPermissionEventRuleStatementId" {
   type    = string
   default = null
 }
 
-variable "CLFER_LambdaPermissionStatementIdPrefix" {
+variable "CLFER_LambdaPermissionEventRuleStatementIdPrefix" {
   type    = string
   default = null
 }
 
-variable "CLFER_LambdaPermissionPrincipalOrgId" {
+variable "CLFER_LambdaPermissionEventRulePrincipalOrgId" {
   type    = string
   default = null
 }
