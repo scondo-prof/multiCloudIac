@@ -2,7 +2,7 @@ resourceName = "rats-in-the-kitchen"
 
 projectName = "ratatouille"
 
-deployedDate = "03-21-2024"
+deployedDate = "03-26-2024"
 
 tfModule = "clcc"
 

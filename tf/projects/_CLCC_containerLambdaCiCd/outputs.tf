@@ -1,76 +1,76 @@
 output "CLCC_CECC_EcrRepositoryArn" {
-  value = module.CLCC.CECC_EcrRepositoryArn
+  value = module.CECC.CECC_EcrRepositoryArn
 }
 
 output "CLCC_CECC_EcrRepositoryName" {
-  value = module.CLCC.CECC_EcrRepositoryName
+  value = module.CECC.CECC_EcrRepositoryName
 }
 
 output "CLCC_CECC_EcrRepositoryUrl" {
-  value = module.CLCC.CECC_EcrRepositoryUrl
+  value = module.CECC.CECC_EcrRepositoryUrl
 }
 
 
 output "CLCC_CECC_CodebuildProjectArn" {
-  value = module.CLCC.CECC_CodebuildProjectArn
+  value = module.CECC.CECC_CodebuildProjectArn
 }
 
 output "CLCC_CECC_CodebuildProjectBadgeUrl" {
-  value = module.CLCC.CECC_CodebuildProjectBadgeUrl
+  value = module.CECC.CECC_CodebuildProjectBadgeUrl
 }
 
 output "CLCC_CECC_CodebuildProjectName" {
-  value = module.CLCC.CECC_CodebuildProjectName
+  value = module.CECC.CECC_CodebuildProjectName
 }
 
 
 output "CLCC_CECC_CodebuildCredentialsArn" {
-  value = module.CLCC.CECC_CodebuildCredentialsArn
+  value = module.CECC.CECC_CodebuildCredentialsArn
 }
 
 
 output "CLCC_CECC_CodebuildWebhookPayloadUrl" {
-  value = module.CLCC.CECC_CodebuildWebhookPayloadUrl
+  value = module.CECC.CECC_CodebuildWebhookPayloadUrl
 }
 
 output "CLCC_CECC_CodebuildWebhookUrl" {
-  value = module.CLCC.CECC_CodebuildWebhookUrl
+  value = module.CECC.CECC_CodebuildWebhookUrl
 }
 
 
 output "CLCC_CECC_CodebuildRoleName" {
-  value = module.CLCC.CECC_CodebuildRoleName
+  value = module.CECC.CECC_CodebuildRoleName
 }
 
 output "CLCC_CECC_CodebuildRoleArn" {
-  value = module.CLCC.CECC_CodebuildRoleArn
+  value = module.CECC.CECC_CodebuildRoleArn
 }
 
 
 output "CLCC_CECC_CodebuildRolePolicyArn" {
-  value = module.CLCC.CECC_CodebuildRolePolicyArn
+  value = module.CECC.CECC_CodebuildRolePolicyArn
 }
 
 output "CLCC_CECC_CodebuildRolePolicyName" {
-  value = module.CLCC.CECC_CodebuildRolePolicyName
+  value = module.CECC.CECC_CodebuildRolePolicyName
 }
 
 
 output "CLCC_CECC_CodebuildLogGroupArn" {
-  value = module.CLCC.CECC_CodebuildLogGroupArn
+  value = module.CECC.CECC_CodebuildLogGroupArn
 }
 
 output "CLCC_CECC_CodebuildLogGroupName" {
-  value = module.CLCC.CECC_CodebuildLogGroupName
+  value = module.CECC.CECC_CodebuildLogGroupName
 }
 
 
 output "CLCC_CECC_CodebuildRoleEcrPolicyArn" {
-  value = module.CLCC.CECC_CodebuildRoleEcrPolicyArn
+  value = module.CECC.CECC_CodebuildRoleEcrPolicyArn
 }
 
 output "CLCC_CECC_CodebuildRoleEcrPolicyName" {
-  value = module.CLCC.CECC_CodebuildRoleEcrPolicyName
+  value = module.CECC.CECC_CodebuildRoleEcrPolicyName
 }
 
 

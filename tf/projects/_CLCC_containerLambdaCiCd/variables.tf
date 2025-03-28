@@ -372,9 +372,9 @@ variable "CLCC_CECC_CodebuildProjectCloudwatchLogsStatus" {
   type = string
   validation {
     condition = var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus == null || can(contains([
-    "ENABLED",
-    "DISABLED"
-], var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus))
+      "ENABLED",
+      "DISABLED"
+    ], var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus))
     error_message = "Valid inputs for | variable: var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus | are: ENABLED, DISABLED"
   }
   default = null
@@ -759,7 +759,7 @@ variable "CLCC_LFWLGSAR_LambdaFunctionDescription" {
 }
 
 variable "CLCC_LFWLGSAR_LambdaFunctionEnvironmentVariables" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#environment
-  type = map(string)
+  type    = map(string)
   default = {}
 }
 
@@ -1250,17 +1250,11 @@ variable "CLCC_IamPolicyUpdateLambdaDocumentStatements" {
     Condition = optional(map(map(string)), {})
     Principal = optional(map(list(string)), {})
   }))
+  default = []
 }
 
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
-variable "CLCC_PolicyAttachmentUpdateLambdaRoleName" {
-  type = string
-}
-
-variable "CLCC_PolicyAttachmentUpdateLambdaPolicyArn" {
-  type = string
-}
 
 #---
