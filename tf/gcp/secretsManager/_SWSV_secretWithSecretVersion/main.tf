@@ -27,7 +27,7 @@ module "SecretVersion" {
   gcpProjectId         = var.gcpProjectId
   gcpRegion            = var.gcpRegion
   secretVersionObjects = var.SWSV_SecretVersionObjects
-  secretVersionSecret  = module.Secret.secretName
+  secretVersionSecret  = module.Secret.secretId
 }
 
 #---
