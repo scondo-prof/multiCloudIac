@@ -245,18 +245,55 @@ variable "CRDPFG_CloudBuildTriggerAdditionalSubstitutions" {
 
 #---
 
-variable "CRDPFG_CloudRunAlertPolicyNotificationChannelId" {
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
+
+
+variable "CRDPFG_CloudRunLogsAlertPolicyEnabled" {
+  type    = bool
+  default = true
+}
+
+variable "CRDPFG_CloudRunLogsAlertPolicyAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
+  type = object({
+
+    notification_rate_limit = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_rate_limit
+      period = optional(string, null)
+    }), null)
+
+    auto_close = optional(string, null)
+
+    notification_channel_strategy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_channel_strategy
+      notification_channel_names = optional(list(string), null)
+      renotify_interval          = optional(number, null)
+    }), null)
+  })
+  default = null
+}
+
+variable "CRDPFG_CloudRunLogsAlertPolicySeverity" {
   type = string
+  validation {
+    condition = var.CRDPFG_CloudRunLogsAlertPolicySeverity == null || can(contains([
+      "CRITICAL",
+      "ERROR",
+      "WARNING"
+    ], var.CRDPFG_CloudRunLogsAlertPolicySeverity))
+    error_message = "Valid inputs for | variable: CRDPFG_CloudRunLogsAlertPolicySeverity | are: CRITICAL, ERROR, WARNING"
+  }
+  default = "ERROR"
 }
 
-variable "CRDPFG_CloudRunAlertPolicyNotificationRateLimit" {
-  type    = string
-  default = "600s"
-}
-
-variable "CRDPFG_CloudRunAlertPolicyAutoClose" {
-  type    = string
-  default = "604800s"
+variable "CRDPFG_CloudRunLogsAlertPolicyDocumentation" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_documentation
+  type = object({
+    content   = optional(string, null)
+    mime_type = optional(string, null)
+    subject   = optional(string, null)
+    links = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_links
+      display_name = optional(string, null)
+      url          = optional(string, null)
+    }), {})
+  })
+  default = null
 }
 
 #---

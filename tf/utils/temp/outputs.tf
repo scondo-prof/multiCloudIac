@@ -1,28 +1,9 @@
-output "cloudbuildTriggerServiceAccountId" {
-  value = module.cloudbuildTriggerServiceAccount.serviceAccountId
+output "CRDPFG_CloudRunLogsAlertPolicyId" {
+  value = module.cloudRunLogsAlertPolicy.alertPolicyId
 }
 
-output "cloudbuildTriggerServiceAccountEmail" {
-  value = module.cloudbuildTriggerServiceAccount.serviceAccountEmail
+output "CRDPFG_CloudRunLogsAlertPolicyName" {
+  value = module.cloudRunLogsAlertPolicy.alertPolicyName
 }
-
-output "cloudbuildTriggerServiceAccountDisplayName" {
-  value = module.cloudbuildTriggerServiceAccount.serviceAccountDisplayName
-}
-
-
-output "roleId" {
-  value = module.cloudbuildTriggerServiceAccount.roleId
-}
-
-output "roleName" {
-  value = module.cloudbuildTriggerServiceAccount.roleName
-}
-
-output "roleRoleId" {
-  value = module.cloudbuildTriggerServiceAccount.roleRoleId
-}
-
-
 
 #---

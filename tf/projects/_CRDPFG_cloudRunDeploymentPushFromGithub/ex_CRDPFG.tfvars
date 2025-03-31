@@ -1,8 +1,6 @@
-gcpProjectId = "test"
-
 gcpRegion = "us-east1"
 
-resourceName = "test-test"
+resourceName = "tester-test"
 
 projectName = "test"
 
@@ -12,11 +10,9 @@ tfModule = "crdpfg"
 
 CRDPFG_SWSV_Cloudbuild_SecretReplicationAuto = {}
 
-CRDPFG_ServiceAccountRoleId = "testTest"
+CRDPFG_ServiceAccountRoleId = "testerTest"
 
 CRDPFG_CloudBuildTriggerGithubRepoName = "Bear-Cognition/strata-DASH"
-
-CRDPFG_CloudRunEnvVariableName = "VITE_ENV_VARS"
 
 CRDPFG_SWSV_Cloudbuild_SecretVersionObjects = [{
   secret_data = "fill"
@@ -36,6 +32,10 @@ CRDPFG_CloudBuildTriggerBucketName = "gs://dash_build_logs"
 
 CRDPFG_CloudRunPortNumber = "8080"
 
-CRDPFG_CloudRunAlertPolicyNotificationChannelId = "10899791015822106623"
-
 CRDPFG_CloudRunInfraAlertPolicyNotificationChannels = ["projects/p3-prod-aa94d/notificationChannels/16159316952891778334"]
+
+CRDPFG_CloudRunLogsAlertPolicyAlertStrategy = {
+  notification_rate_limit = {
+    period = "300s"
+  }
+}

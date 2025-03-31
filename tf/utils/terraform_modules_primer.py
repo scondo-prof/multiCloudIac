@@ -9,13 +9,13 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../gcp/iam/cloudBuildCloudRunRoleServiceBinding",
-            "source_path": "../../iam/cloudBuildCloudRunRoleServiceBinding",
+            "project_path": "../gcp/cloudMonitoring/genericMonitoringAlertPolicy",
+            "source_path": "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "serviceAccount",
-        "new_variable_prefix": "cloudbuildTriggerServiceAccount",
-        "module_name": "cloudbuildTriggerServiceAccount",
+        "previous_variable_prefix": "alertPolicy",
+        "new_variable_prefix": "CRDPFG_CloudRunLogsAlertPolicy",
+        "module_name": "cloudRunLogsAlertPolicy",
     },
 ]
 

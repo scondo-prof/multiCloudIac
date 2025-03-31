@@ -56,13 +56,31 @@ module "cloudbuildTrigger" {
 
 #---
 
-module "cloudRunAlertPolicy" {
-  source                                   = "../../gcp/cloudMonitoring/cloudRunError"
-  resourceName                             = var.resourceName
-  gcpProjectId                             = var.gcpProjectId
-  cloudRunAlertPolicyNotificationRateLimit = var.CRDPFG_CloudRunAlertPolicyNotificationRateLimit
-  cloudRunAlertPolicyAutoClose             = var.CRDPFG_CloudRunAlertPolicyAutoClose
-  cloudRunAlertPolicyNotificationChannelId = var.CRDPFG_CloudRunAlertPolicyNotificationChannelId
+module "cloudRunLogsAlertPolicy" {
+  source              = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
+  gcpProjectId        = var.gcpProjectId
+  gcpRegion           = var.gcpRegion
+  resourceName        = var.resourceName
+  alertPolicyCombiner = "OR" #var.CRDPFG_CloudRunLogsAlertPolicyCombiner
+  alertPolicyConditions = {
+    condition_matched_log = {
+      filter = "resource.type=\"cloud_run_revision\"\nseverity=ERROR\nresource.labels.service_name=\"${var.resourceName}\""
+      label_extractors = {
+        "Summary" = "EXTRACT(textPayload)"
+      }
+    }
+    display_name = "${var.resourceName} - Cloud Run Logs Alert Policy"
+  }
+  alertPolicyEnabled              = var.CRDPFG_CloudRunLogsAlertPolicyEnabled
+  alertPolicyNotificationChannels = var.CRDPFG_CloudRunInfraAlertPolicyNotificationChannels
+  alertPolicyAlertStrategy        = var.CRDPFG_CloudRunLogsAlertPolicyAlertStrategy
+  projectName                     = var.projectName
+  deployedDate                    = var.deployedDate
+  createdBy                       = var.createdBy
+  tfModule                        = var.tfModule
+  additionalTags                  = var.additionalTags
+  alertPolicySeverity             = var.CRDPFG_CloudRunLogsAlertPolicySeverity
+  alertPolicyDocumentation        = var.CRDPFG_CloudRunLogsAlertPolicyDocumentation
 }
 
 #---
