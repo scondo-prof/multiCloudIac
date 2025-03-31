@@ -47,7 +47,7 @@ variable "CRDPFG_SWSV_Cloudbuild_SecretReplicationAuto" {
 }
 
 variable "CRDPFG_SWSV_Cloudbuild_SecretReplicationUserManaged" {
-  type = object({       #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CRDPFG_SWSV_Cloudbuild_Secret_manager_CRDPFG_SWSV_Cloudbuild_Secret#replicas-1
+  type = object({       #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret#replicas-1
     replicas = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CRDPFG_SWSV_Cloudbuild_Secret_manager_CRDPFG_SWSV_Cloudbuild_Secret#location-2
       location = string
       customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CRDPFG_SWSV_Cloudbuild_Secret_manager_CRDPFG_SWSV_Cloudbuild_Secret#nested_replication_user_managed_replicas_replicas_customer_managed_encryption
@@ -56,6 +56,7 @@ variable "CRDPFG_SWSV_Cloudbuild_SecretReplicationUserManaged" {
 
     })
   })
+  default = null
 }
 
 variable "CRDPFG_SWSV_Cloudbuild_SecretAnnotations" {
@@ -117,52 +118,48 @@ variable "CRDPFG_SWSV_Cloudbuild_SecretVersionObjects" {
 
 #---
 
-variable "serviceAccountAccountId" {
-  type = string
-}
-
-variable "serviceAccountDisabled" {
+variable "CRDPFG_ServiceAccountDisabled" {
   type    = bool
   default = false
 }
 
-variable "serviceAccountCreateIgnoreAlreadyExists" {
+variable "CRDPFG_ServiceAccountCreateIgnoreAlreadyExists" {
   type    = bool
   default = true
 }
 
-variable "serviceAccountRoleId" {
+variable "CRDPFG_ServiceAccountRoleId" {
   type = string
 }
 
-variable "serviceAccountRoleStage" {
+variable "CRDPFG_ServiceAccountRoleStage" {
   type = string
   validation {
-    condition     = contains(["ALPHA", "BETA", "GA", "DEPRECATED", "DISABLED", "EAP"], var.serviceAccountRoleStage)
-    error_message = "Variable serviceAccountRoleStage only has valid values of: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
+    condition     = contains(["ALPHA", "BETA", "GA", "DEPRECATED", "DISABLED", "EAP"], var.CRDPFG_ServiceAccountRoleStage)
+    error_message = "Variable CRDPFG_ServiceAccountRoleStage only has valid values of: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
   }
   default = "GA"
 }
 
-variable "cloudBuildTriggerYamlPath" {
+variable "CRDPFG_CloudBuildTriggerYamlPath" {
   type    = string
   default = "cloudbuild.yaml"
 }
 
-variable "cloudBuildTriggerGithubRepoName" {
+variable "CRDPFG_CloudBuildTriggerGithubRepoName" {
   type = string
 }
 
-variable "cloudBuildTriggerBranchName" {
+variable "CRDPFG_CloudBuildTriggerBranchName" {
   type    = string
   default = "main"
 }
 
-variable "cloudBuildTriggerArtifactRepoName" {
+variable "CRDPFG_CloudBuildTriggerArtifactRepoName" {
   type = string
 }
 
-variable "cloudBuildTriggerBucketName" {
+variable "CRDPFG_CloudBuildTriggerBucketName" {
   type    = string
   default = "gs://dash_build_logs"
 }
@@ -240,7 +237,7 @@ variable "CRDPFG_CloudRunNumberOfVcpus" {
   default = 2
 }
 
-variable "cloudBuildTriggerAdditionalSubstitutions" {
+variable "CRDPFG_CloudBuildTriggerAdditionalSubstitutions" {
   description = "Additional substitutions for the Cloud Build trigger"
   type        = map(string)
   default     = {}
@@ -260,10 +257,6 @@ variable "CRDPFG_CloudRunAlertPolicyNotificationRateLimit" {
 variable "CRDPFG_CloudRunAlertPolicyAutoClose" {
   type    = string
   default = "604800s"
-}
-
-variable "RDPFG_CloudRunAlertPolicyNotificationChannelId" {
-  type = string
 }
 
 #---
@@ -296,9 +289,8 @@ variable "CRDPFG_CloudRunMemAlertPolicyEnabled" {
   default = true
 }
 
-variable "CRDPFG_CloudRunMemAlertPolicyNotificationChannels" {
-  type    = list(string)
-  default = null
+variable "CRDPFG_CloudRunInfraAlertPolicyNotificationChannels" {
+  type = list(string)
 }
 
 variable "CRDPFG_CloudRunMemAlertPolicyAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
@@ -373,11 +365,6 @@ variable "CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent" {
 variable "CRDPFG_CloudRunCpuAlertPolicyEnabled" {
   type    = bool
   default = true
-}
-
-variable "CRDPFG_CloudRunCpuAlertPolicyNotificationChannels" {
-  type    = list(string)
-  default = null
 }
 
 variable "CRDPFG_CloudRunCpuAlertPolicyAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy

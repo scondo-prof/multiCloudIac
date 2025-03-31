@@ -56,6 +56,7 @@ variable "SWSV_SecretReplicationUserManaged" {
 
     })
   })
+  default = null
 }
 
 variable "SWSV_SecretAnnotations" {

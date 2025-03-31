@@ -56,6 +56,7 @@ variable "secretReplicationUserManaged" {
 
     })
   })
+  default = null
 }
 
 variable "secretAnnotations" {

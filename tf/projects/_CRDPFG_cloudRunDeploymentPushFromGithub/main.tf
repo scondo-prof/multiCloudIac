@@ -28,16 +28,16 @@ module "cloudbuildTrigger" {
   gcpProjectId                            = var.gcpProjectId
   gcpRegion                               = var.gcpRegion
   resourceName                            = var.resourceName
-  serviceAccountAccountId                 = "${var.resourceName}-prod" #var.serviceAccountAccountId
-  serviceAccountDisabled                  = var.serviceAccountDisabled
-  serviceAccountCreateIgnoreAlreadyExists = var.serviceAccountCreateIgnoreAlreadyExists
-  serviceAccountRoleId                    = var.serviceAccountRoleId
-  serviceAccountRoleStage                 = var.serviceAccountRoleStage
-  cloudBuildTriggerYamlPath               = var.cloudBuildTriggerYamlPath
-  cloudBuildTriggerGithubRepoName         = var.cloudBuildTriggerGithubRepoName
-  cloudBuildTriggerBranchName             = var.cloudBuildTriggerBranchName
-  cloudBuildTriggerArtifactRepoName       = var.cloudBuildTriggerArtifactRepoName
-  cloudBuildTriggerBucketName             = var.cloudBuildTriggerBucketName
+  serviceAccountAccountId                 = "${var.resourceName}-prod"
+  serviceAccountDisabled                  = var.CRDPFG_ServiceAccountDisabled
+  serviceAccountCreateIgnoreAlreadyExists = var.CRDPFG_ServiceAccountCreateIgnoreAlreadyExists
+  serviceAccountRoleId                    = var.CRDPFG_ServiceAccountRoleId
+  serviceAccountRoleStage                 = var.CRDPFG_ServiceAccountRoleStage
+  cloudBuildTriggerYamlPath               = var.CRDPFG_CloudBuildTriggerYamlPath
+  cloudBuildTriggerGithubRepoName         = var.CRDPFG_CloudBuildTriggerGithubRepoName
+  cloudBuildTriggerBranchName             = var.CRDPFG_CloudBuildTriggerBranchName
+  cloudBuildTriggerArtifactRepoName       = var.CRDPFG_CloudBuildTriggerArtifactRepoName
+  cloudBuildTriggerBucketName             = var.CRDPFG_CloudBuildTriggerBucketName
   cloudBuildTriggerAdditionalSubstitutions = merge({
     _CONCURRENT_REQUESTS = var.CRDPFG_CloudRunConcurrentRequests
     _REQUESTS_TIMEOUT    = "${var.CRDPFG_CloudRunRequestsTimeout}s"
@@ -51,7 +51,7 @@ module "cloudbuildTrigger" {
     _NUMBER_OF_VCPU      = var.CRDPFG_CloudRunNumberOfVcpus
     _ENV_VARIABLE_NAME   = var.CRDPFG_CloudRunEnvVariableName
     _SECRET_NAME         = module.SWSV_Cloudbuild.SWSV_SecretName
-  }, var.cloudBuildTriggerAdditionalSubstitutions)
+  }, var.CRDPFG_CloudBuildTriggerAdditionalSubstitutions)
 }
 
 #---
@@ -62,7 +62,7 @@ module "cloudRunAlertPolicy" {
   gcpProjectId                             = var.gcpProjectId
   cloudRunAlertPolicyNotificationRateLimit = var.CRDPFG_CloudRunAlertPolicyNotificationRateLimit
   cloudRunAlertPolicyAutoClose             = var.CRDPFG_CloudRunAlertPolicyAutoClose
-  cloudRunAlertPolicyNotificationChannelId = var.RDPFG_CloudRunAlertPolicyNotificationChannelId
+  cloudRunAlertPolicyNotificationChannelId = var.CRDPFG_CloudRunAlertPolicyNotificationChannelId
 }
 
 #---
@@ -92,7 +92,7 @@ EOT
     display_name = "${var.resourceName} - High Mem Utilization in Cloud Run Service"
   }
   alertPolicyEnabled              = var.CRDPFG_CloudRunMemAlertPolicyEnabled
-  alertPolicyNotificationChannels = var.CRDPFG_CloudRunMemAlertPolicyNotificationChannels
+  alertPolicyNotificationChannels = var.CRDPFG_CloudRunInfraAlertPolicyNotificationChannels
   alertPolicyAlertStrategy        = var.CRDPFG_CloudRunMemAlertPolicyAlertStrategy
   projectName                     = var.projectName
   deployedDate                    = var.deployedDate
@@ -130,7 +130,7 @@ EOT
     display_name = "${var.resourceName} - High Cpu Utilization in Cloud Run Service"
   }
   alertPolicyEnabled              = var.CRDPFG_CloudRunCpuAlertPolicyEnabled
-  alertPolicyNotificationChannels = var.CRDPFG_CloudRunCpuAlertPolicyNotificationChannels
+  alertPolicyNotificationChannels = var.CRDPFG_CloudRunInfraAlertPolicyNotificationChannels
   alertPolicyAlertStrategy        = var.CRDPFG_CloudRunCpuAlertPolicyAlertStrategy
   projectName                     = var.projectName
   deployedDate                    = var.deployedDate

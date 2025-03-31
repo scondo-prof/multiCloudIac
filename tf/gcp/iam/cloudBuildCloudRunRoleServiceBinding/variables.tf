@@ -40,10 +40,6 @@ variable "roleId" {
   type = string
 }
 
-variable "rolePermissions" {
-  type = list(string)
-}
-
 variable "roleStage" {
   type = string
   validation {
@@ -63,16 +59,6 @@ variable "roleStage" {
 variable "roleDescription" {
   type    = string
   default = null
-}
-
-#---
-
-variable "iamBindingRole" {
-  type = string
-}
-
-variable "iamBindingMembers" {
-  type = list(string)
 }
 
 #---
