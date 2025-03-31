@@ -84,22 +84,22 @@ output "CRDPFG_CloudRunAlertPolicyName" {
   value = module.cloudRunAlertPolicy.cloudRunAlertPolicyName
 }
 
-#---
-output "CRDPFG_CloudRunMemAlertPolicyId" {
-  value = module.cloudRunMemAlertPolicy.alertPolicyId
-}
+# #---
+# output "CRDPFG_CloudRunMemAlertPolicyId" {
+#   value = module.cloudRunMemAlertPolicy.alertPolicyId
+# }
 
-output "CRDPFG_CloudRunMemAlertPolicyName" {
-  value = module.cloudRunMemAlertPolicy.alertPolicyName
-}
+# output "CRDPFG_CloudRunMemAlertPolicyName" {
+#   value = module.cloudRunMemAlertPolicy.alertPolicyName
+# }
 
-#---
-output "CRDPFG_CloudRunCpuAlertPolicyId" {
-  value = module.cloudRunCpuAlertPolicy.alertPolicyId
-}
+# #---
+# output "CRDPFG_CloudRunCpuAlertPolicyId" {
+#   value = module.cloudRunCpuAlertPolicy.alertPolicyId
+# }
 
-output "CRDPFG_CloudRunCpuAlertPolicyName" {
-  value = module.cloudRunCpuAlertPolicy.alertPolicyName
-}
+# output "CRDPFG_CloudRunCpuAlertPolicyName" {
+#   value = module.cloudRunCpuAlertPolicy.alertPolicyName
+# }
 
-#---
+# #---

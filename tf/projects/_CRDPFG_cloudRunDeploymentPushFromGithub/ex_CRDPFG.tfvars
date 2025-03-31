@@ -10,6 +10,8 @@ deployedDate = "2025-03-31"
 
 tfModule = "crdpfg"
 
+CRDPFG_SWSV_Cloudbuild_SecretReplicationAuto = {}
+
 CRDPFG_ServiceAccountRoleId = "testTest"
 
 CRDPFG_CloudBuildTriggerGithubRepoName = "Bear-Cognition/strata-DASH"

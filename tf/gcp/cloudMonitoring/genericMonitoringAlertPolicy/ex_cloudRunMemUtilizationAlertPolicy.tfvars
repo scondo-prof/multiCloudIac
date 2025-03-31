@@ -1,5 +1,11 @@
 resourceName = "snorting-antihistamines"
 
+deployedDate = "2025-03-31"
+
+projectName = "slurpin-some-spaghetti"
+
+tfModule = "generic-monitoring-alert-policy"
+
 alertPolicyCombiner = "OR"
 
 alertPolicyConditions = {
@@ -24,9 +30,5 @@ EOT
 alertPolicyEnabled = true
 
 alertPolicyNotificationChannels = ["projects/p3-prod-aa94d/notificationChannels/5996756439301337163"]
-
-deployedDate = "10-24-2024"
-
-projectName = "slurpin-some-spaghetti"
 
 alertPolicySeverity = "WARNING"

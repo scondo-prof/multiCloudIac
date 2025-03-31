@@ -1,8 +1,6 @@
-variable "resourceName" {
-  type = string
-}
 
-variable "gcpProjectId" {
+
+variable "resourceName" {
   type = string
 }
 

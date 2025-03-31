@@ -31,13 +31,15 @@ resource "google_secret_manager_secret" "secret" {
     dynamic "user_managed" {
       for_each = var.secretReplicationUserManaged != null ? [var.secretReplicationUserManaged] : []
       content {
-        replicas {
-          location = replicas.value["location"]
-
-          dynamic "customer_managed_encryption" {
-            for_each = replicas.value["customer_managed_encryption"] != null ? [replicas.value["customer_managed_encryption"]] : []
-            content {
-              kms_key_name = customer_managed_encryption.value["kms_key_name"]
+        dynamic "replicas" {
+          for_each = user_managed.value["replicas"]
+          content {
+            location = replicas.value["location"]
+            dynamic "customer_managed_encryption" {
+              for_each = replicas.value["customer_managed_encryption"] != null ? [replicas.value["customer_managed_encryption"]] : []
+              content {
+                kms_key_name = customer_managed_encryption.value["kms_key_name"]
+              }
             }
           }
         }

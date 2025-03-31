@@ -53,7 +53,6 @@ variable "secretReplicationUserManaged" {
       customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret#nested_replication_user_managed_replicas_replicas_customer_managed_encryption
         kms_key_name = string
       }), null)
-
     })
   })
   default = null
