@@ -1,36 +1,69 @@
-output "CRDPRFG_SecretId" {
-  value = module.secretWithSecretVersion.secretId
+output "CRDPRFG_SWSV_SecretId" {
+  value = module.SWSV.SWSV_SecretId
 }
 
-output "CRDPRFG_SecretName" {
-  value = module.secretWithSecretVersion.secretName
+output "CRDPRFG_SWSV_SecretName" {
+  value = module.SWSV.SWSV_SecretName
 }
 
-output "CRDPRFG_SecretVersionName" {
-  value = module.secretWithSecretVersion.secretVersionName
+output "CRDPRFG_SWSV_SecretCreateTime" {
+  value = module.SWSV.SWSV_SecretCreateTime
 }
 
-output "CRDPRFG_SecretVersionId" {
-  value = module.secretWithSecretVersion.secretVersionId
+output "CRDPRFG_SWSV_SecretTerraformLabels" {
+  value = module.SWSV.SWSV_SecretTerraformLabels
 }
 
-output "CRDPRFG_CloudBuildTriggerServiceAccountId" {
+output "CRDPRFG_SWSV_SecretEffectiveLabels" {
+  value = module.SWSV.SWSV_SecretEffectiveLabels
+}
+
+output "CRDPRFG_SWSV_SecretEffectiveAnnotations" {
+  value = module.SWSV.SWSV_SecretEffectiveAnnotations
+}
+
+
+output "CRDPRFG_SWSV_SecretVersionId" {
+  value = module.SWSV.SWSV_SecretVersionId
+}
+
+output "CRDPRFG_SWSV_SecretVersionName" {
+  value = module.SWSV.SWSV_SecretVersionName
+}
+
+output "CRDPRFG_SWSV_SecretVersionVersion" {
+  value = module.SWSV.SWSV_SecretVersionVersion
+}
+
+output "CRDPRFG_SWSV_SecretVersionCreateTime" {
+  value = module.SWSV.SWSV_SecretVersionCreateTime
+}
+
+output "CRDPRFG_SWSV_SecretVersionDestroyTime" {
+  value = module.SWSV.SWSV_SecretVersionDestroyTime
+}
+
+
+
+
+#---
+output "serviceAccountId" {
   value = module.cloudBuildTrigger.serviceAccountId
 }
 
-output "CRDPRFG_CloudBuildTriggerServiceAccountEmail" {
+output "serviceAccountEmail" {
   value = module.cloudBuildTrigger.serviceAccountEmail
 }
 
-output "CRDPRFG_CloudBuildTriggerServiceAccountDisplayName" {
+output "serviceAccountDisplayName" {
   value = module.cloudBuildTrigger.serviceAccountDisplayName
 }
 
-output "CRDPRFG_CloudBuildTriggerRoleId" {
+output "serviceAccountRoleId" {
   value = module.cloudBuildTrigger.serviceAccountRoleId
 }
 
-output "CRDPRFG_CloudBuildTriggerRoleName" {
+output "serviceAccountRoleName" {
   value = module.cloudBuildTrigger.serviceAccountRoleName
 }
 
@@ -42,30 +75,31 @@ output "CRDPRFG_CloudBuildTriggerName" {
   value = module.cloudBuildTrigger.cloudBuildTriggerName
 }
 
-output "CRDPRFG_CloudRunAlertPolicyId" {
-  value = module.cloudRunAlertPolicy.cloudRunAlertPolicyId
+#---
+output "CRDPRFG_AlertPolicyCloudRunAppLogsId" {
+  value = module.alertPolicyCloudRunAppLogs.alertPolicyId
 }
 
-output "CRDPRFG_CloudRunAlertPolicyName" {
-  value = module.cloudRunAlertPolicy.cloudRunAlertPolicyName
+output "CRDPRFG_AlertPolicyCloudRunAppLogsName" {
+  value = module.alertPolicyCloudRunAppLogs.alertPolicyName
 }
 
-#--
-
-output "CRDPRFG_CloudRunMemAlertPolicyId" {
-  value = module.cloudRunMemAlertPolicy.alertPolicyId
+#---
+output "CRDPRFG_AlertPolicyCloudRunAppCpuUsageId" {
+  value = module.alertPolicyCloudRunAppCpuUsage.alertPolicyId
 }
 
-output "CRDPRFG_CloudRunMemAlertPolicyName" {
-  value = module.cloudRunMemAlertPolicy.alertPolicyName
+output "CRDPRFG_AlertPolicyCloudRunAppCpuUsageName" {
+  value = module.alertPolicyCloudRunAppCpuUsage.alertPolicyName
 }
 
-#--
-
-output "CRDPRFG_CloudRunCpuAlertPolicyId" {
-  value = module.cloudRunCpuAlertPolicy.alertPolicyId
+#---
+output "CRDPRFG_AlertPolicyCloudRunAppMemUsageId" {
+  value = module.alertPolicyCloudRunAppMemUsage.alertPolicyId
 }
 
-output "CRDPRFG_CloudRunCpuAlertPolicyName" {
-  value = module.cloudRunCpuAlertPolicy.alertPolicyName
+output "CRDPRFG_AlertPolicyCloudRunAppMemUsageName" {
+  value = module.alertPolicyCloudRunAppMemUsage.alertPolicyName
 }
+
+#---
