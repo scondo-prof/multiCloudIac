@@ -177,6 +177,79 @@ variable "CRDPRFG_CloudBuildTriggerBucketName" {
   default = "gs://dash_build_logs"
 }
 
+variable "CRDPRFG_CloudRunConcurrentRequests" {
+  type = number
+  validation {
+    condition     = var.CRDPRFG_CloudRunConcurrentRequests >= 1 && var.CRDPRFG_CloudRunConcurrentRequests <= 250
+    error_message = "Variable CRDPRFG_CloudRunConcurrentRequests must be greater than or equal to 1 and less than or equal to 250"
+  }
+  default = 80
+}
+
+variable "CRDPRFG_CloudRunRequestsTimeout" {
+  type = number
+  validation {
+    condition     = var.CRDPRFG_CloudRunRequestsTimeout >= 1 && var.CRDPRFG_CloudRunRequestsTimeout <= 3000
+    error_message = "Variable CRDPRFG_CloudRunRequestsTimeout must be greater than or equal to 1 second and less than or equal to 900 seconds"
+  }
+  default = 300
+}
+
+variable "CRDPRFG_CloudRunPortNumber" {
+  type = number
+  validation {
+    condition     = var.CRDPRFG_CloudRunPortNumber >= 1 && var.CRDPRFG_CloudRunPortNumber <= 65535
+    error_message = "Variable CRDPRFG_CloudRunPortNumber must be greater than 1 and less than 65335"
+  }
+  default = 8080
+}
+
+variable "CRDPRFG_CloudRunMinInstances" {
+  type = number
+  validation {
+    condition     = var.CRDPRFG_CloudRunMinInstances >= 0
+    error_message = "Variable CRDPRFG_CloudRunMinInstances must be greater than or equal to 0"
+  }
+  default = 0
+}
+
+variable "CRDPRFG_CloudRunMaxInstances" {
+  type = number
+  validation {
+    condition     = var.CRDPRFG_CloudRunMaxInstances >= 1 && var.CRDPRFG_CloudRunMaxInstances <= 10
+    error_message = "Variable CRDPRFG_CloudRunMaxInstances must be greater than or equal to 1 instance or less than or equal to 10 instances"
+  }
+  default = 5
+}
+
+variable "CRDPRFG_CloudRunEnvVariableName" {
+  type    = string
+  default = "ENV_VARS"
+}
+
+variable "CRDPRFG_CloudRunVpcConnector" {
+  type    = string
+  default = "dash"
+}
+
+variable "CRDPRFG_CloudRunAmountOfMemory" {
+  type = number
+  validation {
+    condition     = var.CRDPRFG_CloudRunAmountOfMemory >= 1 && var.CRDPRFG_CloudRunAmountOfMemory <= 16
+    error_message = "Variable CRDPRFG_CloudRunAmountOfMemory must be greater than or equal to 1 or less than or equal to 16."
+  }
+  default = 2
+}
+
+variable "CRDPRFG_CloudRunNumberOfVcpus" {
+  type = number
+  validation {
+    condition     = contains([1, 2, 4], var.CRDPRFG_CloudRunNumberOfVcpus)
+    error_message = "Variable CRDPRFG_CloudRunNumberOfVcpus must be greater than or equal to 1 or less than or equal to 16."
+  }
+  default = 2
+}
+
 variable "CRDPRFG_CloudBuildTriggerAdditionalSubstitutions" {
   description = "Additional substitutions for the Cloud Build trigger"
   type        = map(string)
@@ -221,105 +294,6 @@ variable "additionalTags" {
 }
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
-
-variable "CRDPRFG_AlertPolicyCloudRunAppLogsCombiner" {
-  type = string
-  validation {
-    condition = contains([
-      "AND",
-      "OR",
-      "AND_WITH_MATCHING_RESOURCE"
-    ], var.CRDPRFG_AlertPolicyCloudRunAppLogsCombiner)
-    error_message = "Valid inputs for | variable: CRDPRFG_AlertPolicyCloudRunAppLogsCombiner | are: AND, OR, AND_WITH_MATCHING_RESOURCE"
-  }
-}
-
-variable "CRDPRFG_AlertPolicyCloudRunAppLogsConditions" {
-  type = object({
-    condition_absent = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_absent
-
-      aggregations = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_aggregations
-        per_series_aligner   = optional(string, null)
-        group_by_fields      = optional(list(string), null)
-        alignment_period     = optional(string, null) #may be string
-        cross_series_reducer = optional(string, null)
-      }), null)
-
-      trigger = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_trigger
-        percent = optional(number, null)
-        count   = optional(number, null)
-      }), null)
-
-      duration = string #may be string
-      filter   = optional(string, null)
-    }), null)
-
-    name = optional(string, null)
-
-    condition_monitoring_query_language = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_monitoring_query_language
-      query    = string
-      duration = string #may be string
-
-      trigger = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_trigger
-        percent = optional(number, null)
-        count   = optional(number, null)
-      }), null)
-
-      evaluation_missing_data = optional(string, null)
-    }), null)
-
-    condition_threshold = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_threshold
-      threshold_value    = optional(number, null)
-      denominator_filter = optional(string, null)
-
-      denominator_aggregations = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_denominator_aggregations
-        per_series_aligner   = optional(string, null)
-        group_by_fields      = optional(list(string), null)
-        alignment_period     = optional(string, null)
-        cross_series_reducer = optional(string, null)
-      }), null)
-
-      duration = string
-
-      forecast_options = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_forecast_options
-        forecast_horizon = string
-      }), null)
-
-      comparison = string
-
-      trigger = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_trigger
-        percent = optional(number)
-        count   = optional(number)
-      }), null)
-
-      aggregations = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_aggregations
-        per_series_aligner   = optional(string, null)
-        group_by_fields      = optional(list(string), null)
-        alignment_period     = optional(string, null) #may be string
-        cross_series_reducer = optional(string, null)
-      }), null)
-
-      filter                  = optional(string, null)
-      evaluation_missing_data = optional(string, null)
-    }), null)
-
-    display_name = string
-
-    condition_matched_log = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_matched_log
-      filter           = string
-      label_extractors = optional(map(string), null)
-    }), null)
-
-    condition_prometheus_query_language = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_prometheus_query_language
-      query               = string
-      duration            = optional(string, null)
-      evaluation_interval = optional(string, null)
-      labels              = optional(map(string), null)
-      rule_group          = optional(string, null)
-      alert_rule          = optional(string, null)
-    }), null)
-  })
-}
 
 
 variable "CRDPRFG_AlertPolicyCloudRunAppLogsEnabled" {
@@ -424,6 +398,26 @@ variable "CRDPRFG_AlertPolicyCloudRunAppCpuUsageCombiner" {
     ], var.CRDPRFG_AlertPolicyCloudRunAppCpuUsageCombiner)
     error_message = "Valid inputs for | variable: CRDPRFG_AlertPolicyCloudRunAppCpuUsageCombiner | are: AND, OR, AND_WITH_MATCHING_RESOURCE"
   }
+}
+
+variable "CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent" {
+  type = number
+  validation {
+    condition     = var.CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent >= 0 && var.CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent <= 100
+    error_message = "Variable CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
+
+  default = 50
+}
+
+variable "CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent" {
+  type = number
+  validation {
+    condition     = var.CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent >= 0 && var.CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent <= 100
+    error_message = "Variable CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
+
+  default = 50
 }
 
 variable "CRDPRFG_AlertPolicyCloudRunAppCpuUsageConditions" {
@@ -616,6 +610,26 @@ variable "CRDPRFG_AlertPolicyCloudRunAppMemUsageCombiner" {
     ], var.CRDPRFG_AlertPolicyCloudRunAppMemUsageCombiner)
     error_message = "Valid inputs for | variable: CRDPRFG_AlertPolicyCloudRunAppMemUsageCombiner | are: AND, OR, AND_WITH_MATCHING_RESOURCE"
   }
+}
+
+variable "CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent" {
+  type = number
+  validation {
+    condition     = var.CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent >= 0 && var.CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent <= 100
+    error_message = "Variable CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
+
+  default = 50
+}
+
+variable "CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent" {
+  type = number
+  validation {
+    condition     = var.CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent >= 0 && var.CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent <= 100
+    error_message = "Variable CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
+
+  default = 80
 }
 
 variable "CRDPRFG_AlertPolicyCloudRunAppMemUsageConditions" {
