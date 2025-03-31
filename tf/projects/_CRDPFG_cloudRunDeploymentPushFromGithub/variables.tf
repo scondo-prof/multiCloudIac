@@ -167,6 +167,79 @@ variable "cloudBuildTriggerBucketName" {
   default = "gs://dash_build_logs"
 }
 
+variable "CRDPFG_CloudRunConcurrentRequests" {
+  type = number
+  validation {
+    condition     = var.CRDPFG_CloudRunConcurrentRequests >= 1 && var.CRDPFG_CloudRunConcurrentRequests <= 250
+    error_message = "Variable CRDPFG_CloudRunConcurrentRequests must be greater than or equal to 1 and less than or equal to 250"
+  }
+  default = 80
+}
+
+variable "CRDPFG_CloudRunRequestsTimeout" {
+  type = number
+  validation {
+    condition     = var.CRDPFG_CloudRunRequestsTimeout >= 1 && var.CRDPFG_CloudRunRequestsTimeout <= 3000
+    error_message = "Variable CRDPFG_CloudRunRequestsTimeout must be greater than or equal to 1 second and less than or equal to 900 seconds"
+  }
+  default = 300
+}
+
+variable "CRDPFG_CloudRunPortNumber" {
+  type = number
+  validation {
+    condition     = var.CRDPFG_CloudRunPortNumber >= 1 && var.CRDPFG_CloudRunPortNumber <= 65535
+    error_message = "Variable CRDPFG_CloudRunPortNumber must be greater than 1 and less than 65335"
+  }
+  default = 8080
+}
+
+variable "CRDPFG_CloudRunMinInstances" {
+  type = number
+  validation {
+    condition     = var.CRDPFG_CloudRunMinInstances >= 0
+    error_message = "Variable CRDPFG_CloudRunMinInstances must be greater than or equal to 0"
+  }
+  default = 0
+}
+
+variable "CRDPFG_CloudRunMaxInstances" {
+  type = number
+  validation {
+    condition     = var.CRDPFG_CloudRunMaxInstances >= 1 && var.CRDPFG_CloudRunMaxInstances <= 10
+    error_message = "Variable CRDPFG_CloudRunMaxInstances must be greater than or equal to 1 instance or less than or equal to 10 instances"
+  }
+  default = 5
+}
+
+variable "CRDPFG_CloudRunEnvVariableName" {
+  type    = string
+  default = "ENV_VARS"
+}
+
+variable "CRDPFG_CloudRunVpcConnector" {
+  type    = string
+  default = "dash"
+}
+
+variable "CRDPFG_CloudRunAmountOfMemory" {
+  type = number
+  validation {
+    condition     = var.CRDPFG_CloudRunAmountOfMemory >= 1 && var.CRDPFG_CloudRunAmountOfMemory <= 16
+    error_message = "Variable CRDPFG_CloudRunAmountOfMemory must be greater than or equal to 1 or less than or equal to 16."
+  }
+  default = 2
+}
+
+variable "CRDPFG_CloudRunNumberOfVcpus" {
+  type = number
+  validation {
+    condition     = contains([1, 2, 4], var.CRDPFG_CloudRunNumberOfVcpus)
+    error_message = "Variable CRDPFG_CloudRunNumberOfVcpus must be greater than or equal to 1 or less than or equal to 16."
+  }
+  default = 2
+}
+
 variable "cloudBuildTriggerAdditionalSubstitutions" {
   description = "Additional substitutions for the Cloud Build trigger"
   type        = map(string)
@@ -197,103 +270,24 @@ variable "RDPFG_CloudRunAlertPolicyNotificationChannelId" {
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
 
-variable "CRDPFG_CloudRunMemAlertPolicyCombiner" {
-  type = string
+variable "CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent" {
+  type = number
   validation {
-    condition = contains([
-      "AND",
-      "OR",
-      "AND_WITH_MATCHING_RESOURCE"
-    ], var.CRDPFG_CloudRunMemAlertPolicyCombiner)
-    error_message = "Valid inputs for | variable: CRDPFG_CloudRunMemAlertPolicyCombiner | are: AND, OR, AND_WITH_MATCHING_RESOURCE"
+    condition     = var.CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent >= 0 && var.CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent <= 100
+    error_message = "Variable CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent must be greater than or equal to 0 or less than and equal to 100"
   }
+
+  default = 50
 }
 
-variable "CRDPFG_CloudRunMemAlertPolicyConditions" {
-  type = object({
-    condition_absent = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_absent
+variable "CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent" {
+  type = number
+  validation {
+    condition     = var.CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent >= 0 && var.CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent <= 100
+    error_message = "Variable CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
 
-      aggregations = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_aggregations
-        per_series_aligner   = optional(string, null)
-        group_by_fields      = optional(list(string), null)
-        alignment_period     = optional(string, null) #may be string
-        cross_series_reducer = optional(string, null)
-      }), null)
-
-      trigger = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_trigger
-        percent = optional(number, null)
-        count   = optional(number, null)
-      }), null)
-
-      duration = string #may be string
-      filter   = optional(string, null)
-    }), null)
-
-    name = optional(string, null)
-
-    condition_monitoring_query_language = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_monitoring_query_language
-      query    = string
-      duration = string #may be string
-
-      trigger = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_trigger
-        percent = optional(number, null)
-        count   = optional(number, null)
-      }), null)
-
-      evaluation_missing_data = optional(string, null)
-    }), null)
-
-    condition_threshold = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_threshold
-      threshold_value    = optional(number, null)
-      denominator_filter = optional(string, null)
-
-      denominator_aggregations = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_denominator_aggregations
-        per_series_aligner   = optional(string, null)
-        group_by_fields      = optional(list(string), null)
-        alignment_period     = optional(string, null)
-        cross_series_reducer = optional(string, null)
-      }), null)
-
-      duration = string
-
-      forecast_options = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_forecast_options
-        forecast_horizon = string
-      }), null)
-
-      comparison = string
-
-      trigger = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_trigger
-        percent = optional(number)
-        count   = optional(number)
-      }), null)
-
-      aggregations = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_aggregations
-        per_series_aligner   = optional(string, null)
-        group_by_fields      = optional(list(string), null)
-        alignment_period     = optional(string, null) #may be string
-        cross_series_reducer = optional(string, null)
-      }), null)
-
-      filter                  = optional(string, null)
-      evaluation_missing_data = optional(string, null)
-    }), null)
-
-    display_name = string
-
-    condition_matched_log = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_matched_log
-      filter           = string
-      label_extractors = optional(map(string), null)
-    }), null)
-
-    condition_prometheus_query_language = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_prometheus_query_language
-      query               = string
-      duration            = optional(string, null)
-      evaluation_interval = optional(string, null)
-      labels              = optional(map(string), null)
-      rule_group          = optional(string, null)
-      alert_rule          = optional(string, null)
-    }), null)
-  })
+  default = 80
 }
 
 
@@ -354,103 +348,25 @@ variable "CRDPFG_CloudRunMemAlertPolicyDocumentation" { #https://registry.terraf
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
 
-variable "CRDPFG_CloudRunCpuAlertPolicyCombiner" {
-  type = string
+
+variable "CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent" {
+  type = number
   validation {
-    condition = contains([
-      "AND",
-      "OR",
-      "AND_WITH_MATCHING_RESOURCE"
-    ], var.CRDPFG_CloudRunCpuAlertPolicyCombiner)
-    error_message = "Valid inputs for | variable: CRDPFG_CloudRunCpuAlertPolicyCombiner | are: AND, OR, AND_WITH_MATCHING_RESOURCE"
+    condition     = var.CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent >= 0 && var.CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent <= 100
+    error_message = "Variable CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent must be greater than or equal to 0 or less than and equal to 100"
   }
+
+  default = 50
 }
 
-variable "CRDPFG_CloudRunCpuAlertPolicyConditions" {
-  type = object({
-    condition_absent = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_absent
+variable "CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent" {
+  type = number
+  validation {
+    condition     = var.CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent >= 0 && var.CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent <= 100
+    error_message = "Variable CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
 
-      aggregations = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_aggregations
-        per_series_aligner   = optional(string, null)
-        group_by_fields      = optional(list(string), null)
-        alignment_period     = optional(string, null) #may be string
-        cross_series_reducer = optional(string, null)
-      }), null)
-
-      trigger = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_trigger
-        percent = optional(number, null)
-        count   = optional(number, null)
-      }), null)
-
-      duration = string #may be string
-      filter   = optional(string, null)
-    }), null)
-
-    name = optional(string, null)
-
-    condition_monitoring_query_language = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_monitoring_query_language
-      query    = string
-      duration = string #may be string
-
-      trigger = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_trigger
-        percent = optional(number, null)
-        count   = optional(number, null)
-      }), null)
-
-      evaluation_missing_data = optional(string, null)
-    }), null)
-
-    condition_threshold = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_threshold
-      threshold_value    = optional(number, null)
-      denominator_filter = optional(string, null)
-
-      denominator_aggregations = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_denominator_aggregations
-        per_series_aligner   = optional(string, null)
-        group_by_fields      = optional(list(string), null)
-        alignment_period     = optional(string, null)
-        cross_series_reducer = optional(string, null)
-      }), null)
-
-      duration = string
-
-      forecast_options = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_forecast_options
-        forecast_horizon = string
-      }), null)
-
-      comparison = string
-
-      trigger = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_trigger
-        percent = optional(number)
-        count   = optional(number)
-      }), null)
-
-      aggregations = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_aggregations
-        per_series_aligner   = optional(string, null)
-        group_by_fields      = optional(list(string), null)
-        alignment_period     = optional(string, null) #may be string
-        cross_series_reducer = optional(string, null)
-      }), null)
-
-      filter                  = optional(string, null)
-      evaluation_missing_data = optional(string, null)
-    }), null)
-
-    display_name = string
-
-    condition_matched_log = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_matched_log
-      filter           = string
-      label_extractors = optional(map(string), null)
-    }), null)
-
-    condition_prometheus_query_language = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_condition_prometheus_query_language
-      query               = string
-      duration            = optional(string, null)
-      evaluation_interval = optional(string, null)
-      labels              = optional(map(string), null)
-      rule_group          = optional(string, null)
-      alert_rule          = optional(string, null)
-    }), null)
-  })
+  default = 50
 }
 
 
