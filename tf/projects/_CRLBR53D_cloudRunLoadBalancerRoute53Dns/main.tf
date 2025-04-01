@@ -23,11 +23,11 @@ module "globalAddress" {
 module "route53DnsARecord" {
   source                              = "../../aws/route53/genericRoute53Record"
   awsRegion                           = var.awsRegion
-  recordZoneId                        = var.CRLBR53D_Route53DnsARecordZoneId
-  recordName                          = var.CRLBR53D_Route53DnsARecordName
-  recordType                          = var.CRLBR53D_Route53DnsARecordType
+  recordZoneId                        = var.CRLBR53D_Route53DnsRecordsZoneId
+  recordName                          = var.CRLBR53D_Route53DnsRecordsName
+  recordType                          = "A"
   recordTtl                           = var.CRLBR53D_Route53DnsARecordTtl
-  recordRecords                       = var.CRLBR53D_Route53DnsARecordRecords
+  recordRecords                       = concat([module.globalAddress.globalAddress], var.CRLBR53D_Route53DnsARecordRecords)
   recordSetIdentifier                 = var.CRLBR53D_Route53DnsARecordSetIdentifier
   recordHealthCheckId                 = var.CRLBR53D_Route53DnsARecordHealthCheckId
   recordAlias                         = var.CRLBR53D_Route53DnsARecordAlias
@@ -46,9 +46,9 @@ module "route53DnsARecord" {
 module "route53DnsTxtRecord" {
   source                              = "../../aws/route53/genericRoute53Record"
   awsRegion                           = var.awsRegion
-  recordZoneId                        = var.CRLBR53D_Route53DnsTxtRecordZoneId
-  recordName                          = var.CRLBR53D_Route53DnsTxtRecordName
-  recordType                          = var.CRLBR53D_Route53DnsTxtRecordType
+  recordZoneId                        = var.CRLBR53D_Route53DnsRecordsZoneId
+  recordName                          = var.CRLBR53D_Route53DnsRecordsName
+  recordType                          = "TXT"
   recordTtl                           = var.CRLBR53D_Route53DnsTxtRecordTtl
   recordRecords                       = var.CRLBR53D_Route53DnsTxtRecordRecords
   recordSetIdentifier                 = var.CRLBR53D_Route53DnsTxtRecordSetIdentifier
@@ -215,70 +215,6 @@ module "gfr" {
 }
 
 #---
-
-
-# module "globalAddress" {
-#   source = "../../gcp/cloudComputeNetwork/genericGlobalAddress"
-
-#   gcpProjectId              = var.gcpProjectId
-#   gcpRegion                 = var.gcpRegion
-#   resourceName              = var.resourceName
-#   globalAddressAddress      = var.CRLBR53D_GlobalAddressAddress
-#   globalAddressDescription  = var.CRLBR53D_GlobalAddressDescription
-#   projectName               = var.projectName
-#   deployedDate              = var.deployedDate
-#   createdBy                 = var.createdBy
-#   additionalLabels          = var.additionalLabels
-#   globalAddressIpVersion    = var.CRLBR53D_GlobalAddressIpVersion
-#   globalAddressPrefixLength = var.CRLBR53D_GlobalAddressPrefixLength
-#   globalAddressType         = var.CRLBR53D_GlobalAddressType
-#   globalAddressPurpose      = var.CRLBR53D_GlobalAddressPurpose
-#   globalAddressNetwork      = var.CRLBR53D_GlobalAddressNetwork
-# }
-
-# module "route53DnsARecord" {
-#   source = "../../aws/route53/genericRoute53Record"
-
-#   awsRegion                           = var.awsRegion
-#   recordZoneId                        = var.CRLBR53D_Route53DnsARecordZoneId
-#   recordName                          = var.CRLBR53D_Route53DnsARecordName
-#   recordType                          = "A"
-#   recordTtl                           = var.CRLBR53D_Route53DnsARecordTtl
-#   recordRecords                       = concat([module.globalAddress.globalAddress], var.CRLBR53D_Route53DnsARecordAdditionalRecords)
-#   recordSetIdentifier                 = var.CRLBR53D_Route53DnsARecordSetIdentifier
-#   recordHealthCheckId                 = var.CRLBR53D_Route53DnsARecordHealthCheckId
-#   recordAlias                         = var.CRLBR53D_Route53DnsARecordAlias
-#   recordCidrRoutingPolicy             = var.CRLBR53D_Route53DnsARecordCidrRoutingPolicy
-#   recordFailoverRoutingPolicy         = var.CRLBR53D_Route53DnsARecordFailoverRoutingPolicy
-#   recordGeolocationRoutingPolicy      = var.CRLBR53D_Route53DnsARecordGeolocationRoutingPolicy
-#   recordGeoproximityRoutingPolicy     = var.CRLBR53D_Route53DnsARecordGeoproximityRoutingPolicy
-#   recordLatencyRoutingPolicy          = var.CRLBR53D_Route53DnsARecordLatencyRoutingPolicy
-#   recordMultivalueAnswerRoutingPolicy = var.CRLBR53D_Route53DnsARecordMultivalueAnswerRoutingPolicy
-#   recordWeightedRoutingPolicy         = var.CRLBR53D_Route53DnsARecordWeightedRoutingPolicy
-#   recordAllowOverwrite                = var.CRLBR53D_Route53DnsARecordAllowOverwrite
-# }
-
-# module "route53DnsTxtRecord" {
-#   source = "../../aws/route53/genericRoute53Record"
-
-#   awsRegion                           = var.awsRegion
-#   recordZoneId                        = var.CRLBR53D_Route53DnsARecordZoneId
-#   recordName                          = var.CRLBR53D_Route53DnsARecordName
-#   recordType                          = "TXT"
-#   recordTtl                           = var.CRLBR53D_Route53DnsTxtRecordTtl
-#   recordRecords                       = var.CRLBR53D_Route53DnsTxtRecordRecords
-#   recordSetIdentifier                 = var.CRLBR53D_Route53DnsTxtRecordSetIdentifier
-#   recordHealthCheckId                 = var.CRLBR53D_Route53DnsTxtRecordHealthCheckId
-#   recordAlias                         = var.CRLBR53D_Route53DnsTxtRecordAlias
-#   recordCidrRoutingPolicy             = var.CRLBR53D_Route53DnsTxtRecordCidrRoutingPolicy
-#   recordFailoverRoutingPolicy         = var.CRLBR53D_Route53DnsTxtRecordFailoverRoutingPolicy
-#   recordGeolocationRoutingPolicy      = var.CRLBR53D_Route53DnsTxtRecordGeolocationRoutingPolicy
-#   recordGeoproximityRoutingPolicy     = var.CRLBR53D_Route53DnsTxtRecordGeoproximityRoutingPolicy
-#   recordLatencyRoutingPolicy          = var.CRLBR53D_Route53DnsTxtRecordLatencyRoutingPolicy
-#   recordMultivalueAnswerRoutingPolicy = var.CRLBR53D_Route53DnsTxtRecordMultivalueAnswerRoutingPolicy
-#   recordWeightedRoutingPolicy         = var.CRLBR53D_Route53DnsTxtRecordWeightedRoutingPolicy
-#   recordAllowOverwrite                = var.CRLBR53D_Route53DnsTxtRecordAllowOverwrite
-# }
 
 # module "msc" {
 #   source = "../../gcp/cloudComputeNetwork/genericManagedSslCertificate"

@@ -101,11 +101,11 @@ variable "CRLBR53D_GlobalAddressNetwork" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#argument-reference
-variable "CRLBR53D_Route53DnsARecordZoneId" {
+variable "CRLBR53D_Route53DnsRecordsZoneId" {
   type = string
 }
 
-variable "CRLBR53D_Route53DnsARecordName" {
+variable "CRLBR53D_Route53DnsRecordsName" {
   type = string
 }
 
@@ -138,7 +138,7 @@ variable "CRLBR53D_Route53DnsARecordTtl" {
 
 variable "CRLBR53D_Route53DnsARecordRecords" {
   type    = list(string)
-  default = null
+  default = []
 }
 
 variable "CRLBR53D_Route53DnsARecordSetIdentifier" {
@@ -226,35 +226,6 @@ variable "CRLBR53D_Route53DnsARecordAllowOverwrite" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#argument-reference
-variable "CRLBR53D_Route53DnsTxtRecordZoneId" {
-  type = string
-}
-
-variable "CRLBR53D_Route53DnsTxtRecordName" {
-  type = string
-}
-
-variable "CRLBR53D_Route53DnsTxtRecordType" {
-  type = string
-  validation {
-    condition = contains([
-      "A",
-      "AAAA",
-      "CAA",
-      "CNAME",
-      "DS",
-      "MX",
-      "NAPTR",
-      "NS",
-      "PTR",
-      "SOA",
-      "SPF",
-      "SRV",
-      "TXT"
-    ], var.CRLBR53D_Route53DnsTxtRecordType)
-    error_message = "Valid inputs for | variable: CRLBR53D_Route53DnsTxtRecordType | are: A, AAAA, CAA, CNAME, DS, MX, NAPTR, NS, PTR, SOA, SPF, SRV TXT"
-  }
-}
 
 variable "CRLBR53D_Route53DnsTxtRecordTtl" {
   type    = number
