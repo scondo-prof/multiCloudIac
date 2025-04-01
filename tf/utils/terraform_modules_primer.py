@@ -9,33 +9,53 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/_NWEIPN_networkWithExternalIpNat",
-            "source_path": "../../gcp/cloudComputeNetwork/_NWEIPN_networkWithExternalIpNat",
+            "project_path": "../projects/_CLCC_containerLambdaCiCd",
+            "source_path": "../_CLCC_containerLambdaCiCd",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "NWEIPN",
-        "new_variable_prefix": "CSCRAPFG_NWEIPN",
-        "module_name": "NWEIPN",
+        "previous_variable_prefix": "CLCC",
+        "new_variable_prefix": "CSQSNLSM_CLCC",
+        "module_name": "CLCC",
     },
     {
         "paths": {
-            "project_path": "../gcp/cloudSql/_CSDIU_cloudSqlDatabaseInstanceUser",
-            "source_path": "../../gcp/cloudSql/_CSDIU_cloudSqlDatabaseInstanceUser",
+            "project_path": "../aws/sqs/genericQueue",
+            "source_path": "../../aws/sqs/genericQueue",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "CSDIU",
-        "new_variable_prefix": "CSCRAPFG_CSDIU",
-        "module_name": "CSDIU",
+        "previous_variable_prefix": "queue",
+        "new_variable_prefix": "CSQSNLSM_QueueS3",
+        "module_name": "queueS3",
     },
     {
         "paths": {
-            "project_path": "../projects/_CRDPFG_cloudRunDeploymentPushFromGithub",
-            "source_path": "../_CRDPFG_cloudRunDeploymentPushFromGithub",
+            "project_path": "../aws/sqs/genericQueuePolicy",
+            "source_path": "../../aws/sqs/genericQueuePolicy",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "CRDPFG",
-        "new_variable_prefix": "CSCRAPFG_CRDPFG",
-        "module_name": "CRDPFG",
+        "previous_variable_prefix": "queuePolicyS3Access",
+        "new_variable_prefix": "CSQSNLSM_QueuePolicyS3Access",
+        "module_name": "s3Queue",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/s3/genericBucketNotification",
+            "source_path": "../../aws/s3/genericBucketNotification",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "bucketNotification",
+        "new_variable_prefix": "CSQSNLSM_BucketNotificationToQueue",
+        "module_name": "bucketNotificationToQueue",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/lambda/genericLambdaEventSourceMapping",
+            "source_path": "../../aws/lambda/genericLambdaEventSourceMapping",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "eventSourceMapping",
+        "new_variable_prefix": "CSQSNLSM_EventSourceMappingToQueue",
+        "module_name": "eventSourceMappingToQueue",
     },
 ]
 

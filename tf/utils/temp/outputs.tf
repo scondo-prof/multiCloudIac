@@ -1,382 +1,216 @@
-output "CSCRAPFG_NWEIPN_NWSAF_NetworkId" {
-  value = module.NWEIPN.NWEIPN_NWSAF_NetworkId
+output "CSQSNLSM_CLCC_CECC_EcrRepositoryArn" {
+  value = module.CLCC.CLCC_CECC_EcrRepositoryArn
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_NetworkGatewayIpv4" {
-  value = module.NWEIPN.NWEIPN_NWSAF_NetworkGatewayIpv4
+output "CSQSNLSM_CLCC_CECC_EcrRepositoryName" {
+  value = module.CLCC.CLCC_CECC_EcrRepositoryName
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_NetworkNumericId" {
-  value = module.NWEIPN.NWEIPN_NWSAF_NetworkNumericId
-}
-
-output "CSCRAPFG_NWEIPN_NWSAF_NetworkSelfLink" {
-  value = module.NWEIPN.NWEIPN_NWSAF_NetworkSelfLink
-}
-
-output "CSCRAPFG_NWEIPN_NWSAF_NetworkName" {
-  value = module.NWEIPN.NWEIPN_NWSAF_NetworkName
+output "CSQSNLSM_CLCC_CECC_EcrRepositoryUrl" {
+  value = module.CLCC.CLCC_CECC_EcrRepositoryUrl
 }
 
 
-
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkId" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkId
+output "CSQSNLSM_CLCC_CECC_CodebuildProjectArn" {
+  value = module.CLCC.CLCC_CECC_CodebuildProjectArn
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkCreationTimestamp" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkCreationTimestamp
+output "CSQSNLSM_CLCC_CECC_CodebuildProjectBadgeUrl" {
+  value = module.CLCC.CLCC_CECC_CodebuildProjectBadgeUrl
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkGatewayAddress" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkGatewayAddress
-}
-
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkIpv4CidrRange" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkIpv4CidrRange
-}
-
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkIpv6CidrRange" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkIpv6CidrRange
-}
-
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkInternalIpv6Prefix" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkInternalIpv6Prefix
-}
-
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkSelfLink" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkSelfLink
-}
-
-output "CSCRAPFG_NWEIPN_NWSAF_SubnetworkName" {
-  value = module.NWEIPN.NWEIPN_NWSAF_SubnetworkName
+output "CSQSNLSM_CLCC_CECC_CodebuildProjectName" {
+  value = module.CLCC.CLCC_CECC_CodebuildProjectName
 }
 
 
-
-output "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallId" {
-  value = module.NWEIPN.NWEIPN_NWSAF_IngressFirewallId
-}
-
-output "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallCreationTimestamp" {
-  value = module.NWEIPN.NWEIPN_NWSAF_IngressFirewallCreationTimestamp
-}
-
-output "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallSelfLink" {
-  value = module.NWEIPN.NWEIPN_NWSAF_IngressFirewallSelfLink
-}
-
-output "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallName" {
-  value = module.NWEIPN.NWEIPN_NWSAF_IngressFirewallName
+output "CSQSNLSM_CLCC_CECC_CodebuildCredentialsArn" {
+  value = module.CLCC.CLCC_CECC_CodebuildCredentialsArn
 }
 
 
-output "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallId" {
-  value = module.NWEIPN.NWEIPN_NWSAF_EgressFirewallId
+output "CSQSNLSM_CLCC_CECC_CodebuildWebhookPayloadUrl" {
+  value = module.CLCC.CLCC_CECC_CodebuildWebhookPayloadUrl
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallCreationTimestamp" {
-  value = module.NWEIPN.NWEIPN_NWSAF_EgressFirewallCreationTimestamp
+output "CSQSNLSM_CLCC_CECC_CodebuildWebhookUrl" {
+  value = module.CLCC.CLCC_CECC_CodebuildWebhookUrl
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallSelfLink" {
-  value = module.NWEIPN.NWEIPN_NWSAF_EgressFirewallSelfLink
+
+output "CSQSNLSM_CLCC_CECC_CodebuildRoleName" {
+  value = module.CLCC.CLCC_CECC_CodebuildRoleName
 }
 
-output "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallName" {
-  value = module.NWEIPN.NWEIPN_NWSAF_EgressFirewallName
+output "CSQSNLSM_CLCC_CECC_CodebuildRoleArn" {
+  value = module.CLCC.CLCC_CECC_CodebuildRoleArn
+}
+
+
+output "CSQSNLSM_CLCC_CECC_CodebuildRolePolicyArn" {
+  value = module.CLCC.CLCC_CECC_CodebuildRolePolicyArn
+}
+
+output "CSQSNLSM_CLCC_CECC_CodebuildRolePolicyName" {
+  value = module.CLCC.CLCC_CECC_CodebuildRolePolicyName
+}
+
+
+output "CSQSNLSM_CLCC_CECC_CodebuildLogGroupArn" {
+  value = module.CLCC.CLCC_CECC_CodebuildLogGroupArn
+}
+
+output "CSQSNLSM_CLCC_CECC_CodebuildLogGroupName" {
+  value = module.CLCC.CLCC_CECC_CodebuildLogGroupName
+}
+
+
+output "CSQSNLSM_CLCC_CECC_CodebuildRoleEcrPolicyArn" {
+  value = module.CLCC.CLCC_CECC_CodebuildRoleEcrPolicyArn
+}
+
+output "CSQSNLSM_CLCC_CECC_CodebuildRoleEcrPolicyName" {
+  value = module.CLCC.CLCC_CECC_CodebuildRoleEcrPolicyName
 }
 
 
 
 
-output "CSCRAPFG_NWEIPN_NWEA_NetworkAddressId" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkAddressId
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionArn
 }
 
-output "CSCRAPFG_NWEIPN_NWEA_NetworkAddressSelfLink" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkAddressSelfLink
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionInvokeArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionInvokeArn
 }
 
-output "CSCRAPFG_NWEIPN_NWEA_NetworkAddressExternalIp" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkAddressExternalIp
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionName" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionName
 }
 
-
-
-output "CSCRAPFG_NWEIPN_NWEA_NetworkRouterId" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkRouterId
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionSigningJobArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionSigningJobArn
 }
 
-output "CSCRAPFG_NWEIPN_NWEA_NetworkRouterName" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkRouterName
-}
-
-output "CSCRAPFG_NWEIPN_NWEA_NetworkRouterSelfLink" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkRouterSelfLink
-}
-
-output "CSCRAPFG_NWEIPN_NWEA_NetworkRouterCreationTimestamp" {
-  value = module.NWEIPN.NWEIPN_NWEA_NetworkRouterCreationTimestamp
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionQualifiedInvokeArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionQualifiedInvokeArn
 }
 
 
-
-output "CSCRAPFG_NWEIPN_NWEA_NatId" {
-  value = module.NWEIPN.NWEIPN_NWEA_NatId
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionRoleName" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionRoleName
 }
 
-output "CSCRAPFG_NWEIPN_NWEA_NatName" {
-  value = module.NWEIPN.NWEIPN_NWEA_NatName
-}
-
-
-output "CSCRAPFG_NWEIPN_VpcAccessConnectorId" {
-  value = module.NWEIPN.NWEIPN_VpcAccessConnectorId
-}
-
-output "CSCRAPFG_NWEIPN_VpcAccessConnectorState" {
-  value = module.NWEIPN.NWEIPN_VpcAccessConnectorState
-}
-
-output "CSCRAPFG_NWEIPN_VpcAccessConnectorName" {
-  value = module.NWEIPN.NWEIPN_VpcAccessConnectorName
-}
-
-output "CSCRAPFG_NWEIPN_VpcAccessConnectorSelfLink" {
-  value = module.NWEIPN.NWEIPN_VpcAccessConnectorSelfLink
-}
-
-output "CSCRAPFG_NWEIPN_VpcAccessConnectorConnectedProjects" {
-  value = module.NWEIPN.NWEIPN_VpcAccessConnectorConnectedProjects
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionRoleArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaFunctionRoleArn
 }
 
 
-
-
-#---
-output "databaseInstanceSelfLink" {
-  value = module.CSDIU.databaseInstanceSelfLink
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaGenericPolicyArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaGenericPolicyArn
 }
 
-output "CSCRAPFG_CSDIU_DatabaseInstanceConnectionName" {
-  value = module.CSDIU.CSDIU_DatabaseInstanceConnectionName
-}
-
-output "CSCRAPFG_CSDIU_DatabaseInstanceDnsName" {
-  value = module.CSDIU.CSDIU_DatabaseInstanceDnsName
-}
-
-output "CSCRAPFG_CSDIU_DatabaseInstanceServiceAccountEmailAddress" {
-  value = module.CSDIU.CSDIU_DatabaseInstanceServiceAccountEmailAddress
-}
-
-output "CSCRAPFG_CSDIU_DatabaseInstanceFirstIpAddress" {
-  value = module.CSDIU.CSDIU_DatabaseInstanceFirstIpAddress
-}
-
-output "CSCRAPFG_CSDIU_DatabaseInstanceAvailableMaintenanceVersion" {
-  value = module.CSDIU.CSDIU_DatabaseInstanceAvailableMaintenanceVersion
-}
-
-output "CSCRAPFG_CSDIU_DatabaseInstancePublicIp" {
-  value = module.CSDIU.CSDIU_DatabaseInstancePublicIp
-}
-
-output "CSCRAPFG_CSDIU_DatabaseInstancePrivateIpAddress" {
-  value = module.CSDIU.CSDIU_DatabaseInstancePrivateIpAddress
-}
-
-output "CSCRAPFG_CSDIU_DatabaseInstancePscServiceAttachmentLink" {
-  value = module.CSDIU.CSDIU_DatabaseInstancePscServiceAttachmentLink
-}
-
-output "CSCRAPFG_CSDIU_DatabaseInstanceInstanceType" {
-  value = module.CSDIU.CSDIU_DatabaseInstanceInstanceType
-}
-
-output "CSCRAPFG_CSDIU_DatabaseInstanceRootPassword" {
-  value     = module.CSDIU.CSDIU_DatabaseInstanceRootPassword
-  sensitive = true
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaGenericPolicyName" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaGenericPolicyName
 }
 
 
-output "databaseId" {
-  value = module.CSDIU.databaseId
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaSecretArn
 }
 
-output "databaseSelfLink" {
-  value = module.CSDIU.databaseSelfLink
-}
-
-output "CSCRAPFG_CSDIU_DatabaseName" {
-  value = module.CSDIU.CSDIU_DatabaseName
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretName" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaSecretName
 }
 
 
-output "CSCRAPFG_CSDIU_DatabaseUserName" {
-  value = module.CSDIU.CSDIU_DatabaseUserName
-}
-
-output "CSCRAPFG_CSDIU_DatabaseUserPassword" {
-  value     = module.CSDIU.CSDIU_DatabaseUserPassword
-  sensitive = true
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretVersionId" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaSecretVersionId
 }
 
 
-output "CSCRAPFG_CSDIU_SecretId" {
-  value = module.CSDIU.CSDIU_SecretId
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretPolicyArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaSecretPolicyArn
 }
 
-output "CSCRAPFG_CSDIU_SecretName" {
-  value = module.CSDIU.CSDIU_SecretName
-}
-
-output "CSCRAPFG_CSDIU_SecretCreateTime" {
-  value = module.CSDIU.CSDIU_SecretCreateTime
-}
-
-output "CSCRAPFG_CSDIU_SecretTerraformLabels" {
-  value = module.CSDIU.CSDIU_SecretTerraformLabels
-}
-
-output "CSCRAPFG_CSDIU_SecretEffectiveLabels" {
-  value = module.CSDIU.CSDIU_SecretEffectiveLabels
-}
-
-output "CSCRAPFG_CSDIU_SecretEffectiveAnnotations" {
-  value = module.CSDIU.CSDIU_SecretEffectiveAnnotations
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretPolicyName" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaSecretPolicyName
 }
 
 
-output "CSCRAPFG_CSDIU_SecretVersionId" {
-  value = module.CSDIU.CSDIU_SecretVersionId
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaLogGroupArn" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaLogGroupArn
 }
 
-output "CSCRAPFG_CSDIU_SecretVersionName" {
-  value = module.CSDIU.CSDIU_SecretVersionName
+output "CSQSNLSM_CLCC_LFWLGSAR_LambdaLogGroupName" {
+  value = module.CLCC.CLCC_LFWLGSAR_LambdaLogGroupName
 }
 
-output "CSCRAPFG_CSDIU_SecretVersionVersion" {
-  value = module.CSDIU.CSDIU_SecretVersionVersion
+
+
+
+output "CSQSNLSM_CLCC_IamPolicyUpdateLambdaArn" {
+  value = module.CLCC.CLCC_IamPolicyUpdateLambdaArn
 }
 
-output "CSCRAPFG_CSDIU_SecretVersionCreateTime" {
-  value = module.CSDIU.CSDIU_SecretVersionCreateTime
-}
-
-output "CSCRAPFG_CSDIU_SecretVersionDestroyTime" {
-  value = module.CSDIU.CSDIU_SecretVersionDestroyTime
+output "CSQSNLSM_CLCC_IamPolicyUpdateLambdaName" {
+  value = module.CLCC.CLCC_IamPolicyUpdateLambdaName
 }
 
 
 
 #---
-output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretId" {
-  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretId
+output "CSQSNLSM_QueueS3Arn" {
+  value = module.queueS3.queueArn
 }
 
-output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretName" {
-  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretName
+output "CSQSNLSM_QueueS3Id" {
+  value = module.queueS3.queueId
 }
 
-output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretCreateTime" {
-  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretCreateTime
+output "CSQSNLSM_QueueS3Name" {
+  value = module.queueS3.queueName
 }
 
-output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretTerraformLabels" {
-  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretTerraformLabels
+output "CSQSNLSM_QueueS3TagsAll" {
+  value = module.queueS3.queueTagsAll
 }
 
-output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretEffectiveLabels" {
-  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretEffectiveLabels
+output "CSQSNLSM_QueueS3Url" {
+  value = module.queueS3.queueUrl
 }
 
-output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretEffectiveAnnotations" {
-  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretEffectiveAnnotations
+#---
+output "CSQSNLSM_EventSourceMappingToQueueArn" {
+  value = module.eventSourceMappingToQueue.eventSourceMappingArn
 }
 
-
-output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretVersionId" {
-  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretVersionId
+output "CSQSNLSM_EventSourceMappingToQueueFunctionArn" {
+  value = module.eventSourceMappingToQueue.eventSourceMappingFunctionArn
 }
 
-output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretVersionName" {
-  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretVersionName
+output "CSQSNLSM_EventSourceMappingToQueueLastModified" {
+  value = module.eventSourceMappingToQueue.eventSourceMappingLastModified
 }
 
-output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretVersionVersion" {
-  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretVersionVersion
+output "CSQSNLSM_EventSourceMappingToQueueLastProcessingResult" {
+  value = module.eventSourceMappingToQueue.eventSourceMappingLastProcessingResult
 }
 
-output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretVersionCreateTime" {
-  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretVersionCreateTime
+output "CSQSNLSM_EventSourceMappingToQueueState" {
+  value = module.eventSourceMappingToQueue.eventSourceMappingState
 }
 
-output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretVersionDestroyTime" {
-  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretVersionDestroyTime
+output "CSQSNLSM_EventSourceMappingToQueueStateTransitionReason" {
+  value = module.eventSourceMappingToQueue.eventSourceMappingStateTransitionReason
 }
 
-
-
-
-
-output "serviceAccountId" {
-  value = module.CRDPFG.serviceAccountId
+output "CSQSNLSM_EventSourceMappingToQueueTagsAll" {
+  value = module.eventSourceMappingToQueue.eventSourceMappingTagsAll
 }
 
-output "serviceAccountEmail" {
-  value = module.CRDPFG.serviceAccountEmail
+output "CSQSNLSM_EventSourceMappingToQueueUuid" {
+  value = module.eventSourceMappingToQueue.eventSourceMappingUuid
 }
-
-output "serviceAccountDisplayName" {
-  value = module.CRDPFG.serviceAccountDisplayName
-}
-
-output "serviceAccountRoleId" {
-  value = module.CRDPFG.serviceAccountRoleId
-}
-
-output "serviceAccountRoleName" {
-  value = module.CRDPFG.serviceAccountRoleName
-}
-
-output "cloudBuildTriggerId" {
-  value = module.CRDPFG.cloudBuildTriggerId
-}
-
-output "cloudBuildTriggerName" {
-  value = module.CRDPFG.cloudBuildTriggerName
-}
-
-
-output "CSCRAPFG_CRDPFG_CloudRunLogsAlertPolicyId" {
-  value = module.CRDPFG.CRDPFG_CloudRunLogsAlertPolicyId
-}
-
-output "CSCRAPFG_CRDPFG_CloudRunLogsAlertPolicyName" {
-  value = module.CRDPFG.CRDPFG_CloudRunLogsAlertPolicyName
-}
-
-
-output "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyId" {
-  value = module.CRDPFG.CRDPFG_CloudRunMemAlertPolicyId
-}
-
-output "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyName" {
-  value = module.CRDPFG.CRDPFG_CloudRunMemAlertPolicyName
-}
-
-
-output "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyId" {
-  value = module.CRDPFG.CRDPFG_CloudRunCpuAlertPolicyId
-}
-
-output "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyName" {
-  value = module.CRDPFG.CRDPFG_CloudRunCpuAlertPolicyName
-}
-
-
-
 
 #---
