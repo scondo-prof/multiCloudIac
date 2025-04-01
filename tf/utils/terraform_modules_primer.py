@@ -33,9 +33,9 @@ modules = [
             "source_path": "../../aws/sqs/genericQueuePolicy",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "queuePolicyS3Access",
+        "previous_variable_prefix": "queuePolicy",
         "new_variable_prefix": "CSQSNLSM_QueuePolicyS3Access",
-        "module_name": "s3Queue",
+        "module_name": "queuePolicyS3Access",
     },
     {
         "paths": {

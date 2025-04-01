@@ -1260,6 +1260,32 @@ variable "CSQSNLSM_CLCC_IamPolicyUpdateLambdaDocumentStatements" {
 
 
 #---
+variable "awsRegion" {
+  type    = string
+  default = "us-east-1"
+}
+
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = null
+}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_CSQSNLSM_QueueS3#argument-reference
 
@@ -1394,10 +1420,14 @@ variable "CSQSNLSM_QueueS3VisibilityTimeoutSeconds" {
 }
 
 #---
+variable "awsRegion" {
+  type    = string
+  default = "us-east-1"
+}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy#argument-reference
 
-variable "queuePolicyDocumentStatements" {
+variable "CSQSNLSM_QueuePolicyS3AccessDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -1408,11 +1438,15 @@ variable "queuePolicyDocumentStatements" {
   }))
 }
 
-variable "queuePolicyQueueUrl" {
+variable "CSQSNLSM_QueuePolicyS3AccessQueueUrl" {
   type = string
 }
 
 #---
+variable "awsRegion" {
+  type    = string
+  default = "us-east-1"
+}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification#argument-reference
 
@@ -1459,6 +1493,32 @@ variable "CSQSNLSM_BucketNotificationToQueueTopic" { #https://registry.terraform
 }
 
 #---
+variable "awsRegion" {
+  type    = string
+  default = "us-east-1"
+}
+
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#argument-reference
 

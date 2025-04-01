@@ -1343,11 +1343,6 @@ variable "CSQSNLSM_QueueS3Name" {
   default = null
 }
 
-variable "CSQSNLSM_QueueS3NamePrefix" {
-  type    = string
-  default = null
-}
-
 variable "CSQSNLSM_QueueS3PolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
@@ -1397,7 +1392,10 @@ variable "CSQSNLSM_QueueS3VisibilityTimeoutSeconds" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy#argument-reference
 
-variable "queuePolicyDocumentStatements" {
+variable "CSQSNLSM_QueuePolicyS3AccessBucket" {
+  type = string
+}
+variable "CSQSNLSM_QueuePolicyS3AccessDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -1406,10 +1404,7 @@ variable "queuePolicyDocumentStatements" {
     Condition = optional(map(map(string)), {})
     Principal = map(list(string))
   }))
-}
-
-variable "queuePolicyQueueUrl" {
-  type = string
+  default = []
 }
 
 #---
@@ -1420,42 +1415,18 @@ variable "CSQSNLSM_BucketNotificationToQueueBucket" {
   type = string
 }
 
-variable "CSQSNLSM_BucketNotificationToQueueEventbridge" {
-  type    = bool
-  default = null
-}
-
-variable "CSQSNLSM_BucketNotificationToQueueLambdaFunction" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification#lambda_function
-  type = object({
-    events              = list(string)
-    filter_prefix       = optional(string, null)
-    filter_suffix       = optional(string, null)
-    id                  = optional(string, null)
-    lambda_function_arn = string
-  })
-  default = null
+variable "CSQSNLSM_BucketNotificationToQueueEvents" {
+  type    = list(string)
+  default = []
 }
 
 variable "CSQSNLSM_BucketNotificationToQueueQueue" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification#queue
   type = object({
-    events        = list(string)
     filter_prefix = optional(string, null)
     filter_suffix = optional(string, null)
     id            = optional(string, null)
-    queue_arn     = string
   })
-  default = null
-}
-
-variable "CSQSNLSM_BucketNotificationToQueueTopic" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification#topic
-  type = object({
-    events        = list(string)
-    filter_prefix = optional(string, null)
-    filter_suffix = optional(string, null)
-    id            = optional(string, null)
-    topic_arn     = string
-  })
-  default = null
+  default = {}
 }
 
 #---
@@ -1502,11 +1473,6 @@ variable "CSQSNLSM_EventSourceMappingToQueueEnabled" {
   default = null
 }
 
-variable "CSQSNLSM_EventSourceMappingToQueueEventSourceArn" {
-  type    = string
-  default = null
-}
-
 variable "CSQSNLSM_EventSourceMappingToQueueFilterCriteria" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#filter_criteria-configuration-block
   type = object({
     filter = optional(object({
@@ -1514,10 +1480,6 @@ variable "CSQSNLSM_EventSourceMappingToQueueFilterCriteria" { #https://registry.
     }), null)
   })
   default = null
-}
-
-variable "CSQSNLSM_EventSourceMappingToQueueFunctionName" {
-  type = string
 }
 
 variable "CSQSNLSM_EventSourceMappingToQueueFunctionResponseTypes" {

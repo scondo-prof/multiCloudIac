@@ -189,11 +189,11 @@ module "queueS3" {
 
 #---
 
-module "s3Queue" {
+module "queuePolicyS3Access" {
   source                        = "../../aws/sqs/genericQueuePolicy"
   awsRegion                     = var.awsRegion
-  queuePolicyDocumentStatements = var.queuePolicyDocumentStatements
-  queuePolicyQueueUrl           = var.queuePolicyQueueUrl
+  queuePolicyDocumentStatements = var.CSQSNLSM_QueuePolicyS3AccessDocumentStatements
+  queuePolicyQueueUrl           = var.CSQSNLSM_QueuePolicyS3AccessQueueUrl
 }
 
 #---
