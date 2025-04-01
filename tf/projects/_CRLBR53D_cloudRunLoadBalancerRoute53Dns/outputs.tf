@@ -11,7 +11,6 @@ output "CRLBR53D_GlobalAddressSelfLink" {
 }
 
 #---
-
 output "CRLBR53D_Route53DnsARecordFqdn" {
   value = module.route53DnsARecord.recordFqdn
 }
@@ -21,7 +20,6 @@ output "CRLBR53D_Route53DnsARecordName" {
 }
 
 #---
-
 output "CRLBR53D_Route53DnsTxtRecordFqdn" {
   value = module.route53DnsTxtRecord.recordFqdn
 }
@@ -31,13 +29,13 @@ output "CRLBR53D_Route53DnsTxtRecordName" {
 }
 
 #---
+output "CRLBR53D_MscId" {
+  value = module.msc.mscId
+}
+
 
 output "CRLBR53D_MscExpireTime" {
   value = module.msc.mscExpireTime
-}
-
-output "CRLBR53D_MscId" {
-  value = module.msc.mscId
 }
 
 output "CRLBR53D_MscSelfLink" {
@@ -49,7 +47,19 @@ output "CRLBR53D_MscSubjectAlternativeNames" {
 }
 
 #---
+output "CRLBR53D_GlobalAddress" {
+  value = module.globalAddress.globalAddress
+}
 
+output "CRLBR53D_GlobalAddressId" {
+  value = module.globalAddress.globalAddressId
+}
+
+output "CRLBR53D_GlobalAddressSelfLink" {
+  value = module.globalAddress.globalAddressSelfLink
+}
+
+#---
 output "CRLBR53D_RnegId" {
   value = module.rneg.rnegId
 }
@@ -63,13 +73,12 @@ output "CRLBR53D_RnegSelfLink" {
 }
 
 #---
+output "CRLBR53D_BackendServiceId" {
+  value = module.backendService.backendServiceId
+}
 
 output "CRLBR53D_BackendServiceFingerprint" {
   value = module.backendService.backendServiceFingerprint
-}
-
-output "CRLBR53D_BackendServiceId" {
-  value = module.backendService.backendServiceId
 }
 
 output "CRLBR53D_BackendServiceName" {
@@ -80,7 +89,6 @@ output "CRLBR53D_BackendServiceSelfLink" {
 }
 
 #---
-
 output "CRLBR53D_UrlMapFingerprint" {
   value = module.urlMap.urlMapFingerprint
 }
@@ -98,7 +106,6 @@ output "CRLBR53D_UrlMapSelfLink" {
 }
 
 #---
-
 output "CRLBR53D_ThpId" {
   value = module.thp.thpId
 }
@@ -108,7 +115,6 @@ output "CRLBR53D_ThpSelfLink" {
 }
 
 #---
-
 output "CRLBR53D_GfrId" {
   value = module.gfr.gfrId
 }
@@ -124,3 +130,5 @@ output "CRLBR53D_GfrPscConnectionId" {
 output "CRLBR53D_GfrSelfLink" {
   value = module.gfr.gfrSelfLink
 }
+
+#---

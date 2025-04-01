@@ -1,105 +1,134 @@
-output "CRDPRFG_SWSV_SecretId" {
-  value = module.SWSV.SWSV_SecretId
+output "CRLBR53D_GlobalAddress" {
+  value = module.globalAddress.globalAddress
 }
 
-output "CRDPRFG_SWSV_SecretName" {
-  value = module.SWSV.SWSV_SecretName
+output "CRLBR53D_GlobalAddressId" {
+  value = module.globalAddress.globalAddressId
 }
 
-output "CRDPRFG_SWSV_SecretCreateTime" {
-  value = module.SWSV.SWSV_SecretCreateTime
-}
-
-output "CRDPRFG_SWSV_SecretTerraformLabels" {
-  value = module.SWSV.SWSV_SecretTerraformLabels
-}
-
-output "CRDPRFG_SWSV_SecretEffectiveLabels" {
-  value = module.SWSV.SWSV_SecretEffectiveLabels
-}
-
-output "CRDPRFG_SWSV_SecretEffectiveAnnotations" {
-  value = module.SWSV.SWSV_SecretEffectiveAnnotations
-}
-
-
-output "CRDPRFG_SWSV_SecretVersionId" {
-  value = module.SWSV.SWSV_SecretVersionId
-}
-
-output "CRDPRFG_SWSV_SecretVersionName" {
-  value = module.SWSV.SWSV_SecretVersionName
-}
-
-output "CRDPRFG_SWSV_SecretVersionVersion" {
-  value = module.SWSV.SWSV_SecretVersionVersion
-}
-
-output "CRDPRFG_SWSV_SecretVersionCreateTime" {
-  value = module.SWSV.SWSV_SecretVersionCreateTime
-}
-
-output "CRDPRFG_SWSV_SecretVersionDestroyTime" {
-  value = module.SWSV.SWSV_SecretVersionDestroyTime
-}
-
-
-
-
-#---
-output "serviceAccountId" {
-  value = module.cloudBuildTrigger.serviceAccountId
-}
-
-output "serviceAccountEmail" {
-  value = module.cloudBuildTrigger.serviceAccountEmail
-}
-
-output "serviceAccountDisplayName" {
-  value = module.cloudBuildTrigger.serviceAccountDisplayName
-}
-
-output "serviceAccountRoleId" {
-  value = module.cloudBuildTrigger.serviceAccountRoleId
-}
-
-output "serviceAccountRoleName" {
-  value = module.cloudBuildTrigger.serviceAccountRoleName
-}
-
-output "CRDPRFG_CloudBuildTriggerId" {
-  value = module.cloudBuildTrigger.cloudBuildTriggerId
-}
-
-output "CRDPRFG_CloudBuildTriggerName" {
-  value = module.cloudBuildTrigger.cloudBuildTriggerName
+output "CRLBR53D_GlobalAddressSelfLink" {
+  value = module.globalAddress.globalAddressSelfLink
 }
 
 #---
-output "CRDPRFG_AlertPolicyCloudRunAppLogsId" {
-  value = module.alertPolicyCloudRunAppLogs.alertPolicyId
+output "CRLBR53D_Route53DnsARecordFqdn" {
+  value = module.route53DnsARecord.recordFqdn
 }
 
-output "CRDPRFG_AlertPolicyCloudRunAppLogsName" {
-  value = module.alertPolicyCloudRunAppLogs.alertPolicyName
-}
-
-#---
-output "CRDPRFG_AlertPolicyCloudRunAppCpuUsageId" {
-  value = module.alertPolicyCloudRunAppCpuUsage.alertPolicyId
-}
-
-output "CRDPRFG_AlertPolicyCloudRunAppCpuUsageName" {
-  value = module.alertPolicyCloudRunAppCpuUsage.alertPolicyName
+output "CRLBR53D_Route53DnsARecordName" {
+  value = module.route53DnsARecord.recordName
 }
 
 #---
-output "CRDPRFG_AlertPolicyCloudRunAppMemUsageId" {
-  value = module.alertPolicyCloudRunAppMemUsage.alertPolicyId
+output "CRLBR53D_Route53DnsTxtRecordFqdn" {
+  value = module.route53DnsTxtRecord.recordFqdn
 }
 
-output "CRDPRFG_AlertPolicyCloudRunAppMemUsageName" {
-  value = module.alertPolicyCloudRunAppMemUsage.alertPolicyName
+output "CRLBR53D_Route53DnsTxtRecordName" {
+  value = module.route53DnsTxtRecord.recordName
+}
+
+#---
+output "CRLBR53D_MscId" {
+  value = module.msc.mscId
+}
+
+
+output "CRLBR53D_MscExpireTime" {
+  value = module.msc.mscExpireTime
+}
+
+output "CRLBR53D_MscSelfLink" {
+  value = module.msc.mscSelfLink
+}
+
+output "CRLBR53D_MscSubjectAlternativeNames" {
+  value = module.msc.mscSubjectAlternativeNames
+}
+
+#---
+output "CRLBR53D_GlobalAddress" {
+  value = module.globalAddress.globalAddress
+}
+
+output "CRLBR53D_GlobalAddressId" {
+  value = module.globalAddress.globalAddressId
+}
+
+output "CRLBR53D_GlobalAddressSelfLink" {
+  value = module.globalAddress.globalAddressSelfLink
+}
+
+#---
+output "CRLBR53D_RnegId" {
+  value = module.rneg.rnegId
+}
+
+output "CRLBR53D_RnegName" {
+  value = module.rneg.rnegName
+}
+
+output "CRLBR53D_RnegSelfLink" {
+  value = module.rneg.rnegSelfLink
+}
+
+#---
+output "CRLBR53D_BackendServiceId" {
+  value = module.backendService.backendServiceId
+}
+
+output "CRLBR53D_BackendServiceFingerprint" {
+  value = module.backendService.backendServiceFingerprint
+}
+
+output "CRLBR53D_BackendServiceName" {
+  value = module.backendService.backendServiceName
+}
+output "CRLBR53D_BackendServiceSelfLink" {
+  value = module.backendService.backendServiceSelfLink
+}
+
+#---
+output "CRLBR53D_UrlMapFingerprint" {
+  value = module.urlMap.urlMapFingerprint
+}
+
+output "CRLBR53D_UrlMapId" {
+  value = module.urlMap.urlMapId
+}
+
+output "CRLBR53D_UrlMapMapId" {
+  value = module.urlMap.urlMapMapId
+}
+
+output "CRLBR53D_UrlMapSelfLink" {
+  value = module.urlMap.urlMapSelfLink
+}
+
+#---
+output "CRLBR53D_ThpId" {
+  value = module.thp.thpId
+}
+
+output "CRLBR53D_ThpSelfLink" {
+  value = module.thp.thpSelfLink
+}
+
+#---
+output "CRLBR53D_GfrId" {
+  value = module.gfr.gfrId
+}
+
+output "CRLBR53D_GfrLabelFingerprint" {
+  value = module.gfr.gfrLabelFingerprint
+}
+
+output "CRLBR53D_GfrPscConnectionId" {
+  value = module.gfr.gfrPscConnectionId
+}
+
+output "CRLBR53D_GfrSelfLink" {
+  value = module.gfr.gfrSelfLink
 }
 
 #---

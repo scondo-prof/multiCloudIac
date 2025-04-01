@@ -1,107 +1,217 @@
 
-module "SWSV" {
-  source                            = "../../gcp/secretsManager/_SWSV_secretWithSecretVersion"
+module "globalAddress" {
+  source                    = "../../gcp/cloudComputeNetwork/genericGlobalAddress"
+  gcpProjectId              = var.gcpProjectId
+  gcpRegion                 = var.gcpRegion
+  resourceName              = var.resourceName
+  globalAddressAddress      = var.CRLBR53D_GlobalAddressAddress
+  globalAddressDescription  = var.CRLBR53D_GlobalAddressDescription
+  projectName               = var.projectName
+  deployedDate              = var.deployedDate
+  createdBy                 = var.createdBy
+  tfModule                  = var.tfModule
+  additionalTags            = var.additionalTags
+  globalAddressIpVersion    = var.CRLBR53D_GlobalAddressIpVersion
+  globalAddressPrefixLength = var.CRLBR53D_GlobalAddressPrefixLength
+  globalAddressType         = var.CRLBR53D_GlobalAddressType
+  globalAddressPurpose      = var.CRLBR53D_GlobalAddressPurpose
+  globalAddressNetwork      = var.CRLBR53D_GlobalAddressNetwork
+}
+
+#---
+
+module "route53DnsARecord" {
+  source                              = "../../aws/route53/genericRoute53Record"
+  awsRegion                           = var.awsRegion
+  recordZoneId                        = var.CRLBR53D_Route53DnsARecordZoneId
+  recordName                          = var.CRLBR53D_Route53DnsARecordName
+  recordType                          = var.CRLBR53D_Route53DnsARecordType
+  recordTtl                           = var.CRLBR53D_Route53DnsARecordTtl
+  recordRecords                       = var.CRLBR53D_Route53DnsARecordRecords
+  recordSetIdentifier                 = var.CRLBR53D_Route53DnsARecordSetIdentifier
+  recordHealthCheckId                 = var.CRLBR53D_Route53DnsARecordHealthCheckId
+  recordAlias                         = var.CRLBR53D_Route53DnsARecordAlias
+  recordCidrRoutingPolicy             = var.CRLBR53D_Route53DnsARecordCidrRoutingPolicy
+  recordFailoverRoutingPolicy         = var.CRLBR53D_Route53DnsARecordFailoverRoutingPolicy
+  recordGeolocationRoutingPolicy      = var.CRLBR53D_Route53DnsARecordGeolocationRoutingPolicy
+  recordGeoproximityRoutingPolicy     = var.CRLBR53D_Route53DnsARecordGeoproximityRoutingPolicy
+  recordLatencyRoutingPolicy          = var.CRLBR53D_Route53DnsARecordLatencyRoutingPolicy
+  recordMultivalueAnswerRoutingPolicy = var.CRLBR53D_Route53DnsARecordMultivalueAnswerRoutingPolicy
+  recordWeightedRoutingPolicy         = var.CRLBR53D_Route53DnsARecordWeightedRoutingPolicy
+  recordAllowOverwrite                = var.CRLBR53D_Route53DnsARecordAllowOverwrite
+}
+
+#---
+
+module "route53DnsTxtRecord" {
+  source                              = "../../aws/route53/genericRoute53Record"
+  awsRegion                           = var.awsRegion
+  recordZoneId                        = var.CRLBR53D_Route53DnsTxtRecordZoneId
+  recordName                          = var.CRLBR53D_Route53DnsTxtRecordName
+  recordType                          = var.CRLBR53D_Route53DnsTxtRecordType
+  recordTtl                           = var.CRLBR53D_Route53DnsTxtRecordTtl
+  recordRecords                       = var.CRLBR53D_Route53DnsTxtRecordRecords
+  recordSetIdentifier                 = var.CRLBR53D_Route53DnsTxtRecordSetIdentifier
+  recordHealthCheckId                 = var.CRLBR53D_Route53DnsTxtRecordHealthCheckId
+  recordAlias                         = var.CRLBR53D_Route53DnsTxtRecordAlias
+  recordCidrRoutingPolicy             = var.CRLBR53D_Route53DnsTxtRecordCidrRoutingPolicy
+  recordFailoverRoutingPolicy         = var.CRLBR53D_Route53DnsTxtRecordFailoverRoutingPolicy
+  recordGeolocationRoutingPolicy      = var.CRLBR53D_Route53DnsTxtRecordGeolocationRoutingPolicy
+  recordGeoproximityRoutingPolicy     = var.CRLBR53D_Route53DnsTxtRecordGeoproximityRoutingPolicy
+  recordLatencyRoutingPolicy          = var.CRLBR53D_Route53DnsTxtRecordLatencyRoutingPolicy
+  recordMultivalueAnswerRoutingPolicy = var.CRLBR53D_Route53DnsTxtRecordMultivalueAnswerRoutingPolicy
+  recordWeightedRoutingPolicy         = var.CRLBR53D_Route53DnsTxtRecordWeightedRoutingPolicy
+  recordAllowOverwrite                = var.CRLBR53D_Route53DnsTxtRecordAllowOverwrite
+}
+
+#---
+
+module "msc" {
+  source         = "../../gcp/cloudComputeNetwork/genericManagedSslCertificate"
+  gcpProjectId   = var.gcpProjectId
+  gcpRegion      = var.gcpRegion
+  mscDescription = var.CRLBR53D_MscDescription
+  resourceName   = var.resourceName
+  mscManaged     = var.CRLBR53D_MscManaged
+  mscType        = var.CRLBR53D_MscType
+}
+
+#---
+
+module "globalAddress" {
+  source                    = "../../gcp/cloudComputeNetwork/genericGlobalAddress"
+  gcpProjectId              = var.gcpProjectId
+  gcpRegion                 = var.gcpRegion
+  resourceName              = var.resourceName
+  globalAddressAddress      = var.CRLBR53D_GlobalAddressAddress
+  globalAddressDescription  = var.CRLBR53D_GlobalAddressDescription
+  projectName               = var.projectName
+  deployedDate              = var.deployedDate
+  createdBy                 = var.createdBy
+  tfModule                  = var.tfModule
+  additionalTags            = var.additionalTags
+  globalAddressIpVersion    = var.CRLBR53D_GlobalAddressIpVersion
+  globalAddressPrefixLength = var.CRLBR53D_GlobalAddressPrefixLength
+  globalAddressType         = var.CRLBR53D_GlobalAddressType
+  globalAddressPurpose      = var.CRLBR53D_GlobalAddressPurpose
+  globalAddressNetwork      = var.CRLBR53D_GlobalAddressNetwork
+}
+
+#---
+
+module "rneg" {
+  source                  = "../../gcp/cloudComputeNetwork/genericRegionNetworkEndpointGroup"
+  gcpProjectId            = var.gcpProjectId
+  gcpRegion               = var.gcpRegion
+  resourceName            = var.resourceName
+  rnegDescription         = var.CRLBR53D_RnegDescription
+  rnegNetworkEndpointType = var.CRLBR53D_RnegNetworkEndpointType
+  rnegPscTargetService    = var.CRLBR53D_RnegPscTargetService
+  rnegNetwork             = var.CRLBR53D_RnegNetwork
+  rnegSubnetwork          = var.CRLBR53D_RnegSubnetwork
+  rnegCloudRun            = var.CRLBR53D_RnegCloudRun
+  rnegAppEngine           = var.CRLBR53D_RnegAppEngine
+  rnegCloudFunction       = var.CRLBR53D_RnegCloudFunction
+}
+
+#---
+
+module "backendService" {
+  source                                     = "../../gcp/cloudComputeNetwork/genericBackendService"
+  gcpProjectId                               = var.gcpProjectId
+  gcpRegion                                  = var.gcpRegion
+  resourceName                               = var.resourceName
+  backendServiceAffinityCookieTtlSec         = var.CRLBR53D_BackendServiceAffinityCookieTtlSec
+  backendServiceBackend                      = var.CRLBR53D_BackendServiceBackend
+  backendServiceCircuitBreakers              = var.CRLBR53D_BackendServiceCircuitBreakers
+  backendServiceCompressionMode              = var.CRLBR53D_BackendServiceCompressionMode
+  backendServiceConsistentHash               = var.CRLBR53D_BackendServiceConsistentHash
+  backendServiceCdnPolicy                    = var.CRLBR53D_BackendServiceCdnPolicy
+  backendServiceConnectionDrainingTimeoutSec = var.CRLBR53D_BackendServiceConnectionDrainingTimeoutSec
+  backendServiceCustomRequestHeaders         = var.CRLBR53D_BackendServiceCustomRequestHeaders
+  backendServiceCustomResponseHeaders        = var.CRLBR53D_BackendServiceCustomResponseHeaders
+  backendServiceDescription                  = var.CRLBR53D_BackendServiceDescription
+  backendServiceEnableCdn                    = var.CRLBR53D_BackendServiceEnableCdn
+  backendServiceHealthChecks                 = var.CRLBR53D_BackendServiceHealthChecks
+  backendServiceIap                          = var.CRLBR53D_BackendServiceIap
+  backendServiceLoadBalancingScheme          = var.CRLBR53D_BackendServiceLoadBalancingScheme
+  backendServicelocalityLbPolicy             = var.CRLBR53D_BackendServicelocalityLbPolicy
+  backendServiceLocalityLbPolicies           = var.CRLBR53D_BackendServiceLocalityLbPolicies
+  backendServiceOutlierDetection             = var.CRLBR53D_BackendServiceOutlierDetection
+  backendServicePortName                     = var.CRLBR53D_BackendServicePortName
+  backendServiceProtocol                     = var.CRLBR53D_BackendServiceProtocol
+  backendServiceSecurityPolicy               = var.CRLBR53D_BackendServiceSecurityPolicy
+  backendServiceEdgeSecurityPolicy           = var.CRLBR53D_BackendServiceEdgeSecurityPolicy
+  backendServiceSecuritySettings             = var.CRLBR53D_BackendServiceSecuritySettings
+  backendServiceSessionAffinity              = var.CRLBR53D_BackendServiceSessionAffinity
+  backendServiceStrongSessionAffinityCookie  = var.CRLBR53D_BackendServiceStrongSessionAffinityCookie
+  backendServiceTimeoutSec                   = var.CRLBR53D_BackendServiceTimeoutSec
+  backendServiceLogConfig                    = var.CRLBR53D_BackendServiceLogConfig
+  backendServiceServiceLbPolicy              = var.CRLBR53D_BackendServiceServiceLbPolicy
+}
+
+#---
+
+module "urlMap" {
+  source                   = "../../gcp/cloudComputeNetwork/genericUrlMap"
+  gcpProjectId             = var.gcpProjectId
+  gcpRegion                = var.gcpRegion
+  resourceName             = var.resourceName
+  urlMapDefaultService     = var.CRLBR53D_UrlMapDefaultService
+  urlMapDescription        = var.CRLBR53D_UrlMapDescription
+  urlMapHeaderAction       = var.CRLBR53D_UrlMapHeaderAction
+  urlMapHostRule           = var.CRLBR53D_UrlMapHostRule
+  urlMapPathMatcher        = var.CRLBR53D_UrlMapPathMatcher
+  urlMapTest               = var.CRLBR53D_UrlMapTest
+  urlMapDefaultUrlRedirect = var.CRLBR53D_UrlMapDefaultUrlRedirect
+  urlMapDefaultRouteAction = var.CRLBR53D_UrlMapDefaultRouteAction
+}
+
+#---
+
+module "thp" {
+  source                            = "../../gcp/cloudComputeNetwork/genericTargetHttpsProxy"
   gcpProjectId                      = var.gcpProjectId
   gcpRegion                         = var.gcpRegion
-  SWSV_SecretReplicationAuto        = var.CRDPRFG_SWSV_SecretReplicationAuto
-  SWSV_SecretReplicationUserManaged = var.CRDPRFG_SWSV_SecretReplicationUserManaged
   resourceName                      = var.resourceName
-  projectName                       = var.projectName
-  deployedDate                      = var.deployedDate
-  createdBy                         = var.createdBy
-  tfModule                          = var.tfModule
-  additionalTags                    = var.additionalTags
-  SWSV_SecretAnnotations            = var.CRDPRFG_SWSV_SecretAnnotations
-  SWSV_SecretVersionAliases         = var.CRDPRFG_SWSV_SecretVersionAliases
-  SWSV_SecretVersionDestroyTtl      = var.CRDPRFG_SWSV_SecretVersionDestroyTtl
-  SWSV_SecretTopics                 = var.CRDPRFG_SWSV_SecretTopics
-  SWSV_SecretExpireTime             = var.CRDPRFG_SWSV_SecretExpireTime
-  SWSV_SecretTtl                    = var.CRDPRFG_SWSV_SecretTtl
-  SWSV_SecretRotation               = var.CRDPRFG_SWSV_SecretRotation
-  SWSV_SecretVersionObjects         = var.CRDPRFG_SWSV_SecretVersionObjects
+  thpUrlMap                         = var.CRLBR53D_ThpUrlMap
+  thpDescription                    = var.CRLBR53D_ThpDescription
+  thpQuicOverride                   = var.CRLBR53D_ThpQuicOverride
+  thpTlsEarlyData                   = var.CRLBR53D_ThpTlsEarlyData
+  thpCertificateManagerCertificates = var.CRLBR53D_ThpCertificateManagerCertificates
+  thpSslCertificates                = var.CRLBR53D_ThpSslCertificates
+  thpCertificateMap                 = var.CRLBR53D_ThpCertificateMap
+  thpSslPolicy                      = var.CRLBR53D_ThpSslPolicy
+  thpProxyBind                      = var.CRLBR53D_ThpProxyBind
+  thpHttpKeepAliveTimeoutSec        = var.CRLBR53D_ThpHttpKeepAliveTimeoutSec
+  thpServerTlsPolicy                = var.CRLBR53D_ThpServerTlsPolicy
 }
 
 #---
 
-module "cloudBuildTrigger" {
-  source                                                   = "../../gcp/cloudBuild/githubRepoPullRequestCloudbuildTrigger"
-  gcpProjectId                                             = var.gcpProjectId
-  gcpRegion                                                = var.gcpRegion
-  resourceName                                             = var.resourceName
-  cloudBuildTriggerServiceAccountAccountId                 = var.CRDPRFG_CloudBuildTriggerServiceAccountAccountId
-  cloudBuildTriggerServiceAccountDisabled                  = var.CRDPRFG_CloudBuildTriggerServiceAccountDisabled
-  cloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists = var.CRDPRFG_CloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists
-  cloudBuildTriggerServiceAccountRoleId                    = var.CRDPRFG_CloudBuildTriggerServiceAccountRoleId
-  cloudBuildTriggerServiceAccountRoleStage                 = var.CRDPRFG_CloudBuildTriggerServiceAccountRoleStage
-  cloudBuildTriggerYamlPath                                = var.CRDPRFG_CloudBuildTriggerYamlPath
-  cloudBuildTriggerGithubRepoName                          = var.CRDPRFG_CloudBuildTriggerGithubRepoName
-  cloudBuildTriggerBranchName                              = var.CRDPRFG_CloudBuildTriggerBranchName
-  cloudBuildTriggerArtifactRepoName                        = var.CRDPRFG_CloudBuildTriggerArtifactRepoName
-  cloudBuildTriggerBucketName                              = var.CRDPRFG_CloudBuildTriggerBucketName
-  cloudBuildTriggerAdditionalSubstitutions                 = var.CRDPRFG_CloudBuildTriggerAdditionalSubstitutions
-}
-
-#---
-
-module "alertPolicyCloudRunAppLogs" {
-  source                          = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
-  gcpProjectId                    = var.gcpProjectId
-  gcpRegion                       = var.gcpRegion
-  resourceName                    = var.resourceName
-  alertPolicyCombiner             = var.CRDPRFG_AlertPolicyCloudRunAppLogsCombiner
-  alertPolicyConditions           = var.CRDPRFG_AlertPolicyCloudRunAppLogsConditions
-  alertPolicyEnabled              = var.CRDPRFG_AlertPolicyCloudRunAppLogsEnabled
-  alertPolicyNotificationChannels = var.CRDPRFG_AlertPolicyCloudRunAppLogsNotificationChannels
-  alertPolicyAlertStrategy        = var.CRDPRFG_AlertPolicyCloudRunAppLogsAlertStrategy
-  projectName                     = var.projectName
-  deployedDate                    = var.deployedDate
-  createdBy                       = var.createdBy
-  tfModule                        = var.tfModule
-  additionalTags                  = var.additionalTags
-  alertPolicySeverity             = var.CRDPRFG_AlertPolicyCloudRunAppLogsSeverity
-  alertPolicyDocumentation        = var.CRDPRFG_AlertPolicyCloudRunAppLogsDocumentation
-}
-
-#---
-
-module "alertPolicyCloudRunAppCpuUsage" {
-  source                          = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
-  gcpProjectId                    = var.gcpProjectId
-  gcpRegion                       = var.gcpRegion
-  resourceName                    = var.resourceName
-  alertPolicyCombiner             = var.CRDPRFG_AlertPolicyCloudRunAppCpuUsageCombiner
-  alertPolicyConditions           = var.CRDPRFG_AlertPolicyCloudRunAppCpuUsageConditions
-  alertPolicyEnabled              = var.CRDPRFG_AlertPolicyCloudRunAppCpuUsageEnabled
-  alertPolicyNotificationChannels = var.CRDPRFG_AlertPolicyCloudRunAppCpuUsageNotificationChannels
-  alertPolicyAlertStrategy        = var.CRDPRFG_AlertPolicyCloudRunAppCpuUsageAlertStrategy
-  projectName                     = var.projectName
-  deployedDate                    = var.deployedDate
-  createdBy                       = var.createdBy
-  tfModule                        = var.tfModule
-  additionalTags                  = var.additionalTags
-  alertPolicySeverity             = var.CRDPRFG_AlertPolicyCloudRunAppCpuUsageSeverity
-  alertPolicyDocumentation        = var.CRDPRFG_AlertPolicyCloudRunAppCpuUsageDocumentation
-}
-
-#---
-
-module "alertPolicyCloudRunAppMemUsage" {
-  source                          = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
-  gcpProjectId                    = var.gcpProjectId
-  gcpRegion                       = var.gcpRegion
-  resourceName                    = var.resourceName
-  alertPolicyCombiner             = var.CRDPRFG_AlertPolicyCloudRunAppMemUsageCombiner
-  alertPolicyConditions           = var.CRDPRFG_AlertPolicyCloudRunAppMemUsageConditions
-  alertPolicyEnabled              = var.CRDPRFG_AlertPolicyCloudRunAppMemUsageEnabled
-  alertPolicyNotificationChannels = var.CRDPRFG_AlertPolicyCloudRunAppMemUsageNotificationChannels
-  alertPolicyAlertStrategy        = var.CRDPRFG_AlertPolicyCloudRunAppMemUsageAlertStrategy
-  projectName                     = var.projectName
-  deployedDate                    = var.deployedDate
-  createdBy                       = var.createdBy
-  tfModule                        = var.tfModule
-  additionalTags                  = var.additionalTags
-  alertPolicySeverity             = var.CRDPRFG_AlertPolicyCloudRunAppMemUsageSeverity
-  alertPolicyDocumentation        = var.CRDPRFG_AlertPolicyCloudRunAppMemUsageDocumentation
+module "gfr" {
+  source                           = "../../gcp/cloudComputeNetwork/genericGlobalForwardingRule"
+  gcpProjectId                     = var.gcpProjectId
+  gcpRegion                        = var.gcpRegion
+  resourceName                     = var.resourceName
+  gfrTarget                        = var.CRLBR53D_GfrTarget
+  gfrDescription                   = var.CRLBR53D_GfrDescription
+  gfrIpAddress                     = var.CRLBR53D_GfrIpAddress
+  gfrIpProtocol                    = var.CRLBR53D_GfrIpProtocol
+  gfrIpVersion                     = var.CRLBR53D_GfrIpVersion
+  projectName                      = var.projectName
+  deployedDate                     = var.deployedDate
+  createdBy                        = var.createdBy
+  tfModule                         = var.tfModule
+  additionalTags                   = var.additionalTags
+  gfrLoadBalancingScheme           = var.CRLBR53D_GfrLoadBalancingScheme
+  gfrMetadataFilters               = var.CRLBR53D_GfrMetadataFilters
+  gfrNetwork                       = var.CRLBR53D_GfrNetwork
+  gfrPortRange                     = var.CRLBR53D_GfrPortRange
+  gfrSubnetwork                    = var.CRLBR53D_GfrSubnetwork
+  gfrServiceDirectoryRegistrations = var.CRLBR53D_GfrServiceDirectoryRegistrations
+  gfrSourceIpRanges                = var.CRLBR53D_GfrSourceIpRanges
+  gfrNoAutomateDnsZone             = var.CRLBR53D_GfrNoAutomateDnsZone
 }
 
 #---
