@@ -35,6 +35,7 @@ variable "cloudBuildTriggerServiceAccountRoleStage" {
 
 variable "cloudBuildTriggerYamlPath" {
   type = string
+  default = "buildspec.yaml"
 }
 
 variable "cloudBuildTriggerGithubRepoName" {
@@ -43,6 +44,7 @@ variable "cloudBuildTriggerGithubRepoName" {
 
 variable "cloudBuildTriggerBranchName" {
   type = string
+  default = "main"
 }
 
 variable "cloudBuildTriggerArtifactRepoName" {

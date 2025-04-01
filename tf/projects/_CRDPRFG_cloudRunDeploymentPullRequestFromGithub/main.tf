@@ -27,8 +27,8 @@ module "cloudBuildTrigger" {
   source                                                   = "../../gcp/cloudBuild/githubRepoPullRequestCloudbuildTrigger"
   gcpProjectId                                             = var.gcpProjectId
   gcpRegion                                                = var.gcpRegion
-  resourceName                                             = "${var.resourceName}-dev"
-  cloudBuildTriggerServiceAccountAccountId                 = var.CRDPRFG_CloudBuildTriggerServiceAccountAccountId
+  resourceName                                             = var.resourceName
+  cloudBuildTriggerServiceAccountAccountId                 = "${var.resourceName}-dev"
   cloudBuildTriggerServiceAccountDisabled                  = var.CRDPRFG_CloudBuildTriggerServiceAccountDisabled
   cloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists = var.CRDPRFG_CloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists
   cloudBuildTriggerServiceAccountRoleId                    = var.CRDPRFG_CloudBuildTriggerServiceAccountRoleId
@@ -38,30 +38,30 @@ module "cloudBuildTrigger" {
   cloudBuildTriggerBranchName                              = var.CRDPRFG_CloudBuildTriggerBranchName
   cloudBuildTriggerArtifactRepoName                        = var.CRDPRFG_CloudBuildTriggerArtifactRepoName
   cloudBuildTriggerBucketName                              = var.CRDPRFG_CloudBuildTriggerBucketName
-  cloudBuildTriggerAdditionalSubstitutions                 = merge({
+  cloudBuildTriggerAdditionalSubstitutions = merge({
     _CONCURRENT_REQUESTS = var.CRDPRFG_CloudRunConcurrentRequests
-    _REQUESTS_TIMEOUT = "${var.CRDPRFG_CloudRunRequestsTimeout}s"
-    _PORT_NUMBER = var.CRDPRFG_CloudRunPortNumber
-    _MIN_INSTANCES = var.CRDPRFG_CloudRunMinInstances
-    _MAX_INSTANCES = var.CRDPRFG_CloudRunMaxInstances
-    _VPC_CONNECTOR     = var.CRDPRFG_CloudRunVpcConnector
-    _G_UNICORN_WORKERS = var.CRDPRFG_CloudRunNumberOfVcpus * 2 + 1
-    _G_UNICORN_TIMEOUT = var.CRDPRFG_CloudRunRequestsTimeout
-    _AMOUNT_OF_MEMORY = "${var.CRDPRFG_CloudRunAmountOfMemory}Gi"
-    _NUMBER_OF_VCPU = var.CRDPRFG_CloudRunNumberOfVcpus
-    _ENV_VARIABLE_NAME = var.CRDPRFG_CloudRunEnvVariableName
-    _SECRET_NAME       = module.secretWithSecretVersion.secretName
+    _REQUESTS_TIMEOUT    = "${var.CRDPRFG_CloudRunRequestsTimeout}s"
+    _PORT_NUMBER         = var.CRDPRFG_CloudRunPortNumber
+    _MIN_INSTANCES       = var.CRDPRFG_CloudRunMinInstances
+    _MAX_INSTANCES       = var.CRDPRFG_CloudRunMaxInstances
+    _VPC_CONNECTOR       = var.CRDPRFG_CloudRunVpcConnector
+    _G_UNICORN_WORKERS   = var.CRDPRFG_CloudRunNumberOfVcpus * 2 + 1
+    _G_UNICORN_TIMEOUT   = var.CRDPRFG_CloudRunRequestsTimeout
+    _AMOUNT_OF_MEMORY    = "${var.CRDPRFG_CloudRunAmountOfMemory}Gi"
+    _NUMBER_OF_VCPU      = var.CRDPRFG_CloudRunNumberOfVcpus
+    _ENV_VARIABLE_NAME   = var.CRDPRFG_CloudRunEnvVariableName
+    _SECRET_NAME         = module.SWSV.SWSV_SecretName
   }, var.CRDPRFG_CloudBuildTriggerAdditionalSubstitutions)
 }
 
 #---
 
 module "alertPolicyCloudRunAppLogs" {
-  source                          = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
-  gcpProjectId                    = var.gcpProjectId
-  gcpRegion                       = var.gcpRegion
-  resourceName                    = var.resourceName
-  alertPolicyCombiner             = "OR"
+  source              = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
+  gcpProjectId        = var.gcpProjectId
+  gcpRegion           = var.gcpRegion
+  resourceName        = var.resourceName
+  alertPolicyCombiner = "OR"
   alertPolicyConditions = {
     condition_matched_log = {
       filter = "resource.type=\"cloud_run_revision\"\nseverity=ERROR\nresource.labels.service_name=\"${var.resourceName}\""
@@ -72,7 +72,7 @@ module "alertPolicyCloudRunAppLogs" {
     display_name = "${var.resourceName} - Cloud Run Logs Alert Policy"
   }
   alertPolicyEnabled              = var.CRDPRFG_AlertPolicyCloudRunAppLogsEnabled
-  alertPolicyNotificationChannels = var.CRDPRFG_AlertPolicyCloudRunAppLogsNotificationChannels
+  alertPolicyNotificationChannels = var.CRDPRFG_AlertPolicyNotificationChannels
   alertPolicyAlertStrategy        = var.CRDPRFG_AlertPolicyCloudRunAppLogsAlertStrategy
   projectName                     = var.projectName
   deployedDate                    = var.deployedDate
@@ -86,12 +86,12 @@ module "alertPolicyCloudRunAppLogs" {
 #---
 
 module "alertPolicyCloudRunAppCpuUsage" {
-  source                          = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
-  gcpProjectId                    = var.gcpProjectId
-  gcpRegion                       = var.gcpRegion
-  resourceName                    = var.resourceName
-  alertPolicyCombiner             = var.CRDPRFG_AlertPolicyCloudRunAppCpuUsageCombiner
-  alertPolicyConditions           = {
+  source              = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
+  gcpProjectId        = var.gcpProjectId
+  gcpRegion           = var.gcpRegion
+  resourceName        = var.resourceName
+  alertPolicyCombiner = "OR"
+  alertPolicyConditions = {
     condition_monitoring_query_language = {
       duration = "300s"
       trigger = {
@@ -108,9 +108,9 @@ fetch cloud_run_revision
 EOT
     }
     display_name = "${var.resourceName} - High Cpu Utilization in Cloud Run Service"
-  }#var.CRDPRFG_AlertPolicyCloudRunAppCpuUsageConditions
+  }
   alertPolicyEnabled              = var.CRDPRFG_AlertPolicyCloudRunAppCpuUsageEnabled
-  alertPolicyNotificationChannels = var.CRDPRFG_AlertPolicyCloudRunAppCpuUsageNotificationChannels
+  alertPolicyNotificationChannels = var.CRDPRFG_AlertPolicyNotificationChannels
   alertPolicyAlertStrategy        = var.CRDPRFG_AlertPolicyCloudRunAppCpuUsageAlertStrategy
   projectName                     = var.projectName
   deployedDate                    = var.deployedDate
@@ -124,12 +124,12 @@ EOT
 #---
 
 module "alertPolicyCloudRunAppMemUsage" {
-  source                          = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
-  gcpProjectId                    = var.gcpProjectId
-  gcpRegion                       = var.gcpRegion
-  resourceName                    = var.resourceName
-  alertPolicyCombiner             = var.CRDPRFG_AlertPolicyCloudRunAppMemUsageCombiner
-  alertPolicyConditions           = {
+  source              = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
+  gcpProjectId        = var.gcpProjectId
+  gcpRegion           = var.gcpRegion
+  resourceName        = var.resourceName
+  alertPolicyCombiner = "OR"
+  alertPolicyConditions = {
     condition_monitoring_query_language = {
       duration = "300s"
       trigger = {
@@ -146,9 +146,9 @@ fetch cloud_run_revision
 EOT
     }
     display_name = "${var.resourceName} - High Mem Utilization in Cloud Run Service"
-  }#var.CRDPRFG_AlertPolicyCloudRunAppMemUsageConditions
+  }
   alertPolicyEnabled              = var.CRDPRFG_AlertPolicyCloudRunAppMemUsageEnabled
-  alertPolicyNotificationChannels = var.CRDPRFG_AlertPolicyCloudRunAppMemUsageNotificationChannels
+  alertPolicyNotificationChannels = var.CRDPRFG_AlertPolicyNotificationChannels
   alertPolicyAlertStrategy        = var.CRDPRFG_AlertPolicyCloudRunAppMemUsageAlertStrategy
   projectName                     = var.projectName
   deployedDate                    = var.deployedDate
@@ -158,83 +158,3 @@ EOT
   alertPolicySeverity             = var.CRDPRFG_AlertPolicyCloudRunAppMemUsageSeverity
   alertPolicyDocumentation        = var.CRDPRFG_AlertPolicyCloudRunAppMemUsageDocumentation
 }
-
-#---
-
-# module "cloudRunAlertPolicy" {
-#   source = "../../gcp/cloudMonitoring/cloudRunError"
-
-#   resourceName                             = var.resourceName
-#   projectId                                = var.gcpProjectId
-#   cloudRunAlertPolicyNotificationChannelId = var.CRDPRFG_CloudRunAlertPolicyNotificationChannelId
-#   cloudRunAlertPolicyNotificationRateLimit = var.CRDPRFG_CloudRunAlertPolicyNotificationRateLimit
-#   cloudRunAlertPolicyAutoClose             = var.CRDPRFG_CloudRunAlertPolicyAutoClose
-# }
-
-# module "cloudRunMemAlertPolicy" {
-#   source = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
-
-#   gcpProjectId        = var.gcpProjectId
-#   gcpRegion           = var.gcpRegion
-#   resourceName        = "${var.resourceName}-cloud-run-mem"
-#   alertPolicyCombiner = "OR"
-#   alertPolicyConditions = {
-#     condition_monitoring_query_language = {
-#       duration = "300s"
-#       trigger = {
-#         percent = var.CRDPRFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent
-#       }
-#       query = <<EOT
-# fetch cloud_run_revision
-# | metric 'run.googleapis.com/container/memory/utilizations'
-# | filter (resource.service_name == '${var.resourceName}')
-# | group_by 5m,
-#     [value_utilizations_percentile: percentile(value.utilizations, 99)]
-# | every 5m
-# | condition val() > .${var.CRDPRFG_CloudRunMemAlertPolicyMemoryThresholdPercent}
-# EOT
-#     }
-#     display_name = "${var.resourceName} - High Mem Utilization in Cloud Run Service"
-#   }
-#   alertPolicyEnabled              = true
-#   alertPolicyNotificationChannels = var.CRDPRFG_CloudRunInfraAlertPolicyNotificationChannels
-#   createdBy                       = var.createdBy
-#   deployedDate                    = var.deployedDate
-#   projectName                     = var.projectName
-#   additionalAlertPolicyUserLabels = var.additionalLabels
-#   alertPolicySeverity             = "WARNING"
-# }
-
-# module "cloudRunCpuAlertPolicy" {
-#   source = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
-
-#   gcpProjectId        = var.gcpProjectId
-#   gcpRegion           = var.gcpRegion
-#   resourceName        = "${var.resourceName}-cloud-run-cpu"
-#   alertPolicyCombiner = "OR"
-#   alertPolicyConditions = {
-#     condition_monitoring_query_language = {
-#       duration = "300s"
-#       trigger = {
-#         percent = var.CRDPRFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent
-#       }
-#       query = <<EOT
-# fetch cloud_run_revision
-# | metric 'run.googleapis.com/container/memory/utilizations'
-# | filter (resource.service_name == '${var.resourceName}')
-# | group_by 5m,
-#     [value_utilizations_percentile: percentile(value.utilizations, 99)]
-# | every 5m
-# | condition val() > .${var.CRDPRFG_CloudRunCpuAlertPolicyCpuThresholdPercent}
-# EOT
-#     }
-#     display_name = "${var.resourceName} - High Cpu Utilization in Cloud Run Service"
-#   }
-#   alertPolicyEnabled              = true
-#   alertPolicyNotificationChannels = var.CRDPRFG_CloudRunInfraAlertPolicyNotificationChannels
-#   createdBy                       = var.createdBy
-#   deployedDate                    = var.deployedDate
-#   projectName                     = var.projectName
-#   additionalAlertPolicyUserLabels = var.additionalLabels
-#   alertPolicySeverity             = "WARNING"
-# }
