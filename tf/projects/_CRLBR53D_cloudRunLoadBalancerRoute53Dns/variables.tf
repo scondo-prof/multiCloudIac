@@ -109,28 +109,6 @@ variable "CRLBR53D_Route53DnsRecordsName" {
   type = string
 }
 
-variable "CRLBR53D_Route53DnsARecordType" {
-  type = string
-  validation {
-    condition = contains([
-      "A",
-      "AAAA",
-      "CAA",
-      "CNAME",
-      "DS",
-      "MX",
-      "NAPTR",
-      "NS",
-      "PTR",
-      "SOA",
-      "SPF",
-      "SRV",
-      "TXT"
-    ], var.CRLBR53D_Route53DnsARecordType)
-    error_message = "Valid inputs for | variable: CRLBR53D_Route53DnsARecordType | are: A, AAAA, CAA, CNAME, DS, MX, NAPTR, NS, PTR, SOA, SPF, SRV TXT"
-  }
-}
-
 variable "CRLBR53D_Route53DnsARecordTtl" {
   type    = number
   default = null
