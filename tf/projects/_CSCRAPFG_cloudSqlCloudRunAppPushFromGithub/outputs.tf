@@ -196,7 +196,7 @@ output "CSCRAPFG_CSDIU_DatabaseInstanceInstanceType" {
 }
 
 output "CSCRAPFG_CSDIU_DatabaseInstanceRootPassword" {
-  value = module.CSDIU.CSDIU_DatabaseInstanceRootPassword
+  value     = module.CSDIU.CSDIU_DatabaseInstanceRootPassword
   sensitive = true
 }
 
@@ -219,7 +219,7 @@ output "CSCRAPFG_CSDIU_DatabaseUserName" {
 }
 
 output "CSCRAPFG_CSDIU_DatabaseUserPassword" {
-  value = module.CSDIU.CSDIU_DatabaseUserPassword
+  value     = module.CSDIU.CSDIU_DatabaseUserPassword
   sensitive = true
 }
 
@@ -272,59 +272,92 @@ output "CSCRAPFG_CSDIU_SecretVersionDestroyTime" {
 
 
 #---
-output "CSCRAPFG_CRDPFG_SecretId" {
-  value = module.CRDPFG.CRDPFG_SecretId
+output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretId" {
+  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretId
 }
 
-output "CSCRAPFG_CRDPFG_SecretName" {
-  value = module.CRDPFG.CRDPFG_SecretName
+output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretName" {
+  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretName
 }
 
-output "CSCRAPFG_CRDPFG_SecretVersionName" {
-  value = module.CRDPFG.CRDPFG_SecretVersionName
+output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretCreateTime" {
+  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretCreateTime
 }
 
-output "CSCRAPFG_CRDPFG_SecretVersionId" {
-  value = module.CRDPFG.CRDPFG_SecretVersionId
+output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretTerraformLabels" {
+  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretTerraformLabels
 }
 
-output "CSCRAPFG_CRDPFG_CloudbuildTriggerServiceAccountId" {
-  value = module.CRDPFG.CRDPFG_CloudbuildTriggerServiceAccountId
+output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretEffectiveLabels" {
+  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretEffectiveLabels
 }
 
-output "CSCRAPFG_CRDPFG_CloudbuildTriggerServiceAccountEmail" {
-  value = module.CRDPFG.CRDPFG_CloudbuildTriggerServiceAccountEmail
+output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretEffectiveAnnotations" {
+  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretEffectiveAnnotations
 }
 
-output "CSCRAPFG_CRDPFG_CloudbuildTriggerServiceAccountDisplayName" {
-  value = module.CRDPFG.CRDPFG_CloudbuildTriggerServiceAccountDisplayName
+
+output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretVersionId" {
+  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretVersionId
 }
 
-output "CSCRAPFG_CRDPFG_CloudbuildTriggerRoleId" {
-  value = module.CRDPFG.CRDPFG_CloudbuildTriggerRoleId
+output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretVersionName" {
+  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretVersionName
 }
 
-output "CSCRAPFG_CRDPFG_CloudbuildTriggerRoleName" {
-  value = module.CRDPFG.CRDPFG_CloudbuildTriggerRoleName
+output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretVersionVersion" {
+  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretVersionVersion
 }
 
-output "CSCRAPFG_CRDPFG_CloudbuildTriggerId" {
-  value = module.CRDPFG.CRDPFG_CloudbuildTriggerId
+output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretVersionCreateTime" {
+  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretVersionCreateTime
 }
 
-output "CSCRAPFG_CRDPFG_CloudbuildTriggerName" {
-  value = module.CRDPFG.CRDPFG_CloudbuildTriggerName
+output "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretVersionDestroyTime" {
+  value = module.CRDPFG.CRDPFG_SWSV_Cloudbuild_SecretVersionDestroyTime
 }
 
-output "CSCRAPFG_CRDPFG_CloudRunAlertPolicyId" {
-  value = module.CRDPFG.CRDPFG_CloudRunAlertPolicyId
+
+
+
+
+output "serviceAccountId" {
+  value = module.CRDPFG.serviceAccountId
 }
 
-output "CSCRAPFG_CRDPFG_CloudRunAlertPolicyName" {
-  value = module.CRDPFG.CRDPFG_CloudRunAlertPolicyName
+output "serviceAccountEmail" {
+  value = module.CRDPFG.serviceAccountEmail
 }
 
-#--
+output "serviceAccountDisplayName" {
+  value = module.CRDPFG.serviceAccountDisplayName
+}
+
+output "serviceAccountRoleId" {
+  value = module.CRDPFG.serviceAccountRoleId
+}
+
+output "serviceAccountRoleName" {
+  value = module.CRDPFG.serviceAccountRoleName
+}
+
+output "cloudBuildTriggerId" {
+  value = module.CRDPFG.cloudBuildTriggerId
+}
+
+output "cloudBuildTriggerName" {
+  value = module.CRDPFG.cloudBuildTriggerName
+}
+
+
+output "CSCRAPFG_CRDPFG_CloudRunLogsAlertPolicyId" {
+  value = module.CRDPFG.CRDPFG_CloudRunLogsAlertPolicyId
+}
+
+output "CSCRAPFG_CRDPFG_CloudRunLogsAlertPolicyName" {
+  value = module.CRDPFG.CRDPFG_CloudRunLogsAlertPolicyName
+}
+
 
 output "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyId" {
   value = module.CRDPFG.CRDPFG_CloudRunMemAlertPolicyId
@@ -334,7 +367,6 @@ output "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyName" {
   value = module.CRDPFG.CRDPFG_CloudRunMemAlertPolicyName
 }
 
-#--
 
 output "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyId" {
   value = module.CRDPFG.CRDPFG_CloudRunCpuAlertPolicyId
@@ -343,5 +375,8 @@ output "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyId" {
 output "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyName" {
   value = module.CRDPFG.CRDPFG_CloudRunCpuAlertPolicyName
 }
+
+
+
 
 #---

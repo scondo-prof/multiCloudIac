@@ -1,10 +1,3 @@
-#https://search.google.com/search-console
-
-variable "awsRegion" {
-  type    = string
-  default = "us-east-1"
-}
-
 variable "gcpProjectId" {
   type = string
 }
@@ -18,13 +11,12 @@ variable "resourceName" {
   type = string
 }
 
-variable "projectName" {
+variable "deployedDate" {
   type = string
 }
 
-variable "deployedDate" {
-  type    = string
-  default = null
+variable "projectName" {
+  type = string
 }
 
 variable "createdBy" {
@@ -41,1462 +33,1435 @@ variable "additionalTags" {
   default = {}
 }
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_address#argument-reference
-variable "CRLBR53D_GlobalAddressAddress" {
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_CSCRAPFG_NWEIPN_NWSAF_Network#argument-reference
+
+variable "CSCRAPFG_NWEIPN_NWSAF_NetworkDescription" {
   type    = string
   default = null
 }
 
-variable "CRLBR53D_GlobalAddressDescription" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_GlobalAddressIpVersion" {
-  type = string
-  validation {
-    condition = var.CRLBR53D_GlobalAddressIpVersion == null || can(contains([
-      "IPV4",
-      "IPV6"
-    ], var.CRLBR53D_GlobalAddressIpVersion))
-    error_message = "Valid inputs for | variable: var.CRLBR53D_GlobalAddressIpVersion | are: IPV4, IPV6"
-  }
-  default = null
-}
-
-variable "CRLBR53D_GlobalAddressPrefixLength" {
-  type    = number
-  default = null
-}
-
-variable "CRLBR53D_GlobalAddressType" {
-  type = string
-  validation {
-    condition = contains([
-      "EXTERNAL",
-      "INTERNAL"
-    ], var.CRLBR53D_GlobalAddressType)
-    error_message = "Valid inputs for | variable: var.CRLBR53D_GlobalAddressType | are: EXTERNAL, INTERNAL"
-  }
-  default = "EXTERNAL"
-}
-
-variable "CRLBR53D_GlobalAddressPurpose" {
-  type = string
-  validation {
-    condition = var.CRLBR53D_GlobalAddressPurpose == null || can(contains([
-      "VPC_PEERING",
-      "PRIVATE_SERVICE_CONNECT"
-    ], var.CRLBR53D_GlobalAddressPurpose))
-    error_message = "Valid inputs for | variable: var.CRLBR53D_GlobalAddressPurpose | are: VPC_PEERING , PRIVATE_SERVICE_CONNECT "
-  }
-  default = null
-}
-
-variable "CRLBR53D_GlobalAddressNetwork" {
-  type    = string
-  default = null
-}
-
-#---
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#argument-reference
-variable "CRLBR53D_Route53DnsARecordZoneId" {
-  type = string
-}
-
-variable "CRLBR53D_Route53DnsARecordName" {
-  type = string
-}
-
-variable "CRLBR53D_Route53DnsARecordType" {
-  type = string
-  validation {
-    condition = contains([
-      "A",
-      "AAAA",
-      "CAA",
-      "CNAME",
-      "DS",
-      "MX",
-      "NAPTR",
-      "NS",
-      "PTR",
-      "SOA",
-      "SPF",
-      "SRV",
-      "TXT"
-    ], var.CRLBR53D_Route53DnsARecordType)
-    error_message = "Valid inputs for | variable: CRLBR53D_Route53DnsARecordType | are: A, AAAA, CAA, CNAME, DS, MX, NAPTR, NS, PTR, SOA, SPF, SRV TXT"
-  }
-}
-
-variable "CRLBR53D_Route53DnsARecordTtl" {
-  type    = number
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsARecordRecords" {
-  type    = list(string)
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsARecordSetIdentifier" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsARecordHealthCheckId" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsARecordAlias" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#alias
-  type = object({
-    name                   = string
-    zone_id                = string
-    evaluate_target_health = bool
-  })
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsARecordCidrRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#cidr-routing-policy
-  type = object({
-    collection_id = string
-    location_name = string
-  })
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsARecordFailoverRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#failover-routing-policy
-  type = object({
-    type = string
-  })
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsARecordGeolocationRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#geolocation-routing-policy
-  type = object({
-    continent   = optional(string, null)
-    country     = optional(string, null)
-    subdivision = optional(string, null)
-  })
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsARecordGeoproximityRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#geoproximityrouting-policy
-  type = object({
-    aws_region = optional(string, null)
-    bias       = optional(number, null)
-
-    coordinates = optional(object({
-      latitude  = number
-      longitude = number
-    }), null)
-
-    local_zone_group = optional(string, null)
-  })
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsARecordLatencyRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#latency-routing-policy
-  type = object({
-    region = string
-  })
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsARecordMultivalueAnswerRoutingPolicy" {
+variable "CSCRAPFG_NWEIPN_NWSAF_NetworkAutoCreateSubNetworks" {
   type    = bool
   default = null
 }
 
-variable "CRLBR53D_Route53DnsARecordWeightedRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#weighted-routing-policy-1
-  type = object({
-    weight = number
-  })
+variable "CSCRAPFG_NWEIPN_NWSAF_NetworkRoutingMode" {
+  type = string
+  validation {
+    condition = var.CSCRAPFG_NWEIPN_NWSAF_NetworkRoutingMode == null || can(contains([
+      "REGIONAL",
+      "GLOBAL"
+    ], var.CSCRAPFG_NWEIPN_NWSAF_NetworkRoutingMode))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_NWEIPN_NWSAF_NetworkRoutingMode | are: REGIONAL, GLOBAL"
+  }
   default = null
 }
 
-variable "CRLBR53D_Route53DnsARecordAllowOverwrite" {
+variable "CSCRAPFG_NWEIPN_NWSAF_NetworkMaximumTransmissionUnitBytes" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_NWEIPN_NWSAF_NetworkMaximumTransmissionUnitBytes == null || can(var.CSCRAPFG_NWEIPN_NWSAF_NetworkMaximumTransmissionUnitBytes >= 1300 && var.CSCRAPFG_NWEIPN_NWSAF_NetworkMaximumTransmissionUnitBytes <= 8896)
+    error_message = "var.CSCRAPFG_NWEIPN_NWSAF_NetworkMaximumTransmissionUnitBytes must be Greater than or Equal to 1300 AND Less Than or Equal to 8896"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_NetworkEnableUlaInternalIpv6" {
   type    = bool
   default = null
 }
 
-#---
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#argument-reference
-variable "CRLBR53D_Route53DnsTxtRecordZoneId" {
-  type = string
+variable "CSCRAPFG_NWEIPN_NWSAF_NetworkInternalIpv6Range" {
+  type    = string
+  default = null
 }
 
-variable "CRLBR53D_Route53DnsTxtRecordName" {
-  type = string
-}
-
-variable "CRLBR53D_Route53DnsTxtRecordType" {
+variable "CSCRAPFG_NWEIPN_NWSAF_NetworkFirewallPolicyEnforcementOrder" {
   type = string
   validation {
-    condition = contains([
-      "A",
-      "AAAA",
-      "CAA",
-      "CNAME",
-      "DS",
-      "MX",
-      "NAPTR",
-      "NS",
-      "PTR",
-      "SOA",
-      "SPF",
-      "SRV",
-      "TXT"
-    ], var.CRLBR53D_Route53DnsTxtRecordType)
-    error_message = "Valid inputs for | variable: CRLBR53D_Route53DnsTxtRecordType | are: A, AAAA, CAA, CNAME, DS, MX, NAPTR, NS, PTR, SOA, SPF, SRV TXT"
+    condition = var.CSCRAPFG_NWEIPN_NWSAF_NetworkFirewallPolicyEnforcementOrder == null || can(contains([
+      "BEFORE_CLASSIC_FIREWALL",
+      "AFTER_CLASSIC_FIREWALL"
+    ], var.CSCRAPFG_NWEIPN_NWSAF_NetworkFirewallPolicyEnforcementOrder))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_NWEIPN_NWSAF_NetworkFirewallPolicyEnforcementOrder | are: BEFORE_CLASSIC_FIREWALL, AFTER_CLASSIC_FIREWALL"
   }
-}
-
-variable "CRLBR53D_Route53DnsTxtRecordTtl" {
-  type    = number
   default = null
 }
 
-variable "CRLBR53D_Route53DnsTxtRecordRecords" {
-  type    = list(string)
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsTxtRecordSetIdentifier" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsTxtRecordHealthCheckId" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsTxtRecordAlias" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#alias
-  type = object({
-    name                   = string
-    zone_id                = string
-    evaluate_target_health = bool
-  })
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsTxtRecordCidrRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#cidr-routing-policy
-  type = object({
-    collection_id = string
-    location_name = string
-  })
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsTxtRecordFailoverRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#failover-routing-policy
-  type = object({
-    type = string
-  })
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsTxtRecordGeolocationRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#geolocation-routing-policy
-  type = object({
-    continent   = optional(string, null)
-    country     = optional(string, null)
-    subdivision = optional(string, null)
-  })
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsTxtRecordGeoproximityRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#geoproximityrouting-policy
-  type = object({
-    aws_region = optional(string, null)
-    bias       = optional(number, null)
-
-    coordinates = optional(object({
-      latitude  = number
-      longitude = number
-    }), null)
-
-    local_zone_group = optional(string, null)
-  })
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsTxtRecordLatencyRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#latency-routing-policy
-  type = object({
-    region = string
-  })
-  default = null
-}
-
-variable "CRLBR53D_Route53DnsTxtRecordMultivalueAnswerRoutingPolicy" {
+variable "CSCRAPFG_NWEIPN_NWSAF_NetworkDeleteDefaultRoutesOnCreate" {
   type    = bool
-  default = null
+  default = false
 }
 
-variable "CRLBR53D_Route53DnsTxtRecordWeightedRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#weighted-routing-policy-1
-  type = object({
-    weight = number
-  })
-  default = null
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_CSCRAPFG_NWEIPN_NWSAF_Subnetwork#argument-reference
+
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkNetwork" {
+  type = string
 }
 
-variable "CRLBR53D_Route53DnsTxtRecordAllowOverwrite" {
-  type    = bool
-  default = null
-}
-
-#---
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_managed_ssl_certificate#argument-reference
-variable "CRLBR53D_MscDescription" {
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkDescription" {
   type    = string
   default = null
 }
 
-variable "CRLBR53D_MscManaged" {
-  type = object({
-    domains = list(string)
-  })
-  default = null
-}
-
-variable "CRLBR53D_MscType" {
-  type = string
-  validation {
-    condition = var.CRLBR53D_MscType == null || can(contains([
-      "MANAGED"
-    ], var.CRLBR53D_MscType))
-    error_message = "Valid inputs for | variable: var.CRLBR53D_MscType | are: MANAGED"
-  }
-  default = null
-}
-
-#---
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_address#argument-reference
-variable "CRLBR53D_GlobalAddressAddress" {
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkIpCidrRange" {
   type    = string
   default = null
 }
 
-variable "CRLBR53D_GlobalAddressDescription" {
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkReservedInternalRange" {
   type    = string
   default = null
 }
 
-variable "CRLBR53D_GlobalAddressIpVersion" {
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkPurpose" {
   type = string
   validation {
-    condition = var.CRLBR53D_GlobalAddressIpVersion == null || can(contains([
-      "IPV4",
-      "IPV6"
-    ], var.CRLBR53D_GlobalAddressIpVersion))
-    error_message = "Valid inputs for | variable: var.CRLBR53D_GlobalAddressIpVersion | are: IPV4, IPV6"
-  }
-  default = null
-}
-
-variable "CRLBR53D_GlobalAddressPrefixLength" {
-  type    = number
-  default = null
-}
-
-variable "CRLBR53D_GlobalAddressType" {
-  type = string
-  validation {
-    condition = contains([
-      "EXTERNAL",
-      "INTERNAL"
-    ], var.CRLBR53D_GlobalAddressType)
-    error_message = "Valid inputs for | variable: var.CRLBR53D_GlobalAddressType | are: EXTERNAL, INTERNAL"
-  }
-  default = "EXTERNAL"
-}
-
-variable "CRLBR53D_GlobalAddressPurpose" {
-  type = string
-  validation {
-    condition = var.CRLBR53D_GlobalAddressPurpose == null || can(contains([
-      "VPC_PEERING",
-      "PRIVATE_SERVICE_CONNECT"
-    ], var.CRLBR53D_GlobalAddressPurpose))
-    error_message = "Valid inputs for | variable: var.CRLBR53D_GlobalAddressPurpose | are: VPC_PEERING , PRIVATE_SERVICE_CONNECT "
-  }
-  default = null
-}
-
-variable "CRLBR53D_GlobalAddressNetwork" {
-  type    = string
-  default = null
-}
-
-#---
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_region_network_endpoint_group#argument-reference
-
-variable "CRLBR53D_RnegDescription" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_RnegNetworkEndpointType" {
-  type = string
-  validation {
-    condition = contains([
-      "SERVERLESS",
+    condition = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkPurpose == null || can(contains([
+      "PRIVATE",
+      "REGIONAL_MANAGED_PROXY",
+      "GLOBAL_MANAGED_PROXY",
       "PRIVATE_SERVICE_CONNECT",
-      "INTERNET_IP_PORT",
-      "INTERNET_FQDN_PORT",
-      "GCE_VM_IP_PORTMAP"
-    ], var.CRLBR53D_RnegNetworkEndpointType)
-    error_message = "Valid inputs for | variable: var.CRLBR53D_RnegNetworkEndpointType | are: SERVERLESS, PRIVATE_SERVICE_CONNECT, INTERNET_IP_PORT, INTERNET_FQDN_PORT, GCE_VM_IP_PORTMAP"
+      "PEER_MIGRATION"
+    ], var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkPurpose))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkPurpose | are: PRIVATE, REGIONAL_MANAGED_PROXY, GLOBAL_MANAGED_PROXY, PRIVATE_SERVICE_CONNECT, PEER_MIGRATION"
   }
-  default = "SERVERLESS"
-}
-
-variable "CRLBR53D_RnegPscTargetService" {
-  type    = string
   default = null
 }
 
-variable "CRLBR53D_RnegNetwork" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_RnegSubnetwork" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_RnegCloudRun" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_region_network_endpoint_group#nested_cloud_run
-  type = object({
-    service  = optional(string, null)
-    tag      = optional(string, null)
-    url_mask = optional(string, null)
-  })
-  default = null
-}
-
-variable "CRLBR53D_RnegAppEngine" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_region_network_endpoint_group#nested_app_engine
-  type = object({
-    service  = optional(string, null)
-    version  = optional(string, null)
-    url_mask = optional(string, null)
-  })
-  default = null
-}
-
-variable "CRLBR53D_RnegCloudFunction" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_region_network_endpoint_group#nested_cloud_function
-  type = object({
-    function = optional(string, null)
-    url_mask = optional(string, null)
-  })
-  default = null
-}
-
-#---
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#argument-reference
-variable "CRLBR53D_BackendServiceAffinityCookieTtlSec" {
-  type    = number
-  default = null
-}
-
-variable "CRLBR53D_BackendServiceBackend" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_backend
-  type = object({
-    balancing_mode               = optional(string, null)
-    capacity_scaler              = optional(number, null)
-    description                  = optional(string, null)
-    group                        = string
-    max_connections              = optional(number, null)
-    max_connections_per_instance = optional(number, null)
-    max_connections_per_endpoint = optional(number, null)
-    max_rate                     = optional(number, null)
-    max_rate_per_instance        = optional(number, null)
-    max_rate_per_endpoint        = optional(number, null)
-    max_utilization              = optional(number, null)
-  })
-  default = null
-}
-
-variable "CRLBR53D_BackendServiceCircuitBreakers" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_circuit_breakers
-  type = object({
-    max_requests_per_connection = optional(number, null)
-    max_connections             = optional(number, null)
-    max_pending_requests        = optional(number, null)
-    max_requests                = optional(number, null)
-    max_retries                 = optional(number, null)
-  })
-  default = null
-}
-
-variable "CRLBR53D_BackendServiceCompressionMode" {
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkRole" {
   type = string
   validation {
-    condition = var.CRLBR53D_BackendServiceCompressionMode == null || can(contains([
-      "AUTOMATIC",
-      "DISABLED"
-    ], var.CRLBR53D_BackendServiceCompressionMode))
-    error_message = "Valid inputs for | variable: CRLBR53D_BackendServiceCompressionMode | are: AUTOMATIC, DISABLED"
+    condition = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkRole == null || can(contains([
+      "ACTIVE",
+      "BACKUP"
+    ], var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkRole))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkRole | are: ACTIVE, BACKUP"
   }
   default = null
 }
 
-variable "CRLBR53D_BackendServiceConsistentHash" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_consistent_hash
-  type = object({
-    http_cookie = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_http_cookie
-
-      ttl = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_ttl
-        seconds = number
-        nanos   = optional(number, null)
-      }), null)
-
-      name = optional(string, null)
-      path = optional(string, null)
-    }), null)
-
-    http_header_name  = optional(string, null)
-    minimum_ring_size = optional(number, null)
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkSecondaryIpRange" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_CSCRAPFG_NWEIPN_NWSAF_Subnetwork#nested_secondary_ip_range
+    range_name              = string
+    ip_cidr_range           = optional(string, null)
+    reserved_internal_range = optional(string, null)
   })
   default = null
 }
 
-variable "CRLBR53D_BackendServiceCdnPolicy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_cdn_policy
-  type = object({
-
-    cache_key_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_cache_key_policy
-      include_host           = optional(bool, null)
-      include_protocol       = optional(bool, null)
-      include_query_string   = optional(bool, null)
-      query_string_blacklist = optional(list(string), null)
-      query_string_whitelist = optional(list(string), null)
-      include_http_headers   = optional(bool, null)
-      include_named_cookies  = optional(list(string), null)
-    }), null)
-
-    signed_url_cache_max_age_sec = optional(number, null)
-    default_ttl                  = optional(number, null)
-    max_ttl                      = optional(number, null)
-    client_ttl                   = optional(number, null)
-    negative_caching             = optional(bool, null)
-
-    negative_caching_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_negative_caching_policy
-      code = optional(number, null)
-      ttl  = optional(number, null)
-    }), null)
-
-    cache_mode        = optional(string, null)
-    serve_while_stale = optional(bool, null)
-
-    bypass_cache_on_request_headers = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_bypass_cache_on_request_headers
-      header_name = string
-    }), null)
-  })
-  default = null
-}
-
-variable "CRLBR53D_BackendServiceConnectionDrainingTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "CRLBR53D_BackendServiceCustomRequestHeaders" {
-  type    = list(string)
-  default = null
-}
-
-variable "CRLBR53D_BackendServiceCustomResponseHeaders" {
-  type    = list(string)
-  default = null
-}
-
-variable "CRLBR53D_BackendServiceDescription" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_BackendServiceEnableCdn" {
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkPrivateIpGoogleAccess" {
   type    = bool
   default = null
 }
 
-variable "CRLBR53D_BackendServiceHealthChecks" {
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkPrivateIpv6GoogleAccess" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkLogConfig" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_CSCRAPFG_NWEIPN_NWSAF_Subnetwork#nested_log_config
+    aggregation_interval = optional(string, null)
+    flow_sampling        = optional(number, null)
+    metadata             = optional(string, null)
+    metadata_fields      = optional(list(string), null)
+    filter_expr          = optional(string, null)
+  })
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkStackType" {
+  type = string
+  validation {
+    condition = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkStackType == null || can(contains([
+      "IPV4_ONLY",
+      "IPV4_IPV6",
+      "IPV6_ONLY"
+    ], var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkStackType))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkStackType | are: IPV4_ONLY, IPV4_IPV6, IPV6_ONLY"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkIpv6AccessType" {
+  type = string
+  validation {
+    condition = var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkIpv6AccessType == null || can(contains([
+      "EXTERNAL",
+      "INTERNAL"
+    ], var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkIpv6AccessType))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_NWEIPN_NWSAF_SubnetworkIpv6AccessType | are: EXTERNAL, INTERNAL"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkExternalIpv6Prefix" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_SubnetworkSendSecondaryIpRangeIfEmpty" {
+  type    = bool
+  default = null
+}
+
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_CSCRAPFG_NWEIPN_NWSAF_IngressFirewall#argument-reference
+
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallNetwork" {
+  type = string
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallRulesAllow" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_CSCRAPFG_NWEIPN_NWSAF_IngressFirewall#nested_allow
+  type = list(object({
+    protocol = string
+    ports    = optional(list(string), null)
+  }))
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallDeny" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_CSCRAPFG_NWEIPN_NWSAF_IngressFirewall#nested_deny
+  type = list(object({
+    protocol = string
+    ports    = optional(list(string), null)
+  }))
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallDescription" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallDestinationRanges" {
   type    = list(string)
   default = null
 }
 
-variable "CRLBR53D_BackendServiceIap" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_iap
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallDirection" {
+  type = string
+  validation {
+    condition = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallDirection == null || can(contains([
+      "INGRESS",
+      "EGRESS"
+    ], var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallDirection))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallDirection | are: INGRESS, EGRESS"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallDisabled" {
+  type    = bool
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallLogConfig" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_CSCRAPFG_NWEIPN_NWSAF_IngressFirewall#nested_log_config
   type = object({
-    enabled              = bool
-    oauth2_client_id     = optional(string, null)
-    oauth2_client_secret = optional(string, null)
+    metadata = string
   })
   default = null
 }
 
-variable "CRLBR53D_BackendServiceLoadBalancingScheme" {
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallPriority" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallPriority == null || can(var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallPriority >= 0 && var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallPriority <= 65535)
+    error_message = "var.CSCRAPFG_NWEIPN_NWSAF_IngressFirewallPriority must be Greater than or Equal to 0 AND Less Than or Equal to 65535"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallSourceRanges" {
+  type    = list(string)
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallSourceServiceAccounts" {
+  type    = list(string)
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallSourceTags" {
+  type    = list(string)
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallTargetServiceAccounts" {
+  type    = list(string)
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_IngressFirewallTargetTags" {
+  type    = list(string)
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_CSCRAPFG_NWEIPN_NWSAF_EgressFirewall#argument-reference
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallNetwork" {
+  type = string
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallRulesAllow" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_CSCRAPFG_NWEIPN_NWSAF_EgressFirewall#nested_allow
+  type = list(object({
+    protocol = string
+    ports    = optional(list(string), null)
+  }))
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallDeny" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_CSCRAPFG_NWEIPN_NWSAF_EgressFirewall#nested_deny
+  type = list(object({
+    protocol = string
+    ports    = optional(list(string), null)
+  }))
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallDescription" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallDestinationRanges" {
+  type    = list(string)
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallDirection" {
   type = string
   validation {
-    condition = contains([
-      "EXTERNAL",
-      "INTERNAL_SELF_MANAGED",
-      "INTERNAL_MANAGED",
-      "EXTERNAL_MANAGED"
-    ], var.CRLBR53D_BackendServiceLoadBalancingScheme)
-    error_message = "Valid inputs for | variable: CRLBR53D_BackendServiceLoadBalancingScheme | are: EXTERNAL, INTERNAL_SELF_MANAGED, INTERNAL_MANAGED, EXTERNAL_MANAGED"
+    condition = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallDirection == null || can(contains([
+      "INGRESS",
+      "EGRESS"
+    ], var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallDirection))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallDirection | are: INGRESS, EGRESS"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallDisabled" {
+  type    = bool
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallLogConfig" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_CSCRAPFG_NWEIPN_NWSAF_EgressFirewall#nested_log_config
+  type = object({
+    metadata = string
+  })
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallPriority" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallPriority == null || can(var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallPriority >= 0 && var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallPriority <= 65535)
+    error_message = "var.CSCRAPFG_NWEIPN_NWSAF_EgressFirewallPriority must be Greater than or Equal to 0 AND Less Than or Equal to 65535"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallSourceRanges" {
+  type    = list(string)
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallSourceServiceAccounts" {
+  type    = list(string)
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallSourceTags" {
+  type    = list(string)
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallTargetServiceAccounts" {
+  type    = list(string)
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWSAF_EgressFirewallTargetTags" {
+  type    = list(string)
+  default = null
+}
+
+
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address#argument-reference
+
+#Only necessary if you want a specific address for internal use
+variable "CSCRAPFG_NWEIPN_NWEA_NetworkAddressAddress" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWEA_NetworkAddressType" {
+  type = string
+  validation {
+    condition     = contains(["INTERNAL", "EXTERNAL"], var.CSCRAPFG_NWEIPN_NWEA_NetworkAddressType)
+    error_message = "Variable CSCRAPFG_NWEIPN_NWEA_NetworkAddressType must be one of the following values: INTERNAL, EXTERNAL"
   }
   default = "EXTERNAL"
 }
 
-variable "CRLBR53D_BackendServicelocalityLbPolicy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#locality_lb_policy-1
+#Possible Values are either PREMIUM or STANDARD, if left Null it will default to PREMIUM
+variable "CSCRAPFG_NWEIPN_NWEA_NetworkAddressNetworkTier" {
   type    = string
   default = null
 }
 
-variable "CRLBR53D_BackendServiceLocalityLbPolicies" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_locality_lb_policies
-  type = object({
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router#argument-reference
 
-    policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#policy-1
-      name = string
-    }), null)
-
-    custom_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#custom_policy-1
-      name = string
-      data = optional(string, null)
-    }), null)
-  })
-  default = null
+variable "CSCRAPFG_NWEIPN_NWEA_NetworkRouterNetwork" {
+  type = string
 }
 
-variable "CRLBR53D_BackendServiceOutlierDetection" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_outlier_detection
-  type = object({
-
-    base_ejection_time = optional(object({
-      seconds = number
-      nanos   = optional(number, null)
-    }), null)
-
-    consecutive_errors                    = optional(number, null)
-    consecutive_gateway_failure           = optional(number, null)
-    enforcing_consecutive_errors          = optional(number, null)
-    enforcing_consecutive_gateway_failure = optional(number, null)
-    enforcing_success_rate                = optional(number, null)
-
-    interval = optional(object({
-      seconds = number
-      nanos   = optional(number, null)
-    }), null)
-
-    max_ejection_percent        = optional(number, null)
-    success_rate_minimum_hosts  = optional(number, null)
-    success_rate_request_volume = optional(number, null)
-    success_rate_stdev_factor   = optional(number, null)
-  })
-  default = null
-}
-
-variable "CRLBR53D_BackendServicePortName" {
+variable "CSCRAPFG_NWEIPN_NWEA_NetworkRouterDescription" {
   type    = string
   default = null
 }
 
-variable "CRLBR53D_BackendServiceProtocol" {
+variable "CSCRAPFG_NWEIPN_NWEA_NetworkRouterBgp" {
+  type = object({
+    asn               = string
+    advertise_mode    = optional(string, null)
+    advertised_groups = optional(list(string), null)
+    advertised_ip_ranges = optional(object({
+      range       = string
+      description = optional(string, null)
+    }), null)
+    keepalive_interval = optional(number, null)
+    identifier_range   = optional(string, null)
+  })
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWEA_NetworkRouterEncryptedInterconnectRouter" {
+  type    = bool
+  default = null
+}
+
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_CSCRAPFG_NWEIPN_NWEA_Nat#argument-reference
+
+variable "CSCRAPFG_NWEIPN_NWEA_NatSourceSubnetworkIpRangesToNat" {
   type = string
   validation {
-    condition = var.CRLBR53D_BackendServiceProtocol == null || can(contains([
-      "HTTP",
-      "HTTPS",
-      "HTTP2",
-      "TCP",
-      "SSL",
-      "GRPC",
-      "UNSPECIFIED"
-    ], var.CRLBR53D_BackendServiceProtocol))
-    error_message = "Valid inputs for | variable: CRLBR53D_BackendServiceProtocol | are: HTTP, HTTPS, HTTP2, TCP, SSL, GRPC, UNSPECIFIED"
+    condition = contains([
+      "ALL_SUBNETWORKS_ALL_IP_RANGES",
+      "ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES",
+      "LIST_OF_SUBNETWORKS"
+    ], var.CSCRAPFG_NWEIPN_NWEA_NatSourceSubnetworkIpRangesToNat)
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_NWEIPN_NWEA_NatSourceSubnetworkIpRangesToNat | are: ALL_SUBNETWORKS_ALL_IP_RANGES, ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, LIST_OF_SUBNETWORKS"
   }
-  default = null
 }
 
-variable "CRLBR53D_BackendServiceSecurityPolicy" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_BackendServiceEdgeSecurityPolicy" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_BackendServiceSecuritySettings" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_security_settings
-  type = object({
-    client_tls_policy = optional(string, null)
-    subject_alt_names = optional(list(string), null)
-
-    aws_v4_authentication = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_aws_v4_authentication
-      access_key_id      = optional(string, null)
-      access_key         = optional(string, null)
-      access_key_version = optional(string, null)
-      origin_region      = optional(string, null)
-    }), null)
-  })
-  default = null
-}
-
-variable "CRLBR53D_BackendServiceSessionAffinity" {
+variable "CSCRAPFG_NWEIPN_NWEA_NatIpAllocateOption" {
   type = string
   validation {
-    condition = var.CRLBR53D_BackendServiceSessionAffinity == null || can(contains([
-      "NONE",
-      "CLIENT_IP",
-      "CLIENT_IP_PORT_PROTO",
-      "CLIENT_IP_PROTO",
-      "GENERATED_COOKIE",
-      "HEADER_FIELD",
-      "HTTP_COOKIE",
-      "STRONG_COOKIE_AFFINITY"
-    ], var.CRLBR53D_BackendServiceSessionAffinity))
-    error_message = "Valid inputs for | variable: CRLBR53D_BackendServiceSessionAffinity | are: NONE, CLIENT_IP, CLIENT_IP_PORT_PROTO, CLIENT_IP_PROTO, GENERATED_COOKIE, HEADER_FIELD, HTTP_COOKIE, STRONG_COOKIE_AFFINITY"
+    condition = var.CSCRAPFG_NWEIPN_NWEA_NatIpAllocateOption == null || can(contains([
+      "ALL_SUBNETWORKS_ALL_IP_RANGES",
+      "ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES",
+      "LIST_OF_SUBNETWORKS"
+    ], var.CSCRAPFG_NWEIPN_NWEA_NatIpAllocateOption))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_NWEIPN_NWEA_NatIpAllocateOption | are: ALL_SUBNETWORKS_ALL_IP_RANGES, ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, LIST_OF_SUBNETWORKS"
   }
   default = null
 }
 
-variable "CRLBR53D_BackendServiceStrongSessionAffinityCookie" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_strong_session_affinity_cookie
+variable "CSCRAPFG_NWEIPN_NWEA_NatInitialNatIps" {
+  type    = list(string)
+  default = null
+}
+
+
+variable "CSCRAPFG_NWEIPN_NWEA_NatIps" {
+  type    = list(string)
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWEA_NatDrainNatIps" {
+  type    = list(string)
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWEA_NatSubnetwork" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_CSCRAPFG_NWEIPN_NWEA_Nat#nested_subnetwork
   type = object({
-
-    ttl = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#ttl-3
-      seconds = number
-      nanos   = optional(number, null)
-    }), null)
-
-    name = optional(string, null)
-    path = optional(string, null)
+    name                                         = string
+    source_ip_ranges_to_CSCRAPFG_NWEIPN_NWEA_Nat = list(string)
+    secondary_ip_range_names                     = optional(list(string), null)
   })
   default = null
 }
 
-variable "CRLBR53D_BackendServiceTimeoutSec" {
-  type = number
-  validation {
-    condition     = var.CRLBR53D_BackendServiceTimeoutSec == null || can((var.CRLBR53D_BackendServiceTimeoutSec >= 1 && var.CRLBR53D_BackendServiceTimeoutSec <= 2147483647))
-    error_message = "Variable CRLBR53D_BackendServiceTimeoutSec must be greater than or equal to 1 or less than or equal to 2,147,483,647"
-  }
+variable "CSCRAPFG_NWEIPN_NWEA_NatMinPortsPerVm" {
+  type    = number
   default = null
 }
 
-variable "CRLBR53D_BackendServiceLogConfig" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_log_config
-  type = object({
-    enable      = optional(bool, null)
-    sample_rate = optional(number, null)
+variable "CSCRAPFG_NWEIPN_NWEA_NatMaxPortsPerVm" {
+  type    = number
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWEA_NatEnableDynamicPortAllocation" {
+  type    = bool
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWEA_NatUdpIdleTimeoutSec" {
+  type    = number
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWEA_NatIcmpIdleTimeoutSec" {
+  type    = number
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWEA_NatTcpEstablishedIdleTimeoutSec" {
+  type    = number
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWEA_NatTcpTransitoryIdleTimeoutSec" {
+  type    = number
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWEA_NatTcpTimeWaitTimeoutSec" {
+  type    = number
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWEA_NatLogConfig" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_CSCRAPFG_NWEIPN_NWEA_Nat#nested_log_config
+    enable = bool
+    filter = string
   })
   default = null
 }
 
-variable "CRLBR53D_BackendServiceServiceLbPolicy" {
-  type    = string
+variable "CSCRAPFG_NWEIPN_NWEA_NatEndpointTypes" {
+  type    = list(string)
   default = null
 }
 
-#---
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#argument-reference
-variable "CRLBR53D_UrlMapDefaultService" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_UrlMapDescription" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_UrlMapHeaderAction" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_header_action
-  type = object({
-
-    request_headers_to_add = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_request_headers_to_add
-      header_name  = string
-      header_value = string
-      replace      = bool
-    }), null)
-
-    request_headers_to_remove = optional(list(string), null)
-
-    response_headers_to_add = optional(object({
-      header_name  = string
-      header_value = string
-      replace      = bool
-    }), null)
-
-    response_headers_to_remove = optional(list(string), null)
-  })
-  default = null
-} #good
-
-variable "CRLBR53D_UrlMapHostRule" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_host_rule
-  type = object({
-    description  = optional(string, null)
-    hosts        = list(string)
-    path_matcher = string
-  })
-  default = null
-} #good
-
-variable "CRLBR53D_UrlMapPathMatcher" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_path_matcher
-  type = object({
-    default_service = optional(string, null)
-    description     = optional(string, null)
-
-    header_action = optional(object({            #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_header_action
-      request_headers_to_add = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_request_headers_to_add
-        header_name  = string
-        header_value = string
-        replace      = bool
-      }), null)
-
-      request_headers_to_remove = optional(list(string), null)
-
-      response_headers_to_add = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_response_headers_to_add
-        header_name  = string
-        header_value = string
-        replace      = bool
-      }), null)
-
-      response_headers_to_remove = optional(list(string), null)
-    }), null) #good
-
-    name = string
-
-    path_rule = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_path_rule
-      service = optional(string, null)
-      paths   = list(string)
-
-      route_action = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_route_action
-
-        cors_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_cors_policy
-          allow_credentials    = optional(bool, null)
-          allow_headers        = optional(list(string), null)
-          allow_methods        = optional(list(string), null)
-          allow_origin_regexes = optional(list(string), null)
-          allow_origins        = optional(list(string), null)
-          disabled             = bool
-          expose_headers       = optional(list(string), null)
-          max_age              = optional(number, null)
-        }), null) #good
-
-        fault_injection_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_fault_injection_policy
-
-          abort = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_abort
-            http_status = number
-            percentage  = number
-          }), null)
-
-          delay = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_delay
-
-            fixed_delay = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_fixed_delay
-              nanos   = optional(number, null)
-              seconds = number
-            })
-
-            percentage = number
-          }), null)
-        }), null) #good
-
-        request_mirror_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_request_mirror_policy
-          backend_service = string
-        }), null) #good
-
-        retry_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_retry_policy
-          num_retries = optional(number, null)
-
-          per_try_timeout = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_per_try_timeout
-            nanos   = optional(number, null)
-            seconds = number
-          }), null)
-
-          retry_conditions = optional(string, null)
-        }), null) #good
-
-        timeout = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_timeout
-          nanos   = optional(number, null)
-          seconds = number
-        }), null) #good
-
-        url_rewrite = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_url_rewrite
-          host_rewrite        = optional(string, null)
-          path_prefix_rewrite = optional(string, null)
-        }), null) #good
-
-        weighted_backend_services = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_weighted_backend_services
-          backend_service = string
-
-          header_action = optional(object({            #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_header_action
-            request_headers_to_add = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_request_headers_to_add
-              header_name  = string
-              header_value = string
-              replace      = bool
-            }), null)
-
-            request_headers_to_remove = optional(list(string), null)
-
-            response_headers_to_add = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_response_headers_to_add
-              header_name  = string
-              header_value = string
-              replace      = bool
-            }), null)
-
-            response_headers_to_remove = optional(list(string), null)
-          }), null) #good
-
-          weight = number
-        }), null)
-
-      }), null) #good
-
-      url_redirect = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_url_redirect
-        host_redirect          = optional(string, null)
-        https_redirect         = optional(bool, null)
-        path_redirect          = optional(string, null)
-        prefix_redirect        = optional(string, null)
-        redirect_response_code = optional(string, null)
-        strip_query            = bool
-      }), null) #good
-
-    }) #good
-
-    route_rules = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_route_rules
-      priority = number
-      service  = optional(string, null)
-
-      header_action = optional(object({            #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_header_action
-        request_headers_to_add = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_request_headers_to_add
-          header_name  = string
-          header_value = string
-          replace      = bool
-        }), null)
-
-        request_headers_to_remove = optional(list(string), null)
-
-        response_headers_to_add = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_response_headers_to_add
-          header_name  = string
-          header_value = string
-          replace      = bool
-        }), null)
-
-        response_headers_to_remove = optional(list(string), null)
-      }), null)
-
-      match_rules = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_match_rules
-        full_path_match = optional(string, null)
-
-        header_matches = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_header_matches
-          exact_match   = optional(string, null)
-          header_name   = string
-          invert_match  = optional(string, null)
-          prefix_match  = optional(string, null)
-          present_match = optional(string, null)
-
-          range_match = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_range_match
-            range_end   = number
-            range_start = number
-          }), null)
-
-          regex_match  = optional(string, null)
-          suffix_match = optional(string, null)
-        }), null) #good
-
-        ignore_case = optional(bool, null)
-
-        metadata_filters = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_metadata_filters
-          filter_labels = object({           #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_filter_labels
-            name  = string
-            value = string
-          })
-
-          filter_match_criteria = string
-        }), null) #good
-
-        prefix_match = optional(string, null)
-
-        query_parameter_matches = optional(object({
-          exact_match   = optional(string, null)
-          name          = string
-          present_match = optional(bool, null)
-          regex_match   = optional(string, null)
-        }), null)
-
-        regex_match         = optional(string, null)
-        path_template_match = optional(string, null)
-      }), null) #good
-
-      route_action = optional(object({  #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_route_action
-        cors_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_cors_policy
-          allow_credentials    = optional(bool, null)
-          allow_headers        = optional(list(string), null)
-          allow_methods        = optional(list(string), null)
-          allow_origin_regexes = optional(list(string), null)
-          allow_origins        = optional(list(string), null)
-          disabled             = bool
-          expose_headers       = optional(list(string), null)
-          max_age              = optional(number, null)
-        }), null)
-
-        fault_injection_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_fault_injection_policy
-
-          abort = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_abort
-            http_status = number
-            percentage  = number
-          }), null)
-
-          delay = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_delay
-
-            fixed_delay = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_fixed_delay
-              nanos   = optional(number, null)
-              seconds = number
-            })
-
-            percentage = number
-          }), null)
-        }), null)
-
-        request_mirror_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_request_mirror_policy
-          backend_service = string
-        }), null)
-
-        retry_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_retry_policy
-          num_retries = optional(number, null)
-
-          per_try_timeout = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_per_try_timeout
-            nanos   = optional(number, null)
-            seconds = number
-          }), null)
-
-          retry_conditions = optional(string, null)
-        }), null)
-
-        timeout = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_timeout
-          nanos   = optional(number, null)
-          seconds = number
-        }), null)
-
-        url_rewrite = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_url_rewrite
-          host_rewrite        = optional(string, null)
-          path_prefix_rewrite = optional(string, null)
-        }), null)
-
-        weighted_backend_services = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_weighted_backend_services
-          backend_service = string
-
-          header_action = optional(object({            #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_header_action
-            request_headers_to_add = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_request_headers_to_add
-              header_name  = string
-              header_value = string
-              replace      = bool
-            }), null)
-
-            request_headers_to_remove = optional(list(string), null)
-
-            response_headers_to_add = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_response_headers_to_add
-              header_name  = string
-              header_value = string
-              replace      = bool
-            }), null)
-
-            response_headers_to_remove = optional(list(string), null)
-          }), null)
-
-          weight = number
-        }), null)
-
-      }), null) #good
-
-      url_redirect = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_url_redirect
-        host_redirect          = optional(string, null)
-        https_redirect         = optional(bool, null)
-        path_redirect          = optional(string, null)
-        prefix_redirect        = optional(string, null)
-        redirect_response_code = optional(string, null)
-        strip_query            = bool
-      }), null)
-    }), null) #good
-
-    default_url_redirect = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_default_url_redirect
-      host_redirect          = optional(string, null)
-      https_redirect         = optional(bool, null)
-      path_redirect          = optional(string, null)
-      prefix_redirect        = optional(string, null)
-      redirect_response_code = optional(string, null)
-      strip_query            = bool
-    }), null) #good
-
-    default_route_action = optional(object({        #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_default_route_action
-      weighted_backend_services = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_weighted_backend_services
-        backend_service = string
-
-        header_action = optional(object({            #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_header_action
-          request_headers_to_add = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_request_headers_to_add
-            header_name  = string
-            header_value = string
-            replace      = bool
-          }), null)
-
-          request_headers_to_remove = optional(list(string), null)
-
-          response_headers_to_add = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_response_headers_to_add
-            header_name  = string
-            header_value = string
-            replace      = bool
-          }), null)
-
-          response_headers_to_remove = optional(list(string), null)
-        }), null)
-
-        weight = number
-      }), null)
-
-      url_rewrite = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_url_rewrite
-        host_rewrite        = optional(string, null)
-        path_prefix_rewrite = optional(string, null)
-      }), null)
-
-      timeout = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_timeout
-        nanos   = optional(number, null)
-        seconds = number
-      }), null)
-
-      retry_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_retry_policy
-        num_retries = optional(number, null)
-
-        per_try_timeout = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_per_try_timeout
-          nanos   = optional(number, null)
-          seconds = number
-        }), null)
-
-        retry_conditions = optional(string, null)
-      }), null)
-
-      request_mirror_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_request_mirror_policy
-        backend_service = string
-      }), null)
-
-      cors_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_cors_policy
-        allow_credentials    = optional(bool, null)
-        allow_headers        = optional(list(string), null)
-        allow_methods        = optional(list(string), null)
-        allow_origin_regexes = optional(list(string), null)
-        allow_origins        = optional(list(string), null)
-        disabled             = bool
-        expose_headers       = optional(list(string), null)
-        max_age              = optional(number, null)
-      }), null)
-
-      fault_injection_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_fault_injection_policy
-
-        abort = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_abort
-          http_status = number
-          percentage  = number
-        }), null)
-
-        delay = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_delay
-
-          fixed_delay = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_fixed_delay
-            nanos   = optional(number, null)
-            seconds = number
-          })
-
-          percentage = number
-        }), null)
-      }), null)
-    }), null) #good
-  })
-  default = null
-}
-
-variable "CRLBR53D_UrlMapTest" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_test
-  type = object({
+variable "CSCRAPFG_NWEIPN_NWEA_NatRules" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_CSCRAPFG_NWEIPN_NWEA_Nat#nested_rules
+    rule_number = number
     description = optional(string, null)
-    host        = string
-    path        = string
-    service     = string
-  })
-  default = null
-} #good
+    match       = string
 
-variable "CRLBR53D_UrlMapDefaultUrlRedirect" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_default_url_redirect
-    host_redirect          = optional(string, null)
-    https_redirect         = optional(bool, null)
-    path_redirect          = optional(string, null)
-    prefix_redirect        = optional(string, null)
-    redirect_response_code = optional(string, null)
-    strip_query            = bool
-  })
-  default = null
-} #good
-
-variable "CRLBR53D_UrlMapDefaultRouteAction" {
-  type = object({                                 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_default_route_action
-    weighted_backend_services = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_weighted_backend_services
-      backend_service = string
-
-      header_action = optional(object({            #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_header_action
-        request_headers_to_add = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_request_headers_to_add
-          header_name  = string
-          header_value = string
-          replace      = bool
-        }), null)
-
-        request_headers_to_remove = optional(list(string), null)
-
-        response_headers_to_add = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_response_headers_to_add
-          header_name  = string
-          header_value = string
-          replace      = bool
-        }), null)
-
-        response_headers_to_remove = optional(list(string), null)
-      }), null)
-
-      weight = number
-    }), null)
-
-    url_rewrite = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_url_rewrite
-      host_rewrite        = optional(string, null)
-      path_prefix_rewrite = optional(string, null)
-    }), null)
-
-    timeout = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_timeout
-      nanos   = optional(number, null)
-      seconds = number
-    }), null)
-
-    retry_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_retry_policy
-      num_retries = optional(number, null)
-
-      per_try_timeout = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_per_try_timeout
-        nanos   = optional(number, null)
-        seconds = number
-      }), null)
-
-      retry_conditions = optional(string, null)
-    }), null)
-
-    request_mirror_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_request_mirror_policy
-      backend_service = string
-    }), null)
-
-    cors_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_cors_policy
-      allow_credentials    = optional(bool, null)
-      allow_headers        = optional(list(string), null)
-      allow_methods        = optional(list(string), null)
-      allow_origin_regexes = optional(list(string), null)
-      allow_origins        = optional(list(string), null)
-      disabled             = bool
-      expose_headers       = optional(list(string), null)
-      max_age              = optional(number, null)
-    }), null)
-
-    fault_injection_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_fault_injection_policy
-
-      abort = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_abort
-        http_status = number
-        percentage  = number
-      }), null)
-
-      delay = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_delay
-
-        fixed_delay = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#nested_fixed_delay
-          nanos   = optional(number, null)
-          seconds = number
-        })
-
-        percentage = number
-      }), null)
-    }), null)
-  })
-  default = null
-}
-
-#---
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_target_https_proxy#argument-reference
-variable "CRLBR53D_ThpUrlMap" {
-  type = string
-}
-
-variable "CRLBR53D_ThpDescription" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_ThpQuicOverride" {
-  type = string
-  validation {
-    condition = contains([
-      "NONE",
-      "ENABLE",
-      "DISABLE"
-    ], var.CRLBR53D_ThpQuicOverride)
-    error_message = "Valid inputs for | variable: CRLBR53D_ThpQuicOverride | are: NONE, ENABLE, DISABLE"
-  }
-  default = "NONE"
-}
-
-variable "CRLBR53D_ThpTlsEarlyData" {
-  type = string
-  validation {
-    condition = var.CRLBR53D_ThpTlsEarlyData == null || can(contains([
-      "STRICT",
-      "PERMISSIVE",
-      "DISABLED"
-    ], var.CRLBR53D_ThpTlsEarlyData))
-    error_message = "Valid inputs for | variable: var.CRLBR53D_ThpTlsEarlyData | are: STRICT, PERMISSIVE, DISABLED"
-  }
-  default = null
-}
-
-variable "CRLBR53D_ThpCertificateManagerCertificates" {
-  type    = list(string)
-  default = null
-}
-
-variable "CRLBR53D_ThpSslCertificates" {
-  type    = list(string)
-  default = null
-}
-
-variable "CRLBR53D_ThpCertificateMap" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_ThpSslPolicy" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_ThpProxyBind" {
-  type    = bool
-  default = null
-}
-
-variable "CRLBR53D_ThpHttpKeepAliveTimeoutSec" {
-  type = number
-  validation {
-    condition     = var.CRLBR53D_ThpHttpKeepAliveTimeoutSec == null || can(var.CRLBR53D_ThpHttpKeepAliveTimeoutSec >= 5 && var.CRLBR53D_ThpHttpKeepAliveTimeoutSec <= 1200)
-    error_message = "var.CRLBR53D_ThpHttpKeepAliveTimeoutSec must be Greater than or Equal to 5 AND Less Than or Equal to 1200"
-  }
-  default = null
-}
-
-variable "CRLBR53D_ThpServerTlsPolicy" {
-  type    = string
-  default = null
-}
-
-#---
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_forwarding_rule#argument-reference
-variable "CRLBR53D_GfrTarget" {
-  type = string
-}
-
-variable "CRLBR53D_GfrDescription" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_GfrIpAddress" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_GfrIpProtocol" {
-  type = string
-  validation {
-    condition = var.CRLBR53D_GfrIpProtocol == null || can(contains([
-      "TCP",
-      "UDP",
-      "ESP",
-      "AH",
-      "SCTP",
-      "ICMP L3_DEFAULT"
-    ], var.CRLBR53D_GfrIpProtocol))
-    error_message = "Valid inputs for | variable: CRLBR53D_GfrIpProtocol | are: TCP, UDP, ESP, AH, SCTP, ICMP L3_DEFAULT"
-  }
-  default = null
-}
-
-variable "CRLBR53D_GfrIpVersion" {
-  type = string
-  validation {
-    condition = var.CRLBR53D_GfrIpVersion == null || can(contains([
-      "IPV4",
-      "IPV6"
-    ], var.CRLBR53D_GfrIpVersion))
-    error_message = "Valid inputs for | variable: CRLBR53D_GfrIpVersion | are: IPV4, IPV6"
-  }
-  default = null
-}
-
-variable "CRLBR53D_GfrLoadBalancingScheme" {
-  type = string
-  validation {
-    condition = contains([
-      "EXTERNAL",
-      "EXTERNAL_MANAGED",
-      "INTERNAL",
-      "INTERNAL_MANAGED"
-    ], var.CRLBR53D_GfrLoadBalancingScheme)
-    error_message = "Valid inputs for | variable: CRLBR53D_GfrLoadBalancingScheme | are: EXTERNAL, EXTERNAL_MANAGED, INTERNAL, INTERNAL_MANAGED"
-  }
-  default = "EXTERNAL"
-}
-
-variable "CRLBR53D_GfrMetadataFilters" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_forwarding_rule#nested_metadata_filters
-  type = object({
-    filter_match_criteria = string
-    filter_labels = object({
-      name  = string
-      value = string
+    action = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_CSCRAPFG_NWEIPN_NWEA_Nat#nested_rules_rules_action
+      source_CSCRAPFG_NWEIPN_NWEA_Nat_active_ips = optional(list(string), null)
+      source_CSCRAPFG_NWEIPN_NWEA_Nat_drain_ips  = optional(list(string), null)
     })
   })
   default = null
 }
 
-variable "CRLBR53D_GfrNetwork" {
+variable "CSCRAPFG_NWEIPN_NWEA_NatEnableEndpointIndependentMapping" {
+  type    = bool
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_NWEA_NatAutoNetworkTier" {
+  type = string
+  validation {
+    condition = var.CSCRAPFG_NWEIPN_NWEA_NatAutoNetworkTier == null || can(contains([
+      "PREMIUM",
+      "STANDARD"
+    ], var.CSCRAPFG_NWEIPN_NWEA_NatAutoNetworkTier))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_NWEIPN_NWEA_NatAutoNetworkTier | are: PREMIUM, STANDARD"
+  }
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/vpc_access_connector#argument-reference
+
+variable "CSCRAPFG_NWEIPN_VpcAccessConnectorNetwork" {
   type    = string
   default = null
 }
 
-variable "CRLBR53D_GfrPortRange" {
+variable "CSCRAPFG_NWEIPN_VpcAccessConnectorIpCidrRange" {
   type    = string
   default = null
 }
 
-variable "CRLBR53D_GfrSubnetwork" {
+variable "CSCRAPFG_NWEIPN_VpcAccessConnectorMachineType" {
   type    = string
   default = null
 }
 
-variable "CRLBR53D_GfrServiceDirectoryRegistrations" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_forwarding_rule#nested_service_directory_registrations
-  type = object({
-    namespace                = optional(string, null)
-    service_directory_region = optional(string, null)
+variable "CSCRAPFG_NWEIPN_VpcAccessConnectorMinThroughput" {
+  type = number
+  validation {
+    condition = var.CSCRAPFG_NWEIPN_VpcAccessConnectorMinThroughput == null || can(contains([
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+    ], var.CSCRAPFG_NWEIPN_VpcAccessConnectorMinThroughput))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_NWEIPN_VpcAccessConnectorMinThroughput | are: 200, 300, 400, 500, 600, 700, 800, 900"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_VpcAccessConnectorMinInstances" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_NWEIPN_VpcAccessConnectorMinInstances == null || can(var.CSCRAPFG_NWEIPN_VpcAccessConnectorMinInstances >= 2 && var.CSCRAPFG_NWEIPN_VpcAccessConnectorMinInstances <= 9)
+    error_message = "var.CSCRAPFG_NWEIPN_VpcAccessConnectorMinInstances must be Greater than or Equal to 2 AND Less Than or Equal to 9"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_VpcAccessConnectorMaxInstances" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_NWEIPN_VpcAccessConnectorMaxInstances == null || can(var.CSCRAPFG_NWEIPN_VpcAccessConnectorMaxInstances >= 3 && var.CSCRAPFG_NWEIPN_VpcAccessConnectorMaxInstances <= 10)
+    error_message = "var.CSCRAPFG_NWEIPN_VpcAccessConnectorMaxInstances must be Greater than or Equal to 3 AND Less Than or Equal to 10"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_NWEIPN_VpcAccessConnectorMaxThroughput" {
+  type = number
+  validation {
+    condition = var.CSCRAPFG_NWEIPN_VpcAccessConnectorMaxThroughput == null || can(contains([
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900,
+      1000
+    ], var.CSCRAPFG_NWEIPN_VpcAccessConnectorMaxThroughput))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_NWEIPN_VpcAccessConnectorMaxThroughput | are: 300, 400, 500, 600, 700, 800, 900, 1000"
+  }
+}
+
+variable "CSCRAPFG_NWEIPN_VpcAccessConnectorSubnet" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/vpc_access_connector#nested_subnet
+    name       = optional(string, null)
+    project_id = optional(string, null)
+  })
+}
+
+
+
+
+
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#argument-reference
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceSettings" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#tier-1
+    tier                         = string
+    edition                      = optional(string, null)
+    activation_policy            = optional(string, null)
+    availability_type            = optional(string, null)
+    collation                    = optional(string, null)
+    connector_enforcement        = optional(string, null)
+    deletion_protection_enabled  = optional(bool, null)
+    enable_google_ml_integration = optional(bool, null)
+    enable_dataplex_integration  = optional(bool, null)
+    disk_autoresize              = optional(bool, null)
+    disk_autoresize_limit        = optional(number, null)
+    disk_size                    = optional(number, null)
+    pricing_plan                 = optional(string, null)
+    time_zone                    = optional(string, null)
+
+    advanced_machine_features = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#threads_per_core-1
+      threads_per_core = optional(number, null)
+    }), null)
+
+    database_flags = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#name-9
+      name  = string
+      value = string
+    }), null)
+
+    active_directory_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#domain-1
+      domain = string
+    }), null)
+
+    data_cache_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#data_cache_enabled-1
+      data_cache_enabled = optional(bool, null)
+    }), null)
+
+    deny_maintenance_period = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#end_date-1
+      end_date   = string
+      start_date = string
+      time       = string
+    }), null)
+
+    sql_server_audit_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#bucket-1
+      bucket             = optional(string, null)
+      upload_interval    = optional(string, null)
+      retention_interval = optional(string, null)
+    }), null)
+
+    backup_configuration = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#binary_log_enabled-1
+      binary_log_enabled             = optional(bool, null)
+      enabled                        = optional(bool, null)
+      start_time                     = optional(string, null)
+      point_in_time_recovery_enabled = optional(string, null)
+      location                       = optional(string, null)
+      transaction_log_retention_days = optional(number, null)
+
+      backup_configuration = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#retained_backups-1
+        retained_backups = optional(number, null)
+        retention_unit   = optional(string, null)
+      }), null)
+    }), null)
+
+    ip_configuration = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#ipv4_enabled-1
+      ipv4_enabled                                  = optional(bool, null)
+      private_network                               = optional(string, null)
+      ssl_mode                                      = optional(string, null)
+      server_ca_mode                                = optional(string, null)
+      allocated_ip_range                            = optional(string, null)
+      enable_private_path_for_google_cloud_services = optional(bool, null)
+
+      authorized_networks = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#expiration_time-1
+        expiration_time = optional(string, null)
+        name            = optional(string, null)
+        value           = string
+      }), null)
+
+      psc_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#psc_enabled-1
+        psc_enabled               = optional(bool, null)
+        allowed_consumer_projects = optional(list(string), null)
+      }), null)
+    }), null)
+
+    location_preference = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#follow_gae_application-1
+      follow_gae_application = optional(string, null)
+      zone                   = optional(string, null)
+      secondary_zone         = optional(string, null)
+    }), null)
+
+    maintenance_window = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#day-1
+      day          = optional(number, null)
+      hour         = optional(number, null)
+      update_track = optional(string, null)
+    }), null)
+
+    insights_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#query_insights_enabled-1
+      query_insights_enabled  = optional(bool, null)
+      query_string_length     = optional(number, null)
+      record_application_tags = optional(bool, null)
+      record_client_address   = optional(bool, null)
+      query_plans_per_minute  = optional(number, null)
+    }), null)
+
+    password_validation_policy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#min_length-1
+      min_length                  = optional(number, null)
+      complexity                  = optional(bool, null)
+      reuse_interval              = optional(number, null)
+      disallow_username_substring = optional(bool, null)
+      password_change_interval    = optional(number, null)
+      enable_password_policy      = optional(bool, null)
+    }), null)
+  })
+
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceDatabaseVersion" {
+  type = string
+  validation {
+    condition = contains([
+      "MYSQL_5_6",
+      "MYSQL_5_7",
+      "MYSQL_8_0",
+      "MYSQL_8_4",
+      "POSTGRES_9_6",
+      "POSTGRES_10",
+      "POSTGRES_11",
+      "POSTGRES_12",
+      "POSTGRES_13",
+      "POSTGRES_14",
+      "POSTGRES_15",
+      "POSTGRES_16",
+      "POSTGRES_17",
+      "SQLSERVER_2017_STANDARD",
+      "SQLSERVER_2017_ENTERPRISE",
+      "SQLSERVER_2017_EXPRESS",
+      "SQLSERVER_2017_WEB. SQLSERVER_2019_STANDARD",
+      "SQLSERVER_2019_ENTERPRISE",
+      "SQLSERVER_2019_EXPRESS",
+      "SQLSERVER_2019_WEB"
+    ], var.CSCRAPFG_CSDIU_DatabaseInstanceDatabaseVersion)
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_CSDIU_DatabaseInstanceDatabaseVersion | are: MYSQL_5_6, MYSQL_5_7, MYSQL_8_0, MYSQL_8_4, POSTGRES_9_6,POSTGRES_10, POSTGRES_11, POSTGRES_12, POSTGRES_13, POSTGRES_14, POSTGRES_15, POSTGRES_16, POSTGRES_17, SQLSERVER_2017_STANDARD, SQLSERVER_2017_ENTERPRISE, SQLSERVER_2017_EXPRESS, SQLSERVER_2017_WEB. SQLSERVER_2019_STANDARD, SQLSERVER_2019_ENTERPRISE, SQLSERVER_2019_EXPRESS, SQLSERVER_2019_WEB"
+  }
+}
+
+variable "databseInstanceName" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceMaintenanceVersion" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceMasterInstanceName" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceReplicaConfiguration" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#ca_certificate-1
+    ca_certificate            = optional(string, null)
+    client_certificate        = optional(string, null)
+    client_key                = optional(string, null)
+    connect_retry_interval    = optional(number, null)
+    dump_file_path            = optional(string, null)
+    failover_target           = optional(string, null)
+    master_heartbeat_period   = optional(number, null)
+    password                  = optional(string, null)
+    ssl_cipher                = optional(string, null)
+    username                  = optional(string, null)
+    verify_server_certificate = optional(bool, null)
+  })
+
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceRootPassword" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceEncryptionKeyName" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceDeletionProtection" {
+  type    = bool
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseInstanceRestoreBackupContext" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance#backup_run_id-1
+    backup_run_id = string
+    instance_id   = optional(string, null)
+    project       = optional(string, null)
   })
   default = null
 }
 
-variable "CRLBR53D_GfrSourceIpRanges" {
-  type    = list(string)
+variable "CSCRAPFG_CSDIU_DatabaseInstanceClone" {
+  type = object({
+    source_instance_name = string
+    point_in_time        = optional(string, null)
+    preferred_zone       = optional(string, null)
+    database_names       = optional(list(string), null)
+    allocated_ip_range   = optional(string, null)
+  })
   default = null
 }
 
-variable "CRLBR53D_GfrNoAutomateDnsZone" {
-  type    = bool
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_CSCRAPFG_CSDIU_Database#argument-reference
+
+variable "CSCRAPFG_CSDIU_DatabaseCharset" {
+  type    = string
   default = null
 }
+
+variable "CSCRAPFG_CSDIU_DatabaseCollation" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseDeletionPolicy" {
+  type = string
+  validation {
+    condition = var.CSCRAPFG_CSDIU_DatabaseDeletionPolicy == null || can(contains([
+      "ABANDON",
+      "DELETE"
+    ], var.CSCRAPFG_CSDIU_DatabaseDeletionPolicy))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_CSDIU_DatabaseDeletionPolicy | are: ABANDON, DELETE"
+  }
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_user#argument-reference
+
+variable "CSCRAPFG_CSDIU_DatabaseUserPassword" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseUserType" {
+  type = string
+  validation {
+    condition = var.CSCRAPFG_CSDIU_DatabaseUserType == null || can(contains([
+      "BUILT_IN",
+      "CLOUD_IAM_USER",
+      "CLOUD_IAM_SERVICE_ACCOUNT",
+      "CLOUD_IAM_GROUP",
+      "CLOUD_IAM_GROUP_USER",
+      "CLOUD_IAM_GROUP_SERVICE_ACCOUNT"
+    ], var.CSCRAPFG_CSDIU_DatabaseUserType))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_CSDIU_DatabaseUserType | are: BUILT_IN, CLOUD_IAM_USER, CLOUD_IAM_SERVICE_ACCOUNT, CLOUD_IAM_GROUP, CLOUD_IAM_GROUP_USER, CLOUD_IAM_GROUP_SERVICE_ACCOUNT"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseUserDeletionPolicy" {
+  type = string
+  validation {
+    condition = var.CSCRAPFG_CSDIU_DatabaseUserDeletionPolicy == null || can(contains([
+      "ABANDON"
+    ], var.CSCRAPFG_CSDIU_DatabaseUserDeletionPolicy))
+    error_message = "Valid inputs for | variable: var.CSCRAPFG_CSDIU_DatabaseUserDeletionPolicy | are: ABANDON"
+  }
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseUserHost" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_DatabaseUserPasswordPolicy" {
+  type = object({
+    allowed_failed_attempts      = optional(number, null)
+    password_expiration_duration = optional(number, null)
+    enable_failed_attempts_check = optional(bool, null)
+    enable_password_verification = optional(bool, null)
+  })
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#argument-reference
+
+variable "CSCRAPFG_CSDIU_SecretReplicationAuto" {
+  type = object({                                   #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#nested_replication_auto
+    customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#nested_replication_auto_customer_managed_encryption
+      kms_key_name = string
+    }), null)
+  })
+
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretReplicationUserManaged" {
+  type = object({       #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#replicas-1
+    replicas = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#location-2
+      location = string
+      customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#nested_replication_user_managed_replicas_replicas_customer_managed_encryption
+        kms_key_name = string
+      }), null)
+
+    })
+  })
+}
+
+variable "CSCRAPFG_CSDIU_SecretAnnotations" {
+  type    = map(string)
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretVersionAliases" {
+  type    = map(string)
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretVersionDestroyTtl" {
+  type    = number
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretTopics" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#nested_topics
+    name = string
+  })
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretExpireTime" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretTtl" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CSDIU_SecretRotation" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CSDIU_Secret_manager_CSCRAPFG_CSDIU_Secret#nested_rotation
+    next_rotation_time = optional(string, null)
+    rotation_period    = optional(string, null)
+  })
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret_version#argument-reference
+
+variable "CSCRAPFG_CSDIU_SecretVersionObjects" {
+  type = list(object({
+    enabled               = optional(bool, null)
+    secret_data           = sensitive(string)
+    deletion_policy       = optional(string, null)
+    is_secret_data_base64 = optional(bool, null)
+  }))
+  default = []
+}
+
+
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret#argument-reference
+
+variable "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretReplicationAuto" {
+  type = object({                                   #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret#nested_replication_auto
+    customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret#nested_replication_auto_customer_managed_encryption
+      kms_key_name = string
+    }), null)
+  })
+
+  default = null
+}
+
+variable "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretReplicationUserManaged" {
+  type = object({       #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret#replicas-1
+    replicas = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret#location-2
+      location = string
+      customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret#nested_replication_user_managed_replicas_replicas_customer_managed_encryption
+        kms_key_name = string
+      }), null)
+
+    })
+  })
+  default = null
+}
+
+variable "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretAnnotations" {
+  type    = map(string)
+  default = null
+}
+
+variable "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretVersionAliases" {
+  type    = map(string)
+  default = null
+}
+
+variable "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretVersionDestroyTtl" {
+  type    = number
+  default = null
+}
+
+variable "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretTopics" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret#nested_topics
+    name = string
+  })
+  default = null
+}
+
+variable "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretExpireTime" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretTtl" {
+  type    = string
+  default = null
+}
+
+variable "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretRotation" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_CSCRAPFG_CRDPFG_SWSV_Cloudbuild_Secret#nested_rotation
+    next_rotation_time = optional(string, null)
+    rotation_period    = optional(string, null)
+  })
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret_version#argument-reference
+
+variable "CSCRAPFG_CRDPFG_SWSV_Cloudbuild_SecretVersionObjects" {
+  type = list(object({
+    enabled               = optional(bool, null)
+    secret_data           = string
+    deletion_policy       = optional(string, null)
+    is_secret_data_base64 = optional(bool, null)
+  }))
+  sensitive = true
+}
+
+
+
+
+
+
+variable "CSCRAPFG_CRDPFG_ServiceAccountDisabled" {
+  type    = bool
+  default = false
+}
+
+variable "CSCRAPFG_CRDPFG_ServiceAccountCreateIgnoreAlreadyExists" {
+  type    = bool
+  default = true
+}
+
+variable "CSCRAPFG_CRDPFG_ServiceAccountRoleId" {
+  type = string
+}
+
+variable "CSCRAPFG_CRDPFG_ServiceAccountRoleStage" {
+  type = string
+  validation {
+    condition     = contains(["ALPHA", "BETA", "GA", "DEPRECATED", "DISABLED", "EAP"], var.CSCRAPFG_CRDPFG_ServiceAccountRoleStage)
+    error_message = "Variable CSCRAPFG_CRDPFG_ServiceAccountRoleStage only has valid values of: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
+  }
+  default = "GA"
+}
+
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerYamlPath" {
+  type    = string
+  default = "cloudbuild.yaml"
+}
+
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerGithubRepoName" {
+  type = string
+}
+
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerBranchName" {
+  type    = string
+  default = "main"
+}
+
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerArtifactRepoName" {
+  type = string
+}
+
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerBucketName" {
+  type    = string
+  default = "gs://dash_build_logs"
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunConcurrentRequests" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunConcurrentRequests >= 1 && var.CSCRAPFG_CRDPFG_CloudRunConcurrentRequests <= 250
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunConcurrentRequests must be greater than or equal to 1 and less than or equal to 250"
+  }
+  default = 80
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunRequestsTimeout" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunRequestsTimeout >= 1 && var.CSCRAPFG_CRDPFG_CloudRunRequestsTimeout <= 3000
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunRequestsTimeout must be greater than or equal to 1 second and less than or equal to 900 seconds"
+  }
+  default = 300
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunPortNumber" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunPortNumber >= 1 && var.CSCRAPFG_CRDPFG_CloudRunPortNumber <= 65535
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunPortNumber must be greater than 1 and less than 65335"
+  }
+  default = 8080
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunMinInstances" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunMinInstances >= 0
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunMinInstances must be greater than or equal to 0"
+  }
+  default = 0
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunMaxInstances" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunMaxInstances >= 1 && var.CSCRAPFG_CRDPFG_CloudRunMaxInstances <= 10
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunMaxInstances must be greater than or equal to 1 instance or less than or equal to 10 instances"
+  }
+  default = 5
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunEnvVariableName" {
+  type    = string
+  default = "ENV_VARS"
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunVpcConnector" {
+  type    = string
+  default = "dash"
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunAmountOfMemory" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunAmountOfMemory >= 1 && var.CSCRAPFG_CRDPFG_CloudRunAmountOfMemory <= 16
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunAmountOfMemory must be greater than or equal to 1 or less than or equal to 16."
+  }
+  default = 2
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunNumberOfVcpus" {
+  type = number
+  validation {
+    condition     = contains([1, 2, 4], var.CSCRAPFG_CRDPFG_CloudRunNumberOfVcpus)
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunNumberOfVcpus must be greater than or equal to 1 or less than or equal to 16."
+  }
+  default = 2
+}
+
+variable "CSCRAPFG_CRDPFG_CloudBuildTriggerAdditionalSubstitutions" {
+  description = "Additional substitutions for the Cloud Build trigger"
+  type        = map(string)
+  default     = {}
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
+
+
+variable "CSCRAPFG_CRDPFG_CloudRunLogsAlertPolicyEnabled" {
+  type    = bool
+  default = true
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunLogsAlertPolicyAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
+  type = object({
+
+    notification_rate_limit = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_rate_limit
+      period = optional(string, null)
+    }), null)
+
+    auto_close = optional(string, null)
+
+    notification_channel_strategy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_channel_strategy
+      notification_channel_names = optional(list(string), null)
+      renotify_interval          = optional(number, null)
+    }), null)
+  })
+  default = null
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunLogsAlertPolicySeverity" {
+  type = string
+  validation {
+    condition = var.CSCRAPFG_CRDPFG_CloudRunLogsAlertPolicySeverity == null || can(contains([
+      "CRITICAL",
+      "ERROR",
+      "WARNING"
+    ], var.CSCRAPFG_CRDPFG_CloudRunLogsAlertPolicySeverity))
+    error_message = "Valid inputs for | variable: CSCRAPFG_CRDPFG_CloudRunLogsAlertPolicySeverity | are: CRITICAL, ERROR, WARNING"
+  }
+  default = "ERROR"
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunLogsAlertPolicyDocumentation" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_documentation
+  type = object({
+    content   = optional(string, null)
+    mime_type = optional(string, null)
+    subject   = optional(string, null)
+    links = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_links
+      display_name = optional(string, null)
+      url          = optional(string, null)
+    }), {})
+  })
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
+
+variable "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent >= 0 && var.CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent <= 100
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
+
+  default = 50
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent >= 0 && var.CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent <= 100
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
+
+  default = 80
+}
+
+
+variable "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyEnabled" {
+  type    = bool
+  default = true
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunInfraAlertPolicyNotificationChannels" {
+  type = list(string)
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
+  type = object({
+
+    notification_rate_limit = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_rate_limit
+      period = optional(string, null)
+    }), null)
+
+    auto_close = optional(string, null)
+
+    notification_channel_strategy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_channel_strategy
+      notification_channel_names = optional(list(string), null)
+      renotify_interval          = optional(number, null)
+    }), null)
+  })
+  default = null
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicySeverity" {
+  type = string
+  validation {
+    condition = var.CSCRAPFG_CRDPFG_CloudRunMemAlertPolicySeverity == null || can(contains([
+      "CRITICAL",
+      "ERROR",
+      "WARNING"
+    ], var.CSCRAPFG_CRDPFG_CloudRunMemAlertPolicySeverity))
+    error_message = "Valid inputs for | variable: CSCRAPFG_CRDPFG_CloudRunMemAlertPolicySeverity | are: CRITICAL, ERROR, WARNING"
+  }
+  default = "ERROR"
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunMemAlertPolicyDocumentation" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_documentation
+  type = object({
+    content   = optional(string, null)
+    mime_type = optional(string, null)
+    subject   = optional(string, null)
+    links = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_links
+      display_name = optional(string, null)
+      url          = optional(string, null)
+    }), {})
+  })
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
+
+
+variable "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent >= 0 && var.CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent <= 100
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
+
+  default = 50
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent" {
+  type = number
+  validation {
+    condition     = var.CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent >= 0 && var.CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent <= 100
+    error_message = "Variable CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent must be greater than or equal to 0 or less than and equal to 100"
+  }
+
+  default = 50
+}
+
+
+variable "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyEnabled" {
+  type    = bool
+  default = true
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
+  type = object({
+
+    notification_rate_limit = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_rate_limit
+      period = optional(string, null)
+    }), null)
+
+    auto_close = optional(string, null)
+
+    notification_channel_strategy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_channel_strategy
+      notification_channel_names = optional(list(string), null)
+      renotify_interval          = optional(number, null)
+    }), null)
+  })
+  default = null
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicySeverity" {
+  type = string
+  validation {
+    condition = var.CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicySeverity == null || can(contains([
+      "CRITICAL",
+      "ERROR",
+      "WARNING"
+    ], var.CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicySeverity))
+    error_message = "Valid inputs for | variable: CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicySeverity | are: CRITICAL, ERROR, WARNING"
+  }
+  default = "ERROR"
+}
+
+variable "CSCRAPFG_CRDPFG_CloudRunCpuAlertPolicyDocumentation" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_documentation
+  type = object({
+    content   = optional(string, null)
+    mime_type = optional(string, null)
+    subject   = optional(string, null)
+    links = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_links
+      display_name = optional(string, null)
+      url          = optional(string, null)
+    }), {})
+  })
+  default = null
+}
+
+
 
 #---

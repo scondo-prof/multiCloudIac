@@ -61,7 +61,7 @@ module "cloudRunLogsAlertPolicy" {
   gcpProjectId        = var.gcpProjectId
   gcpRegion           = var.gcpRegion
   resourceName        = var.resourceName
-  alertPolicyCombiner = "OR" #var.CRDPFG_CloudRunLogsAlertPolicyCombiner
+  alertPolicyCombiner = "OR"
   alertPolicyConditions = {
     condition_matched_log = {
       filter = "resource.type=\"cloud_run_revision\"\nseverity=ERROR\nresource.labels.service_name=\"${var.resourceName}\""
@@ -90,7 +90,7 @@ module "cloudRunMemAlertPolicy" {
   gcpProjectId        = var.gcpProjectId
   gcpRegion           = var.gcpRegion
   resourceName        = "${var.resourceName}-cloud-run-mem"
-  alertPolicyCombiner = "OR" #var.CRDPFG_CloudRunMemAlertPolicyCombiner
+  alertPolicyCombiner = "OR"
   alertPolicyConditions = {
     condition_monitoring_query_language = {
       duration = "300s"
