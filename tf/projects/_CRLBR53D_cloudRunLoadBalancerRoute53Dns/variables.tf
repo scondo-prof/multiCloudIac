@@ -328,10 +328,8 @@ variable "CRLBR53D_MscDescription" {
 }
 
 variable "CRLBR53D_MscManaged" {
-  type = object({
-    domains = list(string)
-  })
-  default = null
+  type    = list(string)
+  default = []
 }
 
 variable "CRLBR53D_MscType" {
@@ -342,65 +340,6 @@ variable "CRLBR53D_MscType" {
     ], var.CRLBR53D_MscType))
     error_message = "Valid inputs for | variable: var.CRLBR53D_MscType | are: MANAGED"
   }
-  default = null
-}
-
-#---
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_address#argument-reference
-variable "CRLBR53D_GlobalAddressAddress" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_GlobalAddressDescription" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_GlobalAddressIpVersion" {
-  type = string
-  validation {
-    condition = var.CRLBR53D_GlobalAddressIpVersion == null || can(contains([
-      "IPV4",
-      "IPV6"
-    ], var.CRLBR53D_GlobalAddressIpVersion))
-    error_message = "Valid inputs for | variable: var.CRLBR53D_GlobalAddressIpVersion | are: IPV4, IPV6"
-  }
-  default = null
-}
-
-variable "CRLBR53D_GlobalAddressPrefixLength" {
-  type    = number
-  default = null
-}
-
-variable "CRLBR53D_GlobalAddressType" {
-  type = string
-  validation {
-    condition = contains([
-      "EXTERNAL",
-      "INTERNAL"
-    ], var.CRLBR53D_GlobalAddressType)
-    error_message = "Valid inputs for | variable: var.CRLBR53D_GlobalAddressType | are: EXTERNAL, INTERNAL"
-  }
-  default = "EXTERNAL"
-}
-
-variable "CRLBR53D_GlobalAddressPurpose" {
-  type = string
-  validation {
-    condition = var.CRLBR53D_GlobalAddressPurpose == null || can(contains([
-      "VPC_PEERING",
-      "PRIVATE_SERVICE_CONNECT"
-    ], var.CRLBR53D_GlobalAddressPurpose))
-    error_message = "Valid inputs for | variable: var.CRLBR53D_GlobalAddressPurpose | are: VPC_PEERING , PRIVATE_SERVICE_CONNECT "
-  }
-  default = null
-}
-
-variable "CRLBR53D_GlobalAddressNetwork" {
-  type    = string
   default = null
 }
 
@@ -482,7 +421,6 @@ variable "CRLBR53D_BackendServiceBackend" { #https://registry.terraform.io/provi
     balancing_mode               = optional(string, null)
     capacity_scaler              = optional(number, null)
     description                  = optional(string, null)
-    group                        = string
     max_connections              = optional(number, null)
     max_connections_per_instance = optional(number, null)
     max_connections_per_endpoint = optional(number, null)
@@ -491,7 +429,7 @@ variable "CRLBR53D_BackendServiceBackend" { #https://registry.terraform.io/provi
     max_rate_per_endpoint        = optional(number, null)
     max_utilization              = optional(number, null)
   })
-  default = null
+  default = {}
 }
 
 variable "CRLBR53D_BackendServiceCircuitBreakers" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_circuit_breakers
@@ -774,10 +712,6 @@ variable "CRLBR53D_BackendServiceServiceLbPolicy" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#argument-reference
-variable "CRLBR53D_UrlMapDefaultService" {
-  type    = string
-  default = null
-}
 
 variable "CRLBR53D_UrlMapDescription" {
   type    = string
@@ -1293,9 +1227,6 @@ variable "CRLBR53D_UrlMapDefaultRouteAction" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_target_https_proxy#argument-reference
-variable "CRLBR53D_ThpUrlMap" {
-  type = string
-}
 
 variable "CRLBR53D_ThpDescription" {
   type    = string
@@ -1335,7 +1266,7 @@ variable "CRLBR53D_ThpCertificateManagerCertificates" {
 
 variable "CRLBR53D_ThpSslCertificates" {
   type    = list(string)
-  default = null
+  default = []
 }
 
 variable "CRLBR53D_ThpCertificateMap" {
@@ -1370,16 +1301,8 @@ variable "CRLBR53D_ThpServerTlsPolicy" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_forwarding_rule#argument-reference
-variable "CRLBR53D_GfrTarget" {
-  type = string
-}
 
 variable "CRLBR53D_GfrDescription" {
-  type    = string
-  default = null
-}
-
-variable "CRLBR53D_GfrIpAddress" {
   type    = string
   default = null
 }

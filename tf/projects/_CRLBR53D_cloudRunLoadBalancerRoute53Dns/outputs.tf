@@ -47,19 +47,6 @@ output "CRLBR53D_MscSubjectAlternativeNames" {
 }
 
 #---
-output "CRLBR53D_GlobalAddress" {
-  value = module.globalAddress.globalAddress
-}
-
-output "CRLBR53D_GlobalAddressId" {
-  value = module.globalAddress.globalAddressId
-}
-
-output "CRLBR53D_GlobalAddressSelfLink" {
-  value = module.globalAddress.globalAddressSelfLink
-}
-
-#---
 output "CRLBR53D_RnegId" {
   value = module.rneg.rnegId
 }
