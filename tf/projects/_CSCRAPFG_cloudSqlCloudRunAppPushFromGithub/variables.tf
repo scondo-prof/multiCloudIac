@@ -1038,10 +1038,11 @@ variable "CSCRAPFG_CSDIU_SecretRotation" {
 variable "CSCRAPFG_CSDIU_SecretVersionObjects" {
   type = list(object({
     enabled               = optional(bool, null)
-    secret_data           = sensitive(string)
+    secret_data           = string
     deletion_policy       = optional(string, null)
     is_secret_data_base64 = optional(bool, null)
   }))
+  sensitive = true
   default = []
 }
 
@@ -1227,11 +1228,6 @@ variable "CSCRAPFG_CRDPFG_CloudRunMaxInstances" {
 variable "CSCRAPFG_CRDPFG_CloudRunEnvVariableName" {
   type    = string
   default = "ENV_VARS"
-}
-
-variable "CSCRAPFG_CRDPFG_CloudRunVpcConnector" {
-  type    = string
-  default = "dash"
 }
 
 variable "CSCRAPFG_CRDPFG_CloudRunAmountOfMemory" {

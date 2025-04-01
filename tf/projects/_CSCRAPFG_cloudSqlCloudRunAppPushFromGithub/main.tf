@@ -174,7 +174,7 @@ module "CRDPFG" {
   CRDPFG_CloudRunPortNumber                                  = var.CSCRAPFG_CRDPFG_CloudRunPortNumber
   CRDPFG_CloudRunMinInstances                                = var.CSCRAPFG_CRDPFG_CloudRunMinInstances
   CRDPFG_CloudRunMaxInstances                                = var.CSCRAPFG_CRDPFG_CloudRunMaxInstances
-  CRDPFG_CloudRunVpcConnector                                = var.CSCRAPFG_CRDPFG_CloudRunVpcConnector
+  CRDPFG_CloudRunVpcConnector                                = module.NWEIPN.NWEIPN_VpcAccessConnectorName
   CRDPFG_CloudRunNumberOfVcpus                               = var.CSCRAPFG_CRDPFG_CloudRunNumberOfVcpus
   CRDPFG_CloudRunAmountOfMemory                              = var.CSCRAPFG_CRDPFG_CloudRunAmountOfMemory
   CRDPFG_CloudRunEnvVariableName                             = var.CSCRAPFG_CRDPFG_CloudRunEnvVariableName
