@@ -207,14 +207,14 @@ module "queuePolicyS3Access" {
     Action = ["sqs:SendMessage"]
     Condition = {
       "ArnEquals" = {
-        "aws:SourceArn" = var.CSQSNLSM_QueuePolicyS3AccessBucket
+        "aws:SourceArn" = var.CSQSNLSM_QueuePolicyS3AccessBucketArn
       }
     }
     Effect = "Allow"
     Principal = {
       "Service" = ["s3.amazonaws.com"]
     }
-    Resource = [module.s3Queue.queueArn]
+    Resource = [module.queueS3.queueArn]
     Sid      = "s3Access"
   }], var.CSQSNLSM_QueuePolicyS3AccessDocumentStatements)
   queuePolicyQueueUrl = module.queueS3.queueUrl

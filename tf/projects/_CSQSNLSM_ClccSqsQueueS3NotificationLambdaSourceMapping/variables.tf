@@ -1392,7 +1392,7 @@ variable "CSQSNLSM_QueueS3VisibilityTimeoutSeconds" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy#argument-reference
 
-variable "CSQSNLSM_QueuePolicyS3AccessBucket" {
+variable "CSQSNLSM_QueuePolicyS3AccessBucketArn" {
   type = string
 }
 variable "CSQSNLSM_QueuePolicyS3AccessDocumentStatements" {

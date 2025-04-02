@@ -2,7 +2,7 @@ resourceName = "get-in-me-queue"
 
 projectName = "unga-bunga"
 
-deployedDate = "02-21-2024"
+deployedDate = "2025-04-02"
 
 tfModule = "csqsnlsm"
 
@@ -30,15 +30,15 @@ CSQSNLSM_CLCC_CECC_CodebuildProjectSourceLocation = "https://github.com/scondo-p
 
 CSQSNLSM_CLCC_CECC_CodebuildProjectSourceType = "GITHUB"
 
-CSQSNLSM_CLCC_CECC_CredentialsAuthType = "PERSONAL_ACCESS_TOKEN"
+CSQSNLSM_CLCC_CECC_CodebuildCredentialsAuthType = "PERSONAL_ACCESS_TOKEN"
 
-CSQSNLSM_CLCC_CECC_CredentialsServerType = "GITHUB"
+CSQSNLSM_CLCC_CECC_CodebuildCredentialsServerType = "GITHUB"
 
-CSQSNLSM_CLCC_CECC_CredentialsToken = ""
+CSQSNLSM_CLCC_CECC_CodebuildCredentialsToken = "fill"
 
-CSQSNLSM_CLCC_CECC_WebhookBuildType = "BUILD"
+CSQSNLSM_CLCC_CECC_CodebuildWebhookBuildType = "BUILD"
 
-CSQSNLSM_CLCC_CECC_WebhookFilterGroup = {
+CSQSNLSM_CLCC_CECC_CodebuildWebhookFilterGroup = {
   filter = {
     event_filter = {
       type    = "EVENT"
@@ -46,7 +46,7 @@ CSQSNLSM_CLCC_CECC_WebhookFilterGroup = {
     }
     ref_filter = {
       type    = "HEAD_REF"
-      pattern = "refs/heads/dev/CSQSNLSMModule"
+      pattern = "refs/heads/dev/integrateTfModuleTag"
     }
   }
 }
@@ -67,18 +67,18 @@ CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionPackageType = "Image"
 
 CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionTimeout = 11
 
-CSQSNLSM_CLCC_LFWLGSAR_SecretRecoveryWindowInDays = 0
+CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretRecoveryWindowInDays = 0
 
-CSQSNLSM_CLCC_LFWLGSAR_SecretVersionSecretString = {
+CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretVersionSecretString = {
   "wow-how-long" = "a-valid-question-ole-chap"
   "i-guess"      = "long-enough"
 }
 
-CSQSNLSM_ExternalS3QueuePolicyBucket = "arn:aws:s3:::test-for-nonsense"
+CSQSNLSM_QueuePolicyS3AccessBucketArn = "arn:aws:s3:::test-for-nonsense"
 
-CSQSNLSM_QueueBucketNotificationBucket = "test-for-nonsense"
+CSQSNLSM_BucketNotificationToQueueBucket = "test-for-nonsense"
 
-CSQSNLSM_QueueBucketNotificationQueue = {
+CSQSNLSM_BucketNotificationToQueueQueue = {
   filter_prefix = "HP/"
   filter_suffix = ".txt"
 }
