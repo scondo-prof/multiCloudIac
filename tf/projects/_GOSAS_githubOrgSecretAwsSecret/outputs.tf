@@ -1,20 +1,34 @@
+output "GOSAS_GhOrgSecretCreatedAt" {
+  value = module.ghOrgSecret.secretCreatedAt
+}
+
+output "GOSAS_GhOrgSecretUpdatedAt" {
+  value = module.ghOrgSecret.secretUpdatedAt
+}
+
 output "GOSAS_GhOrgSecretName" {
   value = module.ghOrgSecret.secretName
 }
 
-output "GOSAS_GhOrgSecretPlainTextValue" {
-  value     = module.ghOrgSecret.secretPlainTextValue
-  sensitive = true
+output "GOSAS_GhOrgSecretEncryptedValue" {
+  value = module.ghOrgSecret.secretEncryptedValue
 }
 
-output "GOSAS_AwsSecretArn" {
-  value = module.awsSecret.secretArn
+output "GOSAS_GhOrgSecretPlaintextValue" {
+  value = module.ghOrgSecret.secretPlaintextValue
 }
 
-output "GOSAS_AwsSecretName" {
-  value = module.awsSecret.secretName
+#---
+output "GOSAS_SWV_SecretArn" {
+  value = module.SWV.SWV_SecretArn
 }
 
-output "GOSAS_AwsSecretVersionId" {
-  value = module.awsSecret.secretVersionId
+output "GOSAS_SWV_SecretName" {
+  value = module.SWV.SWV_SecretName
 }
+
+output "GOSAS_SWV_SecretVersionId" {
+  value = module.SWV.SWV_SecretVersionId
+}
+
+#---

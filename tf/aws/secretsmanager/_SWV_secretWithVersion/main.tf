@@ -1,21 +1,10 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = var.awsRegion
-}
 
 module "secret" {
-  source = "../genericSecret"
-
+  source                     = "../genericSecret"
   awsRegion                  = var.awsRegion
+  secretDescription          = var.SWV_SecretDescription
   secretKmsKeyId             = var.SWV_SecretKmsKeyId
+  secretNamePrefix           = var.SWV_SecretNamePrefix
   resourceName               = var.resourceName
   secretPolicy               = var.SWV_SecretPolicy
   secretRecoveryWindowInDays = var.SWV_SecretRecoveryWindowInDays
@@ -28,12 +17,15 @@ module "secret" {
   additionalTags             = var.additionalTags
 }
 
-module "secretVersion" {
-  source = "../genericSecretVersion"
+#---
 
+module "secretVersion" {
+  source                    = "../genericSecretVersion"
   awsRegion                 = var.awsRegion
   secretVersionSecretId     = module.secret.secretArn
   secretVersionSecretString = var.SWV_SecretVersionSecretString
   secretVersionSecretBinary = var.SWV_SecretVersionSecretBinary
   secretVersionStages       = var.SWV_SecretVersionStages
 }
+
+#---

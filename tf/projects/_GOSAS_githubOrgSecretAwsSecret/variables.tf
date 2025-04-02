@@ -12,68 +12,25 @@ variable "resourceName" {
   type = string
 }
 
-variable "GOSAS_GhOrgSecretVisibility" {
-  type = string
-  validation {
-    condition     = contains(["all", "private", "selected"], var.GOSAS_GhOrgSecretVisibility)
-    error_message = "Variable GOSAS_GhOrgSecretVisibility can only be set to the following values: all, private, selected"
-  }
-  default = "private"
-}
-
-variable "GOSAS_GhOrgSecretPlaintextValue" {
-  type      = string
-  sensitive = true
-}
-
-variable "GOSAS_GhOrgSecretRepositoryIds" {
-  type    = list(string)
-  default = null
-}
-
 variable "awsRegion" {
   type    = string
   default = "us-east-1"
-}
-
-variable "GOSAS_AwsSecretKmsKeyId" {
-  type    = string
-  default = null
-}
-
-variable "GOSAS_AwsSecretPolicy" {
-  type    = string
-  default = null
-}
-
-variable "GOSAS_AwsSecretRecoveryWindowInDays" {
-  type    = number
-  default = 7
-}
-
-variable "GOSAS_AwsSecretReplica" {
-  type = object({
-    kms_key_id = string
-    region     = string
-  })
-  default = null
-}
-
-variable "GOSAS_AwsSecretForceSecretOverwrite" {
-  type    = bool
-  default = true
 }
 
 variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
-  default = "Scott Condo"
+  default = "scott-condo"
 }
 
 variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
   type = string
 }
 
@@ -82,17 +39,99 @@ variable "additionalTags" {
   default = {}
 }
 
-variable "GOSAS_AwsSecretVersionAdditionalSecretString" {
-  type    = map(string)
+#https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_organization_GOSAS_GhOrgSecret#argument-reference
+
+variable "GOSAS_GhOrgSecretEncryptedValue" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "GOSAS_GhOrgSecretPlaintextValue" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "GOSAS_GhOrgSecretVisibility" {
+  type = string
+  validation {
+    condition = contains([
+      "all",
+      "private",
+      "selected"
+    ], var.GOSAS_GhOrgSecretVisibility)
+    error_message = "Valid inputs for | variable: var.GOSAS_GhOrgSecretVisibility | are: all, private, selected"
+  }
+}
+
+variable "GOSAS_GhOrgSecretSelectedRepositoryIds" {
+  type    = list(string)
   default = null
 }
 
-variable "GOSAS_AwsSecretVersionSecretBinary" {
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/GOSAS_SWV_Secretsmanager_GOSAS_SWV_Secret#argument-reference
+
+variable "GOSAS_SWV_SecretDescription" {
   type    = string
   default = null
 }
 
-variable "GOSAS_AwsSecretVersionStages" {
+variable "GOSAS_SWV_SecretKmsKeyId" {
+  type    = string
+  default = null
+}
+
+variable "GOSAS_SWV_SecretNamePrefix" {
+  type    = string
+  default = null
+}
+
+variable "GOSAS_SWV_SecretPolicy" {
+  type    = string
+  default = null
+}
+
+variable "GOSAS_SWV_SecretRecoveryWindowInDays" {
+  type    = number
+  default = null
+}
+
+variable "GOSAS_SWV_SecretReplica" {
+  type = object({
+    kms_key_id = optional(string, null)
+    region     = string
+  })
+  default = null
+}
+
+variable "GOSAS_SWV_SecretForceSecretOverwrite" {
+  type    = bool
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
+
+
+variable "GOSAS_SWV_SecretVersionSecretString" {
+  type    = map(string)
+  default = null
+}
+
+variable "GOSAS_SWV_SecretVersionSecretBinary" {
+  type    = string
+  default = null
+}
+
+variable "GOSAS_SWV_SecretVersionStages" {
   type    = list(string)
   default = null
 }
+
+
+
+#---
