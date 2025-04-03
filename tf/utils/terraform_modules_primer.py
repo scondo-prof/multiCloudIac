@@ -9,23 +9,43 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../aws/s3/genericBucket",
-            "source_path": "../genericBucket",
+            "project_path": "../aws/s3/_BWV_bucketWithVersioning",
+            "source_path": "../../aws/s3/_BWV_bucketWithVersioning",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "s3Bucket",
-        "new_variable_prefix": "BWV_S3Bucket",
-        "module_name": "s3Bucket",
+        "previous_variable_prefix": "BWV",
+        "new_variable_prefix": "IRIPSB_BWV",
+        "module_name": "BWV",
     },
     {
         "paths": {
-            "project_path": "../aws/s3/genericBucketVersioning",
-            "source_path": "../genericBucketVersioning",
+            "project_path": "../aws/iam/genericIamRole",
+            "source_path": "../../aws/iam/genericIamRole",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "s3BucketVersioning",
-        "new_variable_prefix": "BWV_S3BucketVersioning",
-        "module_name": "s3BucketVersioning",
+        "previous_variable_prefix": "iamRole",
+        "new_variable_prefix": "IRIPSB_IamRole",
+        "module_name": "iamRole",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/iam/genericIamPolicy",
+            "source_path": "../../aws/iam/genericIamPolicy",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "iamPolicy",
+        "new_variable_prefix": "IRIPSB_IamPolicy",
+        "module_name": "iamPolicy",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/iam/genericIamRolePolicyAttachment",
+            "source_path": "../../aws/iam/genericIamRolePolicyAttachment",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "policyAttachment",
+        "new_variable_prefix": "IRIPSB_PolicyAttachmentIamPolicy",
+        "module_name": "PolicyAttachmentIamPolicy",
     },
 ]
 

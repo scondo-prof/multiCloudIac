@@ -18,7 +18,7 @@ module "s3Bucket" {
 module "s3BucketVersioning" {
   source                                   = "../genericBucketVersioning"
   awsRegion                                = var.awsRegion
-  s3BucketVersioningBucket                 = module.s3Bucket.s3BucketName#var.BWV_S3BucketVersioningBucket
+  s3BucketVersioningBucket                 = module.s3Bucket.s3BucketName
   s3BucketVersioningConfigurationStatus    = var.BWV_S3BucketVersioningConfigurationStatus
   s3BucketVersioningConfigurationMfaDelete = var.BWV_S3BucketVersioningConfigurationMfaDelete
   s3BucketVersioningExpectedBucketOwner    = var.BWV_S3BucketVersioningExpectedBucketOwner

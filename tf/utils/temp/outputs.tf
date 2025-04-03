@@ -1,7 +1,27 @@
-output "BWV_S3BucketArn" {
-  value = module.s3Bucket.s3BucketArn
+output "IRIPSB_BWV_S3BucketArn" {
+  value = module.BWV.BWV_S3BucketArn
 }
 
-output "BWV_S3BucketName" {
-  value = module.s3Bucket.s3BucketName
+output "IRIPSB_BWV_S3BucketName" {
+  value = module.BWV.BWV_S3BucketName
 }
+
+#---
+output "IRIPSB_IamRoleName" {
+  value = module.iamRole.iamRoleName
+}
+
+output "IRIPSB_IamRoleArn" {
+  value = module.iamRole.iamRoleArn
+}
+
+#---
+output "IRIPSB_IamPolicyArn" {
+  value = module.iamPolicy.iamPolicyArn
+}
+
+output "IRIPSB_IamPolicyName" {
+  value = module.iamPolicy.iamPolicyName
+}
+
+#---

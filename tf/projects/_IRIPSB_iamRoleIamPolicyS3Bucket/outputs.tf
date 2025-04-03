@@ -7,7 +7,6 @@ output "IRIPSB_BWV_S3BucketName" {
 }
 
 #---
-
 output "IRIPSB_IamRoleName" {
   value = module.iamRole.iamRoleName
 }
@@ -16,8 +15,7 @@ output "IRIPSB_IamRoleArn" {
   value = module.iamRole.iamRoleArn
 }
 
-#--
-
+#---
 output "IRIPSB_IamPolicyArn" {
   value = module.iamPolicy.iamPolicyArn
 }
@@ -25,3 +23,5 @@ output "IRIPSB_IamPolicyArn" {
 output "IRIPSB_IamPolicyName" {
   value = module.iamPolicy.iamPolicyName
 }
+
+#---
