@@ -25,21 +25,11 @@ variable "additionalTags" {
   default = {}
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair#argument-reference
-
-variable "KPTPKWS_Ec2KeyPairName" {
-  type    = string
-  default = null
-}
-
-variable "KPTPKWS_Ec2KeyPairNamePrefix" {
-  type    = string
-  default = null
-}
-
-variable "KPTPKWS_Ec2KeyPairPublicKey" {
+variable "resourceName" {
   type = string
 }
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair#argument-reference
 
 #---
 variable "tlsProxy" { #https://registry.terraform.io/providers/hashicorp/tls/latest/docs#optional
@@ -134,7 +124,7 @@ variable "KPTPKWS_SWV_SecretForceSecretOverwrite" {
 
 variable "KPTPKWS_SWV_SecretVersionSecretString" {
   type    = map(string)
-  default = null
+  default = {}
 }
 
 variable "KPTPKWS_SWV_SecretVersionSecretBinary" {
