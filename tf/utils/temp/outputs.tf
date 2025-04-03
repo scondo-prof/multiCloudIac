@@ -7,15 +7,18 @@ output "GOSAS_GhOrgSecretUpdatedAt" {
 }
 
 output "GOSAS_GhOrgSecretName" {
-  value = module.ghOrgSecret.secretName
+  value     = module.ghOrgSecret.secretName
+  sensitive = true
 }
 
 output "GOSAS_GhOrgSecretEncryptedValue" {
-  value = module.ghOrgSecret.secretEncryptedValue
+  value     = module.ghOrgSecret.secretEncryptedValue
+  sensitive = true
 }
 
 output "GOSAS_GhOrgSecretPlaintextValue" {
-  value = module.ghOrgSecret.secretPlaintextValue
+  value     = module.ghOrgSecret.secretPlaintextValue
+  sensitive = true
 }
 
 #---

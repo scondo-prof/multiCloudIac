@@ -1,11 +1,16 @@
 
 module "ghOrgSecret" {
   source                      = "../../github/org/genericOrgSecret"
-  githubOrganization          = var.githubOrganization
   githubToken                 = var.githubToken
-  resourceName                = var.resourceName
-  secretEncryptedValue        = var.GOSAS_GhOrgSecretEncryptedValue
-  secretPlaintextValue        = var.GOSAS_GhOrgSecretPlaintextValue
+  githubBaseUrl               = var.githubBaseUrl
+  githubOwner                 = var.githubOwner
+  githubAppAuth               = var.githubAppAuth
+  githubWriteDelayMs          = var.githubWriteDelayMs
+  githubRetryDelayMs          = var.githubRetryDelayMs
+  githubReadDelayMs           = var.githubReadDelayMs
+  githubRetryableErrors       = var.githubRetryableErrors
+  githubMaxRetries            = var.githubMaxRetries
+  secretObject                = var.GOSAS_GhOrgSecretObject
   secretVisibility            = var.GOSAS_GhOrgSecretVisibility
   secretSelectedRepositoryIds = var.GOSAS_GhOrgSecretSelectedRepositoryIds
 }
@@ -32,6 +37,9 @@ module "SWV" {
   SWV_SecretVersionSecretBinary  = var.GOSAS_SWV_SecretVersionSecretBinary
   SWV_SecretVersionStages        = var.GOSAS_SWV_SecretVersionStages
 }
+
+#---
+
 
 
 #---
