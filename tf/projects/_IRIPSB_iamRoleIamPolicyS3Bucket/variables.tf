@@ -101,6 +101,7 @@ variable "IRIPSB_IamRoleAssumeRolePolicy" {
     Condition = optional(map(map(string)), {})
     Principal = optional(map(list(string)), {})
   }))
+  default = []
 }
 
 variable "IRIPSB_IamRoleDescription" {

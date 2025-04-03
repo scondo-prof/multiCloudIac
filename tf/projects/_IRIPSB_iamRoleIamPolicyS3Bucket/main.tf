@@ -23,19 +23,26 @@ module "iamRole" {
   source                         = "../../aws/iam/genericIamRole"
   awsRegion                      = var.awsRegion
   iamRoleAssumeRolePolicyVersion = var.IRIPSB_IamRoleAssumeRolePolicyVersion
-  iamRoleAssumeRolePolicy        = var.IRIPSB_IamRoleAssumeRolePolicy
-  iamRoleDescription             = var.IRIPSB_IamRoleDescription
-  iamRoleForceDetatchPolicies    = var.IRIPSB_IamRoleForceDetatchPolicies
-  iamRoleMaxSessionDuration      = var.IRIPSB_IamRoleMaxSessionDuration
-  resourceName                   = var.resourceName
-  iamRoleNamePrefix              = var.IRIPSB_IamRoleNamePrefix
-  iamRolePath                    = var.IRIPSB_IamRolePath
-  iamRolePermissionsBoundary     = var.IRIPSB_IamRolePermissionsBoundary
-  projectName                    = var.projectName
-  createdBy                      = var.createdBy
-  deployedDate                   = var.deployedDate
-  tfModule                       = var.tfModule
-  additionalTags                 = var.additionalTags
+  iamRoleAssumeRolePolicy = concat([{
+    Action = ["sts:AssumeRole"]
+    Effect = "Allow"
+    Principal = {
+      "Service" = ["s3.amazonaws.com"]
+    }
+    Sid = "s3ServiceAssumeRole"
+  }], var.IRIPSB_IamRoleAssumeRolePolicy)
+  iamRoleDescription          = var.IRIPSB_IamRoleDescription
+  iamRoleForceDetatchPolicies = var.IRIPSB_IamRoleForceDetatchPolicies
+  iamRoleMaxSessionDuration   = var.IRIPSB_IamRoleMaxSessionDuration
+  resourceName                = var.resourceName
+  iamRoleNamePrefix           = var.IRIPSB_IamRoleNamePrefix
+  iamRolePath                 = var.IRIPSB_IamRolePath
+  iamRolePermissionsBoundary  = var.IRIPSB_IamRolePermissionsBoundary
+  projectName                 = var.projectName
+  createdBy                   = var.createdBy
+  deployedDate                = var.deployedDate
+  tfModule                    = var.tfModule
+  additionalTags              = var.additionalTags
 }
 
 #---
