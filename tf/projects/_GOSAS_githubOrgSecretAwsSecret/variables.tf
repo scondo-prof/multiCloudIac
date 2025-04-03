@@ -83,9 +83,9 @@ variable "additionalTags" {
 
 variable "GOSAS_GhOrgSecretObject" {
   type = list(object({
-    GOSAS_GhOrgSecret_name = string
-    encrypted_value        = optional(string, null)
-    plaintext_value        = optional(string, null)
+    secret_name     = string
+    encrypted_value = optional(string, null)
+    plaintext_value = optional(string, null)
   }))
   sensitive = true
 }
@@ -156,7 +156,7 @@ variable "GOSAS_SWV_SecretForceSecretOverwrite" {
 
 variable "GOSAS_SWV_SecretVersionSecretString" {
   type    = map(string)
-  default = null
+  default = {}
 }
 
 variable "GOSAS_SWV_SecretVersionSecretBinary" {
