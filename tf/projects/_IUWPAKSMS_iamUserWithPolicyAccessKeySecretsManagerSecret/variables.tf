@@ -74,6 +74,7 @@ variable "IUWPAKSMS_UWP_IamPolicyDocumentStatements" {
     Condition = optional(map(map(string)), {})
     Principal = optional(map(list(string)), {})
   }))
+  default = []
 }
 
 
@@ -100,13 +101,9 @@ variable "IUWPAKSMS_IamAccessKeyStatus" {
   default = null
 }
 
-variable "IUWPAKSMS_IamAccessKeyUser" {
-  type = string
-}
-
 #---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/IUWPAKSMS_SWV_Secretsmanager_IUWPAKSMS_SWV_Secret#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
 
 variable "IUWPAKSMS_SWV_SecretDescription" {
   type    = string
@@ -153,7 +150,7 @@ variable "IUWPAKSMS_SWV_SecretForceSecretOverwrite" {
 
 variable "IUWPAKSMS_SWV_SecretVersionSecretString" {
   type    = map(string)
-  default = null
+  default = {}
 }
 
 variable "IUWPAKSMS_SWV_SecretVersionSecretBinary" {
