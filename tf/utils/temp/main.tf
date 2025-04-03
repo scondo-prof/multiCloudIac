@@ -1,41 +1,28 @@
 
-module "ghOrgSecret" {
-  source                      = "../../github/org/genericOrgSecret"
-  githubToken                 = var.githubToken
-  githubBaseUrl               = var.githubBaseUrl
-  githubOwner                 = var.githubOwner
-  githubAppAuth               = var.githubAppAuth
-  githubWriteDelayMs          = var.githubWriteDelayMs
-  githubRetryDelayMs          = var.githubRetryDelayMs
-  githubReadDelayMs           = var.githubReadDelayMs
-  githubRetryableErrors       = var.githubRetryableErrors
-  githubMaxRetries            = var.githubMaxRetries
-  secretObject                = var.GOSAS_GhOrgSecretObject
-  secretVisibility            = var.GOSAS_GhOrgSecretVisibility
-  secretSelectedRepositoryIds = var.GOSAS_GhOrgSecretSelectedRepositoryIds
+module "s3Bucket" {
+  source                    = "../genericBucket"
+  awsRegion                 = var.awsRegion
+  resourceName              = var.resourceName
+  s3BucketPrefix            = var.BWV_S3BucketPrefix
+  s3BucketForceDestroy      = var.BWV_S3BucketForceDestroy
+  s3BucketObjectLockEnabled = var.BWV_S3BucketObjectLockEnabled
+  projectName               = var.projectName
+  createdBy                 = var.createdBy
+  tfModule                  = var.tfModule
+  deployedDate              = var.deployedDate
+  additionalTags            = var.additionalTags
 }
 
 #---
 
-module "SWV" {
-  source                         = "../../aws/secretsmanager/_SWV_secretWithVersion"
-  awsRegion                      = var.awsRegion
-  SWV_SecretDescription          = var.GOSAS_SWV_SecretDescription
-  SWV_SecretKmsKeyId             = var.GOSAS_SWV_SecretKmsKeyId
-  SWV_SecretNamePrefix           = var.GOSAS_SWV_SecretNamePrefix
-  resourceName                   = var.resourceName
-  SWV_SecretPolicy               = var.GOSAS_SWV_SecretPolicy
-  SWV_SecretRecoveryWindowInDays = var.GOSAS_SWV_SecretRecoveryWindowInDays
-  SWV_SecretReplica              = var.GOSAS_SWV_SecretReplica
-  SWV_SecretForceSecretOverwrite = var.GOSAS_SWV_SecretForceSecretOverwrite
-  projectName                    = var.projectName
-  createdBy                      = var.createdBy
-  deployedDate                   = var.deployedDate
-  tfModule                       = var.tfModule
-  additionalTags                 = var.additionalTags
-  SWV_SecretVersionSecretString  = var.GOSAS_SWV_SecretVersionSecretString
-  SWV_SecretVersionSecretBinary  = var.GOSAS_SWV_SecretVersionSecretBinary
-  SWV_SecretVersionStages        = var.GOSAS_SWV_SecretVersionStages
+module "s3BucketVersioning" {
+  source                                   = "../genericBucketVersioning"
+  awsRegion                                = var.awsRegion
+  s3BucketVersioningBucket                 = var.BWV_S3BucketVersioningBucket
+  s3BucketVersioningConfigurationStatus    = var.BWV_S3BucketVersioningConfigurationStatus
+  s3BucketVersioningConfigurationMfaDelete = var.BWV_S3BucketVersioningConfigurationMfaDelete
+  s3BucketVersioningExpectedBucketOwner    = var.BWV_S3BucketVersioningExpectedBucketOwner
+  s3BucketVersioningMfa                    = var.BWV_S3BucketVersioningMfa
 }
 
 #---

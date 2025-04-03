@@ -9,23 +9,23 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../github/org/genericOrgSecret",
-            "source_path": "../../github/org/genericOrgSecret",
+            "project_path": "../aws/s3/genericBucket",
+            "source_path": "../genericBucket",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "secret",
-        "new_variable_prefix": "GOSAS_GhOrgSecret",
-        "module_name": "ghOrgSecret",
+        "previous_variable_prefix": "s3Bucket",
+        "new_variable_prefix": "BWV_S3Bucket",
+        "module_name": "s3Bucket",
     },
     {
         "paths": {
-            "project_path": "../aws/secretsmanager/_SWV_secretWithVersion",
-            "source_path": "../../aws/secretsmanager/_SWV_secretWithVersion",
+            "project_path": "../aws/s3/genericBucketVersioning",
+            "source_path": "../genericBucketVersioning",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "SWV",
-        "new_variable_prefix": "GOSAS_SWV",
-        "module_name": "SWV",
+        "previous_variable_prefix": "s3BucketVersioning",
+        "new_variable_prefix": "BWV_S3BucketVersioning",
+        "module_name": "s3BucketVersioning",
     },
 ]
 
