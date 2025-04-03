@@ -9,23 +9,23 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../aws/iam/_UWP_userWithPolicyModule",
-            "source_path": "../../aws/iam/_UWP_userWithPolicyModule",
+            "project_path": "../aws/ec2/genericKeyPair",
+            "source_path": "../../aws/ec2/genericKeyPair",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "UWP",
-        "new_variable_prefix": "IUWPAKSMS_UWP",
-        "module_name": "UWP",
+        "previous_variable_prefix": "keyPair",
+        "new_variable_prefix": "KPTPKWS_Ec2KeyPair",
+        "module_name": "Ec2KeyPair",
     },
     {
         "paths": {
-            "project_path": "../aws/iam/genericIamAccessKey",
-            "source_path": "../../aws/iam/genericIamAccessKey",
+            "project_path": "../tls/genericTlsPrivateKey",
+            "source_path": "../../tls/genericTlsPrivateKey",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "iamAccessKey",
-        "new_variable_prefix": "IUWPAKSMS_IamAccessKey",
-        "module_name": "iamAccessKey",
+        "previous_variable_prefix": "privateKey",
+        "new_variable_prefix": "KPTPKWS_Ec2PrivateKey",
+        "module_name": "ec2PrivateKey",
     },
     {
         "paths": {
@@ -34,7 +34,7 @@ modules = [
             "destination_path": "./temp",
         },
         "previous_variable_prefix": "SWV",
-        "new_variable_prefix": "IUWPAKSMS_SWV",
+        "new_variable_prefix": "KPTPKWS_SWV",
         "module_name": "SWV",
     },
 ]

@@ -3,6 +3,94 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair#argument-reference
+
+variable "KPTPKWS_Ec2KeyPairName" {
+  type    = string
+  default = null
+}
+
+variable "KPTPKWS_Ec2KeyPairNamePrefix" {
+  type    = string
+  default = null
+}
+
+variable "KPTPKWS_Ec2KeyPairPublicKey" {
+  type = string
+}
+
+#---
+variable "tlsProxy" { #https://registry.terraform.io/providers/hashicorp/tls/latest/docs#optional
+  type = object({
+    from_env = optional(bool, null)
+    password = optional(string, null)
+    url      = optional(string, null)
+    username = optional(string, null)
+  })
+  default = null
+}
+
+#https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key#schema
+
+variable "KPTPKWS_Ec2PrivateKeyAlgorithm" {
+  type = string
+  validation {
+    condition = contains([
+      "RSA",
+      "ECDSA",
+      "ED25519"
+    ], var.KPTPKWS_Ec2PrivateKeyAlgorithm)
+    error_message = "Valid inputs for | variable: var.KPTPKWS_Ec2PrivateKeyAlgorithm | are: RSA, ECDSA, ED25519"
+  }
+}
+
+variable "KPTPKWS_Ec2PrivateKeyEcdsaCurve" {
+  type = string
+  validation {
+    condition = var.KPTPKWS_Ec2PrivateKeyEcdsaCurve == null || can(contains([
+      "P224",
+      "P256",
+      "P384",
+      "P521"
+    ], var.KPTPKWS_Ec2PrivateKeyEcdsaCurve))
+    error_message = "Valid inputs for | variable: var.KPTPKWS_Ec2PrivateKeyEcdsaCurve | are: P224, P256, P384, P521"
+  }
+  default = null
+}
+
+variable "KPTPKWS_Ec2PrivateKeyRsaBits" {
+  type    = number
+  default = null
+}
+
+#---
+variable "awsRegion" {
+  type    = string
+  default = "us-east-1"
+}
+
 variable "resourceName" {
   type = string
 }
@@ -29,111 +117,34 @@ variable "additionalTags" {
   default = {}
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user#argument-reference
-variable "IUWPAKSMS_UWP_IamUserPath" {
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/KPTPKWS_SWV_Secretsmanager_KPTPKWS_SWV_Secret#argument-reference
+
+variable "KPTPKWS_SWV_SecretDescription" {
   type    = string
   default = null
 }
 
-variable "IUWPAKSMS_UWP_IamUserPermissionBoundary" {
+variable "KPTPKWS_SWV_SecretKmsKeyId" {
   type    = string
   default = null
 }
 
-variable "IUWPAKSMS_UWP_IamUserForceDestroy" {
-  type    = bool
-  default = null
-}
-
-
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
-
-variable "IUWPAKSMS_UWP_IamPolicyDescription" {
-  type    = string
-  default = null
-}
-variable "IUWPAKSMS_UWP_IamPolicyNamePrefix" {
-  type    = string
-  default = null
-}
-variable "IUWPAKSMS_UWP_IamPolicyPath" {
-  type    = string
-  default = "/"
-}
-variable "IUWPAKSMS_UWP_IamPolicyVersion" {
-  type    = string
-  default = "2012-10-17"
-}
-variable "IUWPAKSMS_UWP_IamPolicyDocumentStatements" {
-  type = list(object({
-    Action    = list(string)
-    Effect    = string
-    Resource  = list(string)
-    Sid       = optional(string, "")
-    Condition = optional(map(map(string)), {})
-    Principal = optional(map(list(string)), {})
-  }))
-}
-
-
-
-
-#---
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_access_key#argument-reference
-
-variable "IUWPAKSMS_IamAccessKeyPgpKey" {
+variable "KPTPKWS_SWV_SecretNamePrefix" {
   type    = string
   default = null
 }
 
-variable "IUWPAKSMS_IamAccessKeyStatus" {
-  type = string
-  validation {
-    condition = var.IUWPAKSMS_IamAccessKeyStatus == null || can(contains([
-      "Active",
-      "Inactive"
-    ], var.IUWPAKSMS_IamAccessKeyStatus))
-    error_message = "Valid inputs for | variable: var.IUWPAKSMS_IamAccessKeyStatus | are: Active, and Inactive"
-  }
-  default = null
-}
-
-variable "IUWPAKSMS_IamAccessKeyUser" {
-  type = string
-}
-
-#---
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/IUWPAKSMS_SWV_Secretsmanager_IUWPAKSMS_SWV_Secret#argument-reference
-
-variable "IUWPAKSMS_SWV_SecretDescription" {
+variable "KPTPKWS_SWV_SecretPolicy" {
   type    = string
   default = null
 }
 
-variable "IUWPAKSMS_SWV_SecretKmsKeyId" {
-  type    = string
-  default = null
-}
-
-variable "IUWPAKSMS_SWV_SecretNamePrefix" {
-  type    = string
-  default = null
-}
-
-variable "IUWPAKSMS_SWV_SecretPolicy" {
-  type    = string
-  default = null
-}
-
-variable "IUWPAKSMS_SWV_SecretRecoveryWindowInDays" {
+variable "KPTPKWS_SWV_SecretRecoveryWindowInDays" {
   type    = number
   default = null
 }
 
-variable "IUWPAKSMS_SWV_SecretReplica" {
+variable "KPTPKWS_SWV_SecretReplica" {
   type = object({
     kms_key_id = optional(string, null)
     region     = string
@@ -141,7 +152,7 @@ variable "IUWPAKSMS_SWV_SecretReplica" {
   default = null
 }
 
-variable "IUWPAKSMS_SWV_SecretForceSecretOverwrite" {
+variable "KPTPKWS_SWV_SecretForceSecretOverwrite" {
   type    = bool
   default = null
 }
@@ -151,17 +162,17 @@ variable "IUWPAKSMS_SWV_SecretForceSecretOverwrite" {
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
 
 
-variable "IUWPAKSMS_SWV_SecretVersionSecretString" {
+variable "KPTPKWS_SWV_SecretVersionSecretString" {
   type    = map(string)
   default = null
 }
 
-variable "IUWPAKSMS_SWV_SecretVersionSecretBinary" {
+variable "KPTPKWS_SWV_SecretVersionSecretBinary" {
   type    = string
   default = null
 }
 
-variable "IUWPAKSMS_SWV_SecretVersionStages" {
+variable "KPTPKWS_SWV_SecretVersionStages" {
   type    = list(string)
   default = null
 }
