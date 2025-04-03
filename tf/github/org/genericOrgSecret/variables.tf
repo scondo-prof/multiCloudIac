@@ -20,6 +20,7 @@ variable "githubAppAuth" {
     installation_id = string
     pem_file_path   = string
   })
+  default = null
 }
 
 variable "githubWriteDelayMs" {
@@ -55,18 +56,6 @@ variable "secretObject" {
     encrypted_value = optional(string, null)
     plaintext_value = optional(string, null)
   }))
-  sensitive = true
-}
-
-variable "secretEncryptedValue" {
-  type      = string
-  default   = null
-  sensitive = true
-}
-
-variable "secretPlaintextValue" {
-  type      = string
-  default   = null
   sensitive = true
 }
 

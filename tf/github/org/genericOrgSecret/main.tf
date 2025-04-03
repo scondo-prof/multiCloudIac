@@ -29,9 +29,9 @@ provider "github" {
 
 resource "github_actions_organization_secret" "secret" {
   count                   = length(var.secretObject)
-  secret_name             = upper(replace(var.secretObject[cound.index]["secret_name"], "-", "_"))
-  encrypted_value         = var.secretObject[cound.index]["secret_name"]
-  plaintext_value         = var.secretObject[cound.index]["secret_name"]
+  secret_name             = upper(replace(var.secretObject[count.index]["secret_name"], "-", "_"))
+  encrypted_value         = var.secretObject[count.index]["encrypted_value"]
+  plaintext_value         = var.secretObject[count.index]["plaintext_value"]
   visibility              = var.secretVisibility
   selected_repository_ids = var.secretSelectedRepositoryIds
 }
