@@ -3,6 +3,10 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
+variable "resourceName" {
+  type = string
+}
+
 variable "projectName" {
   type = string
 }
@@ -25,200 +29,43 @@ variable "additionalTags" {
   default = {}
 }
 
-variable "resourceName" {
-  type = string
-}
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#argument-reference
-
-variable "IRIPSB_BWV_S3BucketPrefix" {
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user#argument-reference
+variable "IUWPAKSMS_UWP_IamUserPath" {
   type    = string
   default = null
 }
 
-variable "IRIPSB_BWV_S3BucketForceDestroy" {
-  type    = bool
-  default = true
+variable "IUWPAKSMS_UWP_IamUserPermissionBoundary" {
+  type    = string
+  default = null
 }
 
-variable "IRIPSB_BWV_S3BucketObjectLockEnabled" {
+variable "IUWPAKSMS_UWP_IamUserForceDestroy" {
   type    = bool
   default = null
 }
 
 
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning#argument-reference
-variable "IRIPSB_BWV_S3BucketVersioningConfigurationStatus" {
-  type = string
-  validation {
-    condition = contains([
-      "Enabled",
-      "Suspended",
-      "Disabled"
-    ], var.IRIPSB_BWV_S3BucketVersioningConfigurationStatus)
-    error_message = "Valid inputs for | variable: var.IRIPSB_BWV_S3BucketVersioningConfigurationStatus | are: Enabled, Suspended, or Disabled"
-  }
-}
-
-variable "IRIPSB_BWV_S3BucketVersioningConfigurationMfaDelete" {
-  type = string
-  validation {
-    condition = var.IRIPSB_BWV_S3BucketVersioningConfigurationMfaDelete == null || can(contains([
-      "Enabled",
-      "Disabled"
-    ], var.IRIPSB_BWV_S3BucketVersioningConfigurationMfaDelete))
-    error_message = "Valid inputs for | variable: var.IRIPSB_BWV_S3BucketVersioningConfigurationMfaDelete | are: Enabled, or Disabled"
-  }
-  default = null
-}
-
-variable "IRIPSB_BWV_S3BucketVersioningExpectedBucketOwner" {
-  type    = string
-  default = null
-}
-
-variable "IRIPSB_BWV_S3BucketVersioningMfa" {
-  type    = string
-  default = null
-}
-
-
-
-
-#---
-variable "awsRegion" {
-  type    = string
-  default = "us-east-1"
-}
-
-variable "resourceName" {
-  type = string
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "createdBy" {
-  type    = string
-  default = "Scott Condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "tfModule" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
-}
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role#argument-reference
-variable "IRIPSB_IamRoleAssumeRolePolicyVersion" {
-  type    = string
-  default = "2012-10-17"
-}
-
-variable "IRIPSB_IamRoleAssumeRolePolicy" {
-  type = list(object({
-    Action    = list(string)
-    Effect    = string
-    Sid       = optional(string, "")
-    Condition = optional(map(map(string)), {})
-    Principal = optional(map(list(string)), {})
-  }))
-}
-
-variable "IRIPSB_IamRoleDescription" {
-  type    = string
-  default = null
-}
-
-variable "IRIPSB_IamRoleForceDetatchPolicies" {
-  type    = bool
-  default = false
-}
-
-variable "IRIPSB_IamRoleMaxSessionDuration" {
-  type = number
-  validation {
-    condition     = var.IRIPSB_IamRoleMaxSessionDuration >= 3600 && var.IRIPSB_IamRoleMaxSessionDuration <= 43200
-    error_message = "Variable IRIPSB_IamRoleMaxSessionDuration must be greater than or equal to 3600 and less than or equal to 43200"
-  }
-  default = 3600
-}
-
-variable "IRIPSB_IamRoleNamePrefix" {
-  type    = string
-  default = null
-}
-
-variable "IRIPSB_IamRolePath" {
-  type    = string
-  default = "/"
-}
-
-variable "IRIPSB_IamRolePermissionsBoundary" {
-  type    = string
-  default = null
-}
-
-#---
-variable "awsRegion" {
-  type    = string
-  default = "us-east-1"
-}
-
-variable "resourceName" {
-  type = string
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "createdBy" {
-  type    = string
-  default = "Scott Condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "tfModule" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
-}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 
-variable "IRIPSB_IamPolicyDescription" {
+variable "IUWPAKSMS_UWP_IamPolicyDescription" {
   type    = string
   default = null
 }
-variable "IRIPSB_IamPolicyNamePrefix" {
+variable "IUWPAKSMS_UWP_IamPolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "IRIPSB_IamPolicyPath" {
+variable "IUWPAKSMS_UWP_IamPolicyPath" {
   type    = string
   default = "/"
 }
-variable "IRIPSB_IamPolicyVersion" {
+variable "IUWPAKSMS_UWP_IamPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "IRIPSB_IamPolicyDocumentStatements" {
+variable "IUWPAKSMS_UWP_IamPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -229,19 +76,96 @@ variable "IRIPSB_IamPolicyDocumentStatements" {
   }))
 }
 
+
+
+
 #---
-variable "awsRegion" {
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_access_key#argument-reference
+
+variable "IUWPAKSMS_IamAccessKeyPgpKey" {
   type    = string
-  default = "us-east-1"
+  default = null
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
-variable "IRIPSB_PolicyAttachmentIamPolicyRoleName" {
+variable "IUWPAKSMS_IamAccessKeyStatus" {
+  type = string
+  validation {
+    condition = var.IUWPAKSMS_IamAccessKeyStatus == null || can(contains([
+      "Active",
+      "Inactive"
+    ], var.IUWPAKSMS_IamAccessKeyStatus))
+    error_message = "Valid inputs for | variable: var.IUWPAKSMS_IamAccessKeyStatus | are: Active, and Inactive"
+  }
+  default = null
+}
+
+variable "IUWPAKSMS_IamAccessKeyUser" {
   type = string
 }
 
-variable "IRIPSB_PolicyAttachmentIamPolicyPolicyArn" {
-  type = string
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/IUWPAKSMS_SWV_Secretsmanager_IUWPAKSMS_SWV_Secret#argument-reference
+
+variable "IUWPAKSMS_SWV_SecretDescription" {
+  type    = string
+  default = null
 }
+
+variable "IUWPAKSMS_SWV_SecretKmsKeyId" {
+  type    = string
+  default = null
+}
+
+variable "IUWPAKSMS_SWV_SecretNamePrefix" {
+  type    = string
+  default = null
+}
+
+variable "IUWPAKSMS_SWV_SecretPolicy" {
+  type    = string
+  default = null
+}
+
+variable "IUWPAKSMS_SWV_SecretRecoveryWindowInDays" {
+  type    = number
+  default = null
+}
+
+variable "IUWPAKSMS_SWV_SecretReplica" {
+  type = object({
+    kms_key_id = optional(string, null)
+    region     = string
+  })
+  default = null
+}
+
+variable "IUWPAKSMS_SWV_SecretForceSecretOverwrite" {
+  type    = bool
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
+
+
+variable "IUWPAKSMS_SWV_SecretVersionSecretString" {
+  type    = map(string)
+  default = null
+}
+
+variable "IUWPAKSMS_SWV_SecretVersionSecretBinary" {
+  type    = string
+  default = null
+}
+
+variable "IUWPAKSMS_SWV_SecretVersionStages" {
+  type    = list(string)
+  default = null
+}
+
+
 
 #---

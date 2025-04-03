@@ -1,68 +1,54 @@
 
-module "BWV" {
-  source                                       = "../../aws/s3/_BWV_bucketWithVersioning"
-  awsRegion                                    = var.awsRegion
-  resourceName                                 = var.resourceName
-  BWV_S3BucketPrefix                           = var.IRIPSB_BWV_S3BucketPrefix
-  BWV_S3BucketForceDestroy                     = var.IRIPSB_BWV_S3BucketForceDestroy
-  BWV_S3BucketObjectLockEnabled                = var.IRIPSB_BWV_S3BucketObjectLockEnabled
-  projectName                                  = var.projectName
-  createdBy                                    = var.createdBy
-  tfModule                                     = var.tfModule
-  deployedDate                                 = var.deployedDate
-  additionalTags                               = var.additionalTags
-  BWV_S3BucketVersioningConfigurationStatus    = var.IRIPSB_BWV_S3BucketVersioningConfigurationStatus
-  BWV_S3BucketVersioningConfigurationMfaDelete = var.IRIPSB_BWV_S3BucketVersioningConfigurationMfaDelete
-  BWV_S3BucketVersioningExpectedBucketOwner    = var.IRIPSB_BWV_S3BucketVersioningExpectedBucketOwner
-  BWV_S3BucketVersioningMfa                    = var.IRIPSB_BWV_S3BucketVersioningMfa
+module "UWP" {
+  source                          = "../../aws/iam/_UWP_userWithPolicyModule"
+  awsRegion                       = var.awsRegion
+  resourceName                    = var.resourceName
+  UWP_IamUserPath                 = var.IUWPAKSMS_UWP_IamUserPath
+  UWP_IamUserPermissionBoundary   = var.IUWPAKSMS_UWP_IamUserPermissionBoundary
+  UWP_IamUserForceDestroy         = var.IUWPAKSMS_UWP_IamUserForceDestroy
+  projectName                     = var.projectName
+  createdBy                       = var.createdBy
+  deployedDate                    = var.deployedDate
+  tfModule                        = var.tfModule
+  additionalTags                  = var.additionalTags
+  UWP_IamPolicyDescription        = var.IUWPAKSMS_UWP_IamPolicyDescription
+  UWP_IamPolicyNamePrefix         = var.IUWPAKSMS_UWP_IamPolicyNamePrefix
+  UWP_IamPolicyPath               = var.IUWPAKSMS_UWP_IamPolicyPath
+  UWP_IamPolicyVersion            = var.IUWPAKSMS_UWP_IamPolicyVersion
+  UWP_IamPolicyDocumentStatements = var.IUWPAKSMS_UWP_IamPolicyDocumentStatements
 }
 
 #---
 
-module "iamRole" {
-  source                         = "../../aws/iam/genericIamRole"
+module "iamAccessKey" {
+  source             = "../../aws/iam/genericIamAccessKey"
+  awsRegion          = var.awsRegion
+  iamAccessKeyPgpKey = var.IUWPAKSMS_IamAccessKeyPgpKey
+  iamAccessKeyStatus = var.IUWPAKSMS_IamAccessKeyStatus
+  iamAccessKeyUser   = var.IUWPAKSMS_IamAccessKeyUser
+}
+
+#---
+
+module "SWV" {
+  source                         = "../../aws/secretsmanager/_SWV_secretWithVersion"
   awsRegion                      = var.awsRegion
-  iamRoleAssumeRolePolicyVersion = var.IRIPSB_IamRoleAssumeRolePolicyVersion
-  iamRoleAssumeRolePolicy        = var.IRIPSB_IamRoleAssumeRolePolicy
-  iamRoleDescription             = var.IRIPSB_IamRoleDescription
-  iamRoleForceDetatchPolicies    = var.IRIPSB_IamRoleForceDetatchPolicies
-  iamRoleMaxSessionDuration      = var.IRIPSB_IamRoleMaxSessionDuration
+  SWV_SecretDescription          = var.IUWPAKSMS_SWV_SecretDescription
+  SWV_SecretKmsKeyId             = var.IUWPAKSMS_SWV_SecretKmsKeyId
+  SWV_SecretNamePrefix           = var.IUWPAKSMS_SWV_SecretNamePrefix
   resourceName                   = var.resourceName
-  iamRoleNamePrefix              = var.IRIPSB_IamRoleNamePrefix
-  iamRolePath                    = var.IRIPSB_IamRolePath
-  iamRolePermissionsBoundary     = var.IRIPSB_IamRolePermissionsBoundary
+  SWV_SecretPolicy               = var.IUWPAKSMS_SWV_SecretPolicy
+  SWV_SecretRecoveryWindowInDays = var.IUWPAKSMS_SWV_SecretRecoveryWindowInDays
+  SWV_SecretReplica              = var.IUWPAKSMS_SWV_SecretReplica
+  SWV_SecretForceSecretOverwrite = var.IUWPAKSMS_SWV_SecretForceSecretOverwrite
   projectName                    = var.projectName
   createdBy                      = var.createdBy
   deployedDate                   = var.deployedDate
   tfModule                       = var.tfModule
   additionalTags                 = var.additionalTags
-}
-
-#---
-
-module "iamPolicy" {
-  source                      = "../../aws/iam/genericIamPolicy"
-  awsRegion                   = var.awsRegion
-  iamPolicyDescription        = var.IRIPSB_IamPolicyDescription
-  iamPolicyNamePrefix         = var.IRIPSB_IamPolicyNamePrefix
-  resourceName                = var.resourceName
-  iamPolicyPath               = var.IRIPSB_IamPolicyPath
-  iamPolicyVersion            = var.IRIPSB_IamPolicyVersion
-  iamPolicyDocumentStatements = var.IRIPSB_IamPolicyDocumentStatements
-  projectName                 = var.projectName
-  createdBy                   = var.createdBy
-  deployedDate                = var.deployedDate
-  tfModule                    = var.tfModule
-  additionalTags              = var.additionalTags
-}
-
-#---
-
-module "PolicyAttachmentIamPolicy" {
-  source                    = "../../aws/iam/genericIamRolePolicyAttachment"
-  awsRegion                 = var.awsRegion
-  policyAttachmentRoleName  = var.IRIPSB_PolicyAttachmentIamPolicyRoleName
-  policyAttachmentPolicyArn = var.IRIPSB_PolicyAttachmentIamPolicyPolicyArn
+  SWV_SecretVersionSecretString  = var.IUWPAKSMS_SWV_SecretVersionSecretString
+  SWV_SecretVersionSecretBinary  = var.IUWPAKSMS_SWV_SecretVersionSecretBinary
+  SWV_SecretVersionStages        = var.IUWPAKSMS_SWV_SecretVersionStages
 }
 
 #---

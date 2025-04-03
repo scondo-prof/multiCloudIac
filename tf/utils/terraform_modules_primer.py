@@ -9,43 +9,33 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../aws/s3/_BWV_bucketWithVersioning",
-            "source_path": "../../aws/s3/_BWV_bucketWithVersioning",
+            "project_path": "../aws/iam/_UWP_userWithPolicyModule",
+            "source_path": "../../aws/iam/_UWP_userWithPolicyModule",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "BWV",
-        "new_variable_prefix": "IRIPSB_BWV",
-        "module_name": "BWV",
+        "previous_variable_prefix": "UWP",
+        "new_variable_prefix": "IUWPAKSMS_UWP",
+        "module_name": "UWP",
     },
     {
         "paths": {
-            "project_path": "../aws/iam/genericIamRole",
-            "source_path": "../../aws/iam/genericIamRole",
+            "project_path": "../aws/iam/genericIamAccessKey",
+            "source_path": "../../aws/iam/genericIamAccessKey",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "iamRole",
-        "new_variable_prefix": "IRIPSB_IamRole",
-        "module_name": "iamRole",
+        "previous_variable_prefix": "iamAccessKey",
+        "new_variable_prefix": "IUWPAKSMS_IamAccessKey",
+        "module_name": "iamAccessKey",
     },
     {
         "paths": {
-            "project_path": "../aws/iam/genericIamPolicy",
-            "source_path": "../../aws/iam/genericIamPolicy",
+            "project_path": "../aws/secretsmanager/_SWV_secretWithVersion",
+            "source_path": "../../aws/secretsmanager/_SWV_secretWithVersion",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "iamPolicy",
-        "new_variable_prefix": "IRIPSB_IamPolicy",
-        "module_name": "iamPolicy",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/iam/genericIamRolePolicyAttachment",
-            "source_path": "../../aws/iam/genericIamRolePolicyAttachment",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "policyAttachment",
-        "new_variable_prefix": "IRIPSB_PolicyAttachmentIamPolicy",
-        "module_name": "PolicyAttachmentIamPolicy",
+        "previous_variable_prefix": "SWV",
+        "new_variable_prefix": "IUWPAKSMS_SWV",
+        "module_name": "SWV",
     },
 ]
 

@@ -1,27 +1,47 @@
-output "IRIPSB_BWV_S3BucketArn" {
-  value = module.BWV.BWV_S3BucketArn
+output "IUWPAKSMS_UWP_IamUserArn" {
+  value = module.UWP.UWP_IamUserArn
 }
 
-output "IRIPSB_BWV_S3BucketName" {
-  value = module.BWV.BWV_S3BucketName
+output "IUWPAKSMS_UWP_IamUserName" {
+  value = module.UWP.UWP_IamUserName
+}
+
+
+
+output "IUWPAKSMS_UWP_IamPolicyArn" {
+  value = module.UWP.UWP_IamPolicyArn
+}
+
+output "IUWPAKSMS_UWP_IamPolicyName" {
+  value = module.UWP.UWP_IamPolicyName
 }
 
 #---
-output "IRIPSB_IamRoleName" {
-  value = module.iamRole.iamRoleName
+output "IUWPAKSMS_IamAccessKeyEncryptedPgpSecret" {
+  value     = module.iamAccessKey.iamAccessKeyEncryptedPgpSecret
+  sensitive = true
 }
 
-output "IRIPSB_IamRoleArn" {
-  value = module.iamRole.iamRoleArn
+output "IUWPAKSMS_IamAccessKeyId" {
+  value = module.iamAccessKey.iamAccessKeyId
+}
+
+output "IUWPAKSMS_IamAccessKeySecret" {
+  value     = module.iamAccessKey.iamAccessKeySecret
+  sensitive = true
 }
 
 #---
-output "IRIPSB_IamPolicyArn" {
-  value = module.iamPolicy.iamPolicyArn
+output "IUWPAKSMS_SWV_SecretArn" {
+  value = module.SWV.SWV_SecretArn
 }
 
-output "IRIPSB_IamPolicyName" {
-  value = module.iamPolicy.iamPolicyName
+output "IUWPAKSMS_SWV_SecretName" {
+  value = module.SWV.SWV_SecretName
+}
+
+output "IUWPAKSMS_SWV_SecretVersionId" {
+  value = module.SWV.SWV_SecretVersionId
 }
 
 #---
