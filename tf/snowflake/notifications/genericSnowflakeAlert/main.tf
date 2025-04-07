@@ -44,17 +44,6 @@ provider "snowflake" {
   role                              = var.snowflakeRole
   tmp_directory_path                = var.snowflakeTmpDirectoryPath
   token                             = var.snowflakeToken
-
-  dynamic "token_accessor" {
-    for_each = var.snowflakeTokenAccessor != null ? [var.snowflakeTokenAccessor] : []
-    content {
-      client_id      = token_accessor.value["client_id"]
-      client_secret  = token_accessor.value["client_secret"]
-      redirect_uri   = token_accessor.value["redirect_uri"]
-      refresh_token  = token_accessor.value["refresh_token"]
-      token_endpoint = token_accessor.value["token_endpoint"]
-    }
-  }
   user                        = var.snowflakeUser
   validate_default_parameters = var.snowflakeValidateDefaultParameters
   warehouse                   = var.snowflakeWarehouse

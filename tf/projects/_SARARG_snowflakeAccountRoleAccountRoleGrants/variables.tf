@@ -162,7 +162,7 @@ variable "snowflakePort" {
 }
 
 variable "snowflakePreviewFeaturesEnabled" {
-  type = string
+  type = list(string)
   validation {
     condition = var.snowflakePreviewFeaturesEnabled == null || can(contains([
       "snowflake_current_account_datasource",
@@ -285,18 +285,6 @@ variable "snowflakeToken" {
   type      = string
   default   = null
   sensitive = true
-}
-
-variable "snowflakeTokenAccessor" {
-  type = object({
-    client_id      = string
-    client_secret  = string
-    redirect_uri   = string
-    refresh_token  = string
-    token_endpoint = string
-  })
-  sensitive = true
-  default   = null
 }
 
 variable "snowflakeUser" {

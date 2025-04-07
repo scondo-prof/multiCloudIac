@@ -37,7 +37,6 @@ module "accountRole" {
   snowflakeRole                           = var.snowflakeRole
   snowflakeTmpDirectoryPath               = var.snowflakeTmpDirectoryPath
   snowflakeToken                          = var.snowflakeToken
-  snowflakeTokenAccessor                  = var.snowflakeTokenAccessor
   snowflakeUser                           = var.snowflakeUser
   snowflakeValidateDefaultParameters      = var.snowflakeValidateDefaultParameters
   snowflakeWarehouse                      = var.snowflakeWarehouse
@@ -85,7 +84,6 @@ module "grantPrivileges" {
   snowflakeRole                           = var.snowflakeRole
   snowflakeTmpDirectoryPath               = var.snowflakeTmpDirectoryPath
   snowflakeToken                          = var.snowflakeToken
-  snowflakeTokenAccessor                  = var.snowflakeTokenAccessor
   snowflakeUser                           = var.snowflakeUser
   snowflakeValidateDefaultParameters      = var.snowflakeValidateDefaultParameters
   snowflakeWarehouse                      = var.snowflakeWarehouse

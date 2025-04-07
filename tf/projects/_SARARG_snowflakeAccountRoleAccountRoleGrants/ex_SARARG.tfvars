@@ -8,7 +8,7 @@ snowflakeAuthenticator = "SNOWFLAKE_JWT"
 
 snowflakePrivateKey = "../../utils/tfSnowflake/prod_terraform_private_rsa_key.p8"
 
-snowflakePrivateKeyPassphrase = "fill"
+snowflakePrivateKeyPassphrase = "<p8-passphrase>"
 
 snowflakeRole = "PROD_TERRAFORM_ROLE"
 
