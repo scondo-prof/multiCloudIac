@@ -1,50 +1,82 @@
 
-module "password" {
-  source                  = "../../random/genericRandomPassword"
-  passwordLength          = var.PKS_PasswordLength
-  passwordKeepers         = var.PKS_PasswordKeepers
-  passwordLower           = var.PKS_PasswordLower
-  passwordMinLower        = var.PKS_PasswordMinLower
-  passwordMinNumeric      = var.PKS_PasswordMinNumeric
-  passwordMinSpecial      = var.PKS_PasswordMinSpecial
-  passwordMinUpper        = var.PKS_PasswordMinUpper
-  passwordNumeric         = var.PKS_PasswordNumeric
-  passwordOverrideSpecial = var.PKS_PasswordOverrideSpecial
-  passwordSpecial         = var.PKS_PasswordSpecial
-  passwordUpper           = var.PKS_PasswordUpper
+    module "accountRole" {
+  source = "../../snowflake/principals/genericAccountRole"
+snowflakeAuthenticator = var.snowflakeAuthenticator
+snowflakeClientIp = var.snowflakeClientIp
+snowflakeClientRequestMfaToken = var.snowflakeClientRequestMfaToken
+snowflakeClientStoreTemporaryCredential = var.snowflakeClientStoreTemporaryCredential
+snowflakeClientTimeout = var.snowflakeClientTimeout
+snowflakeDisableQueryContextCache = var.snowflakeDisableQueryContextCache
+snowflakeDisableTelemetry = var.snowflakeDisableTelemetry
+snowflakeExternalBrowserTimeout = var.snowflakeExternalBrowserTimeout
+snowflakeHost = var.snowflakeHost
+snowflakeInsecureMode = var.snowflakeInsecureMode
+snowflakeJwtClientTimeout = var.snowflakeJwtClientTimeout
+snowflakeJwtExpireTimeout = var.snowflakeJwtExpireTimeout
+snowflakeKeepSessionAlive = var.snowflakeKeepSessionAlive
+snowflakeLoginTimeout = var.snowflakeLoginTimeout
+snowflakeOcspFailOpen = var.snowflakeOcspFailOpen
+snowflakeOktaUrl = var.snowflakeOktaUrl
+snowflakeParams = var.snowflakeParams
+snowflakePasscode = var.snowflakePasscode
+snowflakePasscodeInPassword = var.snowflakePasscodeInPassword
+snowflakePassword = var.snowflakePassword
+snowflakePort = var.snowflakePort
+snowflakePrivateKey = var.snowflakePrivateKey
+snowflakePrivateKeyPassphrase = var.snowflakePrivateKeyPassphrase
+snowflakeProfile = var.snowflakeProfile
+snowflakeProtocol = var.snowflakeProtocol
+snowflakeRequestTimeout = var.snowflakeRequestTimeout
+snowflakeRole = var.snowflakeRole
+snowflakeToken = var.snowflakeToken
+snowflakeUser = var.snowflakeUser
+snowflakeValidateDefaultParameters = var.snowflakeValidateDefaultParameters
+snowflakeWarehouse = var.snowflakeWarehouse
+resourceName = var.resourceName
+accountRoleComment = var.SARARG_AccountRoleComment
 }
 
 #---
 
-module "privateKey" {
-  source               = "../../tls/genericTlsPrivateKey"
-  tlsProxy             = var.tlsProxy
-  privateKeyAlgorithm  = var.PKS_PrivateKeyAlgorithm
-  privateKeyEcdsaCurve = var.PKS_PrivateKeyEcdsaCurve
-  privateKeyRsaBits    = var.PKS_PrivateKeyRsaBits
-}
-
-#---
-
-module "SWV" {
-  source                         = "../../aws/secretsmanager/_SWV_secretWithVersion"
-  awsRegion                      = var.awsRegion
-  SWV_SecretDescription          = var.PKS_SWV_SecretDescription
-  SWV_SecretKmsKeyId             = var.PKS_SWV_SecretKmsKeyId
-  SWV_SecretNamePrefix           = var.PKS_SWV_SecretNamePrefix
-  resourceName                   = var.resourceName
-  SWV_SecretPolicy               = var.PKS_SWV_SecretPolicy
-  SWV_SecretRecoveryWindowInDays = var.PKS_SWV_SecretRecoveryWindowInDays
-  SWV_SecretReplica              = var.PKS_SWV_SecretReplica
-  SWV_SecretForceSecretOverwrite = var.PKS_SWV_SecretForceSecretOverwrite
-  projectName                    = var.projectName
-  createdBy                      = var.createdBy
-  deployedDate                   = var.deployedDate
-  tfModule                       = var.tfModule
-  additionalTags                 = var.additionalTags
-  SWV_SecretVersionSecretString  = var.PKS_SWV_SecretVersionSecretString
-  SWV_SecretVersionSecretBinary  = var.PKS_SWV_SecretVersionSecretBinary
-  SWV_SecretVersionStages        = var.PKS_SWV_SecretVersionStages
+    module "grantPrivileges" {
+  source = "../../snowflake/principals/genericGrantPrivilegesToAccountRole"
+snowflakeAuthenticator = var.snowflakeAuthenticator
+snowflakeClientIp = var.snowflakeClientIp
+snowflakeClientRequestMfaToken = var.snowflakeClientRequestMfaToken
+snowflakeClientStoreTemporaryCredential = var.snowflakeClientStoreTemporaryCredential
+snowflakeClientTimeout = var.snowflakeClientTimeout
+snowflakeDisableQueryContextCache = var.snowflakeDisableQueryContextCache
+snowflakeDisableTelemetry = var.snowflakeDisableTelemetry
+snowflakeExternalBrowserTimeout = var.snowflakeExternalBrowserTimeout
+snowflakeHost = var.snowflakeHost
+snowflakeInsecureMode = var.snowflakeInsecureMode
+snowflakeJwtClientTimeout = var.snowflakeJwtClientTimeout
+snowflakeJwtExpireTimeout = var.snowflakeJwtExpireTimeout
+snowflakeKeepSessionAlive = var.snowflakeKeepSessionAlive
+snowflakeLoginTimeout = var.snowflakeLoginTimeout
+snowflakeOcspFailOpen = var.snowflakeOcspFailOpen
+snowflakeOktaUrl = var.snowflakeOktaUrl
+snowflakeParams = var.snowflakeParams
+snowflakePasscode = var.snowflakePasscode
+snowflakePasscodeInPassword = var.snowflakePasscodeInPassword
+snowflakePassword = var.snowflakePassword
+snowflakePort = var.snowflakePort
+snowflakePrivateKey = var.snowflakePrivateKey
+snowflakePrivateKeyPassphrase = var.snowflakePrivateKeyPassphrase
+snowflakeProfile = var.snowflakeProfile
+snowflakeProtocol = var.snowflakeProtocol
+snowflakeRequestTimeout = var.snowflakeRequestTimeout
+snowflakeRole = var.snowflakeRole
+snowflakeToken = var.snowflakeToken
+snowflakeUser = var.snowflakeUser
+snowflakeValidateDefaultParameters = var.snowflakeValidateDefaultParameters
+snowflakeWarehouse = var.snowflakeWarehouse
+grantPrivilegesObjects = var.SARARG_GrantPrivilegesObjects
+grantPrivilegesAccountRoleName = var.SARARG_GrantPrivilegesAccountRoleName
+grantPrivilegesAllPrivileges = var.SARARG_GrantPrivilegesAllPrivileges
+grantPrivilegesAlwaysApply = var.SARARG_GrantPrivilegesAlwaysApply
+grantPrivilegesAlwaysApplyTrigger = var.SARARG_GrantPrivilegesAlwaysApplyTrigger
+grantPrivilegesOnAccount = var.SARARG_GrantPrivilegesOnAccount
 }
 
 #---

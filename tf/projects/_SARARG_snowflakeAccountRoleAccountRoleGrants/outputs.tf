@@ -1,18 +1,16 @@
-output "SARARG_AccountRoleFullyQualifiedName" {
-  value = module.accountRole.accountRoleFullyQualifiedName
+output "snowflakeRoleFullyQualifiedName" {
+  value = module.accountRole.snowflakeRoleFullyQualifiedName
 }
 
-output "SARARG_AccountRoleId" {
-  value = module.accountRole.accountRoleId
+output "snowflakeRoleId" {
+  value = module.accountRole.snowflakeRoleId
 }
 
-output "SARARG_AccountRoleShowOutput" {
-  value = module.accountRole.accountRoleShowOutput
+output "snowflakeRoleShowOutput" {
+  value = module.accountRole.snowflakeRoleShowOutput
 }
 
 #---
 output "SARARG_GrantPrivilegesId" {
   value = module.grantPrivileges.grantPrivilegesId
 }
-
-#---

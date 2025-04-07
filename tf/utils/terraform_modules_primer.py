@@ -9,33 +9,23 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../random/genericRandomPassword",
-            "source_path": "../../random/genericRandomPassword",
+            "project_path": "../snowflake/principals/genericAccountRole",
+            "source_path": "../../snowflake/principals/genericAccountRole",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "password",
-        "new_variable_prefix": "PKS_Password",
-        "module_name": "password",
+        "previous_variable_prefix": "accountRole",
+        "new_variable_prefix": "SARARG_AccountRole",
+        "module_name": "accountRole",
     },
     {
         "paths": {
-            "project_path": "../tls/genericTlsPrivateKey",
-            "source_path": "../../tls/genericTlsPrivateKey",
+            "project_path": "../snowflake/principals/genericGrantPrivilegesToAccountRole",
+            "source_path": "../../snowflake/principals/genericGrantPrivilegesToAccountRole",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "privateKey",
-        "new_variable_prefix": "PKS_PrivateKey",
-        "module_name": "privateKey",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/secretsmanager/_SWV_secretWithVersion",
-            "source_path": "../../aws/secretsmanager/_SWV_secretWithVersion",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "SWV",
-        "new_variable_prefix": "PKS_SWV",
-        "module_name": "SWV",
+        "previous_variable_prefix": "grantPrivileges",
+        "new_variable_prefix": "SARARG_GrantPrivileges",
+        "module_name": "grantPrivileges",
     },
 ]
 

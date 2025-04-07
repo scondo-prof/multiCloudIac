@@ -1,217 +1,438 @@
-variable "tlsProxy" { #https://registry.terraform.io/providers/hashicorp/tls/latest/docs#optional
-  type = object({
-    from_env = optional(bool, null)
-    password = optional(string, null)
-    url      = optional(string, null)
-    username = optional(string, null)
-  })
+#https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs#schema
+
+variable "snowflakeAuthenticator" {
+  type = string
+  validation {
+    condition = var.snowflakeAuthenticator == null || can(contains([
+      "SNOWFLAKE",
+      "OAUTH",
+      "EXTERNALBROWSER",
+      "OKTA",
+      "SNOWFLAKE_JWT",
+      "TOKENACCESSOR",
+      "USERNAMEPASSWORDMFA"
+    ], var.snowflakeAuthenticator))
+    error_message = "Valid inputs for | variable: var.snowflakeAuthenticator | are: SNOWFLAKE , OAUTH , EXTERNALBROWSER , OKTA , SNOWFLAKE_JWT , TOKENACCESSOR , USERNAMEPASSWORDMFA"
+  }
   default = null
 }
 
-variable "awsRegion" {
+variable "snowflakeClientIp" {
   type    = string
-  default = "us-east-1"
+  default = null
+}
+
+variable "snowflakeClientRequestMfaToken" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeClientStoreTemporaryCredential" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeClientTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeDisableQueryContextCache" {
+  type    = bool
+  default = null
+}
+
+variable "snowflakeDisableTelemetry" {
+  type    = bool
+  default = null
+}
+
+variable "snowflakeExternalBrowserTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeHost" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeInsecureMode" {
+  type    = bool
+  default = null
+}
+
+variable "snowflakeJwtClientTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeJwtExpireTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeKeepSessionAlive" {
+  type    = bool
+  default = null
+}
+
+variable "snowflakeLoginTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeOcspFailOpen" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeOktaUrl" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeParams" {
+  type    = map(string)
+  default = null
+}
+
+variable "snowflakePasscode" {
+  type    = string
+  default = null
+}
+
+variable "snowflakePasscodeInPassword" {
+  type    = bool
+  default = null
+}
+
+variable "snowflakePassword" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "snowflakePort" {
+  type    = number
+  default = null
+}
+
+variable "snowflakePrivateKey" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "snowflakePrivateKeyPassphrase" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "snowflakeProfile" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeProtocol" {
+  type = string
+  validation {
+    condition = var.snowflakeProtocol == null || can(contains([
+      "http",
+      "https"
+    ], var.snowflakeProtocol))
+    error_message = "Valid inputs for | variable: var.snowflakeProtocol | are: http , https"
+  }
+  default = null
+}
+
+variable "snowflakeRequestTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeRole" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeToken" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "snowflakeUser" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeValidateDefaultParameters" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeWarehouse" {
+  type    = string
+  default = null
 }
 
 variable "resourceName" {
   type = string
 }
 
-variable "projectName" {
-  type = string
-}
 
-variable "createdBy" {
+
+#https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/account_role#schema
+
+variable "SARARG_AccountRoleComment" {
   type    = string
-  default = "scott-condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "tfModule" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
-}
-
-#https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/PKS_Password#schema
-
-variable "PKS_PasswordLength" {
-  type = number
-  validation {
-    condition     = var.PKS_PasswordLength >= 1 && var.PKS_PasswordLength <= 1024
-    error_message = "var.PKS_PasswordLength must be Greater than or Equal to 1 AND Less Than or Equal to 1024"
-  }
-}
-
-variable "PKS_PasswordKeepers" {
-  type    = map(string)
-  default = null
-}
-
-variable "PKS_PasswordLower" {
-  type    = bool
-  default = null
-}
-
-variable "PKS_PasswordMinLower" {
-  type = number
-  validation {
-    condition     = var.PKS_PasswordMinLower == null || can(var.PKS_PasswordMinLower >= 0 && var.PKS_PasswordMinLower <= 1024)
-    error_message = "var.PKS_PasswordMinLower must be Greater than or Equal to 0 AND Less Than or Equal to 1024"
-  }
-  default = null
-}
-
-variable "PKS_PasswordMinNumeric" {
-  type = number
-  validation {
-    condition     = var.PKS_PasswordMinNumeric == null || can(var.PKS_PasswordMinNumeric >= 0 && var.PKS_PasswordMinNumeric <= 1024)
-    error_message = "var.PKS_PasswordMinNumeric must be Greater than or Equal to 0 AND Less Than or Equal to 1024"
-  }
-  default = null
-}
-
-variable "PKS_PasswordMinSpecial" {
-  type = number
-  validation {
-    condition     = var.PKS_PasswordMinSpecial == null || can(var.PKS_PasswordMinSpecial >= 0 && var.PKS_PasswordMinSpecial <= 1024)
-    error_message = "var.PKS_PasswordMinSpecial must be Greater than or Equal to 0 AND Less Than or Equal to 1024"
-  }
-  default = null
-}
-
-variable "PKS_PasswordMinUpper" {
-  type = number
-  validation {
-    condition     = var.PKS_PasswordMinUpper == null || can(var.PKS_PasswordMinUpper >= 0 && var.PKS_PasswordMinUpper <= 1024)
-    error_message = "var.PKS_PasswordMinUpper must be Greater than or Equal to 0 AND Less Than or Equal to 1024"
-  }
-  default = null
-}
-
-variable "PKS_PasswordNumeric" {
-  type    = bool
-  default = null
-}
-
-variable "PKS_PasswordOverrideSpecial" {
-  type    = string
-  default = null
-}
-
-variable "PKS_PasswordSpecial" {
-  type    = bool
-  default = null
-}
-
-variable "PKS_PasswordUpper" {
-  type    = bool
   default = null
 }
 
 #---
+#https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs#schema
 
-#https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key#schema
-
-variable "PKS_PrivateKeyAlgorithm" {
+variable "snowflakeAuthenticator" {
   type = string
   validation {
-    condition = contains([
-      "RSA",
-      "ECDSA",
-      "ED25519"
-    ], var.PKS_PrivateKeyAlgorithm)
-    error_message = "Valid inputs for | variable: var.PKS_PrivateKeyAlgorithm | are: RSA, ECDSA, ED25519"
-  }
-}
-
-variable "PKS_PrivateKeyEcdsaCurve" {
-  type = string
-  validation {
-    condition = var.PKS_PrivateKeyEcdsaCurve == null || can(contains([
-      "P224",
-      "P256",
-      "P384",
-      "P521"
-    ], var.PKS_PrivateKeyEcdsaCurve))
-    error_message = "Valid inputs for | variable: var.PKS_PrivateKeyEcdsaCurve | are: P224, P256, P384, P521"
+    condition = var.snowflakeAuthenticator == null || can(contains([
+      "SNOWFLAKE",
+      "OAUTH",
+      "EXTERNALBROWSER",
+      "OKTA",
+      "SNOWFLAKE_JWT",
+      "TOKENACCESSOR",
+      "USERNAMEPASSWORDMFA"
+    ], var.snowflakeAuthenticator))
+    error_message = "Valid inputs for | variable: var.snowflakeAuthenticator | are: SNOWFLAKE , OAUTH , EXTERNALBROWSER , OKTA , SNOWFLAKE_JWT , TOKENACCESSOR , USERNAMEPASSWORDMFA"
   }
   default = null
 }
 
-variable "PKS_PrivateKeyRsaBits" {
+variable "snowflakeClientIp" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeClientRequestMfaToken" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeClientStoreTemporaryCredential" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeClientTimeout" {
   type    = number
   default = null
 }
 
-#---
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/PKS_SWV_Secretsmanager_PKS_SWV_Secret#argument-reference
-
-variable "PKS_SWV_SecretDescription" {
-  type    = string
-  default = null
-}
-
-variable "PKS_SWV_SecretKmsKeyId" {
-  type    = string
-  default = null
-}
-
-variable "PKS_SWV_SecretNamePrefix" {
-  type    = string
-  default = null
-}
-
-variable "PKS_SWV_SecretPolicy" {
-  type    = string
-  default = null
-}
-
-variable "PKS_SWV_SecretRecoveryWindowInDays" {
-  type    = number
-  default = null
-}
-
-variable "PKS_SWV_SecretReplica" {
-  type = object({
-    kms_key_id = optional(string, null)
-    region     = string
-  })
-  default = null
-}
-
-variable "PKS_SWV_SecretForceSecretOverwrite" {
+variable "snowflakeDisableQueryContextCache" {
   type    = bool
   default = null
 }
 
-
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
-
-
-variable "PKS_SWV_SecretVersionSecretString" {
-  type    = map(string)
+variable "snowflakeDisableTelemetry" {
+  type    = bool
   default = null
 }
 
-variable "PKS_SWV_SecretVersionSecretBinary" {
+variable "snowflakeExternalBrowserTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeHost" {
   type    = string
   default = null
 }
 
-variable "PKS_SWV_SecretVersionStages" {
-  type    = list(string)
+variable "snowflakeInsecureMode" {
+  type    = bool
+  default = null
+}
+
+variable "snowflakeJwtClientTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeJwtExpireTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeKeepSessionAlive" {
+  type    = bool
+  default = null
+}
+
+variable "snowflakeLoginTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeOcspFailOpen" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeOktaUrl" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeParams" {
+  type    = map(string)
+  default = null
+}
+
+variable "snowflakePasscode" {
+  type    = string
+  default = null
+}
+
+variable "snowflakePasscodeInPassword" {
+  type    = bool
+  default = null
+}
+
+variable "snowflakePassword" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "snowflakePort" {
+  type    = number
+  default = null
+}
+
+variable "snowflakePrivateKey" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "snowflakePrivateKeyPassphrase" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "snowflakeProfile" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeProtocol" {
+  type = string
+  validation {
+    condition = var.snowflakeProtocol == null || can(contains([
+      "http",
+      "https"
+    ], var.snowflakeProtocol))
+    error_message = "Valid inputs for | variable: var.snowflakeProtocol | are: http , https"
+  }
+  default = null
+}
+
+variable "snowflakeRequestTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeRole" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeToken" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "snowflakeUser" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeValidateDefaultParameters" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeWarehouse" {
+  type    = string
   default = null
 }
 
 
+
+#https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/grant_privileges_to_account_role#schema
+
+variable "SARARG_GrantPrivilegesAccountRoleName" {
+  type = string
+}
+
+variable "SARARG_GrantPrivilegesAllPrivileges" {
+  type    = bool
+  default = null
+}
+
+variable "SARARG_GrantPrivilegesAlwaysApply" {
+  type    = bool
+  default = null
+}
+
+variable "SARARG_GrantPrivilegesAlwaysApplyTrigger" {
+  type    = string
+  default = null
+}
+
+variable "SARARG_GrantPrivilegesOnAccount" {
+  type    = bool
+  default = null
+}
+
+variable "SARARG_GrantPrivilegesObjects" {
+  type = list(object({
+    on_account_object = optional(object({ ##https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/grant_privileges_to_account_role#nestedblock--on_account_object
+      object_name = string
+      object_type = string
+    }), null)
+
+    on_schema = optional(object({ ##https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/grant_privileges_to_account_role#nestedblock--on_schema
+      all_schemas_in_database    = optional(string, null)
+      future_schemas_in_database = optional(string, null)
+      schema_name                = optional(string, null)
+    }))
+
+    on_schema_object = optional(object({
+      all = optional(object({ #https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/grant_privileges_to_account_role#nestedblock--on_schema_object--all
+        object_type_plural = string
+        in_database        = optional(string, null)
+        in_schema          = optional(string, null)
+      }), null)
+
+      future = optional(object({ #https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/grant_privileges_to_account_role#nestedblock--on_schema_object--future
+        object_type_plural = string
+        in_database        = optional(string, null)
+        in_schema          = optional(string, null)
+      }), null)
+
+      object_name = optional(string, null)
+      object_type = optional(string, null)
+    }), null)
+
+    privileges        = optional(list(string), null)
+    with_grant_option = optional(bool, null)
+  }))
+}
 
 #---
