@@ -196,7 +196,10 @@ variable "PKS_SWV_SecretForceSecretOverwrite" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
 
-
+variable "PKS_SWV_PrivateKeyP8FilePath" {
+  type = string
+  default = null
+}
 variable "PKS_SWV_SecretVersionSecretString" {
   type    = map(string)
   default = null
