@@ -9,13 +9,13 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../aws/ec2/genericKeyPair",
-            "source_path": "../../aws/ec2/genericKeyPair",
+            "project_path": "../random/genericRandomPassword",
+            "source_path": "../../random/genericRandomPassword",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "keyPair",
-        "new_variable_prefix": "KPTPKWS_Ec2KeyPair",
-        "module_name": "Ec2KeyPair",
+        "previous_variable_prefix": "password",
+        "new_variable_prefix": "PKS_Password",
+        "module_name": "password",
     },
     {
         "paths": {
@@ -24,8 +24,8 @@ modules = [
             "destination_path": "./temp",
         },
         "previous_variable_prefix": "privateKey",
-        "new_variable_prefix": "KPTPKWS_Ec2PrivateKey",
-        "module_name": "ec2PrivateKey",
+        "new_variable_prefix": "PKS_PrivateKey",
+        "module_name": "privateKey",
     },
     {
         "paths": {
@@ -34,7 +34,7 @@ modules = [
             "destination_path": "./temp",
         },
         "previous_variable_prefix": "SWV",
-        "new_variable_prefix": "KPTPKWS_SWV",
+        "new_variable_prefix": "PKS_SWV",
         "module_name": "SWV",
     },
 ]
