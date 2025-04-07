@@ -9,23 +9,23 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../snowflake/principals/genericAccountRole",
-            "source_path": "../../snowflake/principals/genericAccountRole",
+            "project_path": "../projects/_CRDPRFG_cloudRunDeploymentPullRequestFromGithub",
+            "source_path": "../_CRDPRFG_cloudRunDeploymentPullRequestFromGithub",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "accountRole",
-        "new_variable_prefix": "SARARG_AccountRole",
-        "module_name": "accountRole",
+        "previous_variable_prefix": "CRDPRFG",
+        "new_variable_prefix": "SPCRDFG_CRDPRFG",
+        "module_name": "CRDPRFG",
     },
     {
         "paths": {
-            "project_path": "../snowflake/principals/genericGrantPrivilegesToAccountRole",
-            "source_path": "../../snowflake/principals/genericGrantPrivilegesToAccountRole",
+            "project_path": "../projects/_CRDPFG_cloudRunDeploymentPushFromGithub",
+            "source_path": "../_CRDPFG_cloudRunDeploymentPushFromGithub",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "grantPrivileges",
-        "new_variable_prefix": "SARARG_GrantPrivileges",
-        "module_name": "grantPrivileges",
+        "previous_variable_prefix": "CRDPFG",
+        "new_variable_prefix": "SPCRDFG_CRDPFG",
+        "module_name": "CRDPFG",
     },
 ]
 

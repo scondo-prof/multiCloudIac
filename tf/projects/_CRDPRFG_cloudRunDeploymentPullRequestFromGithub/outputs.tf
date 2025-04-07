@@ -47,23 +47,23 @@ output "CRDPRFG_SWSV_SecretVersionDestroyTime" {
 
 
 #---
-output "serviceAccountId" {
+output "CRDPRFG_ServiceAccountId" {
   value = module.cloudBuildTrigger.serviceAccountId
 }
 
-output "serviceAccountEmail" {
+output "CRDPRFG_ServiceAccountEmail" {
   value = module.cloudBuildTrigger.serviceAccountEmail
 }
 
-output "serviceAccountDisplayName" {
+output "CRDPRFG_ServiceAccountDisplayName" {
   value = module.cloudBuildTrigger.serviceAccountDisplayName
 }
 
-output "serviceAccountRoleId" {
+output "CRDPRFG_ServiceAccountRoleId" {
   value = module.cloudBuildTrigger.serviceAccountRoleId
 }
 
-output "serviceAccountRoleName" {
+output "CRDPRFG_ServiceAccountRoleName" {
   value = module.cloudBuildTrigger.serviceAccountRoleName
 }
 

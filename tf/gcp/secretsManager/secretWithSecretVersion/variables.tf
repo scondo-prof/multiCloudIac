@@ -1,6 +1,5 @@
 variable "projectId" {
   type    = string
-  default = "p3-prod-aa94d"
 }
 
 variable "gcpRegion" {
