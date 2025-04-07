@@ -115,6 +115,7 @@ variable "SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionObjects" {
     is_secret_data_base64 = optional(bool, null)
   }))
   sensitive = true
+  default   = []
 }
 
 
@@ -531,6 +532,7 @@ variable "SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionObjects" {
     is_secret_data_base64 = optional(bool, null)
   }))
   sensitive = true
+  default   = []
 }
 
 
@@ -1089,7 +1091,7 @@ variable "SIBS_SWV_Staging_SecretForceSecretOverwrite" {
 
 variable "SIBS_SWV_Staging_SecretVersionSecretString" {
   type    = map(string)
-  default = null
+  default = {}
 }
 
 variable "SIBS_SWV_Staging_SecretVersionSecretBinary" {
@@ -1153,7 +1155,7 @@ variable "SIBS_SWV_Prod_SecretForceSecretOverwrite" {
 
 variable "SIBS_SWV_Prod_SecretVersionSecretString" {
   type    = map(string)
-  default = null
+  default = {}
 }
 
 variable "SIBS_SWV_Prod_SecretVersionSecretBinary" {
