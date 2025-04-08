@@ -1,22 +1,19 @@
-output "SS_SARARG_AccountRoleFullyQualifiedName" {
-  value = module.SARARG.SARARG_AccountRoleFullyQualifiedName
+output "snowflakeRoleFullyQualifiedName" {
+  value = module.SARARG.snowflakeRoleFullyQualifiedName
 }
 
-output "SS_SARARG_AccountRoleId" {
-  value = module.SARARG.SARARG_AccountRoleId
+output "snowflakeRoleId" {
+  value = module.SARARG.snowflakeRoleId
 }
 
-output "SS_SARARG_AccountRoleShowOutput" {
-  value = module.SARARG.SARARG_AccountRoleShowOutput
+output "snowflakeRoleShowOutput" {
+  value = module.SARARG.snowflakeRoleShowOutput
 }
 
 
 output "SS_SARARG_GrantPrivilegesId" {
   value = module.SARARG.SARARG_GrantPrivilegesId
 }
-
-
-
 
 #---
 output "SS_SUP_PKS_PasswordBcryptHash" {
@@ -32,7 +29,6 @@ output "SS_SUP_PKS_PasswordResult" {
   value     = module.SUP.SUP_PKS_PasswordResult
   sensitive = true
 }
-
 
 
 output "SS_SUP_PKS_PrivateKeyId" {
@@ -86,7 +82,6 @@ output "SS_SUP_PKS_SWV_SecretVersionId" {
 
 
 
-
 output "SS_SUP_SnowflakeUserFullyQualifiedName" {
   value = module.SUP.SUP_SnowflakeUserFullyQualifiedName
 }
@@ -109,9 +104,7 @@ output "SS_SUP_SnowflakeUserType" {
 
 
 
-
 #---
-
 output "SS_GrantAccountRoleId" {
   value = module.grantAccountRole.grantAccountRoleId
 }
