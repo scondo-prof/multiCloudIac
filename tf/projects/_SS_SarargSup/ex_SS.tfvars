@@ -16,9 +16,9 @@ snowflakeWarehouse = "COMPUTE_WH"
 
 resourceName = "tf-test"
 
-projectName = "wah-wee"
+projectName = "test"
 
-deployedDate = "02-06-2025"
+deployedDate = "2025-04-08"
 
 tfModule = "ss"
 
@@ -62,7 +62,7 @@ SS_SUP_PKS_PrivateKeyRsaBits = 2048
 
 SS_SUP_PKS_SWV_SecretRecoveryWindowInDays = 0
 
-SS_SUP_PKS_privateKeyP8FilePath = "keys/ex_SS.p8"
+# SS_SUP_PKS_privateKeyP8FilePath = "keys/ex_SS_SUP.p8"
 
 SS_SUP_SnowflakeUserDisabled = "false"
 
