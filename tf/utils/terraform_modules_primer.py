@@ -9,33 +9,23 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../projects/_SARARG_snowflakeAccountRoleAccountRoleGrants",
-            "source_path": "../_SARARG_snowflakeAccountRoleAccountRoleGrants",
+            "project_path": "../projects/_SS_SarargSup",
+            "source_path": "../_SS_SarargSup",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "SARARG",
-        "new_variable_prefix": "SS_SARARG",
-        "module_name": "SARARG",
+        "previous_variable_prefix": "SS",
+        "new_variable_prefix": "SS_SS",
+        "module_name": "SS",
     },
     {
         "paths": {
-            "project_path": "../projects/_SUP_snowflakeUserPks",
-            "source_path": "../_SUP_snowflakeUserPks",
+            "project_path": "../projects/_SIBS_spcrdfgIuwpaksmsBwvSwv",
+            "source_path": "../_SIBS_spcrdfgIuwpaksmsBwvSwv",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "SUP",
-        "new_variable_prefix": "SS_SUP",
-        "module_name": "SUP",
-    },
-    {
-        "paths": {
-            "project_path": "../snowflake/principals/genericGrantAccountRole",
-            "source_path": "../../snowflake/principals/genericGrantAccountRole",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "grantAccountRole",
-        "new_variable_prefix": "SS_GrantAccountRole",
-        "module_name": "grantAccountRole",
+        "previous_variable_prefix": "SIBS",
+        "new_variable_prefix": "SS_SIBS",
+        "module_name": "SIBS",
     },
 ]
 
