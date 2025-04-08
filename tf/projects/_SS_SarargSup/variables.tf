@@ -683,11 +683,6 @@ variable "SS_SUP_SnowflakeUserDefaultNamespace" {
   default = null
 }
 
-variable "SS_SUP_SnowflakeUserDefaultRole" {
-  type    = string
-  default = null
-}
-
 variable "SS_SUP_SnowflakeUserDefaultSecondaryRolesOption" {
   type    = string
   default = null
@@ -1018,16 +1013,7 @@ variable "SS_SUP_SnowflakeUserWeekStart" {
 
 #https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/grant_account_role#schema
 
-variable "SS_GrantAccountRoleName" {
-  type = string
-}
-
 variable "SS_GrantAccountRoleParentRoleName" {
-  type    = string
-  default = null
-}
-
-variable "SS_GrantAccountRoleUserName" {
   type    = string
   default = null
 }
