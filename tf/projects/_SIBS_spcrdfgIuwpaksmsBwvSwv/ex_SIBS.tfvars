@@ -23,9 +23,9 @@ SIBS_SPCRDFG_CloudBuildTriggerBucketName = "gs://dash_build_logs"
 SIBS_SPCRDFG_CRDPRFG_AlertPolicyNotificationChannels = ["projects/p3-prod-aa94d/notificationChannels/16159316952891778334"]
 
 SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppLogsAlertStrategy = {
-    notification_rate_limit = {
-      period = "300s"
-    }
+  notification_rate_limit = {
+    period = "300s"
+  }
 }
 
 SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretReplicationAuto = {}
@@ -33,9 +33,9 @@ SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretReplicationAuto = {}
 SIBS_SPCRDFG_CRDPFG_CloudRunInfraAlertPolicyNotificationChannels = ["projects/p3-prod-aa94d/notificationChannels/7275734209150042716"]
 
 SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicyAlertStrategy = {
-    notification_rate_limit = {
-      period = "300s"
-    }
+  notification_rate_limit = {
+    period = "300s"
+  }
 }
 
 SIBS_BWV_S3BucketVersioningConfigurationStatus = "Enabled"

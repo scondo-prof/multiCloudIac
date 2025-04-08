@@ -808,11 +808,6 @@ variable "SUP_SnowflakeUserRowsPerRuleset" {
   default = null
 }
 
-variable "SUP_SnowflakeUserRsaPublicKey" {
-  type    = string
-  default = null
-}
-
 variable "SUP_SnowflakeUserRsaPublicKey2" {
   type    = string
   default = null
