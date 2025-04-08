@@ -227,7 +227,7 @@ module "SWV_Staging" {
 
 #---
 
-module "Prod" {
+module "SWV_Prod" {
   source                         = "../../aws/secretsmanager/_SWV_secretWithVersion"
   awsRegion                      = var.awsRegion
   SWV_SecretDescription          = var.SIBS_SWV_Prod_SecretDescription

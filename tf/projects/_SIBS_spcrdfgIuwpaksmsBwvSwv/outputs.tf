@@ -288,15 +288,15 @@ output "SIBS_SWV_Staging_SecretVersionId" {
 
 #---
 output "SIBS_SWV_Prod_SecretArn" {
-  value = module.Prod.SWV_SecretArn
+  value = module.SWV_Prod.SWV_SecretArn
 }
 
 output "SIBS_SWV_Prod_SecretName" {
-  value = module.Prod.SWV_SecretName
+  value = module.SWV_Prod.SWV_SecretName
 }
 
 output "SIBS_SWV_Prod_SecretVersionId" {
-  value = module.Prod.SWV_SecretVersionId
+  value = module.SWV_Prod.SWV_SecretVersionId
 }
 
 #---
