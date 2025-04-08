@@ -21,9 +21,9 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
-  default = "Scott Condo"
+  default = "scott-condo"
 }
 
 variable "deployedDate" {
@@ -38,8 +38,6 @@ variable "additionalTags" {
   type    = map(string)
   default = {}
 }
-
-#https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs#schema
 
 variable "snowflakeAccountName" {
   type    = string
@@ -84,7 +82,7 @@ variable "snowflakeClientTimeout" {
 }
 
 variable "snowflakeDisableConsoleLogin" {
-  type    = string
+  type    = bool
   default = null
 }
 
@@ -111,7 +109,7 @@ variable "snowflakeDriverTracing" {
       "fatal",
       "panic"
     ], var.snowflakeDriverTracing))
-    error_message = "Valid inputs for | variable: var.snowflakeDriverTracing | are: trace , debug , info , print , warning , error , fatal , panic"
+    error_message = "Valid inputs for | variable: var.snowflakeDriverTracing | are: trace | debug | info | print | warning | error | fatal | panic"
   }
   default = null
 }
@@ -127,7 +125,7 @@ variable "snowflakeHost" {
 }
 
 variable "snowflakeIncludeRetryReason" {
-  type    = string
+  type    = bool
   default = null
 }
 
@@ -202,8 +200,79 @@ variable "snowflakePort" {
   default = null
 }
 
-variable "snowflakePreveiwFeaturesEnabled" {
-  type    = list(string)
+variable "snowflakePreviewFeaturesEnabled" {
+  type = list(string)
+  validation {
+    condition = var.snowflakePreviewFeaturesEnabled == null || can(contains([
+      "snowflake_current_account_datasource",
+      "snowflake_account_authentication_policy_attachment_resource",
+      "snowflake_account_passwd_policy_attachment_resource",
+      "snowflake_alert_resource",
+      "snowflake_alerts_datasource",
+      "snowflake_api_integration_resource",
+      "snowflake_authentication_policy_resource",
+      "snowflake_ctex_search_service_resource",
+      "snowflake_ctex_search_services_datasource",
+      "snowflake_database_datasource",
+      "snowflake_database_role_datasource",
+      "snowflake_dynamic_table_resource",
+      "snowflake_dynamic_tables_datasource",
+      "snowflake_external_function_resource",
+      "snowflake_external_functions_datasource",
+      "snowflake_external_table_resource",
+      "snowflake_external_tables_datasource",
+      "snowflake_external_volume_resource",
+      "snowflake_failover_group_resource",
+      "snowflake_failover_groups_datasource",
+      "snowflake_file_fmat_resource",
+      "snowflake_file_fmats_datasource",
+      "snowflake_function_java_resource",
+      "snowflake_function_javascript_resource",
+      "snowflake_function_python_resource",
+      "snowflake_function_scala_resource",
+      "snowflake_function_sql_resource",
+      "snowflake_functions_datasource",
+      "snowflake_managed_account_resource",
+      "snowflake_materialized_view_resource",
+      "snowflake_materialized_views_datasource",
+      "snowflake_netwk_policy_attachment_resource",
+      "snowflake_netwk_rule_resource",
+      "snowflake_email_notification_integration_resource",
+      "snowflake_notification_integration_resource",
+      "snowflake_object_parameter_resource",
+      "snowflake_passwd_policy_resource",
+      "snowflake_pipe_resource",
+      "snowflake_pipes_datasource",
+      "snowflake_current_role_datasource",
+      "snowflake_sequence_resource",
+      "snowflake_sequences_datasource",
+      "snowflake_share_resource",
+      "snowflake_shares_datasource",
+      "snowflake_parameters_datasource",
+      "snowflake_procedure_java_resource",
+      "snowflake_procedure_javascript_resource",
+      "snowflake_procedure_python_resource",
+      "snowflake_procedure_scala_resource",
+      "snowflake_procedure_sql_resource",
+      "snowflake_procedures_datasource",
+      "snowflake_stage_resource",
+      "snowflake_stages_datasource",
+      "snowflake_stage_integration_resource",
+      "snowflake_stage_integrations_datasource",
+      "snowflake_system_generate_scim_access_token_datasource",
+      "snowflake_system_get_aws_sns_iam_policy_datasource",
+      "snowflake_system_get_privatelink_config_datasource",
+      "snowflake_system_get_snowflake_platfm_info_datasource",
+      "snowflake_table_column_masking_policy_application_resource",
+      "snowflake_table_constraint_resource",
+      "snowflake_table_resource",
+      "snowflake_tables_datasource",
+      "snowflake_SUP_SnowflakeUser_authentication_policy_attachment_resource",
+      "snowflake_SUP_SnowflakeUser_public_keys_resource",
+      "snowflake_SUP_SnowflakeUser_passwd_policy_attachment_resource"
+    ], var.snowflakePreviewFeaturesEnabled))
+    error_message = "Valid inputs for | variable: var.snowflakePreviewFeaturesEnabled | are: snowflake_current_account_datasource | snowflake_account_authentication_policy_attachment_resource | snowflake_account_password_policy_attachment_resource | snowflake_alert_resource | snowflake_alerts_datasource | snowflake_api_integration_resource | snowflake_authentication_policy_resource | snowflake_cortex_search_service_resource | snowflake_cortex_search_services_datasource | snowflake_database_datasource | snowflake_database_role_datasource | snowflake_dynamic_table_resource | snowflake_dynamic_tables_datasource | snowflake_external_function_resource | snowflake_external_functions_datasource | snowflake_external_table_resource | snowflake_external_tables_datasource | snowflake_external_volume_resource | snowflake_failover_group_resource | snowflake_failover_groups_datasource | snowflake_file_format_resource | snowflake_file_formats_datasource | snowflake_function_java_resource | snowflake_function_javascript_resource | snowflake_function_python_resource | snowflake_function_scala_resource | snowflake_function_sql_resource | snowflake_functions_datasource | snowflake_managed_account_resource | snowflake_materialized_view_resource | snowflake_materialized_views_datasource | snowflake_network_policy_attachment_resource | snowflake_network_rule_resource | snowflake_email_notification_integration_resource | snowflake_notification_integration_resource | snowflake_object_parameter_resource | snowflake_password_policy_resource | snowflake_pipe_resource | snowflake_pipes_datasource | snowflake_current_role_datasource | snowflake_sequence_resource | snowflake_sequences_datasource | snowflake_share_resource | snowflake_shares_datasource | snowflake_parameters_datasource | snowflake_procedure_java_resource | snowflake_procedure_javascript_resource | snowflake_procedure_python_resource | snowflake_procedure_scala_resource | snowflake_procedure_sql_resource | snowflake_procedures_datasource | snowflake_stage_resource | snowflake_stages_datasource | snowflake_storage_integration_resource | snowflake_storage_integrations_datasource | snowflake_system_generate_scim_access_token_datasource | snowflake_system_get_aws_sns_iam_policy_datasource | snowflake_system_get_privatelink_config_datasource | snowflake_system_get_snowflake_platform_info_datasource | snowflake_table_column_masking_policy_application_resource | snowflake_table_constraint_resource | snowflake_table_resource | snowflake_tables_datasource | snowflake_SUP_SnowflakeUser_authentication_policy_attachment_resource | snowflake_SUP_SnowflakeUser_public_keys_resource | snowflake_SUP_SnowflakeUser_password_policy_attachment_resource"
+  }
   default = null
 }
 
@@ -257,19 +326,6 @@ variable "snowflakeToken" {
   sensitive = true
 }
 
-
-# variable "snowflakeTokenAccessor" { #https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs#nestedblock--token_accessor
-#   type = object({
-#     client_id      = string
-#     client_secret  = string
-#     redirect_uri   = string
-#     refresh_token  = string
-#     token_endpoint = string
-#   })
-#   default   = null
-#   sensitive = true
-# }
-
 variable "snowflakeUser" {
   type    = string
   default = null
@@ -284,8 +340,6 @@ variable "snowflakeWarehouse" {
   type    = string
   default = null
 }
-
-
 
 #https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password#schema
 
@@ -400,8 +454,19 @@ variable "SUP_PKS_PrivateKeyRsaBits" {
 
 
 
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
+
+variable "SUP_PKS_SWV_SecretDescription" {
+  type    = string
+  default = null
+}
 
 variable "SUP_PKS_SWV_SecretKmsKeyId" {
+  type    = string
+  default = null
+}
+
+variable "SUP_PKS_SWV_SecretNamePrefix" {
   type    = string
   default = null
 }
@@ -413,12 +478,12 @@ variable "SUP_PKS_SWV_SecretPolicy" {
 
 variable "SUP_PKS_SWV_SecretRecoveryWindowInDays" {
   type    = number
-  default = 7
+  default = null
 }
 
 variable "SUP_PKS_SWV_SecretReplica" {
   type = object({
-    kms_key_id = string
+    kms_key_id = optional(string, null)
     region     = string
   })
   default = null
@@ -426,14 +491,17 @@ variable "SUP_PKS_SWV_SecretReplica" {
 
 variable "SUP_PKS_SWV_SecretForceSecretOverwrite" {
   type    = bool
-  default = true
-}
-
-variable "SUP_PKS_privateKeyP8FilePath" {
-  type    = string
   default = null
 }
 
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
+
+variable "SUP_PKS_SWV_PrivateKeyP8FilePath" {
+  type    = string
+  default = null
+}
 variable "SUP_PKS_SWV_SecretVersionSecretString" {
   type    = map(string)
   default = {}
@@ -449,13 +517,12 @@ variable "SUP_PKS_SWV_SecretVersionStages" {
   default = null
 }
 
-
-
-
 #---
+#https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs#schema
 
 
-#https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/user#schema
+
+#https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/SUP_SnowflakeUser#schema
 
 variable "SUP_SnowflakeUserAbortDetachedQuery" {
   type    = bool
@@ -738,6 +805,11 @@ variable "SUP_SnowflakeUserQuotedIdentifiersIgnoreCase" {
 
 variable "SUP_SnowflakeUserRowsPerRuleset" {
   type    = number
+  default = null
+}
+
+variable "SUP_SnowflakeUserRsaPublicKey" {
+  type    = string
   default = null
 }
 

@@ -1,10 +1,16 @@
-variable "gcpProjectId" {
-  type = string
+variable "tlsProxy" { #https://registry.terraform.io/providers/hashicorp/tls/latest/docs#optional
+  type = object({
+    from_env = optional(bool, null)
+    password = optional(string, null)
+    url      = optional(string, null)
+    username = optional(string, null)
+  })
+  default = null
 }
 
-variable "gcpRegion" {
+variable "awsRegion" {
   type    = string
-  default = "us-east1"
+  default = "us-east-1"
 }
 
 variable "resourceName" {
@@ -15,13 +21,13 @@ variable "projectName" {
   type = string
 }
 
-variable "deployedDate" {
-  type = string
-}
-
 variable "createdBy" {
   type    = string
   default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
 }
 
 variable "tfModule" {
@@ -33,885 +39,416 @@ variable "additionalTags" {
   default = {}
 }
 
-variable "awsRegion" {
+variable "snowflakeAccountName" {
   type    = string
-  default = "us-east-1"
-}
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPRFG_SWSV_Secret_manager_SIBS_SPCRDFG_CRDPRFG_SWSV_Secret#argument-reference
-
-variable "SIBS_SPCRDFG_CRDPRFG_SWSV_SecretReplicationAuto" {
-  type = object({                                   #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPRFG_SWSV_Secret_manager_SIBS_SPCRDFG_CRDPRFG_SWSV_Secret#nested_replication_auto
-    customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPRFG_SWSV_Secret_manager_SIBS_SPCRDFG_CRDPRFG_SWSV_Secret#nested_replication_auto_customer_managed_encryption
-      kms_key_name = string
-    }), null)
-  })
-
   default = null
 }
 
-variable "SIBS_SPCRDFG_CRDPRFG_SWSV_SecretReplicationUserManaged" {
-  type = object({       #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPRFG_SWSV_Secret_manager_SIBS_SPCRDFG_CRDPRFG_SWSV_Secret#replicas-1
-    replicas = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPRFG_SWSV_Secret_manager_SIBS_SPCRDFG_CRDPRFG_SWSV_Secret#location-2
-      location = string
-      customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPRFG_SWSV_Secret_manager_SIBS_SPCRDFG_CRDPRFG_SWSV_Secret#nested_replication_user_managed_replicas_replicas_customer_managed_encryption
-        kms_key_name = string
-      }), null)
-
-    })
-  })
+variable "snowflakeAuthenticator" {
+  type = string
+  validation {
+    condition = var.snowflakeAuthenticator == null || can(contains([
+      "SNOWFLAKE",
+      "OAUTH",
+      "EXTERNALBROWSER",
+      "OKTA",
+      "SNOWFLAKE_JWT",
+      "TOKENACCESSOR",
+      "USERNAMEPASSWORDMFA"
+    ], var.snowflakeAuthenticator))
+    error_message = "Valid inputs for | variable: var.snowflakeAuthenticator | are: SNOWFLAKE , OAUTH , EXTERNALBROWSER , OKTA , SNOWFLAKE_JWT , TOKENACCESSOR , USERNAMEPASSWORDMFA"
+  }
   default = null
 }
 
-variable "SIBS_SPCRDFG_CRDPRFG_SWSV_SecretAnnotations" {
-  type    = map(string)
+variable "snowflakeClientIp" {
+  type    = string
   default = null
 }
 
-variable "SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionAliases" {
-  type    = map(string)
+variable "snowflakeClientRequestMfaToken" {
+  type    = string
   default = null
 }
 
-variable "SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionDestroyTtl" {
+variable "snowflakeClientStoreTemporaryCredential" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeClientTimeout" {
   type    = number
   default = null
 }
 
-variable "SIBS_SPCRDFG_CRDPRFG_SWSV_SecretTopics" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPRFG_SWSV_Secret_manager_SIBS_SPCRDFG_CRDPRFG_SWSV_Secret#nested_topics
-    name = string
-  })
-  default = null
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_SWSV_SecretExpireTime" {
-  type    = string
-  default = null
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_SWSV_SecretTtl" {
-  type    = string
-  default = null
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_SWSV_SecretRotation" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPRFG_SWSV_Secret_manager_SIBS_SPCRDFG_CRDPRFG_SWSV_Secret#nested_rotation
-    next_rotation_time = optional(string, null)
-    rotation_period    = optional(string, null)
-  })
-  default = null
-}
-
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret_version#argument-reference
-
-variable "SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionObjects" {
-  type = list(object({
-    enabled               = optional(bool, null)
-    secret_data           = string
-    deletion_policy       = optional(string, null)
-    is_secret_data_base64 = optional(bool, null)
-  }))
-  sensitive = true
-}
-
-
-
-
-
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudBuildTriggerServiceAccountDisabled" {
+variable "snowflakeDisableConsoleLogin" {
   type    = bool
-  default = false
+  default = null
 }
 
-variable "SIBS_SPCRDFG_CRDPRFG_CloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists" {
+variable "snowflakeDisableQueryContextCache" {
   type    = bool
-  default = true
+  default = null
 }
 
-variable "SIBS_SPCRDFG_CloudBuildTriggerServiceAccountsRoleId" {
-  type = string
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudBuildTriggerServiceAccountRoleStage" {
-  type = string
-  validation {
-    condition     = contains(["ALPHA", "BETA", "GA", "DEPRECATED", "DISABLED", "EAP"], var.SIBS_SPCRDFG_CRDPRFG_CloudBuildTriggerServiceAccountRoleStage)
-    error_message = "Variable SIBS_SPCRDFG_CRDPRFG_CloudBuildTriggerServiceAccountRoleStage only has valid values of: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
-  }
-  default = "GA"
-}
-
-variable "SIBS_SPCRDFG_CloudBuildTriggerYamlPath" {
-  type    = string
-  default = "cloudbuild.yaml"
-}
-
-variable "SIBS_SPCRDFG_CloudBuildTriggerGithubRepoName" {
-  type = string
-}
-
-variable "SIBS_SPCRDFG_CloudBuildTriggerBranchName" {
-  type    = string
-  default = "main"
-}
-
-variable "SIBS_SPCRDFG_CloudBuildTriggerArtifactRepoName" {
-  type = string
-}
-
-variable "SIBS_SPCRDFG_CloudBuildTriggerBucketName" {
-  type = string
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudRunConcurrentRequests" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPRFG_CloudRunConcurrentRequests >= 1 && var.SIBS_SPCRDFG_CRDPRFG_CloudRunConcurrentRequests <= 250
-    error_message = "Variable SIBS_SPCRDFG_CRDPRFG_CloudRunConcurrentRequests must be greater than or equal to 1 and less than or equal to 250"
-  }
-  default = 80
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudRunRequestsTimeout" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPRFG_CloudRunRequestsTimeout >= 1 && var.SIBS_SPCRDFG_CRDPRFG_CloudRunRequestsTimeout <= 3000
-    error_message = "Variable SIBS_SPCRDFG_CRDPRFG_CloudRunRequestsTimeout must be greater than or equal to 1 second and less than or equal to 900 seconds"
-  }
-  default = 300
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudRunPortNumber" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPRFG_CloudRunPortNumber >= 1 && var.SIBS_SPCRDFG_CRDPRFG_CloudRunPortNumber <= 65535
-    error_message = "Variable SIBS_SPCRDFG_CRDPRFG_CloudRunPortNumber must be greater than 1 and less than 65335"
-  }
-  default = 8080
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudRunMinInstances" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPRFG_CloudRunMinInstances >= 0
-    error_message = "Variable SIBS_SPCRDFG_CRDPRFG_CloudRunMinInstances must be greater than or equal to 0"
-  }
-  default = 0
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudRunMaxInstances" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPRFG_CloudRunMaxInstances >= 1 && var.SIBS_SPCRDFG_CRDPRFG_CloudRunMaxInstances <= 10
-    error_message = "Variable SIBS_SPCRDFG_CRDPRFG_CloudRunMaxInstances must be greater than or equal to 1 instance or less than or equal to 10 instances"
-  }
-  default = 5
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudRunEnvVariableName" {
-  type    = string
-  default = "ENV_VARS"
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudRunVpcConnector" {
-  type    = string
-  default = "dash"
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudRunAmountOfMemory" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPRFG_CloudRunAmountOfMemory >= 1 && var.SIBS_SPCRDFG_CRDPRFG_CloudRunAmountOfMemory <= 16
-    error_message = "Variable SIBS_SPCRDFG_CRDPRFG_CloudRunAmountOfMemory must be greater than or equal to 1 or less than or equal to 16."
-  }
-  default = 2
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudRunNumberOfVcpus" {
-  type = number
-  validation {
-    condition     = contains([1, 2, 4], var.SIBS_SPCRDFG_CRDPRFG_CloudRunNumberOfVcpus)
-    error_message = "Variable SIBS_SPCRDFG_CRDPRFG_CloudRunNumberOfVcpus must be greater than or equal to 1 or less than or equal to 16."
-  }
-  default = 2
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudBuildTriggerAdditionalSubstitutions" {
-  description = "Additional substitutions for the Cloud Build trigger"
-  type        = map(string)
-  default     = {}
-}
-
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
-
-
-variable "SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppLogsEnabled" {
+variable "snowflakeDisableTelemetry" {
   type    = bool
-  default = true
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_AlertPolicyNotificationChannels" {
-  type = list(string)
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppLogsAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
-  type = object({
-
-    notification_rate_limit = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_rate_limit
-      period = optional(string, null)
-    }), null)
-
-    auto_close = optional(string, null)
-
-    notification_channel_strategy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_channel_strategy
-      notification_channel_names = optional(list(string), null)
-      renotify_interval          = optional(number, null)
-    }), null)
-  })
   default = null
 }
 
-variable "SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppLogsSeverity" {
+variable "snowflakeDriverTracing" {
   type = string
   validation {
-    condition = var.SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppLogsSeverity == null || can(contains([
-      "CRITICAL",
-      "ERROR",
-      "WARNING"
-    ], var.SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppLogsSeverity))
-    error_message = "Valid inputs for | variable: SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppLogsSeverity | are: CRITICAL, ERROR, WARNING"
+    condition = var.snowflakeDriverTracing == null || can(contains([
+      "trace",
+      "debug",
+      "info",
+      "print",
+      "warning",
+      "err",
+      "fatal",
+      "panic"
+    ], var.snowflakeDriverTracing))
+    error_message = "Valid inputs for | variable: var.snowflakeDriverTracing | are: trace | debug | info | print | warning | error | fatal | panic"
   }
-  default = "ERROR"
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppLogsDocumentation" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_documentation
-  type = object({
-    content   = optional(string, null)
-    mime_type = optional(string, null)
-    subject   = optional(string, null)
-    links = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_links
-      display_name = optional(string, null)
-      url          = optional(string, null)
-    }), {})
-  })
   default = null
 }
 
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPRFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent >= 0 && var.SIBS_SPCRDFG_CRDPRFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent <= 100
-    error_message = "Variable SIBS_SPCRDFG_CRDPRFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent must be greater than or equal to 0 or less than and equal to 100"
-  }
-
-  default = 50
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudRunCpuAlertPolicyCpuThresholdPercent" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPRFG_CloudRunCpuAlertPolicyCpuThresholdPercent >= 0 && var.SIBS_SPCRDFG_CRDPRFG_CloudRunCpuAlertPolicyCpuThresholdPercent <= 100
-    error_message = "Variable SIBS_SPCRDFG_CRDPRFG_CloudRunCpuAlertPolicyCpuThresholdPercent must be greater than or equal to 0 or less than and equal to 100"
-  }
-
-  default = 50
-}
-
-
-variable "SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppCpuUsageEnabled" {
-  type    = bool
-  default = true
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppCpuUsageAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
-  type = object({
-
-    notification_rate_limit = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_rate_limit
-      period = optional(string, null)
-    }), null)
-
-    auto_close = optional(string, null)
-
-    notification_channel_strategy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_channel_strategy
-      notification_channel_names = optional(list(string), null)
-      renotify_interval          = optional(number, null)
-    }), null)
-  })
-  default = null
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppCpuUsageSeverity" {
-  type = string
-  validation {
-    condition = var.SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppCpuUsageSeverity == null || can(contains([
-      "CRITICAL",
-      "ERROR",
-      "WARNING"
-    ], var.SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppCpuUsageSeverity))
-    error_message = "Valid inputs for | variable: SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppCpuUsageSeverity | are: CRITICAL, ERROR, WARNING"
-  }
-  default = "ERROR"
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppCpuUsageDocumentation" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_documentation
-  type = object({
-    content   = optional(string, null)
-    mime_type = optional(string, null)
-    subject   = optional(string, null)
-    links = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_links
-      display_name = optional(string, null)
-      url          = optional(string, null)
-    }), {})
-  })
-  default = null
-}
-
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
-
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPRFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent >= 0 && var.SIBS_SPCRDFG_CRDPRFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent <= 100
-    error_message = "Variable SIBS_SPCRDFG_CRDPRFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent must be greater than or equal to 0 or less than and equal to 100"
-  }
-
-  default = 50
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_CloudRunMemAlertPolicyMemoryThresholdPercent" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPRFG_CloudRunMemAlertPolicyMemoryThresholdPercent >= 0 && var.SIBS_SPCRDFG_CRDPRFG_CloudRunMemAlertPolicyMemoryThresholdPercent <= 100
-    error_message = "Variable SIBS_SPCRDFG_CRDPRFG_CloudRunMemAlertPolicyMemoryThresholdPercent must be greater than or equal to 0 or less than and equal to 100"
-  }
-
-  default = 80
-}
-
-
-variable "SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppMemUsageEnabled" {
-  type    = bool
-  default = true
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppMemUsageAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
-  type = object({
-
-    notification_rate_limit = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_rate_limit
-      period = optional(string, null)
-    }), null)
-
-    auto_close = optional(string, null)
-
-    notification_channel_strategy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_channel_strategy
-      notification_channel_names = optional(list(string), null)
-      renotify_interval          = optional(number, null)
-    }), null)
-  })
-  default = null
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppMemUsageSeverity" {
-  type = string
-  validation {
-    condition = var.SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppMemUsageSeverity == null || can(contains([
-      "CRITICAL",
-      "ERROR",
-      "WARNING"
-    ], var.SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppMemUsageSeverity))
-    error_message = "Valid inputs for | variable: SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppMemUsageSeverity | are: CRITICAL, ERROR, WARNING"
-  }
-  default = "ERROR"
-}
-
-variable "SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppMemUsageDocumentation" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_documentation
-  type = object({
-    content   = optional(string, null)
-    mime_type = optional(string, null)
-    subject   = optional(string, null)
-    links = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_links
-      display_name = optional(string, null)
-      url          = optional(string, null)
-    }), {})
-  })
-  default = null
-}
-
-
-
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret#argument-reference
-
-variable "SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretReplicationAuto" {
-  type = object({                                   #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret#nested_replication_auto
-    customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret#nested_replication_auto_customer_managed_encryption
-      kms_key_name = string
-    }), null)
-  })
-
-  default = null
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretReplicationUserManaged" {
-  type = object({       #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret#replicas-1
-    replicas = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret#location-2
-      location = string
-      customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret#nested_replication_user_managed_replicas_replicas_customer_managed_encryption
-        kms_key_name = string
-      }), null)
-
-    })
-  })
-  default = null
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretAnnotations" {
-  type    = map(string)
-  default = null
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionAliases" {
-  type    = map(string)
-  default = null
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionDestroyTtl" {
+variable "snowflakeExternalBrowserTimeout" {
   type    = number
   default = null
 }
 
-variable "SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretTopics" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret#nested_topics
-    name = string
-  })
-  default = null
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretExpireTime" {
+variable "snowflakeHost" {
   type    = string
   default = null
 }
 
-variable "SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretTtl" {
+variable "snowflakeIncludeRetryReason" {
+  type    = bool
+  default = null
+}
+
+variable "snowflakeInsecureMode" {
+  type    = bool
+  default = null
+}
+
+variable "snowflakeJwtClientTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeJwtExpireTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeKeepSessionAlive" {
+  type    = bool
+  default = null
+}
+
+variable "snowflakeLoginTimeout" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeMaxRetryCount" {
+  type    = number
+  default = null
+}
+
+variable "snowflakeOcspFailOpen" {
   type    = string
   default = null
 }
 
-variable "SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretRotation" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret_manager_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_Secret#nested_rotation
-    next_rotation_time = optional(string, null)
-    rotation_period    = optional(string, null)
-  })
+variable "snowflakeOktaUrl" {
+  type    = string
   default = null
 }
 
+variable "snowflakeOrganizationName" {
+  type    = string
+  default = null
+}
 
+variable "snowflakeParams" {
+  type    = map(string)
+  default = null
+}
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret_version#argument-reference
+variable "snowflakePasscode" {
+  type    = string
+  default = null
+}
 
-variable "SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionObjects" {
-  type = list(object({
-    enabled               = optional(bool, null)
-    secret_data           = string
-    deletion_policy       = optional(string, null)
-    is_secret_data_base64 = optional(bool, null)
-  }))
+variable "snowflakePasscodeInPassword" {
+  type    = bool
+  default = null
+}
+
+variable "snowflakePassword" {
+  type      = string
+  default   = null
   sensitive = true
 }
 
-
-
-
-
-
-variable "SIBS_SPCRDFG_CRDPFG_ServiceAccountDisabled" {
-  type    = bool
-  default = false
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_ServiceAccountCreateIgnoreAlreadyExists" {
-  type    = bool
-  default = true
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_ServiceAccountRoleStage" {
-  type = string
-  validation {
-    condition     = contains(["ALPHA", "BETA", "GA", "DEPRECATED", "DISABLED", "EAP"], var.SIBS_SPCRDFG_CRDPFG_ServiceAccountRoleStage)
-    error_message = "Variable SIBS_SPCRDFG_CRDPFG_ServiceAccountRoleStage only has valid values of: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
-  }
-  default = "GA"
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunConcurrentRequests" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPFG_CloudRunConcurrentRequests >= 1 && var.SIBS_SPCRDFG_CRDPFG_CloudRunConcurrentRequests <= 250
-    error_message = "Variable SIBS_SPCRDFG_CRDPFG_CloudRunConcurrentRequests must be greater than or equal to 1 and less than or equal to 250"
-  }
-  default = 80
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunRequestsTimeout" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPFG_CloudRunRequestsTimeout >= 1 && var.SIBS_SPCRDFG_CRDPFG_CloudRunRequestsTimeout <= 3000
-    error_message = "Variable SIBS_SPCRDFG_CRDPFG_CloudRunRequestsTimeout must be greater than or equal to 1 second and less than or equal to 900 seconds"
-  }
-  default = 300
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunPortNumber" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPFG_CloudRunPortNumber >= 1 && var.SIBS_SPCRDFG_CRDPFG_CloudRunPortNumber <= 65535
-    error_message = "Variable SIBS_SPCRDFG_CRDPFG_CloudRunPortNumber must be greater than 1 and less than 65335"
-  }
-  default = 8080
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunMinInstances" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPFG_CloudRunMinInstances >= 0
-    error_message = "Variable SIBS_SPCRDFG_CRDPFG_CloudRunMinInstances must be greater than or equal to 0"
-  }
-  default = 0
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunMaxInstances" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPFG_CloudRunMaxInstances >= 1 && var.SIBS_SPCRDFG_CRDPFG_CloudRunMaxInstances <= 10
-    error_message = "Variable SIBS_SPCRDFG_CRDPFG_CloudRunMaxInstances must be greater than or equal to 1 instance or less than or equal to 10 instances"
-  }
-  default = 5
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunEnvVariableName" {
-  type    = string
-  default = "ENV_VARS"
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunVpcConnector" {
-  type    = string
-  default = "dash"
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunAmountOfMemory" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPFG_CloudRunAmountOfMemory >= 1 && var.SIBS_SPCRDFG_CRDPFG_CloudRunAmountOfMemory <= 16
-    error_message = "Variable SIBS_SPCRDFG_CRDPFG_CloudRunAmountOfMemory must be greater than or equal to 1 or less than or equal to 16."
-  }
-  default = 2
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunNumberOfVcpus" {
-  type = number
-  validation {
-    condition     = contains([1, 2, 4], var.SIBS_SPCRDFG_CRDPFG_CloudRunNumberOfVcpus)
-    error_message = "Variable SIBS_SPCRDFG_CRDPFG_CloudRunNumberOfVcpus must be greater than or equal to 1 or less than or equal to 16."
-  }
-  default = 2
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudBuildTriggerAdditionalSubstitutions" {
-  description = "Additional substitutions for the Cloud Build trigger"
-  type        = map(string)
-  default     = {}
-}
-
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
-
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicyEnabled" {
-  type    = bool
-  default = true
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicyAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
-  type = object({
-
-    notification_rate_limit = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_rate_limit
-      period = optional(string, null)
-    }), null)
-
-    auto_close = optional(string, null)
-
-    notification_channel_strategy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_channel_strategy
-      notification_channel_names = optional(list(string), null)
-      renotify_interval          = optional(number, null)
-    }), null)
-  })
+variable "snowflakePort" {
+  type    = number
   default = null
 }
 
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicySeverity" {
-  type = string
-  validation {
-    condition = var.SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicySeverity == null || can(contains([
-      "CRITICAL",
-      "ERROR",
-      "WARNING"
-    ], var.SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicySeverity))
-    error_message = "Valid inputs for | variable: SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicySeverity | are: CRITICAL, ERROR, WARNING"
-  }
-  default = "ERROR"
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicyDocumentation" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_documentation
-  type = object({
-    content   = optional(string, null)
-    mime_type = optional(string, null)
-    subject   = optional(string, null)
-    links = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_links
-      display_name = optional(string, null)
-      url          = optional(string, null)
-    }), {})
-  })
-  default = null
-}
-
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent >= 0 && var.SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent <= 100
-    error_message = "Variable SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent must be greater than or equal to 0 or less than and equal to 100"
-  }
-
-  default = 50
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent" {
-  type = number
-  validation {
-    condition     = var.SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent >= 0 && var.SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent <= 100
-    error_message = "Variable SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent must be greater than or equal to 0 or less than and equal to 100"
-  }
-
-  default = 80
-}
-
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyEnabled" {
-  type    = bool
-  default = true
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunInfraAlertPolicyNotificationChannels" {
+variable "snowflakePreviewFeaturesEnabled" {
   type = list(string)
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
-  type = object({
-
-    notification_rate_limit = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_rate_limit
-      period = optional(string, null)
-    }), null)
-
-    auto_close = optional(string, null)
-
-    notification_channel_strategy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_channel_strategy
-      notification_channel_names = optional(list(string), null)
-      renotify_interval          = optional(number, null)
-    }), null)
-  })
+  validation {
+    condition = var.snowflakePreviewFeaturesEnabled == null || can(contains([
+      "snowflake_current_account_datasource",
+      "snowflake_account_authentication_policy_attachment_resource",
+      "snowflake_account_passwd_policy_attachment_resource",
+      "snowflake_alert_resource",
+      "snowflake_alerts_datasource",
+      "snowflake_api_integration_resource",
+      "snowflake_authentication_policy_resource",
+      "snowflake_ctex_search_service_resource",
+      "snowflake_ctex_search_services_datasource",
+      "snowflake_database_datasource",
+      "snowflake_database_role_datasource",
+      "snowflake_dynamic_table_resource",
+      "snowflake_dynamic_tables_datasource",
+      "snowflake_external_function_resource",
+      "snowflake_external_functions_datasource",
+      "snowflake_external_table_resource",
+      "snowflake_external_tables_datasource",
+      "snowflake_external_volume_resource",
+      "snowflake_failover_group_resource",
+      "snowflake_failover_groups_datasource",
+      "snowflake_file_fmat_resource",
+      "snowflake_file_fmats_datasource",
+      "snowflake_function_java_resource",
+      "snowflake_function_javascript_resource",
+      "snowflake_function_python_resource",
+      "snowflake_function_scala_resource",
+      "snowflake_function_sql_resource",
+      "snowflake_functions_datasource",
+      "snowflake_managed_account_resource",
+      "snowflake_materialized_view_resource",
+      "snowflake_materialized_views_datasource",
+      "snowflake_netwk_policy_attachment_resource",
+      "snowflake_netwk_rule_resource",
+      "snowflake_email_notification_integration_resource",
+      "snowflake_notification_integration_resource",
+      "snowflake_object_parameter_resource",
+      "snowflake_passwd_policy_resource",
+      "snowflake_pipe_resource",
+      "snowflake_pipes_datasource",
+      "snowflake_current_role_datasource",
+      "snowflake_sequence_resource",
+      "snowflake_sequences_datasource",
+      "snowflake_share_resource",
+      "snowflake_shares_datasource",
+      "snowflake_parameters_datasource",
+      "snowflake_procedure_java_resource",
+      "snowflake_procedure_javascript_resource",
+      "snowflake_procedure_python_resource",
+      "snowflake_procedure_scala_resource",
+      "snowflake_procedure_sql_resource",
+      "snowflake_procedures_datasource",
+      "snowflake_stage_resource",
+      "snowflake_stages_datasource",
+      "snowflake_stage_integration_resource",
+      "snowflake_stage_integrations_datasource",
+      "snowflake_system_generate_scim_access_token_datasource",
+      "snowflake_system_get_aws_sns_iam_policy_datasource",
+      "snowflake_system_get_privatelink_config_datasource",
+      "snowflake_system_get_snowflake_platfm_info_datasource",
+      "snowflake_table_column_masking_policy_application_resource",
+      "snowflake_table_constraint_resource",
+      "snowflake_table_resource",
+      "snowflake_tables_datasource",
+      "snowflake_SUP_SnowflakeUser_authentication_policy_attachment_resource",
+      "snowflake_SUP_SnowflakeUser_public_keys_resource",
+      "snowflake_SUP_SnowflakeUser_passwd_policy_attachment_resource"
+    ], var.snowflakePreviewFeaturesEnabled))
+    error_message = "Valid inputs for | variable: var.snowflakePreviewFeaturesEnabled | are: snowflake_current_account_datasource | snowflake_account_authentication_policy_attachment_resource | snowflake_account_password_policy_attachment_resource | snowflake_alert_resource | snowflake_alerts_datasource | snowflake_api_integration_resource | snowflake_authentication_policy_resource | snowflake_cortex_search_service_resource | snowflake_cortex_search_services_datasource | snowflake_database_datasource | snowflake_database_role_datasource | snowflake_dynamic_table_resource | snowflake_dynamic_tables_datasource | snowflake_external_function_resource | snowflake_external_functions_datasource | snowflake_external_table_resource | snowflake_external_tables_datasource | snowflake_external_volume_resource | snowflake_failover_group_resource | snowflake_failover_groups_datasource | snowflake_file_format_resource | snowflake_file_formats_datasource | snowflake_function_java_resource | snowflake_function_javascript_resource | snowflake_function_python_resource | snowflake_function_scala_resource | snowflake_function_sql_resource | snowflake_functions_datasource | snowflake_managed_account_resource | snowflake_materialized_view_resource | snowflake_materialized_views_datasource | snowflake_network_policy_attachment_resource | snowflake_network_rule_resource | snowflake_email_notification_integration_resource | snowflake_notification_integration_resource | snowflake_object_parameter_resource | snowflake_password_policy_resource | snowflake_pipe_resource | snowflake_pipes_datasource | snowflake_current_role_datasource | snowflake_sequence_resource | snowflake_sequences_datasource | snowflake_share_resource | snowflake_shares_datasource | snowflake_parameters_datasource | snowflake_procedure_java_resource | snowflake_procedure_javascript_resource | snowflake_procedure_python_resource | snowflake_procedure_scala_resource | snowflake_procedure_sql_resource | snowflake_procedures_datasource | snowflake_stage_resource | snowflake_stages_datasource | snowflake_storage_integration_resource | snowflake_storage_integrations_datasource | snowflake_system_generate_scim_access_token_datasource | snowflake_system_get_aws_sns_iam_policy_datasource | snowflake_system_get_privatelink_config_datasource | snowflake_system_get_snowflake_platform_info_datasource | snowflake_table_column_masking_policy_application_resource | snowflake_table_constraint_resource | snowflake_table_resource | snowflake_tables_datasource | snowflake_SUP_SnowflakeUser_authentication_policy_attachment_resource | snowflake_SUP_SnowflakeUser_public_keys_resource | snowflake_SUP_SnowflakeUser_password_policy_attachment_resource"
+  }
   default = null
 }
 
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicySeverity" {
+variable "snowflakePrivateKey" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "snowflakePrivateKeyPassphrase" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "snowflakeProfile" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeProtocol" {
   type = string
   validation {
-    condition = var.SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicySeverity == null || can(contains([
-      "CRITICAL",
-      "ERROR",
-      "WARNING"
-    ], var.SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicySeverity))
-    error_message = "Valid inputs for | variable: SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicySeverity | are: CRITICAL, ERROR, WARNING"
+    condition = var.snowflakeProtocol == null || can(contains([
+      "http",
+      "https"
+    ], var.snowflakeProtocol))
+    error_message = "Valid inputs for | variable: var.snowflakeProtocol | are: http , https"
   }
-  default = "ERROR"
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyDocumentation" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_documentation
-  type = object({
-    content   = optional(string, null)
-    mime_type = optional(string, null)
-    subject   = optional(string, null)
-    links = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_links
-      display_name = optional(string, null)
-      url          = optional(string, null)
-    }), {})
-  })
   default = null
 }
 
+variable "snowflakeRequestTimeout" {
+  type    = number
+  default = null
+}
 
+variable "snowflakeRole" {
+  type    = string
+  default = null
+}
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
+variable "snowflakeTmpDirectoryPath" {
+  type    = string
+  default = null
+}
 
+variable "snowflakeToken" {
+  type      = string
+  default   = null
+  sensitive = true
+}
 
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent" {
+variable "snowflakeUser" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeValidateDefaultParameters" {
+  type    = string
+  default = null
+}
+
+variable "snowflakeWarehouse" {
+  type    = string
+  default = null
+}
+
+#https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password#schema
+
+variable "SUP_PKS_PasswordLength" {
   type = number
   validation {
-    condition     = var.SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent >= 0 && var.SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent <= 100
-    error_message = "Variable SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent must be greater than or equal to 0 or less than and equal to 100"
+    condition     = var.SUP_PKS_PasswordLength >= 1 && var.SUP_PKS_PasswordLength <= 1024
+    error_message = "var.SUP_PKS_PasswordLength must be Greater than or Equal to 1 AND Less Than or Equal to 1024"
   }
-
-  default = 50
 }
 
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent" {
+variable "SUP_PKS_PasswordKeepers" {
+  type    = map(string)
+  default = null
+}
+
+variable "SUP_PKS_PasswordLower" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_PKS_PasswordMinLower" {
   type = number
   validation {
-    condition     = var.SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent >= 0 && var.SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent <= 100
-    error_message = "Variable SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent must be greater than or equal to 0 or less than and equal to 100"
+    condition     = var.SUP_PKS_PasswordMinLower == null || can(var.SUP_PKS_PasswordMinLower >= 0 && var.SUP_PKS_PasswordMinLower <= 1024)
+    error_message = "var.SUP_PKS_PasswordMinLower must be Greater than or Equal to 0 AND Less Than or Equal to 1024"
   }
-
-  default = 50
-}
-
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyEnabled" {
-  type    = bool
-  default = true
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
-  type = object({
-
-    notification_rate_limit = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_rate_limit
-      period = optional(string, null)
-    }), null)
-
-    auto_close = optional(string, null)
-
-    notification_channel_strategy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_channel_strategy
-      notification_channel_names = optional(list(string), null)
-      renotify_interval          = optional(number, null)
-    }), null)
-  })
   default = null
 }
 
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicySeverity" {
-  type = string
+variable "SUP_PKS_PasswordMinNumeric" {
+  type = number
   validation {
-    condition = var.SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicySeverity == null || can(contains([
-      "CRITICAL",
-      "ERROR",
-      "WARNING"
-    ], var.SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicySeverity))
-    error_message = "Valid inputs for | variable: SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicySeverity | are: CRITICAL, ERROR, WARNING"
+    condition     = var.SUP_PKS_PasswordMinNumeric == null || can(var.SUP_PKS_PasswordMinNumeric >= 0 && var.SUP_PKS_PasswordMinNumeric <= 1024)
+    error_message = "var.SUP_PKS_PasswordMinNumeric must be Greater than or Equal to 0 AND Less Than or Equal to 1024"
   }
-  default = "ERROR"
-}
-
-variable "SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyDocumentation" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_documentation
-  type = object({
-    content   = optional(string, null)
-    mime_type = optional(string, null)
-    subject   = optional(string, null)
-    links = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_links
-      display_name = optional(string, null)
-      url          = optional(string, null)
-    }), {})
-  })
   default = null
 }
 
-#---
+variable "SUP_PKS_PasswordMinSpecial" {
+  type = number
+  validation {
+    condition     = var.SUP_PKS_PasswordMinSpecial == null || can(var.SUP_PKS_PasswordMinSpecial >= 0 && var.SUP_PKS_PasswordMinSpecial <= 1024)
+    error_message = "var.SUP_PKS_PasswordMinSpecial must be Greater than or Equal to 0 AND Less Than or Equal to 1024"
+  }
+  default = null
+}
 
+variable "SUP_PKS_PasswordMinUpper" {
+  type = number
+  validation {
+    condition     = var.SUP_PKS_PasswordMinUpper == null || can(var.SUP_PKS_PasswordMinUpper >= 0 && var.SUP_PKS_PasswordMinUpper <= 1024)
+    error_message = "var.SUP_PKS_PasswordMinUpper must be Greater than or Equal to 0 AND Less Than or Equal to 1024"
+  }
+  default = null
+}
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user#argument-reference
-variable "SIBS_IUWPAKSMS_UWP_IamUserPath" {
+variable "SUP_PKS_PasswordNumeric" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_PKS_PasswordOverrideSpecial" {
   type    = string
   default = null
 }
 
-variable "SIBS_IUWPAKSMS_UWP_IamUserPermissionBoundary" {
-  type    = string
+variable "SUP_PKS_PasswordSpecial" {
+  type    = bool
   default = null
 }
 
-variable "SIBS_IUWPAKSMS_UWP_IamUserForceDestroy" {
+variable "SUP_PKS_PasswordUpper" {
   type    = bool
   default = null
 }
 
 
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
+#https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key#schema
 
-variable "SIBS_IUWPAKSMS_UWP_IamPolicyDescription" {
-  type    = string
-  default = null
-}
-variable "SIBS_IUWPAKSMS_UWP_IamPolicyNamePrefix" {
-  type    = string
-  default = null
-}
-variable "SIBS_IUWPAKSMS_UWP_IamPolicyPath" {
-  type    = string
-  default = "/"
-}
-variable "SIBS_IUWPAKSMS_UWP_IamPolicyVersion" {
-  type    = string
-  default = "2012-10-17"
-}
-variable "SIBS_IUWPAKSMS_UWP_IamPolicyDocumentStatements" {
-  type = list(object({
-    Action    = list(string)
-    Effect    = string
-    Resource  = list(string)
-    Sid       = optional(string, "")
-    Condition = optional(map(map(string)), {})
-    Principal = optional(map(list(string)), {})
-  }))
-  default = []
-}
-
-
-
-
-
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_access_key#argument-reference
-
-variable "SIBS_IUWPAKSMS_IamAccessKeyPgpKey" {
-  type    = string
-  default = null
-}
-
-variable "SIBS_IUWPAKSMS_IamAccessKeyStatus" {
+variable "SUP_PKS_PrivateKeyAlgorithm" {
   type = string
   validation {
-    condition = var.SIBS_IUWPAKSMS_IamAccessKeyStatus == null || can(contains([
-      "Active",
-      "Inactive"
-    ], var.SIBS_IUWPAKSMS_IamAccessKeyStatus))
-    error_message = "Valid inputs for | variable: var.SIBS_IUWPAKSMS_IamAccessKeyStatus | are: Active, and Inactive"
+    condition = contains([
+      "RSA",
+      "ECDSA",
+      "ED25519"
+    ], var.SUP_PKS_PrivateKeyAlgorithm)
+    error_message = "Valid inputs for | variable: var.SUP_PKS_PrivateKeyAlgorithm | are: RSA, ECDSA, ED25519"
   }
+}
+
+variable "SUP_PKS_PrivateKeyEcdsaCurve" {
+  type = string
+  validation {
+    condition = var.SUP_PKS_PrivateKeyEcdsaCurve == null || can(contains([
+      "P224",
+      "P256",
+      "P384",
+      "P521"
+    ], var.SUP_PKS_PrivateKeyEcdsaCurve))
+    error_message = "Valid inputs for | variable: var.SUP_PKS_PrivateKeyEcdsaCurve | are: P224, P256, P384, P521"
+  }
+  default = null
+}
+
+variable "SUP_PKS_PrivateKeyRsaBits" {
+  type    = number
   default = null
 }
 
@@ -919,32 +456,32 @@ variable "SIBS_IUWPAKSMS_IamAccessKeyStatus" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
 
-variable "SIBS_IUWPAKSMS_SWV_SecretDescription" {
+variable "SUP_PKS_SWV_SecretDescription" {
   type    = string
   default = null
 }
 
-variable "SIBS_IUWPAKSMS_SWV_SecretKmsKeyId" {
+variable "SUP_PKS_SWV_SecretKmsKeyId" {
   type    = string
   default = null
 }
 
-variable "SIBS_IUWPAKSMS_SWV_SecretNamePrefix" {
+variable "SUP_PKS_SWV_SecretNamePrefix" {
   type    = string
   default = null
 }
 
-variable "SIBS_IUWPAKSMS_SWV_SecretPolicy" {
+variable "SUP_PKS_SWV_SecretPolicy" {
   type    = string
   default = null
 }
 
-variable "SIBS_IUWPAKSMS_SWV_SecretRecoveryWindowInDays" {
+variable "SUP_PKS_SWV_SecretRecoveryWindowInDays" {
   type    = number
   default = null
 }
 
-variable "SIBS_IUWPAKSMS_SWV_SecretReplica" {
+variable "SUP_PKS_SWV_SecretReplica" {
   type = object({
     kms_key_id = optional(string, null)
     region     = string
@@ -952,7 +489,7 @@ variable "SIBS_IUWPAKSMS_SWV_SecretReplica" {
   default = null
 }
 
-variable "SIBS_IUWPAKSMS_SWV_SecretForceSecretOverwrite" {
+variable "SUP_PKS_SWV_SecretForceSecretOverwrite" {
   type    = bool
   default = null
 }
@@ -961,211 +498,448 @@ variable "SIBS_IUWPAKSMS_SWV_SecretForceSecretOverwrite" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
 
-
-variable "SIBS_IUWPAKSMS_SWV_SecretVersionSecretString" {
+variable "SUP_PKS_SWV_PrivateKeyP8FilePath" {
+  type    = string
+  default = null
+}
+variable "SUP_PKS_SWV_SecretVersionSecretString" {
   type    = map(string)
   default = {}
 }
 
-variable "SIBS_IUWPAKSMS_SWV_SecretVersionSecretBinary" {
+variable "SUP_PKS_SWV_SecretVersionSecretBinary" {
   type    = string
   default = null
 }
 
-variable "SIBS_IUWPAKSMS_SWV_SecretVersionStages" {
+variable "SUP_PKS_SWV_SecretVersionStages" {
   type    = list(string)
   default = null
 }
 
-
-
-
-
 #---
+#https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs#schema
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#argument-reference
 
-variable "SIBS_BWV_S3BucketPrefix" {
-  type    = string
-  default = null
-}
 
-variable "SIBS_BWV_S3BucketForceDestroy" {
-  type    = bool
-  default = true
-}
+#https://registry.terraform.io/providers/Snowflake-Labs/snowflake/latest/docs/resources/SUP_SnowflakeUser#schema
 
-variable "SIBS_BWV_S3BucketObjectLockEnabled" {
+variable "SUP_SnowflakeUserAbortDetachedQuery" {
   type    = bool
   default = null
 }
 
-
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_versioning#argument-reference
-variable "SIBS_BWV_S3BucketVersioningConfigurationStatus" {
-  type = string
-  validation {
-    condition = contains([
-      "Enabled",
-      "Suspended",
-      "Disabled"
-    ], var.SIBS_BWV_S3BucketVersioningConfigurationStatus)
-    error_message = "Valid inputs for | variable: var.SIBS_BWV_S3BucketVersioningConfigurationStatus | are: Enabled, Suspended, or Disabled"
-  }
-}
-
-variable "SIBS_BWV_S3BucketVersioningConfigurationMfaDelete" {
-  type = string
-  validation {
-    condition = var.SIBS_BWV_S3BucketVersioningConfigurationMfaDelete == null || can(contains([
-      "Enabled",
-      "Disabled"
-    ], var.SIBS_BWV_S3BucketVersioningConfigurationMfaDelete))
-    error_message = "Valid inputs for | variable: var.SIBS_BWV_S3BucketVersioningConfigurationMfaDelete | are: Enabled, or Disabled"
-  }
+variable "SUP_SnowflakeUserAutocommit" {
+  type    = bool
   default = null
 }
 
-variable "SIBS_BWV_S3BucketVersioningExpectedBucketOwner" {
+variable "SUP_SnowflakeUserBinaryInputFormat" {
   type    = string
   default = null
 }
 
-variable "SIBS_BWV_S3BucketVersioningMfa" {
+variable "SUP_SnowflakeUserBinaryOutputFormat" {
   type    = string
   default = null
 }
 
-
-
-
-#---
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/SIBS_SWV_Staging_Secretsmanager_SIBS_SWV_Staging_Secret#argument-reference
-
-variable "SIBS_SWV_Staging_SecretDescription" {
-  type    = string
-  default = null
-}
-
-variable "SIBS_SWV_Staging_SecretKmsKeyId" {
-  type    = string
-  default = null
-}
-
-variable "SIBS_SWV_Staging_SecretNamePrefix" {
-  type    = string
-  default = null
-}
-
-variable "SIBS_SWV_Staging_SecretPolicy" {
-  type    = string
-  default = null
-}
-
-variable "SIBS_SWV_Staging_SecretRecoveryWindowInDays" {
+variable "SUP_SnowflakeUserClientMemoryLimit" {
   type    = number
   default = null
 }
 
-variable "SIBS_SWV_Staging_SecretReplica" {
-  type = object({
-    kms_key_id = optional(string, null)
-    region     = string
-  })
-  default = null
-}
-
-variable "SIBS_SWV_Staging_SecretForceSecretOverwrite" {
+variable "SUP_SnowflakeUserClientMetadataRequestUseConnectionCtx" {
   type    = bool
   default = null
 }
 
-
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
-
-
-variable "SIBS_SWV_Staging_SecretVersionSecretString" {
-  type    = map(string)
-  default = null
-}
-
-variable "SIBS_SWV_Staging_SecretVersionSecretBinary" {
-  type    = string
-  default = null
-}
-
-variable "SIBS_SWV_Staging_SecretVersionStages" {
-  type    = list(string)
-  default = null
-}
-
-
-
-#---
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/SIBS_SWV_Prod_Secretsmanager_SIBS_SWV_Prod_Secret#argument-reference
-
-variable "SIBS_SWV_Prod_SecretDescription" {
-  type    = string
-  default = null
-}
-
-variable "SIBS_SWV_Prod_SecretKmsKeyId" {
-  type    = string
-  default = null
-}
-
-variable "SIBS_SWV_Prod_SecretNamePrefix" {
-  type    = string
-  default = null
-}
-
-variable "SIBS_SWV_Prod_SecretPolicy" {
-  type    = string
-  default = null
-}
-
-variable "SIBS_SWV_Prod_SecretRecoveryWindowInDays" {
+variable "SUP_SnowflakeUserClientPrefetchThreads" {
   type    = number
   default = null
 }
 
-variable "SIBS_SWV_Prod_SecretReplica" {
-  type = object({
-    kms_key_id = optional(string, null)
-    region     = string
-  })
+variable "SUP_SnowflakeUserClientResultChunkSize" {
+  type    = number
   default = null
 }
 
-variable "SIBS_SWV_Prod_SecretForceSecretOverwrite" {
+variable "SUP_SnowflakeUserClientResultColumnCaseInsensitive" {
   type    = bool
   default = null
 }
 
-
-
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
-
-
-variable "SIBS_SWV_Prod_SecretVersionSecretString" {
-  type    = map(string)
+variable "SUP_SnowflakeUserClientSessionKeepAlive" {
+  type    = bool
   default = null
 }
 
-variable "SIBS_SWV_Prod_SecretVersionSecretBinary" {
+variable "SUP_SnowflakeUserClientSessionKeepAliveHeartbeatFrequency" {
+  type    = number
+  default = null
+}
+
+variable "SUP_SnowflakeUserClientTimestampTypeMapping" {
   type    = string
   default = null
 }
 
-variable "SIBS_SWV_Prod_SecretVersionStages" {
-  type    = list(string)
+variable "SUP_SnowflakeUserComment" {
+  type    = string
   default = null
 }
 
+variable "SUP_SnowflakeUserDateInputFormat" {
+  type    = string
+  default = null
+}
 
+variable "SUP_SnowflakeUserDateOutputFormat" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserDaysToExpiry" {
+  type    = number
+  default = null
+}
+
+variable "SUP_SnowflakeUserDefaultNamespace" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserDefaultRole" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserDefaultSecondaryRolesOption" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserDefaultWarehouse" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserDisableMfa" {
+  type = string
+  validation {
+    condition = var.SUP_SnowflakeUserDisableMfa == null || can(contains([
+      "true",
+      "false"
+    ], var.SUP_SnowflakeUserDisableMfa))
+    error_message = "Valid inputs for | variable: var.SUP_SnowflakeUserDisableMfa | are: true , false"
+  }
+  default = null
+}
+
+variable "SUP_SnowflakeUserDisabled" {
+  type = string
+  validation {
+    condition = var.SUP_SnowflakeUserDisabled == null || can(contains([
+      "true",
+      "false"
+    ], var.SUP_SnowflakeUserDisabled))
+    error_message = "Valid inputs for | variable: var.SUP_SnowflakeUserDisabled | are: true , false"
+  }
+  default = null
+}
+
+variable "SUP_SnowflakeUserDisplayName" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserEmail" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "SUP_SnowflakeUserEnableUnloadPhysicalTypeOptimization" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserEnableUnredactedQuerySyntaxError" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserErrorOnNondeterministicMerge" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserErrorOnNondeterministicUpdate" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserFirstName" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserGeographyOutputFormat" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserGeometryOutputFormat" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserJdbcTreatDecimalAsInt" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserJdbcTreatTimestampNtzAsUtc" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserJdbcUseSessionTimezone" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserJsonIndent" {
+  type    = number
+  default = null
+}
+
+variable "SUP_SnowflakeUserLastName" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserLockTimeout" {
+  type    = number
+  default = null
+}
+
+variable "SUP_SnowflakeUserLogLevel" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserLoginName" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "SUP_SnowflakeUserMiddleName" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserMinsToBypassMfa" {
+  type    = number
+  default = null
+}
+
+variable "SUP_SnowflakeUserMinsToUnlock" {
+  type    = number
+  default = null
+}
+
+variable "SUP_SnowflakeUserMultiStatementCount" {
+  type    = number
+  default = null
+}
+
+variable "SUP_SnowflakeUserMustChangePassword" {
+  type = string
+  validation {
+    condition = var.SUP_SnowflakeUserMustChangePassword == null || can(contains([
+      "true",
+      "false"
+    ], var.SUP_SnowflakeUserMustChangePassword))
+    error_message = "Valid inputs for | variable: var.SUP_SnowflakeUserMustChangePassword | are: true , false"
+  }
+  default = null
+}
+
+variable "SUP_SnowflakeUserNetworkPolicy" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserNoorderSequenceAsDefault" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserOdbcTreatDecimalAsInt" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserPassword" {
+  type      = string
+  default   = null
+  sensitive = true
+}
+
+variable "SUP_SnowflakeUserPreventUnloadToInternalStages" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserQueryTag" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserQuotedIdentifiersIgnoreCase" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserRowsPerRuleset" {
+  type    = number
+  default = null
+}
+
+variable "SUP_SnowflakeUserRsaPublicKey" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserRsaPublicKey2" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserS3StageVpceDnsName" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserSearchPath" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserSimulatedDataSharingConsumer" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserStatementQueuedTimeoutInSeconds" {
+  type    = number
+  default = null
+}
+
+variable "SUP_SnowflakeUserStatementTimeoutInSeconds" {
+  type    = number
+  default = null
+}
+
+variable "SUP_SnowflakeUserStrictJsonOutput" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserTimeInputFormat" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserTimeOutputFormat" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserTimestampDayIsAlways24h" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserTimestampInputFormat" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserTimestampLtzOutputFormat" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserTimestampNtzOutputFormat" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserTimestampOutputFormat" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserTimestampTypeMapping" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserTimestampTzOutputFormat" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserTimezone" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserTraceLevel" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserTransactionAbortOnError" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserTransactionDefaultIsolationLevel" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserTwoDigitCenturyStart" {
+  type    = number
+  default = null
+}
+
+variable "SUP_SnowflakeUserUnsupportedDdlAction" {
+  type    = string
+  default = null
+}
+
+variable "SUP_SnowflakeUserUsedCachedResult" {
+  type    = bool
+  default = null
+}
+
+variable "SUP_SnowflakeUserWeekOfYearPolicy" {
+  type    = number
+  default = null
+}
+
+variable "SUP_SnowflakeUserWeekStart" {
+  type = number
+  validation {
+    condition     = var.SUP_SnowflakeUserWeekStart == null || can(var.SUP_SnowflakeUserWeekStart >= 0 && var.SUP_SnowflakeUserWeekStart <= 7)
+    error_message = "var.SUP_SnowflakeUserWeekStart must be Greater than or Equal to 0 AND Less Than or Equal to 7"
+  }
+  default = null
+}
 
 #---

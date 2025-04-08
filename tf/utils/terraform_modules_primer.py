@@ -9,53 +9,23 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../projects/_SPCRDFG_stagingProdCloudRunDeploymentFromGithub",
-            "source_path": "../_SPCRDFG_stagingProdCloudRunDeploymentFromGithub",
+            "project_path": "../projects/_PKS_privateKeySwv",
+            "source_path": "../_PKS_privateKeySwv",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "SPCRDFG",
-        "new_variable_prefix": "SIBS_SPCRDFG",
-        "module_name": "SPCRDFG",
+        "previous_variable_prefix": "PKS",
+        "new_variable_prefix": "SUP_PKS",
+        "module_name": "PKS",
     },
     {
         "paths": {
-            "project_path": "../projects/_IUWPAKSMS_iamUserWithPolicyAccessKeySecretsManagerSecret",
-            "source_path": "../_IUWPAKSMS_iamUserWithPolicyAccessKeySecretsManagerSecret",
+            "project_path": "../snowflake/principals/genericUser",
+            "source_path": "../../snowflake/principals/genericUser",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "IUWPAKSMS",
-        "new_variable_prefix": "SIBS_IUWPAKSMS",
-        "module_name": "IUWPAKSMS",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/s3/_BWV_bucketWithVersioning",
-            "source_path": "../../aws/s3/_BWV_bucketWithVersioning",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "BWV",
-        "new_variable_prefix": "SIBS_BWV",
-        "module_name": "BWV",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/secretsmanager/_SWV_secretWithVersion",
-            "source_path": "../../aws/secretsmanager/_SWV_secretWithVersion",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "SWV",
-        "new_variable_prefix": "SIBS_SWV_Staging",
-        "module_name": "SWV_Staging",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/secretsmanager/_SWV_secretWithVersion",
-            "source_path": "../../aws/secretsmanager/_SWV_secretWithVersion",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "SWV",
-        "new_variable_prefix": "SIBS_SWV_Prod",
-        "module_name": "Prod",
+        "previous_variable_prefix": "user",
+        "new_variable_prefix": "SUP_SnowflakeUser",
+        "module_name": "snowflakeUser",
     },
 ]
 

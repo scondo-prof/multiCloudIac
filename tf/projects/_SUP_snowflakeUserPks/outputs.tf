@@ -13,7 +13,6 @@ output "SUP_PKS_PasswordResult" {
 }
 
 
-
 output "SUP_PKS_PrivateKeyId" {
   value = module.PKS.PKS_PrivateKeyId
 }
@@ -61,7 +60,6 @@ output "SUP_PKS_SWV_SecretName" {
 output "SUP_PKS_SWV_SecretVersionId" {
   value = module.PKS.PKS_SWV_SecretVersionId
 }
-
 
 
 
