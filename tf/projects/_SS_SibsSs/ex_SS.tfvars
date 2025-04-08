@@ -118,8 +118,8 @@ SS_SIBS_SWV_Staging_SecretRecoveryWindowInDays = 0
 SS_SIBS_SWV_Staging_SnowflakeWarehouse = "THE_SHOE_FACTORY"
 
 SS_SIBS_SWV_Staging_SecretVersionSecretString = {
-  "WORKERS" = "HAPPY"
-  "SHOES" = "DURABLE"
+  "WORKERS"          = "HAPPY"
+  "SHOES"            = "DURABLE"
   "MADE_FOR_RUNNING" = "PROBABLY"
 }
 
@@ -129,7 +129,7 @@ SS_SIBS_SWV_Prod_SecretRecoveryWindowInDays = 0
 SS_SIBS_SWV_Prod_SnowflakeWarehouse = "THE_SHOE_FACTORY"
 
 SS_SIBS_SWV_Prod_SecretVersionSecretString = {
-  "WORKERS" = "HAPPY"
-  "SHOES" = "DURABLE"
+  "WORKERS"          = "HAPPY"
+  "SHOES"            = "DURABLE"
   "MADE_FOR_RUNNING" = "PROBABLY"
 }

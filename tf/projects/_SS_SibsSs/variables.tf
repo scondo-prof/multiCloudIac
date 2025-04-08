@@ -2075,6 +2075,15 @@ variable "SS_SIBS_SWV_Staging_SecretForceSecretOverwrite" {
   default = null
 }
 
+variable "SS_SS_SUP_PKS_privateKeyP8FilePath" {
+  type    = string
+  default = null
+}
+
+variable "SS_SIBS_SWV_Staging_SnowflakeWarehouse" {
+  type = string
+}
+
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
@@ -2137,6 +2146,10 @@ variable "SS_SIBS_SWV_Prod_SecretReplica" {
 variable "SS_SIBS_SWV_Prod_SecretForceSecretOverwrite" {
   type    = bool
   default = null
+}
+
+variable "SS_SIBS_SWV_Prod_SnowflakeWarehouse" {
+  type = string
 }
 
 
