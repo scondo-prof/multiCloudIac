@@ -14,7 +14,7 @@ resource "aws_internet_gateway" "ig" {
   vpc_id = var.igVpcId
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
     TfModul      = var.tfModule
   }, var.additionalTags)

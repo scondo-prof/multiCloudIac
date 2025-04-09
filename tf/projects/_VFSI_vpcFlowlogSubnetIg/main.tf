@@ -15,7 +15,7 @@ module "vpc" {
   vpcEnableDnsHostnames               = var.VFSI_VpcEnableDnsHostnames
   vpcAssignGeneratedIpv6CidrBlock     = var.VFSI_VpcAssignGeneratedIpv6CidrBlock
   projectName                         = var.projectName
-  creator                             = var.creator
+  creator                             = var.createdBy
   deployedDate                        = var.deployedDate
   tfModule                            = var.tfModule
   resourceName                        = var.resourceName
@@ -44,7 +44,7 @@ module "subnet" {
   subnetPrivateDnsHostnameTypeOnLaunch          = var.VFSI_SubnetPrivateDnsHostnameTypeOnLaunch
   subnetVpcId                                   = module.vpc.vpcId
   projectName                                   = var.projectName
-  creator                                       = var.creator
+  creator                                       = var.createdBy
   deployedDate                                  = var.deployedDate
   tfModule                                      = var.tfModule
   resourceName                                  = var.resourceName
@@ -59,7 +59,7 @@ module "routeTable" {
   routeTableVpcId           = var.VFSI_RouteTableVpcId
   routeTableRoutes          = var.VFSI_RouteTableRoutes
   projectName               = var.projectName
-  creator                   = var.creator
+  creator                   = var.createdBy
   deployedDate              = var.deployedDate
   tfModule                  = var.tfModule
   additionalTags            = var.additionalTags
@@ -83,7 +83,7 @@ module "Ig" {
   awsRegion      = var.awsRegion
   igVpcId        = var.VFSI_IgVpcId
   projectName    = var.projectName
-  creator        = var.creator
+  creator        = var.createdBy
   deployedDate   = var.deployedDate
   tfModule       = var.tfModule
   additionalTags = var.additionalTags
@@ -108,7 +108,7 @@ module "flowLog" {
   flowLogMaxAggregationInterval      = var.VFSI_FlowLogMaxAggregationInterval
   flowLogDestinationOptions          = var.VFSI_FlowLogDestinationOptions
   projectName                        = var.projectName
-  creator                            = var.creator
+  creator                            = var.createdBy
   deployedDate                       = var.deployedDate
   tfModule                           = var.tfModule
   additionalTags                     = var.additionalTags
@@ -137,7 +137,7 @@ module "flowLog" {
 #   subnetPrivateDnsHostnameTypeOnLaunch          = var.VFSI_SubnetPrivateDnsHostnameTypeOnLaunch
 #   subnetVpcId                                   = module.vpc.vpcId
 #   projectName                                   = var.projectName
-#   creator                                       = var.creator
+#   creator                                       = var.createdBy
 #   deployedDate                                  = var.deployedDate
 #   additionalTags                                = var.additionalTags
 # }
@@ -157,7 +157,7 @@ module "flowLog" {
 #       gateway_id = "local"
 #   }, var.VFSI_RouteTableIgRoute)], var.VFSI_RouteTableRoutes)
 #   projectName               = var.projectName
-#   creator                   = var.creator
+#   creator                   = var.createdBy
 #   deployedDate              = var.deployedDate
 #   additionalTags            = var.additionalTags
 #   routeTablePropagatingVgws = var.VFSI_RouteTablePropagatingVgws
@@ -180,7 +180,7 @@ module "flowLog" {
 #   awsRegion      = var.awsRegion
 #   igVpcId        = module.vpc.vpcId
 #   projectName    = var.projectName
-#   creator        = var.creator
+#   creator        = var.createdBy
 #   deployedDate   = var.deployedDate
 #   additionalTags = var.additionalTags
 # }
@@ -204,7 +204,7 @@ module "flowLog" {
 #   flowLogMaxAggregationInterval      = var.VFSI_FlowLogMaxAggregationInterval
 #   flowLogDestinationOptions          = var.VFSI_FlowLogDestinationOptions
 #   projectName                        = var.projectName
-#   creator                            = var.creator
+#   creator                            = var.createdBy
 #   deployedDate                       = var.deployedDate
 #   additionalTags                     = var.additionalTags
 # }

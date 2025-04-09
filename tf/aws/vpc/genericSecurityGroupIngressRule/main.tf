@@ -21,7 +21,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingressRule" {
   security_group_id            = var.ingressRuleSecurityGroupId
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
     TfModule     = var.tfModule
   }, var.additionalTags)

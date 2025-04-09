@@ -7,7 +7,7 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
 }
@@ -25,86 +25,29 @@ variable "additionalTags" {
   default = {}
 }
 
-variable "resourceName" {
-  type = string
-}
-
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet#argument-reference
 
-variable "subnetAssignIpv6AddressOnCreation" {
-  type    = bool
-  default = null
+variable "subnetObjects" {
+  type = list(object({
+    name                                           = string
+    assign_ipv6_address_on_creation                = optional(bool, null)
+    availability_zone                              = optional(string, null)
+    availability_zone_id                           = optional(string, null)
+    cidr_block                                     = optional(string, null)
+    customer_owned_ipv4_pool                       = optional(string, null)
+    enable_dns64                                   = optional(bool, null)
+    enable_lni_at_device_index                     = optional(number, null)
+    enable_resource_name_dns_aaaa_record_on_launch = optional(bool, null)
+    enable_resource_name_dns_a_record_on_launch    = optional(bool, null)
+    ipv6_cidr_block                                = optional(string, null)
+    ipv6_native                                    = optional(bool, null)
+    map_customer_owned_ip_on_launch                = optional(bool, null)
+    map_public_ip_on_launch                        = optional(bool, null)
+    outpost_arn                                    = optional(string, null)
+    private_dns_hostname_type_on_launch            = optional(string, null)
+  }))
 }
 
-variable "subnetAvailabilityZone" {
-  type    = string
-  default = null
-}
-
-variable "subnetAvailabilityZoneId" {
-  type    = string
-  default = null
-}
-
-variable "subnetCidrBlock" {
-  type    = string
-  default = null
-}
-
-variable "subnetCustomerOwnedIpv4Pool" {
-  type    = string
-  default = null
-}
-
-variable "subnetEnableDns64" {
-  type    = bool
-  default = null
-}
-
-variable "subnetEnableLniAtDeviceIndex" {
-  type    = number
-  default = null
-}
-
-variable "subnetEnableResourceNameDnsAaaaRecordOnLaunch" {
-  type    = bool
-  default = null
-}
-
-variable "subnetEnableResourceNameDnsARecordOnLaunch" {
-  type    = bool
-  default = null
-}
-
-variable "subnetIpv6CidrBlock" {
-  type    = string
-  default = null
-}
-
-variable "subnetIpv6Native" {
-  type    = bool
-  default = null
-}
-
-variable "subnetMapCustomerOwnedIpOnLaunch" {
-  type    = bool
-  default = null
-}
-
-variable "subnetMapPublicIpOnLaunch" {
-  type    = bool
-  default = null
-}
-
-variable "subnetOutpustArn" {
-  type    = string
-  default = null
-}
-
-variable "subnetPrivateDnsHostnameTypeOnLaunch" {
-  type    = string
-  default = null
-}
 
 variable "subnetVpcId" {
   type = string

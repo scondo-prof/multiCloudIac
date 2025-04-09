@@ -11,27 +11,28 @@ provider "aws" {
 }
 
 resource "aws_subnet" "subnet" {
-  assign_ipv6_address_on_creation                = var.subnetAssignIpv6AddressOnCreation
-  availability_zone                              = var.subnetAvailabilityZone
-  availability_zone_id                           = var.subnetAvailabilityZoneId
-  cidr_block                                     = var.subnetCidrBlock
-  customer_owned_ipv4_pool                       = var.subnetCustomerOwnedIpv4Pool
-  enable_dns64                                   = var.subnetEnableDns64
-  enable_lni_at_device_index                     = var.subnetEnableLniAtDeviceIndex
-  enable_resource_name_dns_aaaa_record_on_launch = var.subnetEnableResourceNameDnsAaaaRecordOnLaunch
-  enable_resource_name_dns_a_record_on_launch    = var.subnetEnableResourceNameDnsARecordOnLaunch
-  ipv6_cidr_block                                = var.subnetIpv6CidrBlock
-  ipv6_native                                    = var.subnetIpv6Native
-  map_customer_owned_ip_on_launch                = var.subnetMapCustomerOwnedIpOnLaunch
-  map_public_ip_on_launch                        = var.subnetMapPublicIpOnLaunch
-  outpost_arn                                    = var.subnetOutpustArn
-  private_dns_hostname_type_on_launch            = var.subnetPrivateDnsHostnameTypeOnLaunch
+  count                                          = length(var.subnetObjects)
+  assign_ipv6_address_on_creation                = var.subnetObjects[count.index]["assign_ipv6_address_on_creation"]
+  availability_zone                              = var.subnetObjects[count.index]["availability_zone"]
+  availability_zone_id                           = var.subnetObjects[count.index]["availability_zone_id"]
+  cidr_block                                     = var.subnetObjects[count.index]["cidr_block"]
+  customer_owned_ipv4_pool                       = var.subnetObjects[count.index]["customer_owned_ipv4_pool"]
+  enable_dns64                                   = var.subnetObjects[count.index]["enable_dns64"]
+  enable_lni_at_device_index                     = var.subnetObjects[count.index]["enable_lni_at_device_index"]
+  enable_resource_name_dns_aaaa_record_on_launch = var.subnetObjects[count.index]["enable_resource_name_dns_aaaa_record_on_launch"]
+  enable_resource_name_dns_a_record_on_launch    = var.subnetObjects[count.index]["enable_resource_name_dns_a_record_on_launch"]
+  ipv6_cidr_block                                = var.subnetObjects[count.index]["ipv6_cidr_block"]
+  ipv6_native                                    = var.subnetObjects[count.index]["ipv6_native"]
+  map_customer_owned_ip_on_launch                = var.subnetObjects[count.index]["map_customer_owned_ip_on_launch"]
+  map_public_ip_on_launch                        = var.subnetObjects[count.index]["map_public_ip_on_launch"]
+  outpost_arn                                    = var.subnetObjects[count.index]["outpost_arn"]
+  private_dns_hostname_type_on_launch            = var.subnetObjects[count.index]["private_dns_hostname_type_on_launch"]
   vpc_id                                         = var.subnetVpcId
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
     TfModule     = var.tfModule
-    Name         = "${var.resourceName}-subnet"
+    Name         = "${var.subnetObjects[count.index]["name"]}-subnet"
   }, var.additionalTags)
 }

@@ -16,7 +16,7 @@ module "VFSI" {
   VFSI_VpcEnableDnsHostnames                         = var.VFSNI_VFSI_VpcEnableDnsHostnames
   VFSI_VpcAssignGeneratedIpv6CidrBlock               = var.VFSNI_VFSI_VpcAssignGeneratedIpv6CidrBlock
   projectName                                        = var.projectName
-  creator                                            = var.creator
+  creator                                            = var.createdBy
   deployedDate                                       = var.deployedDate
   additionalTags                                     = var.additionalTags
   VFSI_SubnetAssignIpv6AddressOnCreation             = var.VFSNI_VFSI_SubnetAssignIpv6AddressOnCreation
@@ -73,7 +73,7 @@ module "natSubnet" {
   subnetPrivateDnsHostnameTypeOnLaunch          = var.VFSNI_NatSubnetPrivateDnsHostnameTypeOnLaunch
   subnetVpcId                                   = module.VFSI.VFSI_VpcId
   projectName                                   = var.projectName
-  creator                                       = var.creator
+  creator                                       = var.createdBy
   deployedDate                                  = var.deployedDate
   resourceName                                  = var.resourceName
   additionalTags                                = var.additionalTags
@@ -94,7 +94,7 @@ module "natRouteTable" {
       gateway_id = "local"
   }, var.VFSNI_NatRouteTableLocalRoute)], var.VFSNI_NatRouteTableRoutes)
   projectName               = var.projectName
-  creator                   = var.creator
+  creator                   = var.createdBy
   deployedDate              = var.deployedDate
   additionalTags            = var.additionalTags
   routeTablePropagatingVgws = var.VFSNI_NatRouteTablePropagatingVgws
@@ -125,7 +125,7 @@ module "natEip" {
   eipNetworkInterface       = var.VFSNI_NatEipNetworkInterface
   eipPublicIpv4Pool         = var.VFSNI_NatEipPublicIpv4Pool
   projectName               = var.projectName
-  creator                   = var.creator
+  creator                   = var.createdBy
   deployedDate              = var.deployedDate
   additionalTags            = var.additionalTags
 }
@@ -143,7 +143,7 @@ module "nat" {
   natSecondaryPrivateIpAddressCount = var.VFSNI_NatSecondaryPrivateIpAddressCount
   natSecondaryPrivateIpAddresses    = var.VFSNI_NatSecondaryPrivateIpAddresses
   projectName                       = var.projectName
-  creator                           = var.creator
+  creator                           = var.createdBy
   deployedDate                      = var.deployedDate
   additionalTags                    = var.additionalTags
 }

@@ -15,7 +15,7 @@ resource "aws_route_table" "routeTable" {
   route  = var.routeTableRoutes
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
     TfModule     = var.tfModule
   }, var.additionalTags)
