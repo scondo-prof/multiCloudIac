@@ -15,7 +15,7 @@ module "vpc" {
   vpcEnableDnsHostnames               = var.VFSI_VpcEnableDnsHostnames
   vpcAssignGeneratedIpv6CidrBlock     = var.VFSI_VpcAssignGeneratedIpv6CidrBlock
   projectName                         = var.projectName
-  creator                             = var.createdBy
+  createdBy                           = var.createdBy
   deployedDate                        = var.deployedDate
   tfModule                            = var.tfModule
   resourceName                        = var.resourceName
@@ -25,30 +25,15 @@ module "vpc" {
 #---
 
 module "subnet" {
-  source                                        = "../../aws/vpc/genericSubnet"
-  awsRegion                                     = var.awsRegion
-  subnetAssignIpv6AddressOnCreation             = var.VFSI_SubnetAssignIpv6AddressOnCreation
-  subnetAvailabilityZone                        = var.VFSI_SubnetAvailabilityZone
-  subnetAvailabilityZoneId                      = var.VFSI_SubnetAvailabilityZoneId
-  subnetCidrBlock                               = var.VFSI_SubnetCidrBlock
-  subnetCustomerOwnedIpv4Pool                   = var.VFSI_SubnetCustomerOwnedIpv4Pool
-  subnetEnableDns64                             = var.VFSI_SubnetEnableDns64
-  subnetEnableLniAtDeviceIndex                  = var.VFSI_SubnetEnableLniAtDeviceIndex
-  subnetEnableResourceNameDnsAaaaRecordOnLaunch = var.VFSI_SubnetEnableResourceNameDnsAaaaRecordOnLaunch
-  subnetEnableResourceNameDnsARecordOnLaunch    = var.VFSI_SubnetEnableResourceNameDnsARecordOnLaunch
-  subnetIpv6CidrBlock                           = var.VFSI_SubnetIpv6CidrBlock
-  subnetIpv6Native                              = var.VFSI_SubnetIpv6Native
-  subnetMapCustomerOwnedIpOnLaunch              = var.VFSI_SubnetMapCustomerOwnedIpOnLaunch
-  subnetMapPublicIpOnLaunch                     = var.VFSI_SubnetMapPublicIpOnLaunch
-  subnetOutpustArn                              = var.VFSI_SubnetOutpustArn
-  subnetPrivateDnsHostnameTypeOnLaunch          = var.VFSI_SubnetPrivateDnsHostnameTypeOnLaunch
-  subnetVpcId                                   = module.vpc.vpcId
-  projectName                                   = var.projectName
-  creator                                       = var.createdBy
-  deployedDate                                  = var.deployedDate
-  tfModule                                      = var.tfModule
-  resourceName                                  = var.resourceName
-  additionalTags                                = var.additionalTags
+  source         = "../../aws/vpc/genericSubnet"
+  awsRegion      = var.awsRegion
+  subnetObjects  = var.VFSI_SubnetObjects
+  subnetVpcId    = var.VFSI_SubnetVpcId
+  projectName    = var.projectName
+  createdBy      = var.createdBy
+  deployedDate   = var.deployedDate
+  tfModule       = var.tfModule
+  additionalTags = var.additionalTags
 }
 
 #---
@@ -59,7 +44,7 @@ module "routeTable" {
   routeTableVpcId           = var.VFSI_RouteTableVpcId
   routeTableRoutes          = var.VFSI_RouteTableRoutes
   projectName               = var.projectName
-  creator                   = var.createdBy
+  createdBy                 = var.createdBy
   deployedDate              = var.deployedDate
   tfModule                  = var.tfModule
   additionalTags            = var.additionalTags
@@ -83,7 +68,7 @@ module "Ig" {
   awsRegion      = var.awsRegion
   igVpcId        = var.VFSI_IgVpcId
   projectName    = var.projectName
-  creator        = var.createdBy
+  createdBy      = var.createdBy
   deployedDate   = var.deployedDate
   tfModule       = var.tfModule
   additionalTags = var.additionalTags
@@ -108,7 +93,7 @@ module "flowLog" {
   flowLogMaxAggregationInterval      = var.VFSI_FlowLogMaxAggregationInterval
   flowLogDestinationOptions          = var.VFSI_FlowLogDestinationOptions
   projectName                        = var.projectName
-  creator                            = var.createdBy
+  createdBy                          = var.createdBy
   deployedDate                       = var.deployedDate
   tfModule                           = var.tfModule
   additionalTags                     = var.additionalTags

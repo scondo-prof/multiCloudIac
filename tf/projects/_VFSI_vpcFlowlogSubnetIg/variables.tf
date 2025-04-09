@@ -102,79 +102,30 @@ variable "VFSI_VpcAssignGeneratedIpv6CidrBlock" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/VFSI_Subnet#argument-reference
 
-variable "VFSI_SubnetAssignIpv6AddressOnCreation" {
-  type    = bool
-  default = null
+variable "VFSI_SubnetObjects" {
+  type = list(object({
+    name                                           = string
+    assign_ipv6_address_on_creation                = optional(bool, null)
+    availability_zone                              = optional(string, null)
+    availability_zone_id                           = optional(string, null)
+    cidr_block                                     = optional(string, null)
+    customer_owned_ipv4_pool                       = optional(string, null)
+    enable_dns64                                   = optional(bool, null)
+    enable_lni_at_device_index                     = optional(number, null)
+    enable_resource_name_dns_aaaa_record_on_launch = optional(bool, null)
+    enable_resource_name_dns_a_record_on_launch    = optional(bool, null)
+    ipv6_cidr_block                                = optional(string, null)
+    ipv6_native                                    = optional(bool, null)
+    map_customer_owned_ip_on_launch                = optional(bool, null)
+    map_public_ip_on_launch                        = optional(bool, null)
+    outpost_arn                                    = optional(string, null)
+    private_dns_hostname_type_on_launch            = optional(string, null)
+  }))
 }
 
-variable "VFSI_SubnetAvailabilityZone" {
-  type    = string
-  default = null
-}
 
-variable "VFSI_SubnetAvailabilityZoneId" {
-  type    = string
-  default = null
-}
-
-variable "VFSI_SubnetCidrBlock" {
-  type    = string
-  default = null
-}
-
-variable "VFSI_SubnetCustomerOwnedIpv4Pool" {
-  type    = string
-  default = null
-}
-
-variable "VFSI_SubnetEnableDns64" {
-  type    = bool
-  default = null
-}
-
-variable "VFSI_SubnetEnableLniAtDeviceIndex" {
-  type    = number
-  default = null
-}
-
-variable "VFSI_SubnetEnableResourceNameDnsAaaaRecordOnLaunch" {
-  type    = bool
-  default = null
-}
-
-variable "VFSI_SubnetEnableResourceNameDnsARecordOnLaunch" {
-  type    = bool
-  default = null
-}
-
-variable "VFSI_SubnetIpv6CidrBlock" {
-  type    = string
-  default = null
-}
-
-variable "VFSI_SubnetIpv6Native" {
-  type    = bool
-  default = null
-}
-
-variable "VFSI_SubnetMapCustomerOwnedIpOnLaunch" {
-  type    = bool
-  default = null
-}
-
-variable "VFSI_SubnetMapPublicIpOnLaunch" {
-  type    = bool
-  default = null
-}
-
-variable "VFSI_SubnetOutpustArn" {
-  type    = string
-  default = null
-}
-
-variable "VFSI_SubnetPrivateDnsHostnameTypeOnLaunch" {
-  type    = string
-  default = null
+variable "VFSI_SubnetVpcId" {
+  type = string
 }
 
 #---
