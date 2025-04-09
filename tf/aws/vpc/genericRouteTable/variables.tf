@@ -29,7 +29,8 @@ variable "additionalTags" {
 
 variable "routeTableObjects" {
   type = list(object({
-    name = string
+    vpc_id = string
+    name   = string
 
     route = optional(list(object({
       cidr_block                 = string
@@ -49,8 +50,5 @@ variable "routeTableObjects" {
 
     propagating_vgws = optional(list(string), null)
   }))
-}
-
-variable "routeTableVpcId" {
-  type = string
+  default = []
 }

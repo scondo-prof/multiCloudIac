@@ -27,7 +27,7 @@ resource "aws_subnet" "subnet" {
   map_public_ip_on_launch                        = var.subnetObjects[count.index]["map_public_ip_on_launch"]
   outpost_arn                                    = var.subnetObjects[count.index]["outpost_arn"]
   private_dns_hostname_type_on_launch            = var.subnetObjects[count.index]["private_dns_hostname_type_on_launch"]
-  vpc_id                                         = var.subnetVpcId
+  vpc_id                                         = var.subnetObjects[count.index]["vpc_id"]
   tags = merge({
     Project      = var.projectName
     CreatedBy    = var.createdBy

@@ -45,10 +45,6 @@ variable "subnetObjects" {
     map_public_ip_on_launch                        = optional(bool, null)
     outpost_arn                                    = optional(string, null)
     private_dns_hostname_type_on_launch            = optional(string, null)
+    vpc_id                                         = string
   }))
-}
-
-
-variable "subnetVpcId" {
-  type = string
 }

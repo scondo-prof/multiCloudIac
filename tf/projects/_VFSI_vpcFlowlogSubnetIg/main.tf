@@ -28,7 +28,7 @@ module "subnet" {
   source         = "../../aws/vpc/genericSubnet"
   awsRegion      = var.awsRegion
   subnetObjects  = var.VFSI_SubnetObjects
-  subnetVpcId    = var.VFSI_SubnetVpcId
+  subnetVpcId    = module.vpc.vpcId
   projectName    = var.projectName
   createdBy      = var.createdBy
   deployedDate   = var.deployedDate
@@ -39,16 +39,27 @@ module "subnet" {
 #---
 
 module "routeTable" {
-  source                    = "../../aws/vpc/genericRouteTable"
-  awsRegion                 = var.awsRegion
-  routeTableVpcId           = var.VFSI_RouteTableVpcId
-  routeTableRoutes          = var.VFSI_RouteTableRoutes
-  projectName               = var.projectName
-  createdBy                 = var.createdBy
-  deployedDate              = var.deployedDate
-  tfModule                  = var.tfModule
-  additionalTags            = var.additionalTags
-  routeTablePropagatingVgws = var.VFSI_RouteTablePropagatingVgws
+  source    = "../../aws/vpc/genericRouteTable"
+  awsRegion = var.awsRegion
+  routeTableObjects = concat([{
+    name = "${var.resourceName}-public"
+
+    route = concat([{
+      cidr_block = "0.0.0.0/0"
+      gateway_id = module.Ig.igId
+      },
+      {
+        cidr_block = module.vpc.vpcCidrBlock
+        gateway_id = "local"
+    }], var.VFSI_RouteTablePublicRoutes)
+  }], var.VFSI_RouteTableObjects)
+
+  routeTableVpcId = module.vpc.vpcId
+  projectName     = var.projectName
+  createdBy       = var.createdBy
+  deployedDate    = var.deployedDate
+  tfModule        = var.tfModule
+  additionalTags  = var.additionalTags
 }
 
 #---
@@ -100,34 +111,6 @@ module "flowLog" {
 }
 
 #---
-
-# module "subnet" {
-#   source                                        = "../../aws/vpc/genericSubnet"
-#   awsRegion                                     = var.awsRegion
-#   resourceName                                  = var.resourceName
-#   subnetAssignIpv6AddressOnCreation             = var.VFSI_SubnetAssignIpv6AddressOnCreation
-#   subnetAvailabilityZone                        = var.VFSI_SubnetAvailabilityZone
-#   subnetAvailabilityZoneId                      = var.VFSI_SubnetAvailabilityZoneId
-#   subnetCidrBlock                               = var.VFSI_SubnetCidrBlock
-#   subnetCustomerOwnedIpv4Pool                   = var.VFSI_SubnetCustomerOwnedIpv4Pool
-#   subnetEnableDns64                             = var.VFSI_SubnetEnableDns64
-#   subnetEnableLniAtDeviceIndex                  = var.VFSI_SubnetEnableLniAtDeviceIndex
-#   subnetEnableResourceNameDnsAaaaRecordOnLaunch = var.VFSI_SubnetEnableResourceNameDnsAaaaRecordOnLaunch
-#   subnetEnableResourceNameDnsARecordOnLaunch    = var.VFSI_SubnetEnableResourceNameDnsARecordOnLaunch
-#   subnetIpv6CidrBlock                           = var.VFSI_SubnetIpv6CidrBlock
-#   subnetIpv6Native                              = var.VFSI_SubnetIpv6Native
-#   subnetMapCustomerOwnedIpOnLaunch              = var.VFSI_SubnetMapCustomerOwnedIpOnLaunch
-#   subnetMapPublicIpOnLaunch                     = var.VFSI_SubnetMapPublicIpOnLaunch
-#   subnetOutpustArn                              = var.VFSI_SubnetOutpustArn
-#   subnetPrivateDnsHostnameTypeOnLaunch          = var.VFSI_SubnetPrivateDnsHostnameTypeOnLaunch
-#   subnetVpcId                                   = module.vpc.vpcId
-#   projectName                                   = var.projectName
-#   creator                                       = var.createdBy
-#   deployedDate                                  = var.deployedDate
-#   additionalTags                                = var.additionalTags
-# }
-
-# #---
 
 # module "routeTable" {
 #   source          = "../../aws/vpc/genericRouteTable"

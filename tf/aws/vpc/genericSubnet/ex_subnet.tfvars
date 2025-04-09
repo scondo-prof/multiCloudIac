@@ -6,11 +6,11 @@ tfModule = "generic-subnet"
 
 subnetObjects = [
   {
-    name = "test-public"
+    name       = "test-public"
     cidr_block = "172.31.120.0/28"
   },
   {
-    name = "test-private"
+    name       = "test-private"
     cidr_block = "172.31.122.0/28"
   }
 ]

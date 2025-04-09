@@ -99,7 +99,6 @@ variable "VFSI_VpcAssignGeneratedIpv6CidrBlock" {
 }
 
 #---
-
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/VFSI_Subnet#argument-reference
 
 variable "VFSI_SubnetObjects" {
@@ -132,32 +131,32 @@ variable "VFSI_SubnetVpcId" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table#argument-reference
 
+variable "VFSI_RouteTableObjects" {
+  type = list(object({
+    name = string
+
+    route = optional(list(object({
+      cidr_block                 = string
+      ipv6_cidr_block            = optional(string, null)
+      destination_prefix_list_id = optional(string, null)
+      carrier_gateway_id         = optional(string, null)
+      core_network_arn           = optional(string, null)
+      egress_only_gateway_id     = optional(string, null)
+      gateway_id                 = optional(string, null)
+      local_gateway_id           = optional(string, null)
+      nat_gateway_id             = optional(string, null)
+      network_interface_id       = optional(string, null)
+      transit_gateway_id         = optional(string, null)
+      vpc_endpoint_id            = optional(string, null)
+      vpc_peering_connection_id  = optional(string, null)
+    })), null)
+
+    propagating_vgws = optional(list(string), null)
+  }))
+}
+
 variable "VFSI_RouteTableVpcId" {
   type = string
-}
-
-variable "VFSI_RouteTableRoutes" {
-  type = list(object({
-    cidr_block                 = string
-    ipv6_cidr_block            = optional(string, null)
-    destination_prefix_list_id = optional(string, null)
-    carrier_gateway_id         = optional(string, null)
-    core_network_arn           = optional(string, null)
-    egress_only_gateway_id     = optional(string, null)
-    gateway_id                 = optional(string, null)
-    local_gateway_id           = optional(string, null)
-    nat_gateway_id             = optional(string, null)
-    network_interface_id       = optional(string, null)
-    transit_gateway_id         = optional(string, null)
-    vpc_endpoint_id            = optional(string, null)
-    vpc_peering_connection_id  = optional(string, null)
-  }))
-  default = null
-}
-
-variable "VFSI_RouteTablePropagatingVgws" {
-  type    = list(string)
-  default = null
 }
 
 #---

@@ -6,6 +6,7 @@ tfModule = "generic-route-table"
 
 routeTableObjects = [
   {
+    vpc_id = "vpc-934696ee"
     name = "test"
     route = [
       {
@@ -19,6 +20,7 @@ routeTableObjects = [
     ]
   },
   {
+    vpc_id = "vpc-934696ee"
     name = "test-2"
     route = [
       {
@@ -32,5 +34,3 @@ routeTableObjects = [
     ]
   }
 ]
-
-routeTableVpcId = "vpc-934696ee"
