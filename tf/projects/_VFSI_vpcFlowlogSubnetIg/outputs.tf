@@ -105,26 +105,25 @@ output "VFSI_RouteTableTagsAll" {
 }
 
 #---
-
 output "VFSI_RouteTableAssociationId" {
   value = module.routeTableAssociation.routeTableAssociationId
 }
 
 #---
 output "VFSI_IgArn" {
-  value = module.ig.igArn
+  value = module.Ig.igArn
 }
 
 output "VFSI_IgId" {
-  value = module.ig.igId
+  value = module.Ig.igId
 }
 
 output "VFSI_IgOwnerId" {
-  value = module.ig.igOwnerId
+  value = module.Ig.igOwnerId
 }
 
 output "VFSI_IgTagsAll" {
-  value = module.ig.igTagsAll
+  value = module.Ig.igTagsAll
 }
 
 #---

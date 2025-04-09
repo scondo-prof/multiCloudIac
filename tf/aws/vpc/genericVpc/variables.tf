@@ -26,7 +26,7 @@ variable "additionalTags" {
 }
 
 variable "resourceName" {
-
+  type = string
 }
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc#argument-reference
