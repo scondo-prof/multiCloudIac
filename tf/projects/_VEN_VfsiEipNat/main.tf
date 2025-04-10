@@ -24,7 +24,12 @@ module "VFSI" {
   VFSI_SubnetPrivateSubnetObject           = var.VEN_VFSI_SubnetPrivateSubnetObject
   VFSI_SubnetObjects                       = var.VEN_VFSI_SubnetObjects
   VFSI_PublicRouteTableRoutes              = var.VEN_VFSI_PublicRouteTableRoutes
-  VFSI_PrivateRouteTableRoutes             = var.VEN_VFSI_PrivateRouteTableRoutes
+  VFSI_PrivateRouteTableRoutes             = concat([
+    {
+      cidr_block = "0.0.0.0/0"
+      nat_gateway_id = module.nat.natId
+  }
+  ], var.VEN_VFSI_PrivateRouteTableRoutes)
   VFSI_RouteTableObjects                   = var.VEN_VFSI_RouteTableObjects
   VFSI_RouteTableAssociationObjects        = var.VEN_VFSI_RouteTableAssociationObjects
   VFSI_LogGroupFlowLogsNamePrefix          = var.VEN_VFSI_LogGroupFlowLogsNamePrefix
@@ -82,10 +87,10 @@ module "eipNat" {
 module "nat" {
   source                            = "../../aws/vpc/genericNatGateway"
   awsRegion                         = var.awsRegion
-  natAllocationId                   = var.VEN_NatAllocationId
-  natConnectivityType               = var.VEN_NatConnectivityType
+  natAllocationId                   = module.eipNat.eipAllocationId
+  natConnectivityType               = "public"
   natPrivateIp                      = var.VEN_NatPrivateIp
-  natSubnetId                       = var.VEN_NatSubnetId
+  natSubnetId                       = module.VFSI.VFSI_SubnetId[0]
   natSecondaryAllocationIds         = var.VEN_NatSecondaryAllocationIds
   natSecondaryPrivateIpAddressCount = var.VEN_NatSecondaryPrivateIpAddressCount
   natSecondaryPrivateIpAddresses    = var.VEN_NatSecondaryPrivateIpAddresses

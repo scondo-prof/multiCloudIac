@@ -515,30 +515,9 @@ variable "VEN_EipNatPublicIpv4Pool" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/nat_gateway#argument-reference
 
-variable "VEN_NatAllocationId" {
-  type    = string
-  default = null
-}
-
-variable "VEN_NatConnectivityType" {
-  type    = string
-  default = null
-  validation {
-    condition = var.VEN_NatConnectivityType == null || can(contains([
-      "private",
-      "public"
-    ], var.VEN_NatConnectivityType))
-    error_message = "Valid inputs for | variable: var.VEN_NatConnectivityType | are: private, and public"
-  }
-}
-
 variable "VEN_NatPrivateIp" {
   type    = string
   default = null
-}
-
-variable "VEN_NatSubnetId" {
-  type = string
 }
 
 variable "VEN_NatSecondaryAllocationIds" {
