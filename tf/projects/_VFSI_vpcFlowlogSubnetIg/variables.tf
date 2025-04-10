@@ -101,6 +101,47 @@ variable "VFSI_VpcAssignGeneratedIpv6CidrBlock" {
 #---
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet#argument-reference
 
+variable "VFSI_SubnetPublicSubnetObject" {
+  type = object({
+    assign_ipv6_address_on_creation                = optional(bool, null)
+    availability_zone                              = optional(string, null)
+    availability_zone_id                           = optional(string, null)
+    cidr_block                                     = optional(string, null)
+    customer_owned_ipv4_pool                       = optional(string, null)
+    enable_dns64                                   = optional(bool, null)
+    enable_lni_at_device_index                     = optional(number, null)
+    enable_resource_name_dns_aaaa_record_on_launch = optional(bool, null)
+    enable_resource_name_dns_a_record_on_launch    = optional(bool, null)
+    ipv6_cidr_block                                = optional(string, null)
+    ipv6_native                                    = optional(bool, null)
+    map_customer_owned_ip_on_launch                = optional(bool, null)
+    map_public_ip_on_launch                        = optional(bool, null)
+    outpost_arn                                    = optional(string, null)
+    private_dns_hostname_type_on_launch            = optional(string, null)
+  })
+  default = {}
+}
+
+variable "VFSI_SubnetPrivateSubnetObject" {
+  type = object({
+    assign_ipv6_address_on_creation                = optional(bool, null)
+    availability_zone                              = optional(string, null)
+    availability_zone_id                           = optional(string, null)
+    cidr_block                                     = optional(string, null)
+    customer_owned_ipv4_pool                       = optional(string, null)
+    enable_dns64                                   = optional(bool, null)
+    enable_lni_at_device_index                     = optional(number, null)
+    enable_resource_name_dns_aaaa_record_on_launch = optional(bool, null)
+    enable_resource_name_dns_a_record_on_launch    = optional(bool, null)
+    ipv6_cidr_block                                = optional(string, null)
+    ipv6_native                                    = optional(bool, null)
+    map_public_ip_on_launch                        = optional(bool, null)
+    outpost_arn                                    = optional(string, null)
+    private_dns_hostname_type_on_launch            = optional(string, null)
+  })
+  default = {}
+}
+
 variable "VFSI_SubnetObjects" {
   type = list(object({
     name                                           = string
@@ -120,6 +161,7 @@ variable "VFSI_SubnetObjects" {
     outpost_arn                                    = optional(string, null)
     private_dns_hostname_type_on_launch            = optional(string, null)
   }))
+  default = []
 }
 
 #---
@@ -288,6 +330,7 @@ variable "VFSI_RWP_IamRoleAssumeRolePolicy" {
     Condition = optional(map(map(string)), {})
     Principal = optional(map(list(string)), {})
   }))
+  default = []
 }
 
 variable "VFSI_RWP_IamRoleDescription" {
