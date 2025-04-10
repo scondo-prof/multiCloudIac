@@ -61,7 +61,7 @@ module "routeTable" {
         cidr_block = module.vpc.vpcCidrBlock
         gateway_id = "local"
       }
-    ], var.VFSI_RouteTablePublicRoutes)
+    ], var.VFSI_PublicRouteTableRoutes)
     },
     {
       name = "${var.resourceName}-private"
@@ -71,7 +71,7 @@ module "routeTable" {
           cidr_block = module.vpc.vpcCidrBlock
           gateway_id = "local"
         }
-      ], var.VFSI_RouteTablePrivateRoutes)
+      ], var.VFSI_PrivateRouteTableRoutes)
     }
   ], var.VFSI_RouteTableObjects)
 

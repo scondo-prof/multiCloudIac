@@ -9,93 +9,33 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../aws/vpc/genericVpc",
-            "source_path": "../../aws/vpc/genericVpc",
+            "project_path": "../projects/_VFSI_vpcFlowlogSubnetIg",
+            "source_path": "../_VFSI_vpcFlowlogSubnetIg",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "vpc",
-        "new_variable_prefix": "VFSI_Vpc",
-        "module_name": "vpc",
+        "previous_variable_prefix": "VFSI",
+        "new_variable_prefix": "VEN_VFSI",
+        "module_name": "VFSI",
     },
     {
         "paths": {
-            "project_path": "../aws/vpc/genericSubnet",
-            "source_path": "../../aws/vpc/genericSubnet",
+            "project_path": "../aws/ec2/genericEip",
+            "source_path": "../../aws/ec2/genericEip",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "subnet",
-        "new_variable_prefix": "VFSI_Subnet",
-        "module_name": "subnet",
+        "previous_variable_prefix": "eip",
+        "new_variable_prefix": "VEN_EipNat",
+        "module_name": "eipNat",
     },
     {
         "paths": {
-            "project_path": "../aws/vpc/genericRouteTable",
-            "source_path": "../../aws/vpc/genericRouteTable",
+            "project_path": "../aws/vpc/genericNatGateway",
+            "source_path": "../../aws/vpc/genericNatGateway",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "routeTable",
-        "new_variable_prefix": "VFSI_RouteTable",
-        "module_name": "routeTable",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/vpc/genericRouteTable",
-            "source_path": "../../aws/vpc/genericRouteTable",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "routeTable",
-        "new_variable_prefix": "VFSI_RouteTable",
-        "module_name": "routeTable",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/vpc/genericRouteTableAssociation",
-            "source_path": "../../aws/vpc/genericRouteTableAssociation",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "routeTableAssociation",
-        "new_variable_prefix": "VFSI_RouteTableAssociation",
-        "module_name": "routeTableAssociation",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/vpc/genericInternetGateway",
-            "source_path": "../../aws/vpc/genericInternetGateway",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "ig",
-        "new_variable_prefix": "VFSI_Ig",
-        "module_name": "Ig",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/cloudwatch/genericLogGroup",
-            "source_path": "../../aws/cloudwatch/genericLogGroup",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "logGroup",
-        "new_variable_prefix": "VFSI_LogGroupFlowLogs",
-        "module_name": "logGroupFlowLogs",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/iam/_RWP_roleWithPolicy",
-            "source_path": "../../aws/iam/_RWP_roleWithPolicy",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "RWP",
-        "new_variable_prefix": "VFSI_RWP",
-        "module_name": "RWP",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/vpc/genericFlowLog",
-            "source_path": "../../aws/vpc/genericFlowLog",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "flowLog",
-        "new_variable_prefix": "VFSI_FlowLog",
-        "module_name": "flowLog",
+        "previous_variable_prefix": "nat",
+        "new_variable_prefix": "VEN_Nat",
+        "module_name": "nat",
     },
 ]
 

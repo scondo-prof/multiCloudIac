@@ -105,9 +105,9 @@ output "VFSI_RouteTableTagsAll" {
 }
 
 #---
-# output "VFSI_RouteTableAssociationId" {
-#   value = module.routeTableAssociation.routeTableAssociationId
-# }
+output "VFSI_RouteTableAssociationId" {
+  value = module.routeTableAssociation.routeTableAssociationId
+}
 
 #---
 output "VFSI_IgArn" {
@@ -127,34 +127,34 @@ output "VFSI_IgTagsAll" {
 }
 
 #---
-# output "VFSI_RWP_IamRoleName" {
-#   value = module.RWP.RWP_IamRoleName
-# }
+output "VFSI_RWP_IamRoleName" {
+  value = module.RWP.RWP_IamRoleName
+}
 
-# output "VFSI_RWP_IamRoleArn" {
-#   value = module.RWP.RWP_IamRoleArn
-# }
+output "VFSI_RWP_IamRoleArn" {
+  value = module.RWP.RWP_IamRoleArn
+}
 
 
-# output "VFSI_RWP_IamPolicyArn" {
-#   value = module.RWP.RWP_IamPolicyArn
-# }
+output "VFSI_RWP_IamPolicyArn" {
+  value = module.RWP.RWP_IamPolicyArn
+}
 
-# output "VFSI_RWP_IamPolicyName" {
-#   value = module.RWP.RWP_IamPolicyName
-# }
+output "VFSI_RWP_IamPolicyName" {
+  value = module.RWP.RWP_IamPolicyName
+}
 
-#---
-# output "VFSI_FlowLogArn" {
-#   value = module.flowLog.flowLogArn
-# }
+# ---
+output "VFSI_FlowLogArn" {
+  value = module.flowLog.flowLogArn
+}
 
-# output "VFSI_FlowLogId" {
-#   value = module.flowLog.flowLogId
-# }
+output "VFSI_FlowLogId" {
+  value = module.flowLog.flowLogId
+}
 
-# output "VFSI_FlowLogTagsAll" {
-#   value = module.flowLog.flowLogTagsAll
-# }
+output "VFSI_FlowLogTagsAll" {
+  value = module.flowLog.flowLogTagsAll
+}
 
 #---
