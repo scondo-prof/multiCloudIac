@@ -145,16 +145,16 @@ output "VFSI_IgTagsAll" {
 # }
 
 #---
-output "VFSI_FlowLogArn" {
-  value = module.flowLog.flowLogArn
-}
+# output "VFSI_FlowLogArn" {
+#   value = module.flowLog.flowLogArn
+# }
 
-output "VFSI_FlowLogId" {
-  value = module.flowLog.flowLogId
-}
+# output "VFSI_FlowLogId" {
+#   value = module.flowLog.flowLogId
+# }
 
-output "VFSI_FlowLogTagsAll" {
-  value = module.flowLog.flowLogTagsAll
-}
+# output "VFSI_FlowLogTagsAll" {
+#   value = module.flowLog.flowLogTagsAll
+# }
 
 #---

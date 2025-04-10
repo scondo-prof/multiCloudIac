@@ -85,16 +85,20 @@ module "routeTable" {
 
 #---
 
-# module "routeTableAssociation" {
-#   source    = "../../aws/vpc/genericRouteTableAssociation"
-#   awsRegion = var.awsRegion
-#   routeTableAssociationObjects = concat([
-#     {
-#       subnet_id      = module.subnet.subnetId
-#       route_table_id = module.routeTable.routeTableId
-#     }
-#   ], var.VFSI_RouteTableAssociationObjects)
-# }
+module "routeTableAssociation" {
+  source    = "../../aws/vpc/genericRouteTableAssociation"
+  awsRegion = var.awsRegion
+  routeTableAssociationObjects = concat([
+    {
+      subnet_id      = module.subnet.subnetId[0]
+      route_table_id = module.routeTable.routeTableId[0]
+    },
+    {
+      subnet_id      = module.subnet.subnetId[1]
+      route_table_id = module.routeTable.routeTableId[1]
+    }
+  ], var.VFSI_RouteTableAssociationObjects)
+}
 
 #---
 
@@ -129,72 +133,72 @@ module "logGroupFlowLogs" {
 
 #---
 
-# module "RWP" {
-#   source                             = "../../aws/iam/_RWP_roleWithPolicy"
-#   awsRegion                          = var.awsRegion
-#   RWP_IamRoleAssumeRolePolicyVersion = var.VFSI_RWP_IamRoleAssumeRolePolicyVersion
-#   RWP_IamRoleAssumeRolePolicy = concat([
-#     {
-#       Effect = "Allow"
-#       Principal = {
-#         "Service" : ["vpc-flow-logs.amazonaws.com"]
-#       }
-#       Action = "sts:AssumeRole"
-#     }
-#   ], var.VFSI_RWP_IamRoleAssumeRolePolicy)
-#   RWP_IamRoleDescription          = var.VFSI_RWP_IamRoleDescription
-#   RWP_IamRoleForceDetatchPolicies = var.VFSI_RWP_IamRoleForceDetatchPolicies
-#   RWP_IamRoleMaxSessionDuration   = var.VFSI_RWP_IamRoleMaxSessionDuration
-#   resourceName                    = "${var.resourceName}-vfsi"
-#   RWP_IamRoleNamePrefix           = var.VFSI_RWP_IamRoleNamePrefix
-#   RWP_IamRolePath                 = var.VFSI_RWP_IamRolePath
-#   RWP_IamRolePermissionsBoundary  = var.VFSI_RWP_IamRolePermissionsBoundary
-#   projectName                     = var.projectName
-#   createdBy                       = var.createdBy
-#   deployedDate                    = var.deployedDate
-#   tfModule                        = var.tfModule
-#   additionalTags                  = var.additionalTags
-#   RWP_IamPolicyDescription        = var.VFSI_RWP_IamPolicyDescription
-#   RWP_IamPolicyNamePrefix         = var.VFSI_RWP_IamPolicyNamePrefix
-#   RWP_IamPolicyPath               = var.VFSI_RWP_IamPolicyPath
-#   RWP_IamPolicyVersion            = var.VFSI_RWP_IamPolicyVersion
-#   RWP_IamPolicyDocumentStatements = concat([
-#     {
-#       Sid    = "AllowWriteToSpecificLogGroup"
-#       Effect = "Allow"
-#       Action = [
-#         "logs:CreateLogStream",
-#         "logs:PutLogEvents",
-#         "logs:DescribeLogStreams"
-#       ]
-#       Resource = module.logGroupFlowLogs.logGroupArn
-#     },
-#     {
-#       Sid      = "AllowDescribeLogGroups"
-#       Effect   = "Allow"
-#       Action   = ["logs:DescribeLogGroups"]
-#       Resource = "*"
-#     },
-#     {
-#       Sid    = "AllowVpcFlowLogCreate"
-#       Effect = "Allow"
-#       Action = [
-#         "ec2:CreateFlowLogs",
-#         "ec2:DescribeFlowLogs",
-#         "ec2:DescribeVpcs",
-#         "ec2:DescribeSubnets",
-#         "ec2:DescribeNetworkInterfaces"
-#       ],
-#       Resource = "*"
-#     },
-#     {
-#       Sid      = "AllowIAMPassRoleForFlowLogs"
-#       Effect   = "Allow"
-#       Action   = ["iam:PassRole"]
-#       Resource = module.RWP.RWP_IamRoleArn # may have to modify this
-#     }
-#   ], var.VFSI_RWP_IamPolicyDocumentStatements)
-# }
+module "RWP" {
+  source                             = "../../aws/iam/_RWP_roleWithPolicy"
+  awsRegion                          = var.awsRegion
+  RWP_IamRoleAssumeRolePolicyVersion = var.VFSI_RWP_IamRoleAssumeRolePolicyVersion
+  RWP_IamRoleAssumeRolePolicy = concat([
+    {
+      Effect = "Allow"
+      Principal = {
+        "Service" : ["vpc-flow-logs.amazonaws.com"]
+      }
+      Action = ["sts:AssumeRole"]
+    }
+  ], var.VFSI_RWP_IamRoleAssumeRolePolicy)
+  RWP_IamRoleDescription          = var.VFSI_RWP_IamRoleDescription
+  RWP_IamRoleForceDetatchPolicies = var.VFSI_RWP_IamRoleForceDetatchPolicies
+  RWP_IamRoleMaxSessionDuration   = var.VFSI_RWP_IamRoleMaxSessionDuration
+  resourceName                    = "${var.resourceName}-vfsi"
+  RWP_IamRoleNamePrefix           = var.VFSI_RWP_IamRoleNamePrefix
+  RWP_IamRolePath                 = var.VFSI_RWP_IamRolePath
+  RWP_IamRolePermissionsBoundary  = var.VFSI_RWP_IamRolePermissionsBoundary
+  projectName                     = var.projectName
+  createdBy                       = var.createdBy
+  deployedDate                    = var.deployedDate
+  tfModule                        = var.tfModule
+  additionalTags                  = var.additionalTags
+  RWP_IamPolicyDescription        = var.VFSI_RWP_IamPolicyDescription
+  RWP_IamPolicyNamePrefix         = var.VFSI_RWP_IamPolicyNamePrefix
+  RWP_IamPolicyPath               = var.VFSI_RWP_IamPolicyPath
+  RWP_IamPolicyVersion            = var.VFSI_RWP_IamPolicyVersion
+  RWP_IamPolicyDocumentStatements = concat([
+    {
+      Sid    = "AllowWriteToSpecificLogGroup"
+      Effect = "Allow"
+      Action = [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "logs:DescribeLogStreams"
+      ]
+      Resource = [module.logGroupFlowLogs.logGroupArn, "${module.logGroupFlowLogs.logGroupArn}:*"]
+    },
+    {
+      Sid      = "AllowDescribeLogGroups"
+      Effect   = "Allow"
+      Action   = ["logs:DescribeLogGroups"]
+      Resource = ["*"]
+    },
+    {
+      Sid    = "AllowVpcFlowLogCreate"
+      Effect = "Allow"
+      Action = [
+        "ec2:CreateFlowLogs",
+        "ec2:DescribeFlowLogs",
+        "ec2:DescribeVpcs",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeNetworkInterfaces"
+      ],
+      Resource = ["*"]
+    },
+    {
+      Sid      = "AllowIAMPassRoleForFlowLogs"
+      Effect   = "Allow"
+      Action   = ["iam:PassRole"]
+      Resource = [module.RWP.RWP_IamRoleArn] # may have to modify this
+    }
+  ], var.VFSI_RWP_IamPolicyDocumentStatements)
+}
 
 #---
 
@@ -204,7 +208,7 @@ module "flowLog" {
   flowLogTrafficType                 = var.VFSI_FlowLogTrafficType
   flowLogdeliverCrossAccountRole     = var.VFSI_FlowLogdeliverCrossAccountRole
   flowLogEniId                       = var.VFSI_FlowLogEniId
-  flowLogIamRoleArn                  = var.VFSI_FlowLogIamRoleArn
+  flowLogIamRoleArn                  = module.RWP.RWP_IamRoleArn
   flowLogDestinationType             = "cloud-watch-logs"
   flowLogDestination                 = module.logGroupFlowLogs.logGroupArn
   flowLogSubnetId                    = var.VFSI_FlowLogSubnetId

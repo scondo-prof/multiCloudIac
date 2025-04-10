@@ -426,11 +426,6 @@ variable "VFSI_FlowLogEniId" {
   default = null
 }
 
-variable "VFSI_FlowLogIamRoleArn" {
-  type    = string
-  default = null
-}
-
 variable "VFSI_FlowLogSubnetId" {
   type    = string
   default = null
