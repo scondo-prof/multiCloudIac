@@ -1,19 +1,6 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = var.awsRegion
-}
 
 module "lambdaFunction" {
-  source = "../../aws/lambda/genericLambdaFunction"
-
+  source                             = "../../aws/lambda/genericLambdaFunction"
   awsRegion                          = var.awsRegion
   resourceName                       = var.resourceName
   lambdaFunctionRole                 = module.lambdaFunctionRole.iamRoleArn
@@ -23,21 +10,21 @@ module "lambdaFunction" {
   lambdaFunctionDescription          = var.LFWLGSAR_LambdaFunctionDescription
   lambdaFunctionEnvironment = {
     variables = merge({
-      SECRET_NAME : module.secret.secretArn
+      SECRET_NAME : module.lambdaSecret.secretArn
     }, var.LFWLGSAR_LambdaFunctionEnvironmentVariables)
   }
-  lambdaFunctionEphemeralStorage               = var.LFWLGSAR_LambdaFunctionEphemeralStorage
-  lambdaFunctionFileSystemConfig               = var.LFWLGSAR_LambdaFunctionFileSystemConfig
-  lambdaFunctionFilename                       = var.LFWLGSAR_LambdaFunctionFilename
-  lambdaFunctionHandler                        = var.LFWLGSAR_LambdaFunctionHandler
-  lambdaFunctionImageConfig                    = var.LFWLGSAR_LambdaFunctionImageConfig
-  lambdaFunctionImageUri                       = var.LFWLGSAR_LambdaFunctionImageUri
-  lambdaFunctionKmsKeyArn                      = var.LFWLGSAR_LambdaFunctionKmsKeyArn
-  lambdaFunctionLayers                         = var.LFWLGSAR_LambdaFunctionLayers
-  lambdaFunctionLoggingConfig                  = merge({
+  lambdaFunctionEphemeralStorage = var.LFWLGSAR_LambdaFunctionEphemeralStorage
+  lambdaFunctionFileSystemConfig = var.LFWLGSAR_LambdaFunctionFileSystemConfig
+  lambdaFunctionFilename         = var.LFWLGSAR_LambdaFunctionFilename
+  lambdaFunctionHandler          = var.LFWLGSAR_LambdaFunctionHandler
+  lambdaFunctionImageConfig      = var.LFWLGSAR_LambdaFunctionImageConfig
+  lambdaFunctionImageUri         = var.LFWLGSAR_LambdaFunctionImageUri
+  lambdaFunctionKmsKeyArn        = var.LFWLGSAR_LambdaFunctionKmsKeyArn
+  lambdaFunctionLayers           = var.LFWLGSAR_LambdaFunctionLayers
+  lambdaFunctionLoggingConfig = merge({
     log_format = "JSON"
-    log_group = module.logGroup.logGroupName
-  },var.LFWLGSAR_LambdaFunctionLoggingConfig)
+    log_group  = module.lambdaLogGroup.logGroupName
+  }, var.LFWLGSAR_LambdaFunctionLoggingConfig)
   lambdaFunctionMemorySize                     = var.LFWLGSAR_LambdaFunctionMemorySize
   lambdaFunctionPackageType                    = var.LFWLGSAR_LambdaFunctionPackageType
   lambdaFunctionPublish                        = var.LFWLGSAR_LambdaFunctionPublish
@@ -52,17 +39,19 @@ module "lambdaFunction" {
   lambdaFunctionSourceCodeHash                 = var.LFWLGSAR_LambdaFunctionSourceCodeHash
   lambdaFunctionSnapStart                      = var.LFWLGSAR_LambdaFunctionSnapStart
   projectName                                  = var.projectName
-  creator                                      = var.creator
+  createdBy                                    = var.createdBy
   deployedDate                                 = var.deployedDate
+  tfModule                                     = var.tfModule
   additionalTags                               = var.additionalTags
   lambdaFunctionTimeout                        = var.LFWLGSAR_LambdaFunctionTimeout
   lambdaFunctionTracingConfig                  = var.LFWLGSAR_LambdaFunctionTracingConfig
   lambdaFunctionVpcConfig                      = var.LFWLGSAR_LambdaFunctionVpcConfig
 }
 
-module "lambdaFunctionRole" {
-  source = "../../aws/iam/genericIamRole"
+#---
 
+module "lambdaFunctionRole" {
+  source                         = "../../aws/iam/genericIamRole"
   awsRegion                      = var.awsRegion
   iamRoleAssumeRolePolicyVersion = var.LFWLGSAR_LambdaFunctionRoleAssumeRolePolicyVersion
   iamRoleAssumeRolePolicy = concat([{
@@ -80,20 +69,22 @@ module "lambdaFunctionRole" {
   iamRolePath                 = var.LFWLGSAR_LambdaFunctionRolePath
   iamRolePermissionsBoundary  = var.LFWLGSAR_LambdaFunctionRolePermissionsBoundary
   projectName                 = var.projectName
-  creator                     = var.creator
+  createdBy                   = var.createdBy
   deployedDate                = var.deployedDate
+  tfModule                    = var.tfModule
   additionalTags              = var.additionalTags
 }
 
-module "lambdaPolicy" {
-  source = "../../aws/iam/genericIamPolicy"
+#---
 
+module "lambdaGenericPolicy" {
+  source               = "../../aws/iam/genericIamPolicy"
   awsRegion            = var.awsRegion
-  iamPolicyDescription = var.LFWLGSAR_LambdaPolicyDescription
-  iamPolicyNamePrefix  = var.LFWLGSAR_LambdaPolicyNamePrefix
-  resourceName         = "${var.resourceName}-lambda"
-  iamPolicyPath        = var.LFWLGSAR_LambdaPolicyPath
-  iamPolicyVersion     = var.LFWLGSAR_LambdaPolicyVersion
+  iamPolicyDescription = var.LFWLGSAR_LambdaGenericPolicyDescription
+  iamPolicyNamePrefix  = var.LFWLGSAR_LambdaGenericPolicyNamePrefix
+  resourceName         = "${var.resourceName}-lambda-generic"
+  iamPolicyPath        = var.LFWLGSAR_LambdaGenericPolicyPath
+  iamPolicyVersion     = var.LFWLGSAR_LambdaGenericPolicyVersion
   iamPolicyDocumentStatements = concat([
     {
       Action = [
@@ -103,61 +94,68 @@ module "lambdaPolicy" {
       ]
       Effect = "Allow"
       Resource = [
-        "${module.logGroup.logGroupArn}*"
+        "${module.lambdaLogGroup.logGroupArn}*"
       ]
       Sid = "cloudwatchLogs"
     }
-  ], var.LFWLGSAR_LambdaPolicyDocumentStatements)
+  ], var.LFWLGSAR_LambdaGenericPolicyDocumentStatements)
   projectName    = var.projectName
-  creator        = var.creator
+  createdBy      = var.createdBy
   deployedDate   = var.deployedDate
+  tfModule       = var.tfModule
   additionalTags = var.additionalTags
 }
 
-module "attatchLambdaPolicy" {
-  source = "../../aws/iam/genericIamRolePolicyAttachment"
+#---
 
+module "lambdaGenericPolicyAttachment" {
+  source                    = "../../aws/iam/genericIamRolePolicyAttachment"
+  awsRegion                 = var.awsRegion
   policyAttachmentRoleName  = module.lambdaFunctionRole.iamRoleName
-  policyAttachmentPolicyArn = module.lambdaPolicy.iamPolicyArn
+  policyAttachmentPolicyArn = module.lambdaGenericPolicy.iamPolicyArn
 }
 
-module "secret" {
-  source = "../../aws/secretsmanager/genericSecret"
+#---
 
+module "lambdaSecret" {
+  source                     = "../../aws/secretsmanager/genericSecret"
   awsRegion                  = var.awsRegion
-  secretDescription          = var.LFWLGSAR_SecretDescription
-  secretKmsKeyId             = var.LFWLGSAR_SecretKmsKeyId
-  secretNamePrefix           = var.LFWLGSAR_SecretNamePrefix
+  secretDescription          = var.LFWLGSAR_LambdaSecretDescription
+  secretKmsKeyId             = var.LFWLGSAR_LambdaSecretKmsKeyId
+  secretNamePrefix           = var.LFWLGSAR_LambdaSecretNamePrefix
   resourceName               = "${var.resourceName}-lambda"
-  secretPolicy               = var.LFWLGSAR_SecretPolicy
-  secretRecoveryWindowInDays = var.LFWLGSAR_SecretRecoveryWindowInDays
-  secretReplica              = var.LFWLGSAR_SecretReplica
-  secretForceSecretOverwrite = var.LFWLGSAR_SecretForceSecretOverwrite
+  secretPolicy               = var.LFWLGSAR_LambdaSecretPolicy
+  secretRecoveryWindowInDays = var.LFWLGSAR_LambdaSecretRecoveryWindowInDays
+  secretReplica              = var.LFWLGSAR_LambdaSecretReplica
+  secretForceSecretOverwrite = var.LFWLGSAR_LambdaSecretForceSecretOverwrite
   projectName                = var.projectName
-  creator                    = var.creator
+  createdBy                  = var.createdBy
   deployedDate               = var.deployedDate
+  tfModule                   = var.tfModule
   additionalTags             = var.additionalTags
 }
 
-module "secretVersion" {
-  source = "../../aws/secretsmanager/genericSecretVersion"
+#---
 
+module "lambdaSecretVersion" {
+  source                    = "../../aws/secretsmanager/genericSecretVersion"
   awsRegion                 = var.awsRegion
-  secretVersionSecretId     = module.secret.secretArn
-  secretVersionSecretString = var.LFWLGSAR_SecretVersionSecretString
-  secretVersionSecretBinary = var.LFWLGSAR_SecretVersionSecretBinary
-  secretVersionStages       = var.LFWLGSAR_SecretVersionStages
+  secretVersionSecretId     = module.lambdaSecret.secretArn
+  secretVersionSecretString = var.LFWLGSAR_LambdaSecretVersionSecretString
+  secretVersionSecretBinary = var.LFWLGSAR_LambdaSecretVersionSecretBinary
+  secretVersionStages       = var.LFWLGSAR_LambdaSecretVersionStages
 }
 
-module "secretPolicy" {
-  source = "../../aws/iam/genericIamPolicy"
+#---
 
+module "lambdaSecretPolicy" {
+  source               = "../../aws/iam/genericIamPolicy"
   awsRegion            = var.awsRegion
-  iamPolicyDescription = var.LFWLGSAR_SecretPolicyDescription
-  iamPolicyNamePrefix  = var.LFWLGSAR_SecretPolicyNamePrefix
-  resourceName         = var.resourceName
-  iamPolicyPath        = var.LFWLGSAR_SecretPolicyPath
-  iamPolicyVersion     = var.LFWLGSAR_SecretPolicyVersion
+  iamPolicyDescription = var.LFWLGSAR_LambdaSecretPolicyDescription
+  iamPolicyNamePrefix  = var.LFWLGSAR_LambdaSecretPolicyNamePrefix
+  resourceName         = "${var.resourceName}-lambda-secret"
+  iamPolicyPath        = var.LFWLGSAR_LambdaSecretPolicyPath
+  iamPolicyVersion     = var.LFWLGSAR_LambdaSecretPolicyVersion
   iamPolicyDocumentStatements = concat([
     {
       Action = [
@@ -167,7 +165,7 @@ module "secretPolicy" {
       ]
       Effect = "Allow"
       Resource = [
-        module.secret.secretArn
+        module.lambdaSecret.secretArn
       ]
       Sid = "secretPermissions"
     },
@@ -181,31 +179,39 @@ module "secretPolicy" {
       ]
       Sid = "listSecrets"
     }
-  ], var.LFWLGSAR_SecretPolicyDocumentStatements)
+  ], var.LFWLGSAR_LambdaSecretPolicyDocumentStatements)
   projectName    = var.projectName
-  creator        = var.creator
+  createdBy      = var.createdBy
   deployedDate   = var.deployedDate
+  tfModule       = var.tfModule
   additionalTags = var.additionalTags
 }
 
-module "attatchSecretPolicy" {
-  source = "../../aws/iam/genericIamRolePolicyAttachment"
+#---
 
+module "lambdaSecretPolicyAttachment" {
+  source                    = "../../aws/iam/genericIamRolePolicyAttachment"
+  awsRegion                 = var.awsRegion
   policyAttachmentRoleName  = module.lambdaFunctionRole.iamRoleName
-  policyAttachmentPolicyArn = module.secretPolicy.iamPolicyArn
+  policyAttachmentPolicyArn = module.lambdaSecretPolicy.iamPolicyArn
 }
 
-module "logGroup" {
-  source = "../../aws/cloudwatch/genericLogGroup"
+#---
 
+module "lambdaLogGroup" {
+  source                  = "../../aws/cloudwatch/genericLogGroup"
+  awsRegion               = var.awsRegion
   resourceName            = "${var.resourceName}-lambda"
-  logGroupNamePrefix      = var.LFWLGSAR_LogGroupNamePrefix
-  logGroupSkipDestroy     = var.LFWLGSAR_LogGroupSkipDestroy
-  logGroupClass           = var.LFWLGSAR_LogGroupClass
-  logGroupRetentionInDays = var.LFWLGSAR_LogGroupRetentionInDays
-  logGroupKmsKeyId        = var.LFWLGSAR_LogGroupKmsKeyId
+  logGroupNamePrefix      = var.LFWLGSAR_LambdaLogGroupNamePrefix
+  logGroupSkipDestroy     = var.LFWLGSAR_LambdaLogGroupSkipDestroy
+  logGroupClass           = var.LFWLGSAR_LambdaLogGroupClass
+  logGroupRetentionInDays = var.LFWLGSAR_LambdaLogGroupRetentionInDays
+  logGroupKmsKeyId        = var.LFWLGSAR_LambdaLogGroupKmsKeyId
   projectName             = var.projectName
-  creator                 = var.creator
+  createdBy               = var.createdBy
   deployedDate            = var.deployedDate
+  tfModule                = var.tfModule
   additionalTags          = var.additionalTags
 }
+
+#---

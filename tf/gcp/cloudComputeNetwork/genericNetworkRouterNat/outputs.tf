@@ -3,5 +3,5 @@ output "natId" {
 }
 
 output "natName" {
-  value = google_compute_router_nat.nat.name 
+  value = google_compute_router_nat.nat.name
 }

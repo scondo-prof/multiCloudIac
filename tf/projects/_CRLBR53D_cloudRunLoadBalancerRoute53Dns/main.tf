@@ -1,15 +1,6 @@
-provider "aws" {
-  region = var.awsRegion
-}
-
-provider "google" {
-  project = var.gcpProjectId
-  region  = var.gcpRegion
-}
 
 module "globalAddress" {
-  source = "../../gcp/cloudComputeNetwork/genericGlobalAddress"
-
+  source                    = "../../gcp/cloudComputeNetwork/genericGlobalAddress"
   gcpProjectId              = var.gcpProjectId
   gcpRegion                 = var.gcpRegion
   resourceName              = var.resourceName
@@ -18,7 +9,8 @@ module "globalAddress" {
   projectName               = var.projectName
   deployedDate              = var.deployedDate
   createdBy                 = var.createdBy
-  additionalLabels          = var.additionalLabels
+  tfModule                  = var.tfModule
+  additionalTags            = var.additionalTags
   globalAddressIpVersion    = var.CRLBR53D_GlobalAddressIpVersion
   globalAddressPrefixLength = var.CRLBR53D_GlobalAddressPrefixLength
   globalAddressType         = var.CRLBR53D_GlobalAddressType
@@ -26,15 +18,16 @@ module "globalAddress" {
   globalAddressNetwork      = var.CRLBR53D_GlobalAddressNetwork
 }
 
-module "route53DnsARecord" {
-  source = "../../aws/route53/genericRoute53Record"
+#---
 
+module "route53DnsARecord" {
+  source                              = "../../aws/route53/genericRoute53Record"
   awsRegion                           = var.awsRegion
-  recordZoneId                        = var.CRLBR53D_Route53DnsARecordZoneId
-  recordName                          = var.CRLBR53D_Route53DnsARecordName
+  recordZoneId                        = var.CRLBR53D_Route53DnsRecordsZoneId
+  recordName                          = var.CRLBR53D_Route53DnsRecordsName
   recordType                          = "A"
   recordTtl                           = var.CRLBR53D_Route53DnsARecordTtl
-  recordRecords                       = concat([module.globalAddress.globalAddress], var.CRLBR53D_Route53DnsARecordAdditionalRecords)
+  recordRecords                       = concat([module.globalAddress.globalAddress], var.CRLBR53D_Route53DnsARecordRecords)
   recordSetIdentifier                 = var.CRLBR53D_Route53DnsARecordSetIdentifier
   recordHealthCheckId                 = var.CRLBR53D_Route53DnsARecordHealthCheckId
   recordAlias                         = var.CRLBR53D_Route53DnsARecordAlias
@@ -48,12 +41,13 @@ module "route53DnsARecord" {
   recordAllowOverwrite                = var.CRLBR53D_Route53DnsARecordAllowOverwrite
 }
 
-module "route53DnsTxtRecord" {
-  source = "../../aws/route53/genericRoute53Record"
+#---
 
+module "route53DnsTxtRecord" {
+  source                              = "../../aws/route53/genericRoute53Record"
   awsRegion                           = var.awsRegion
-  recordZoneId                        = var.CRLBR53D_Route53DnsARecordZoneId
-  recordName                          = var.CRLBR53D_Route53DnsARecordName
+  recordZoneId                        = var.CRLBR53D_Route53DnsRecordsZoneId
+  recordName                          = var.CRLBR53D_Route53DnsRecordsName
   recordType                          = "TXT"
   recordTtl                           = var.CRLBR53D_Route53DnsTxtRecordTtl
   recordRecords                       = var.CRLBR53D_Route53DnsTxtRecordRecords
@@ -70,22 +64,24 @@ module "route53DnsTxtRecord" {
   recordAllowOverwrite                = var.CRLBR53D_Route53DnsTxtRecordAllowOverwrite
 }
 
-module "msc" {
-  source = "../../gcp/cloudComputeNetwork/genericManagedSslCertificate"
+#---
 
+module "msc" {
+  source         = "../../gcp/cloudComputeNetwork/genericManagedSslCertificate"
   gcpProjectId   = var.gcpProjectId
   gcpRegion      = var.gcpRegion
   mscDescription = var.CRLBR53D_MscDescription
   resourceName   = var.resourceName
   mscManaged = {
-    domains = concat([var.CRLBR53D_Route53DnsARecordName], var.CRLBR53D_MscAdditionalDomains)
+    domains = concat([var.CRLBR53D_Route53DnsRecordsName], var.CRLBR53D_MscManaged)
   }
   mscType = var.CRLBR53D_MscType
 }
 
-module "rneg" {
-  source = "../../gcp/cloudComputeNetwork/genericRegionNetworkEndpointGroup"
+#---
 
+module "rneg" {
+  source                  = "../../gcp/cloudComputeNetwork/genericRegionNetworkEndpointGroup"
   gcpProjectId            = var.gcpProjectId
   gcpRegion               = var.gcpRegion
   resourceName            = var.resourceName
@@ -99,9 +95,10 @@ module "rneg" {
   rnegCloudFunction       = var.CRLBR53D_RnegCloudFunction
 }
 
-module "backendService" {
-  source = "../../gcp/cloudComputeNetwork/genericBackendService"
+#---
 
+module "backendService" {
+  source                             = "../../gcp/cloudComputeNetwork/genericBackendService"
   gcpProjectId                       = var.gcpProjectId
   gcpRegion                          = var.gcpRegion
   resourceName                       = var.resourceName
@@ -136,9 +133,10 @@ module "backendService" {
   backendServiceServiceLbPolicy              = var.CRLBR53D_BackendServiceServiceLbPolicy
 }
 
-module "urlMap" {
-  source = "../../gcp/cloudComputeNetwork/genericUrlMap"
+#---
 
+module "urlMap" {
+  source                   = "../../gcp/cloudComputeNetwork/genericUrlMap"
   gcpProjectId             = var.gcpProjectId
   gcpRegion                = var.gcpRegion
   resourceName             = var.resourceName
@@ -152,9 +150,10 @@ module "urlMap" {
   urlMapDefaultRouteAction = var.CRLBR53D_UrlMapDefaultRouteAction
 }
 
-module "thp" {
-  source = "../../gcp/cloudComputeNetwork/genericTargetHttpsProxy"
+#---
 
+module "thp" {
+  source                            = "../../gcp/cloudComputeNetwork/genericTargetHttpsProxy"
   gcpProjectId                      = var.gcpProjectId
   gcpRegion                         = var.gcpRegion
   resourceName                      = var.resourceName
@@ -163,7 +162,7 @@ module "thp" {
   thpQuicOverride                   = var.CRLBR53D_ThpQuicOverride
   thpTlsEarlyData                   = var.CRLBR53D_ThpTlsEarlyData
   thpCertificateManagerCertificates = var.CRLBR53D_ThpCertificateManagerCertificates
-  thpSslCertificates                = concat([module.msc.mscSelfLink], var.CRLBR53D_AdditionalThpSslCertificates)
+  thpSslCertificates                = concat([module.msc.mscSelfLink], var.CRLBR53D_ThpSslCertificates)
   thpCertificateMap                 = var.CRLBR53D_ThpCertificateMap
   thpSslPolicy                      = var.CRLBR53D_ThpSslPolicy
   thpProxyBind                      = var.CRLBR53D_ThpProxyBind
@@ -171,21 +170,23 @@ module "thp" {
   thpServerTlsPolicy                = var.CRLBR53D_ThpServerTlsPolicy
 }
 
-module "gfr" {
-  source = "../../gcp/cloudComputeNetwork/genericGlobalForwardingRule"
+#---
 
+module "gfr" {
+  source                           = "../../gcp/cloudComputeNetwork/genericGlobalForwardingRule"
   gcpProjectId                     = var.gcpProjectId
   gcpRegion                        = var.gcpRegion
   resourceName                     = var.resourceName
   gfrTarget                        = module.thp.thpSelfLink
   gfrDescription                   = var.CRLBR53D_GfrDescription
-  gfrIpAddress                     = module.globalAddress.globalAddress
+  gfrIpAddress                     = module.globalAddress.globalAddress #var.CRLBR53D_GfrIpAddress
   gfrIpProtocol                    = var.CRLBR53D_GfrIpProtocol
   gfrIpVersion                     = var.CRLBR53D_GfrIpVersion
   projectName                      = var.projectName
   deployedDate                     = var.deployedDate
   createdBy                        = var.createdBy
-  additionalLabels                 = var.additionalLabels
+  tfModule                         = var.tfModule
+  additionalTags                   = var.additionalTags
   gfrLoadBalancingScheme           = var.CRLBR53D_GfrLoadBalancingScheme
   gfrMetadataFilters               = var.CRLBR53D_GfrMetadataFilters
   gfrNetwork                       = var.CRLBR53D_GfrNetwork
@@ -195,3 +196,5 @@ module "gfr" {
   gfrSourceIpRanges                = var.CRLBR53D_GfrSourceIpRanges
   gfrNoAutomateDnsZone             = var.CRLBR53D_GfrNoAutomateDnsZone
 }
+
+#---

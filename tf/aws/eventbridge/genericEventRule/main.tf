@@ -23,7 +23,8 @@ resource "aws_cloudwatch_event_rule" "eventRule" {
   state               = var.eventRuleState
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }

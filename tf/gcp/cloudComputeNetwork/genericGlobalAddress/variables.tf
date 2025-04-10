@@ -11,17 +11,6 @@ variable "resourceName" {
   type = string
 }
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_address#argument-reference
-variable "globalAddressAddress" {
-  type    = string
-  default = null
-}
-
-variable "globalAddressDescription" {
-  type    = string
-  default = null
-}
-
 variable "projectName" {
   type = string
 }
@@ -36,9 +25,24 @@ variable "createdBy" {
   default = "scott-condo"
 }
 
-variable "additionalLabels" {
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
   type    = map(string)
   default = {}
+}
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_address#argument-reference
+variable "globalAddressAddress" {
+  type    = string
+  default = null
+}
+
+variable "globalAddressDescription" {
+  type    = string
+  default = null
 }
 
 variable "globalAddressIpVersion" {

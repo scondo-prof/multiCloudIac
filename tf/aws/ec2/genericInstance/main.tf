@@ -59,8 +59,9 @@ resource "aws_instance" "instance" {
       snapshot_id           = ebs_block_device.value["snapshot_id"]
       tags = merge({
         Project      = var.projectName
-        CreatedBy    = var.creator
+        CreatedBy    = var.createdBy
         DeployedDate = var.deployedDate
+        TfModule     = var.tfModule
       }, var.additionalTags)
       throughput  = ebs_block_device.value["throughput"]
       volume_size = ebs_block_device.value["volume_size"]
@@ -177,7 +178,7 @@ resource "aws_instance" "instance" {
       kms_key_id            = root_block_device.value["kms_key_id"]
       tags = merge({
         Project      = var.projectName
-        CreatedBy    = var.creator
+        CreatedBy    = var.createdBy
         DeployedDate = var.deployedDate
       }, var.additionalTags)
       throughput  = root_block_device.value["throughput"]
@@ -192,9 +193,9 @@ resource "aws_instance" "instance" {
   subnet_id             = var.instanceSubnetId
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
-    Name = "${var.resourceName}-ec2"
+    Name         = "${var.resourceName}-ec2"
   }, var.additionalTags)
   tenancy                     = var.instanceTenancy
   user_data                   = var.instanceUserData != null ? file(var.instanceUserData) : null

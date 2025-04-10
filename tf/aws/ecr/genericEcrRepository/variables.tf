@@ -7,6 +7,28 @@ variable "resourceName" {
   type = string
 }
 
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository#argument-reference
 
 variable "ecrRepositoryEncryptionConfiguration" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository#encryption_configuration
@@ -38,22 +60,4 @@ variable "ecrRepositoryImageScanningConfiguration" {
     scan_on_push = bool
   })
   default = null
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "creator" {
-  type    = string
-  default = "scott-condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
 }

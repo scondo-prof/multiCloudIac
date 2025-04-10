@@ -14,6 +14,8 @@ module "password" {
   passwordUpper           = var.PKS_PasswordUpper
 }
 
+#---
+
 module "privateKey" {
   source               = "../../tls/genericTlsPrivateKey"
   tlsProxy             = var.tlsProxy
@@ -27,15 +29,18 @@ module "privateKey" {
 module "SWV" {
   source                         = "../../aws/secretsmanager/_SWV_secretWithVersion"
   awsRegion                      = var.awsRegion
+  SWV_SecretDescription          = var.PKS_SWV_SecretDescription
   SWV_SecretKmsKeyId             = var.PKS_SWV_SecretKmsKeyId
+  SWV_SecretNamePrefix           = var.PKS_SWV_SecretNamePrefix
   resourceName                   = var.resourceName
   SWV_SecretPolicy               = var.PKS_SWV_SecretPolicy
   SWV_SecretRecoveryWindowInDays = var.PKS_SWV_SecretRecoveryWindowInDays
   SWV_SecretReplica              = var.PKS_SWV_SecretReplica
   SWV_SecretForceSecretOverwrite = var.PKS_SWV_SecretForceSecretOverwrite
   projectName                    = var.projectName
-  creator                        = var.creator
+  createdBy                      = var.createdBy
   deployedDate                   = var.deployedDate
+  tfModule                       = var.tfModule
   additionalTags                 = var.additionalTags
   SWV_SecretVersionSecretString = merge({
     private_key_open_ssh                      = module.privateKey.privateKeyOpenSsh
@@ -44,12 +49,10 @@ module "SWV" {
     private_key_public_key_fingerprint_md5    = module.privateKey.privateKeyPublicKeyFingerprintMd5
     private_key_public_key_fingerprint_sha256 = module.privateKey.privateKeyPublicKeyFingerprintSha256
     private_key_public_key_open_ssh           = module.privateKey.privateKeyPublicKeyOpenSsh
-    private_key_p8                            = var.PKS_privateKeyP8FilePath != null ? file(var.PKS_privateKeyP8FilePath) : ""
+    private_key_p8                            = var.PKS_SWV_PrivateKeyP8FilePath != null ? file(var.PKS_SWV_PrivateKeyP8FilePath) : ""
     private_key_p8_passphrase                 = module.password.passwordResult
     public_key_pem                            = module.privateKey.privateKeyPublicKeyPem
   }, var.PKS_SWV_SecretVersionSecretString)
-  SWV_SecretVersionSecretBinary = var.PKS_SWV_SecretVersionSecretBinary
-  SWV_SecretVersionStages       = var.PKS_SWV_SecretVersionStages
+  SWV_SecretVersionSecretBinary  = var.PKS_SWV_SecretVersionSecretBinary
+  SWV_SecretVersionStages        = var.PKS_SWV_SecretVersionStages
 }
-
-#---

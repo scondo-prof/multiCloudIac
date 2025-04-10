@@ -12,18 +12,17 @@ variable "resourceName" {
   type = string
 }
 
-variable "resourceGroupManagedBy" {
-  type    = string
-  default = null
-}
-
 variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
+}
+
+variable "tfModule" {
+  type = string
 }
 
 variable "deployedDate" {
@@ -33,4 +32,11 @@ variable "deployedDate" {
 variable "additionalTags" {
   type    = map(string)
   default = {}
+}
+
+#https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group#arguments-reference
+
+variable "resourceGroupManagedBy" {
+  type    = string
+  default = null
 }

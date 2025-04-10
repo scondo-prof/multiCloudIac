@@ -1,19 +1,7 @@
-terraform {
-  required_providers {
-    azuread = {
-      source  = "hashicorp/azuread"
-      version = "3.0.2"
-    }
-  }
-}
 
-provider "azuread" {
-  tenant_id = var.azureAdTenantId
-}
 
 module "azureAdResourceApplication" {
-  source = "../../azuread/applications/genericApplication"
-
+  source                                        = "../../azuread/applications/genericApplication"
   azureAdTenantId                               = var.azureAdTenantId
   azureAdApplicationDeviceOnlyAuthEnabled       = var.CARARAA_AzureAdResourceApplicationDeviceOnlyAuthEnabled
   resourceName                                  = "${var.resourceName}-resource"
@@ -37,9 +25,10 @@ module "azureAdResourceApplication" {
   azureAdApplicationWeb                         = var.CARARAA_AzureAdResourceApplicationWeb
 }
 
-module "azureAdClientApplication" {
-  source = "../../azuread/applications/genericApplication"
+#---
 
+module "azureAdClientApplication" {
+  source                                        = "../../azuread/applications/genericApplication"
   azureAdTenantId                               = var.azureAdTenantId
   azureAdApplicationDeviceOnlyAuthEnabled       = var.CARARAA_AzureAdClientApplicationDeviceOnlyAuthEnabled
   resourceName                                  = "${var.resourceName}-client"
@@ -63,9 +52,10 @@ module "azureAdClientApplication" {
   azureAdApplicationWeb                         = var.CARARAA_AzureAdClientApplicationWeb
 }
 
-module "azureAdResourceApplicationPermissionScope" {
-  source = "../../azuread/applications/genericPermissionScope"
+#---
 
+module "azureAdResourceApplicationPermissionScope" {
+  source                                                   = "../../azuread/applications/genericPermissionScope"
   azureAdTenantId                                          = var.azureAdTenantId
   azureAdApplicationPermissionScopeAdminConsentDescription = var.CARARAA_AzureAdResourceApplicationPermissionScopeAdminConsentDescription
   azureAdApplicationPermissionScopeAdminConsentDisplayName = var.CARARAA_AzureAdResourceApplicationPermissionScopeAdminConsentDisplayName
@@ -76,18 +66,20 @@ module "azureAdResourceApplicationPermissionScope" {
   azureAdApplicationPermissionScopeValue                   = var.CARARAA_AzureAdResourceApplicationPermissionScopeValue
 }
 
-module "azureAdResourceApplicationPreAuthorized" {
-  source = "../../azuread/applications/genericPreAuthorized"
+#---
 
+module "azureAdResourceApplicationPreAuthorized" {
+  source                                             = "../../azuread/applications/genericPreAuthorized"
   azureAdTenantId                                    = var.azureAdTenantId
   azureAdApplicationPreAuthorizedApplicationObjectId = "applications/${module.azureAdResourceApplication.azureAdApplicationObjectId}"
   azureAdApplicationPreAuthorizedApplicationClientId = module.azureAdClientApplication.azureAdApplicationClientId
-  azureAdApplicationPreAuthorizedPermissionIds       = concat([module.azureAdResourceApplicationPermissionScope.azureAdApplicationPermissionScopeId], var.CARARAA_AdditionalAzureAdResourceApplicationPreAuthorizedPermissionIds)
+  azureAdApplicationPreAuthorizedPermissionIds       = concat([module.azureAdResourceApplicationPermissionScope.azureAdApplicationPermissionScopeId], var.CARARAA_AzureAdResourceApplicationPreAuthorizedPermissionIds)
 }
 
-module "azureAdClientApplicationPassword" {
-  source = "../../azuread/applications/genericSecret"
+#---
 
+module "azureAdClientApplicationPassword" {
+  source                                        = "../../azuread/applications/genericSecret"
   azureAdTenantId                               = var.azureAdTenantId
   azureAdApplicationPasswordApplicationObjectId = "applications/${module.azureAdClientApplication.azureAdApplicationObjectId}"
   resourceName                                  = "${var.resourceName}-client"
@@ -96,12 +88,13 @@ module "azureAdClientApplicationPassword" {
   azureAdApplicationPasswordStartDate           = var.CARARAA_AzureAdClientApplicationPasswordStartDate
 }
 
-module "azureAdClientApplicationApiAccess" {
-  source = "../../azuread/applications/genericApiAccess"
+#---
 
+module "azureAdClientApplicationApiAccess" {
+  source                                         = "../../azuread/applications/genericApiAccess"
   azureAdTenantId                                = var.azureAdTenantId
   azureAdApplicationApiAccessApiClientId         = module.azureAdResourceApplication.azureAdApplicationClientId
   azureAdApplicationApiAccessApplicationObjectId = "applications/${module.azureAdClientApplication.azureAdApplicationObjectId}"
-  azureAdApplicationApiAccessRoleIds             = var.CARARAA_AzureAdClientApplicationApiAccessApiAccessRoleIds
-  azureAdApplicationApiAccessScopeIds            = concat([module.azureAdResourceApplicationPermissionScope.azureAdApplicationPermissionScopeId], var.CARARAA_AdditionalAzureAdClientApplicationApiAccessApiAccessScopeIds)
+  azureAdApplicationApiAccessRoleIds             = var.CARARAA_AzureAdClientApplicationApiAccessRoleIds
+  azureAdApplicationApiAccessScopeIds            = concat([module.azureAdResourceApplicationPermissionScope.azureAdApplicationPermissionScopeId], var.CARARAA_AzureAdClientApplicationApiAccessScopeIds)
 }

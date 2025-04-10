@@ -21,8 +21,9 @@ resource "aws_vpc_security_group_egress_rule" "egressRule" {
   security_group_id            = var.egressRuleSecurityGroupId
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
   to_port = var.egressRuleToPort
 }

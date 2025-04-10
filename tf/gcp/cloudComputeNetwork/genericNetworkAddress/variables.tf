@@ -7,10 +7,33 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address#argument-reference
 variable "resourceName" {
   type = string
 }
+
+variable "projectName" {
+  type = string
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address#argument-reference
 
 variable "networkAddressAddress" {
   type    = string
@@ -62,24 +85,6 @@ variable "networkAddressNetworkTier" {
 variable "networkAddressSubnetwork" {
   type    = string
   default = null
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "createdBy" {
-  type    = string
-  default = "scott-condo"
-}
-
-variable "additionalLabels" {
-  type    = map(string)
-  default = {}
 }
 
 variable "networkAddressNetwork" {

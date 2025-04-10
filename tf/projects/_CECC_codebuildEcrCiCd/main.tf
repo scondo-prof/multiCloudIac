@@ -1,19 +1,8 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
 
-provider "aws" {
-  region = var.awsRegion
-}
+
 
 module "ecrRepository" {
-  source = "../../aws/ecr/genericEcrRepository"
-
+  source                                  = "../../aws/ecr/genericEcrRepository"
   awsRegion                               = var.awsRegion
   resourceName                            = var.resourceName
   ecrRepositoryEncryptionConfiguration    = var.CECC_EcrRepositoryEncryptionConfiguration
@@ -21,14 +10,16 @@ module "ecrRepository" {
   ecrRepositoryImageTagMutability         = var.CECC_EcrRepositoryImageTagMutability
   ecrRepositoryImageScanningConfiguration = var.CECC_EcrRepositoryImageScanningConfiguration
   projectName                             = var.projectName
-  creator                                 = var.creator
+  createdBy                               = var.createdBy
   deployedDate                            = var.deployedDate
+  tfModule                                = var.tfModule
   additionalTags                          = var.additionalTags
 }
 
-module "codebuildProject" {
-  source = "../../aws/codebuild/genericCodebuildProject"
+#---
 
+module "codebuildProject" {
+  source                                        = "../../aws/codebuild/genericCodebuildProject"
   awsRegion                                     = var.awsRegion
   codebuildProjectArtifactsIdentifier           = var.CECC_CodebuildProjectArtifactsIdentifier
   codebuildProjectArtifactsBucketOwnerAccess    = var.CECC_CodebuildProjectArtifactsBucketOwnerAccess
@@ -42,7 +33,7 @@ module "codebuildProject" {
   codebuildProjectArtifactsType                 = var.CECC_CodebuildProjectArtifactsType
   codebuildProjectEnvironmentCertificate        = var.CECC_CodebuildProjectEnvironmentCertificate
   codebuildProjectEnvironmentComputeType        = var.CECC_CodebuildProjectEnvironmentComputeType
-  # codebuildProjectEnvironmentFleet              = var.CECC_CodebuildProjectEnvironmentFleet
+  # codebuildProjectEnvironmentFleet = var.CECC_CodebuildProjectEnvironmentFleet
   codebuildProjectEnvironmentEnvironmentVariable = merge({
     AWS_DEFAULT_REGION = {
       name  = "AWS_DEFAULT_REGION"
@@ -60,7 +51,7 @@ module "codebuildProject" {
       name  = "IMAGE_TAG"
       value = var.codebuildProjectEcrRepoImageTag
     }
-  }, var.CECC_CodebuildProjectEnvironmentEnvironmentVariables)
+  }, var.CECC_CodebuildProjectEnvironmentEnvironmentVariable)
   codebuildProjectEnvironmentImagePullCredentialsType = var.CECC_CodebuildProjectEnvironmentImagePullCredentialsType
   codebuildProjectEnvironmentImage                    = var.CECC_CodebuildProjectEnvironmentImage
   codebuildProjectEnvironmentPrivilegedMode           = var.CECC_CodebuildProjectEnvironmentPrivilegedMode
@@ -86,11 +77,9 @@ module "codebuildProject" {
   codebuildProjectEncryptionKey                       = var.CECC_CodebuildProjectEncryptionKey
   codebuildProjectLogsConfig = {
     cloudwatch_logs = {
-      group_name  = module.logGroup.logGroupName
-      status      = var.CECC_CodebuildProjectCloudwatchLogsConfigStatus
-      stream_name = var.CECC_CodebuildProjectCloudwatchLogsConfigStreamName
+      group_name = module.codebuildLogGroup.logGroupName
+      status = var.CECC_CodebuildProjectCloudwatchLogsStatus
     }
-    s3_logs = var.CECC_CodebuildProjectS3LogsConfig
   }
   codebuildProjectVisibility             = var.CECC_CodebuildProjectVisibility
   codebuildProjectResourceAccessRole     = var.CECC_CodebuildProjectResourceAccessRole
@@ -100,35 +89,40 @@ module "codebuildProject" {
   codebuildProjectSecondarySourceVersion = var.CECC_CodebuildProjectSecondarySourceVersion
   codebuildProjectSourceVersion          = var.CECC_CodebuildProjectSourceVersion
   projectName                            = var.projectName
-  creator                                = var.creator
+  createdBy                              = var.createdBy
   deployedDate                           = var.deployedDate
+  tfModule                               = var.tfModule
   additionalTags                         = var.additionalTags
   codebuildProjectVpcConfig              = var.CECC_CodebuildProjectVpcConfig
 }
 
-module "credentials" {
-  source = "../../aws/codebuild/genericCodebuildSourceCredential"
+#---
 
+module "codebuildCredentials" {
+  source                = "../../aws/codebuild/genericCodebuildSourceCredential"
   awsRegion             = var.awsRegion
-  credentialsAuthType   = var.CECC_CredentialsAuthType
-  credentialsServerType = var.CECC_CredentialsServerType
-  credentialsToken      = var.CECC_CredentialsToken
-  credentialsUserName   = var.CECC_CredentialsUserName
+  credentialsAuthType   = var.CECC_CodebuildCredentialsAuthType
+  credentialsServerType = var.CECC_CodebuildCredentialsServerType
+  credentialsToken      = var.CECC_CodebuildCredentialsToken
+  credentialsUserName   = var.CECC_CodebuildCredentialsUserName
 }
 
-module "webhook" {
-  source = "../../aws/codebuild/genericCodebuildWebhook"
+#---
 
+module "codebuildWebhook" {
+  source              = "../../aws/codebuild/genericCodebuildWebhook"
+  awsRegion           = var.awsRegion
   webhookProjectName  = module.codebuildProject.codebuildProjectName
-  webhookBuildType    = var.CECC_WebhookBuildType
-  webhookBranchFilter = var.CECC_WebhookBranchFilter
-  webhookFilterGroup  = var.CECC_WebhookFilterGroup
-  # webhookScopeConfiguration = var.CECC_WebhookScopeConfiguration
+  webhookBuildType    = var.CECC_CodebuildWebhookBuildType
+  webhookBranchFilter = var.CECC_CodebuildWebhookBranchFilter
+  webhookFilterGroup  = var.CECC_CodebuildWebhookFilterGroup
+  # webhookScopeConfiguration = var.CECC_CodebuildWebhookScopeConfiguration
 }
+
+#---
 
 module "codebuildRole" {
-  source = "../../aws/iam/genericIamRole"
-
+  source                         = "../../aws/iam/genericIamRole"
   awsRegion                      = var.awsRegion
   iamRoleAssumeRolePolicyVersion = var.CECC_CodebuildRoleAssumeRolePolicyVersion
   iamRoleAssumeRolePolicy        = var.CECC_CodebuildRoleAssumeRolePolicy
@@ -140,20 +134,23 @@ module "codebuildRole" {
   iamRolePath                    = var.CECC_CodebuildRolePath
   iamRolePermissionsBoundary     = var.CECC_CodebuildRolePermissionsBoundary
   projectName                    = var.projectName
-  creator                        = var.creator
+  createdBy                      = var.createdBy
   deployedDate                   = var.deployedDate
+  tfModule                       = var.tfModule
+  additionalTags                 = var.additionalTags
 }
 
-module "codebuildPolicy" {
-  source = "../../aws/iam/genericIamPolicy"
+#---
 
+module "codebuildRolePolicy" {
+  source               = "../../aws/iam/genericIamPolicy"
   awsRegion            = var.awsRegion
-  iamPolicyDescription = var.CECC_CodebuildPolicyDescription
-  iamPolicyNamePrefix  = var.CECC_CodebuildPolicyNamePrefix
-  resourceName         = "${module.codebuildRole.iamRoleName}-codebuild"
-  iamPolicyPath        = var.CECC_CodebuildPolicyPath
-  iamPolicyVersion     = var.CECC_CodebuildPolicyVersion
-  iamPolicyDocumentStatements =  concat([
+  iamPolicyDescription = var.CECC_CodebuildRolePolicyDescription
+  iamPolicyNamePrefix  = var.CECC_CodebuildRolePolicyNamePrefix
+  resourceName         = "${module.codebuildRole.iamRoleName}-generic"
+  iamPolicyPath        = var.CECC_CodebuildRolePolicyPath
+  iamPolicyVersion     = var.CECC_CodebuildRolePolicyVersion
+  iamPolicyDocumentStatements = concat([
     {
       Action = [
         "logs:CreateLogGroup",
@@ -162,7 +159,7 @@ module "codebuildPolicy" {
       ]
       Effect = "Allow"
       Resource = [
-        "${module.logGroup.logGroupArn}*"
+        "${module.codebuildLogGroup.logGroupArn}*"
       ]
       Sid = "codebuildLogs"
     },
@@ -195,45 +192,51 @@ module "codebuildPolicy" {
       ]
       Sid = "codebuildReports"
     }
-  ], var.CECC_CodebuildPolicyDocumentAdditionalStatements)
+  ], var.CECC_CodebuildRolePolicyDocumentStatements)
   projectName    = var.projectName
-  creator        = var.creator
+  createdBy      = var.createdBy
   deployedDate   = var.deployedDate
+  tfModule       = var.tfModule
   additionalTags = var.additionalTags
 }
 
-module "logGroup" {
-  source = "../../aws/cloudwatch/genericLogGroup"
+#---
 
-  resourceName            = "${var.resourceName}-codebuild"
-  logGroupNamePrefix      = var.CECC_LogGroupNamePrefix
-  logGroupSkipDestroy     = var.CECC_LogGroupSkipDestroy
-  logGroupClass           = var.CECC_LogGroupClass
-  logGroupRetentionInDays = var.CECC_LogGroupRetentionInDays
-  logGroupKmsKeyId        = var.CECC_LogGroupKmsKeyId
+module "codebuildLogGroup" {
+  source                  = "../../aws/cloudwatch/genericLogGroup"
+  awsRegion               = var.awsRegion
+  resourceName            = var.resourceName
+  logGroupNamePrefix      = var.CECC_CodebuildLogGroupNamePrefix
+  logGroupSkipDestroy     = var.CECC_CodebuildLogGroupSkipDestroy
+  logGroupClass           = var.CECC_CodebuildLogGroupClass
+  logGroupRetentionInDays = var.CECC_CodebuildLogGroupRetentionInDays
+  logGroupKmsKeyId        = var.CECC_CodebuildLogGroupKmsKeyId
   projectName             = var.projectName
-  creator                 = var.creator
+  createdBy               = var.createdBy
   deployedDate            = var.deployedDate
+  tfModule                = var.tfModule
   additionalTags          = var.additionalTags
 }
 
-module "codebuildPolicyAttatch" {
-  source = "../../aws/iam/genericIamRolePolicyAttachment"
+#---
 
+module "codebuildRolePolicyAttachment" {
+  source                    = "../../aws/iam/genericIamRolePolicyAttachment"
   awsRegion                 = var.awsRegion
   policyAttachmentRoleName  = module.codebuildRole.iamRoleName
-  policyAttachmentPolicyArn = module.codebuildPolicy.iamPolicyArn
+  policyAttachmentPolicyArn = module.codebuildRolePolicy.iamPolicyArn
 }
 
-module "ecrAccessPolicy" {
-  source = "../../aws/iam/genericIamPolicy"
+#---
 
+module "codebuildRoleEcrPolicy" {
+  source               = "../../aws/iam/genericIamPolicy"
   awsRegion            = var.awsRegion
-  iamPolicyDescription = var.CECC_EcrAccessPolicyDescription
-  iamPolicyNamePrefix  = var.CECC_EcrAccessPolicyNamePrefix
-  resourceName         = "${module.codebuildRole.iamRoleName}-ecr-access"
-  iamPolicyPath        = var.CECC_EcrAccessPolicyPath
-  iamPolicyVersion     = var.CECC_EcrAccessPolicyVersion
+  iamPolicyDescription = var.CECC_CodebuildRoleEcrPolicyDescription
+  iamPolicyNamePrefix  = var.CECC_CodebuildRoleEcrPolicyNamePrefix
+  resourceName         = "${module.codebuildRole.iamRoleName}-ecr"
+  iamPolicyPath        = var.CECC_CodebuildRoleEcrPolicyPath
+  iamPolicyVersion     = var.CECC_CodebuildRoleEcrPolicyVersion
   iamPolicyDocumentStatements = concat([
     {
       Action = [
@@ -260,17 +263,19 @@ module "ecrAccessPolicy" {
       Resource = ["*"]
       Sid      = "EcrAuthToken"
     }
-  ], var.CECC_EcrAccessPolicyDocumentAdditionalStatements)
+  ], var.CECC_CodebuildRoleEcrPolicyDocumentStatements)
   projectName    = var.projectName
-  creator        = var.creator
+  createdBy      = var.createdBy
   deployedDate   = var.deployedDate
+  tfModule       = var.tfModule
   additionalTags = var.additionalTags
 }
 
-module "ecrAccessPolicyAttatch" {
-  source = "../../aws/iam/genericIamRolePolicyAttachment"
+#---
 
+module "codebuildRoleEcrPolicyAttachment" {
+  source                    = "../../aws/iam/genericIamRolePolicyAttachment"
   awsRegion                 = var.awsRegion
   policyAttachmentRoleName  = module.codebuildRole.iamRoleName
-  policyAttachmentPolicyArn = module.ecrAccessPolicy.iamPolicyArn
+  policyAttachmentPolicyArn = module.codebuildRoleEcrPolicy.iamPolicyArn
 }

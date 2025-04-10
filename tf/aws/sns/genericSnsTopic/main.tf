@@ -40,7 +40,8 @@ resource "aws_sns_topic" "snsTopic" {
   firehose_failure_feedback_role_arn       = var.snsTopicFirehoseFailureFeedbackRoleArn
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
-  }, var.snsTopicAdditionalTags)
+    TfModule     = var.tfModule
+  }, var.additionalTags)
 }

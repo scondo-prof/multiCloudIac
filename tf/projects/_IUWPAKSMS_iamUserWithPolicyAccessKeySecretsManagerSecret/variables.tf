@@ -11,7 +11,7 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
 }
@@ -20,12 +20,14 @@ variable "deployedDate" {
   type = string
 }
 
+variable "tfModule" {
+  type = string
+}
+
 variable "additionalTags" {
   type    = map(string)
   default = {}
 }
-
-#---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user#argument-reference
 variable "IUWPAKSMS_UWP_IamUserPath" {
@@ -42,6 +44,8 @@ variable "IUWPAKSMS_UWP_IamUserForceDestroy" {
   type    = bool
   default = null
 }
+
+
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 
@@ -70,11 +74,16 @@ variable "IUWPAKSMS_UWP_IamPolicyDocumentStatements" {
     Condition = optional(map(map(string)), {})
     Principal = optional(map(list(string)), {})
   }))
+  default = []
 }
+
+
+
 
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_access_key#argument-reference
+
 variable "IUWPAKSMS_IamAccessKeyPgpKey" {
   type    = string
   default = null
@@ -96,32 +105,32 @@ variable "IUWPAKSMS_IamAccessKeyStatus" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
 
-variable "IUWPAKSMS_SecretDescription" {
+variable "IUWPAKSMS_SWV_SecretDescription" {
   type    = string
   default = null
 }
 
-variable "IUWPAKSMS_SecretKmsKeyId" {
+variable "IUWPAKSMS_SWV_SecretKmsKeyId" {
   type    = string
   default = null
 }
 
-variable "IUWPAKSMS_SecretNamePrefix" {
+variable "IUWPAKSMS_SWV_SecretNamePrefix" {
   type    = string
   default = null
 }
 
-variable "IUWPAKSMS_SecretPolicy" {
+variable "IUWPAKSMS_SWV_SecretPolicy" {
   type    = string
   default = null
 }
 
-variable "IUWPAKSMS_SecretRecoveryWindowInDays" {
+variable "IUWPAKSMS_SWV_SecretRecoveryWindowInDays" {
   type    = number
   default = null
 }
 
-variable "IUWPAKSMS_SecretReplica" {
+variable "IUWPAKSMS_SWV_SecretReplica" {
   type = object({
     kms_key_id = optional(string, null)
     region     = string
@@ -129,26 +138,31 @@ variable "IUWPAKSMS_SecretReplica" {
   default = null
 }
 
-variable "IUWPAKSMS_SecretForceSecretOverwrite" {
+variable "IUWPAKSMS_SWV_SecretForceSecretOverwrite" {
   type    = bool
   default = null
 }
 
-#---
+
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
 
-variable "IUWPAKSMS_SecretVersionSecretString" {
+
+variable "IUWPAKSMS_SWV_SecretVersionSecretString" {
   type    = map(string)
   default = {}
 }
 
-variable "IUWPAKSMS_SecretVersionSecretBinary" {
+variable "IUWPAKSMS_SWV_SecretVersionSecretBinary" {
   type    = string
   default = null
 }
 
-variable "IUWPAKSMS_SecretVersionStages" {
+variable "IUWPAKSMS_SWV_SecretVersionStages" {
   type    = list(string)
   default = null
 }
+
+
+
+#---

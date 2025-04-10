@@ -11,6 +11,8 @@ variable "resourceName" {
   type = string
 }
 
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network_endpoint_group#argument-reference
+
 variable "negNetwork" {
   type    = string
   default = "default"

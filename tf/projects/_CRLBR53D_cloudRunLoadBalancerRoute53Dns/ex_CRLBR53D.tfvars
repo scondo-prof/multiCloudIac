@@ -2,17 +2,19 @@
 
 gcpProjectId = "p3-prod-aa94d"
 
-projectName = "site-verification"
+projectName = "test"
 
-deployedDate = "11-19-2024"
+deployedDate = "2025-04-01"
 
-resourceName = "whos-askin"
+tfModule = "crlbr53d"
+
+resourceName = "whole-lot-o-tests"
 
 #---
 
-CRLBR53D_Route53DnsARecordZoneId = "Z0029795233UJ8DX1434B"
+CRLBR53D_Route53DnsRecordsZoneId = "Z0029795233UJ8DX1434B"
 
-CRLBR53D_Route53DnsARecordName = "salty-poutine.bearcognition.com"
+CRLBR53D_Route53DnsRecordsName = "testy-test.bearcognition.com"
 
 CRLBR53D_Route53DnsARecordTtl = 301
 
@@ -20,11 +22,11 @@ CRLBR53D_Route53DnsARecordTtl = 301
 
 CRLBR53D_Route53DnsTxtRecordTtl = 301
 
-CRLBR53D_Route53DnsTxtRecordRecords = ["google-site-verification=iI-xGsSWPuzos3zlHk0xfOF2uuNUtk3EQ-ZeTbqFhDM"]
+CRLBR53D_Route53DnsTxtRecordRecords = ["google-site-verification=fIp1inaBNxhE_3H7BlQ4QDF-hN2PXFW_smtEwP-1-z0"]
 
 #---
 
-CRLBR53D_MscDescription = "A small step for man a large step for my scrambled brain"
+CRLBR53D_MscDescription = "a wilder than life test"
 
 #---
 

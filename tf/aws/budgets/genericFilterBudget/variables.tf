@@ -1,98 +1,138 @@
 variable "awsRegion" {
-  type = string
+  type    = string
   default = "us-east-1"
-}
-
-variable "resourceName" {
-  type = string
-}
-
-variable "budgetType" {
-  type    = string
-  default = "COST"
-}
-
-variable "budgetLimitAmount" {
-  type = number
-}
-
-variable "budgetLimitUnit" {
-  type    = string
-  default = "USD"
-}
-
-variable "budgetTimeUnit" {
-  type = string
-
-  validation {
-    condition     = contains(["MONTHLY", "QUARTERLY", "ANNUALLY", "DAILY"], var.budgetTimeUnit)
-    error_message = "The only valid options for budgetTimeUnit are 'MONTHLY', 'QUARTERLY', 'ANNUALLY', 'DAILY'."
-  }
-}
-
-variable "budgetCostFilterName" {
-  type = string
-
-  validation {
-    condition     = contains(["PurchaseType", "UsageTypeGroup", "Service", "Operation", "UsageType", "BillingEntity", "CostCategory", "LinkedAccount", "TagKeyValue", "LegalEntityName", "InvoicingEntity", "AZ", "Region", "InstanceType"], var.budgetCostFilterName)
-    error_message = "The only valid options for budgetCostFilterName are 'PurchaseType', 'UsageTypeGroup', 'Service', 'Operation', 'UsageType', 'BillingEntity', 'CostCategory', 'LinkedAccount', 'TagKeyValue', 'LegalEntityName', 'InvoicingEntity', 'AZ', 'Region', 'InstanceType'."
-  }
-}
-
-
-variable "budgetCostFilterValues" {
-  type = list(string)
-}
-
-variable "budgetNotificationComparisonOperator" {
-  type = string
-
-  validation {
-    condition     = contains(["LESS_THAN", "EQUAL_TO", "GREATER_THAN"], var.budgetNotificationComparisonOperator)
-    error_message = "The only valid options for budgetNotificationComparisonOperator are 'LESS_THAN', 'EQUAL_TO', 'GREATER_THAN'."
-  }
-}
-
-variable "budgetNotificationThreshold" {
-  type = number
-}
-
-variable "budgetNotificationThresholdType" {
-  type = string
-
-  validation {
-    condition     = contains(["PERCENTAGE", "ABSOLUTE_VALUE"], var.budgetNotificationThresholdType)
-    error_message = "The only valid options for budgetNotificationThresholdType are 'PERCENTAGE', 'ABSOLUTE_VALUE'."
-  }
-}
-
-variable "budgetNotificationType" {
-  type = string
-
-  validation {
-    condition     = contains(["ACTUAL", "FORECASTED"], var.budgetNotificationType)
-    error_message = "The only valid options for budgetNotificationType are 'ACTUAL', 'FORECASTED'."
-  }
-}
-
-variable "snsTopicArns" {
-  type = list(string)
 }
 
 variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
-  default = "Scott Condo"
+  default = "scott-condo"
 }
 
 variable "deployedDate" {
   type = string
 }
 
-variable "awsBudgetAdditionalTags" {
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
   type    = map(string)
   default = {}
+}
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#argument-reference
+
+variable "budgetType" {
+  type = string
+}
+
+variable "budgetTimeUnit" {
+  type = string
+  validation {
+    condition = contains([
+      "MONTHLY",
+      "QUARTERLY",
+      "ANNUALLY",
+      "DAILY"
+    ], var.budgetTimeUnit)
+    error_message = "Valid inputs for | variable: var.budgetTimeUnit | are: MONTHLY, QUARTERLY, ANNUALLY, DAILY"
+  }
+}
+
+variable "budgetAccountId" {
+  type    = string
+  default = null
+}
+
+variable "budgetAutoAdjustData" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#auto-adjust-data
+    auto_adjust_type = string
+
+    historical_options = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#historical-options
+      budget_adjustment_period = number
+    })
+  })
+
+  default = null
+}
+
+variable "budgetCostFilter" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#cost-filter
+    name   = string
+    values = list(string)
+  })
+  default = null
+}
+
+variable "budgetCostTypes" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#cost-types
+    include_credit             = optional(bool, null)
+    include_discount           = optional(bool, null)
+    include_other_subscription = optional(bool, null)
+    include_recurring          = optional(bool, null)
+    include_refund             = optional(bool, null)
+    include_subscription       = optional(bool, null)
+    include_support            = optional(bool, null)
+    include_tax                = optional(bool, null)
+    include_upfront            = optional(bool, null)
+    use_amortized              = optional(bool, null)
+    use_blended                = optional(bool, null)
+  })
+  default = null
+}
+
+variable "budgetLimitAmount" {
+  type    = number
+  default = null
+}
+
+variable "budgetLimitUnit" {
+  type    = string
+  default = null
+}
+
+variable "budgetName" {
+  type    = string
+  default = null
+}
+
+variable "budgetNamePrefix" {
+  type    = string
+  default = null
+}
+
+variable "budgetNotification" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#budget-notification
+    comparison_operator        = string
+    threshold                  = number
+    threshold_type             = string
+    notification_type          = string
+    subscriber_email_addresses = optional(list(string), null)
+    subscriber_sns_topic_arns  = optional(list(string), null)
+  })
+  default = null
+}
+
+variable "budgetPlannedLimit" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/budgets_budget#planned-budget-limits
+    start_time = string
+    amount     = number
+    unit       = string
+  })
+  default = null
+}
+
+variable "budgetTimePeriodEnd" {
+  type    = string
+  default = null
+}
+
+variable "budgetTimePeriodStart" {
+  type    = string
+  default = null
 }

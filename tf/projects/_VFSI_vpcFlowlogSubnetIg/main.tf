@@ -2,7 +2,6 @@
 module "vpc" {
   source                              = "../../aws/vpc/genericVpc"
   awsRegion                           = var.awsRegion
-  resourceName                        = var.resourceName
   vpcCidrBlock                        = var.VFSI_VpcCidrBlock
   vpcInstanceTenancy                  = var.VFSI_VpcInstanceTenancy
   vpcIpv4IpamPoolId                   = var.VFSI_VpcIpv4IpamPoolId
@@ -16,80 +15,189 @@ module "vpc" {
   vpcEnableDnsHostnames               = var.VFSI_VpcEnableDnsHostnames
   vpcAssignGeneratedIpv6CidrBlock     = var.VFSI_VpcAssignGeneratedIpv6CidrBlock
   projectName                         = var.projectName
-  creator                             = var.creator
+  createdBy                           = var.createdBy
   deployedDate                        = var.deployedDate
+  tfModule                            = var.tfModule
+  resourceName                        = var.resourceName
   additionalTags                      = var.additionalTags
 }
 
 #---
 
 module "subnet" {
-  source                                        = "../../aws/vpc/genericSubnet"
-  awsRegion                                     = var.awsRegion
-  resourceName                                  = var.resourceName
-  subnetAssignIpv6AddressOnCreation             = var.VFSI_SubnetAssignIpv6AddressOnCreation
-  subnetAvailabilityZone                        = var.VFSI_SubnetAvailabilityZone
-  subnetAvailabilityZoneId                      = var.VFSI_SubnetAvailabilityZoneId
-  subnetCidrBlock                               = var.VFSI_SubnetCidrBlock
-  subnetCustomerOwnedIpv4Pool                   = var.VFSI_SubnetCustomerOwnedIpv4Pool
-  subnetEnableDns64                             = var.VFSI_SubnetEnableDns64
-  subnetEnableLniAtDeviceIndex                  = var.VFSI_SubnetEnableLniAtDeviceIndex
-  subnetEnableResourceNameDnsAaaaRecordOnLaunch = var.VFSI_SubnetEnableResourceNameDnsAaaaRecordOnLaunch
-  subnetEnableResourceNameDnsARecordOnLaunch    = var.VFSI_SubnetEnableResourceNameDnsARecordOnLaunch
-  subnetIpv6CidrBlock                           = var.VFSI_SubnetIpv6CidrBlock
-  subnetIpv6Native                              = var.VFSI_SubnetIpv6Native
-  subnetMapCustomerOwnedIpOnLaunch              = var.VFSI_SubnetMapCustomerOwnedIpOnLaunch
-  subnetMapPublicIpOnLaunch                     = var.VFSI_SubnetMapPublicIpOnLaunch
-  subnetOutpustArn                              = var.VFSI_SubnetOutpustArn
-  subnetPrivateDnsHostnameTypeOnLaunch          = var.VFSI_SubnetPrivateDnsHostnameTypeOnLaunch
-  subnetVpcId                                   = module.vpc.vpcId
-  projectName                                   = var.projectName
-  creator                                       = var.creator
-  deployedDate                                  = var.deployedDate
-  additionalTags                                = var.additionalTags
+  source    = "../../aws/vpc/genericSubnet"
+  awsRegion = var.awsRegion
+  subnetObjects = concat([
+    merge({
+      name = "${var.resourceName}-public-1"
+    }, var.VFSI_SubnetPublicSubnetObject),
+    merge({
+      name                    = "${var.resourceName}-private-1"
+      map_public_ip_on_launch = false
+    }, var.VFSI_SubnetPrivateSubnetObject),
+  ], var.VFSI_SubnetObjects)
+  subnetVpcId    = module.vpc.vpcId
+  projectName    = var.projectName
+  createdBy      = var.createdBy
+  deployedDate   = var.deployedDate
+  tfModule       = var.tfModule
+  additionalTags = var.additionalTags
 }
 
 #---
 
 module "routeTable" {
-  source          = "../../aws/vpc/genericRouteTable"
-  awsRegion       = var.awsRegion
+  source    = "../../aws/vpc/genericRouteTable"
+  awsRegion = var.awsRegion
+  routeTableObjects = concat([{
+    name = "${var.resourceName}-public"
+
+    route = concat([
+      {
+        cidr_block = "0.0.0.0/0"
+        gateway_id = module.Ig.igId
+      },
+      {
+        cidr_block = module.vpc.vpcCidrBlock
+        gateway_id = "local"
+      }
+    ], var.VFSI_PublicRouteTableRoutes)
+    },
+    {
+      name = "${var.resourceName}-private"
+
+      route = concat([
+        {
+          cidr_block = module.vpc.vpcCidrBlock
+          gateway_id = "local"
+        }
+      ], var.VFSI_PrivateRouteTableRoutes)
+    }
+  ], var.VFSI_RouteTableObjects)
+
   routeTableVpcId = module.vpc.vpcId
-  routeTableRoutes = concat([merge({
-    cidr_block = "0.0.0.0/0"
-    gateway_id = module.ig.igId
-    }, var.VFSI_RouteTableIgRoute),
-    merge({
-      cidr_block = module.vpc.vpcCidrBlock
-      gateway_id = "local"
-  }, var.VFSI_RouteTableIgRoute)], var.VFSI_RouteTableRoutes)
-  projectName               = var.projectName
-  creator                   = var.creator
-  deployedDate              = var.deployedDate
-  additionalTags            = var.additionalTags
-  routeTablePropagatingVgws = var.VFSI_RouteTablePropagatingVgws
+  projectName     = var.projectName
+  createdBy       = var.createdBy
+  deployedDate    = var.deployedDate
+  tfModule        = var.tfModule
+  additionalTags  = var.additionalTags
 }
 
 #---
 
 module "routeTableAssociation" {
-  source                            = "../../aws/vpc/genericRouteTableAssociation"
-  awsRegion                         = var.awsRegion
-  routeTableAssociationSubnetId     = module.subnet.subnetId
-  routeTableAssociationGatewayId    = var.VFSI_RouteTableAssociationGatewayId
-  routeTableAssociationRouteTableId = module.routeTable.routeTableId
+  source    = "../../aws/vpc/genericRouteTableAssociation"
+  awsRegion = var.awsRegion
+  routeTableAssociationObjects = concat([
+    {
+      subnet_id      = module.subnet.subnetId[0]
+      route_table_id = module.routeTable.routeTableId[0]
+    },
+    {
+      subnet_id      = module.subnet.subnetId[1]
+      route_table_id = module.routeTable.routeTableId[1]
+    }
+  ], var.VFSI_RouteTableAssociationObjects)
 }
 
 #---
 
-module "ig" {
+module "Ig" {
   source         = "../../aws/vpc/genericInternetGateway"
   awsRegion      = var.awsRegion
   igVpcId        = module.vpc.vpcId
   projectName    = var.projectName
-  creator        = var.creator
+  createdBy      = var.createdBy
   deployedDate   = var.deployedDate
+  tfModule       = var.tfModule
   additionalTags = var.additionalTags
+}
+
+#---
+
+module "logGroupFlowLogs" {
+  source                  = "../../aws/cloudwatch/genericLogGroup"
+  awsRegion               = var.awsRegion
+  resourceName            = "${var.resourceName}-flow-logs"
+  logGroupNamePrefix      = var.VFSI_LogGroupFlowLogsNamePrefix
+  logGroupSkipDestroy     = var.VFSI_LogGroupFlowLogsSkipDestroy
+  logGroupClass           = var.VFSI_LogGroupFlowLogsClass
+  logGroupRetentionInDays = var.VFSI_LogGroupFlowLogsRetentionInDays
+  logGroupKmsKeyId        = var.VFSI_LogGroupFlowLogsKmsKeyId
+  projectName             = var.projectName
+  createdBy               = var.createdBy
+  deployedDate            = var.deployedDate
+  tfModule                = var.tfModule
+  additionalTags          = var.additionalTags
+}
+
+#---
+
+module "RWP" {
+  source                             = "../../aws/iam/_RWP_roleWithPolicy"
+  awsRegion                          = var.awsRegion
+  RWP_IamRoleAssumeRolePolicyVersion = var.VFSI_RWP_IamRoleAssumeRolePolicyVersion
+  RWP_IamRoleAssumeRolePolicy = concat([
+    {
+      Effect = "Allow"
+      Principal = {
+        "Service" : ["vpc-flow-logs.amazonaws.com"]
+      }
+      Action = ["sts:AssumeRole"]
+    }
+  ], var.VFSI_RWP_IamRoleAssumeRolePolicy)
+  RWP_IamRoleDescription          = var.VFSI_RWP_IamRoleDescription
+  RWP_IamRoleForceDetatchPolicies = var.VFSI_RWP_IamRoleForceDetatchPolicies
+  RWP_IamRoleMaxSessionDuration   = var.VFSI_RWP_IamRoleMaxSessionDuration
+  resourceName                    = "${var.resourceName}-vfsi"
+  RWP_IamRoleNamePrefix           = var.VFSI_RWP_IamRoleNamePrefix
+  RWP_IamRolePath                 = var.VFSI_RWP_IamRolePath
+  RWP_IamRolePermissionsBoundary  = var.VFSI_RWP_IamRolePermissionsBoundary
+  projectName                     = var.projectName
+  createdBy                       = var.createdBy
+  deployedDate                    = var.deployedDate
+  tfModule                        = var.tfModule
+  additionalTags                  = var.additionalTags
+  RWP_IamPolicyDescription        = var.VFSI_RWP_IamPolicyDescription
+  RWP_IamPolicyNamePrefix         = var.VFSI_RWP_IamPolicyNamePrefix
+  RWP_IamPolicyPath               = var.VFSI_RWP_IamPolicyPath
+  RWP_IamPolicyVersion            = var.VFSI_RWP_IamPolicyVersion
+  RWP_IamPolicyDocumentStatements = concat([
+    {
+      Sid    = "AllowWriteToSpecificLogGroup"
+      Effect = "Allow"
+      Action = [
+        "logs:CreateLogStream",
+        "logs:PutLogEvents",
+        "logs:DescribeLogStreams"
+      ]
+      Resource = [module.logGroupFlowLogs.logGroupArn, "${module.logGroupFlowLogs.logGroupArn}:*"]
+    },
+    {
+      Sid      = "AllowDescribeLogGroups"
+      Effect   = "Allow"
+      Action   = ["logs:DescribeLogGroups"]
+      Resource = ["*"]
+    },
+    {
+      Sid    = "AllowVpcFlowLogCreate"
+      Effect = "Allow"
+      Action = [
+        "ec2:CreateFlowLogs",
+        "ec2:DescribeFlowLogs",
+        "ec2:DescribeVpcs",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeNetworkInterfaces"
+      ],
+      Resource = ["*"]
+    },
+    {
+      Sid      = "AllowIAMPassRoleForFlowLogs"
+      Effect   = "Allow"
+      Action   = ["iam:PassRole"]
+      Resource = [module.RWP.RWP_IamRoleArn] # may have to modify this
+    }
+  ], var.VFSI_RWP_IamPolicyDocumentStatements)
 }
 
 #---
@@ -100,9 +208,9 @@ module "flowLog" {
   flowLogTrafficType                 = var.VFSI_FlowLogTrafficType
   flowLogdeliverCrossAccountRole     = var.VFSI_FlowLogdeliverCrossAccountRole
   flowLogEniId                       = var.VFSI_FlowLogEniId
-  flowLogIamRoleArn                  = var.VFSI_FlowLogIamRoleArn
-  flowLogDestinationType             = var.VFSI_FlowLogDestinationType
-  flowLogDestination                 = var.VFSI_FlowLogDestination
+  flowLogIamRoleArn                  = module.RWP.RWP_IamRoleArn
+  flowLogDestinationType             = "cloud-watch-logs"
+  flowLogDestination                 = module.logGroupFlowLogs.logGroupArn
   flowLogSubnetId                    = var.VFSI_FlowLogSubnetId
   flowLogtransitGatewayId            = var.VFSI_FlowLogtransitGatewayId
   flowLogTransitGatewayAttatchmentId = var.VFSI_FlowLogTransitGatewayAttatchmentId
@@ -111,9 +219,8 @@ module "flowLog" {
   flowLogMaxAggregationInterval      = var.VFSI_FlowLogMaxAggregationInterval
   flowLogDestinationOptions          = var.VFSI_FlowLogDestinationOptions
   projectName                        = var.projectName
-  creator                            = var.creator
+  createdBy                          = var.createdBy
   deployedDate                       = var.deployedDate
+  tfModule                           = var.tfModule
   additionalTags                     = var.additionalTags
 }
-
-#---

@@ -11,7 +11,7 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
 }
@@ -20,12 +20,19 @@ variable "deployedDate" {
   type = string
 }
 
+variable "tfModule" {
+  type = string
+}
+
 variable "additionalTags" {
   type    = map(string)
   default = {}
 }
 
-
+variable "awsAccountId" {
+  type    = string
+  default = "us-east1"
+}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository#argument-reference
 
@@ -63,6 +70,8 @@ variable "CLCC_CECC_EcrRepositoryImageScanningConfiguration" {
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#argument-reference
+
+##https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#artifacts
 variable "CLCC_CECC_CodebuildProjectArtifactsIdentifier" {
   type    = string
   default = null
@@ -168,23 +177,19 @@ variable "CLCC_CECC_CodebuildProjectEnvironmentComputeType" {
   }
 }
 
-variable "CLCC_CECC_CodebuildProjectEnvironmentFleet" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#fleet_arn-1
-    fleet_arn = optional(string, null)
-  })
-  default = null
-}
-
-variable "awsAccountId" {
-  type = string
-}
+# variable "CLCC_CECC_CodebuildProjectEnvironmentFleet" {
+#   type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#fleet_arn-1
+#     fleet_arn = optional(string, null)
+#   })
+#   default = null
+# }
 
 variable "codebuildProjectEcrRepoImageTag" {
   type    = string
   default = "latest"
 }
 
-variable "CLCC_CECC_CodebuildProjectEnvironmentEnvironmentVariables" {
+variable "CLCC_CECC_CodebuildProjectEnvironmentEnvironmentVariable" {
   type = map(object({
     name  = string
     type  = optional(string, null)
@@ -363,30 +368,15 @@ variable "CLCC_CECC_CodebuildProjectEncryptionKey" {
   default = null
 }
 
-variable "CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStatus" {
+variable "CLCC_CECC_CodebuildProjectCloudwatchLogsStatus" {
   type = string
   validation {
-    condition = var.CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStatus == null || can(contains([
+    condition = var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus == null || can(contains([
       "ENABLED",
       "DISABLED"
-    ], var.CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStatus))
-    error_message = "Valid inputs for | variable: var.CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStatus | are: ENABLED, DISABLED"
+    ], var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus))
+    error_message = "Valid inputs for | variable: var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus | are: ENABLED, DISABLED"
   }
-  default = null
-}
-
-variable "CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStreamName" {
-  type    = string
-  default = null
-}
-
-variable "CLCC_CECC_CodebuildProjectS3LogsConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#logs_config 
-  type = object({
-    encryption_disabled = optional(bool, null)
-    location            = optional(string, null)
-    status              = optional(string, null)
-    bucket_owner_access = optional(string, null)
-  })
   default = null
 }
 
@@ -470,6 +460,7 @@ variable "CLCC_CECC_CodebuildProjectSourceVersion" {
   default = null
 }
 
+
 variable "CLCC_CECC_CodebuildProjectVpcConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#vpc_config
   type = object({
     security_group_ids = list(string)
@@ -482,7 +473,7 @@ variable "CLCC_CECC_CodebuildProjectVpcConfig" { #https://registry.terraform.io/
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_source_credential#argument-reference
-variable "CLCC_CECC_CredentialsAuthType" {
+variable "CLCC_CECC_CodebuildCredentialsAuthType" {
   type = string
   validation {
     condition = contains([
@@ -491,45 +482,46 @@ variable "CLCC_CECC_CredentialsAuthType" {
       "PERSONAL_ACCESS_TOKEN",
       "CODECONNECTIONS",
       "SECRETS_MANAGER"
-    ], var.CLCC_CECC_CredentialsAuthType)
-    error_message = "Valid inputs for | variable: var.CLCC_CECC_CredentialsAuthType | are: OAUTH, BASIC_AUTH, PERSONAL_ACCESS_TOKEN, CODECONNECTIONS, SECRETS_MANAGER"
+    ], var.CLCC_CECC_CodebuildCredentialsAuthType)
+    error_message = "Valid inputs for | variable: var.CLCC_CECC_CodebuildCredentialsAuthType | are: OAUTH, BASIC_AUTH, PERSONAL_ACCESS_TOKEN, CODECONNECTIONS, SECRETS_MANAGER"
   }
 }
 
-variable "CLCC_CECC_CredentialsServerType" {
+variable "CLCC_CECC_CodebuildCredentialsServerType" {
   type = string
 }
 
-variable "CLCC_CECC_CredentialsToken" {
+variable "CLCC_CECC_CodebuildCredentialsToken" {
   type = string
 }
 
-variable "CLCC_CECC_CredentialsUserName" {
+variable "CLCC_CECC_CodebuildCredentialsUserName" {
   type    = string
   default = null
 }
 
 
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_webhook#argument-reference
-variable "CLCC_CECC_WebhookBuildType" {
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_CLCC_CECC_CodebuildWebhook#argument-reference
+
+variable "CLCC_CECC_CodebuildWebhookBuildType" {
   type = string
   validation {
-    condition = var.CLCC_CECC_WebhookBuildType == null || can(contains([
+    condition = var.CLCC_CECC_CodebuildWebhookBuildType == null || can(contains([
       "BUILD",
       "BUILD_BATCH"
-    ], var.CLCC_CECC_WebhookBuildType))
-    error_message = "Valid inputs for | variable: var.CLCC_CECC_WebhookBuildType | are: BUILD, BUILD_BATCH"
+    ], var.CLCC_CECC_CodebuildWebhookBuildType))
+    error_message = "Valid inputs for | variable: var.CLCC_CECC_CodebuildWebhookBuildType | are: BUILD, BUILD_BATCH"
   }
   default = null
 }
 
-variable "CLCC_CECC_WebhookBranchFilter" {
+variable "CLCC_CECC_CodebuildWebhookBranchFilter" {
   type    = string
   default = null
 }
 
-variable "CLCC_CECC_WebhookFilterGroup" {
+variable "CLCC_CECC_CodebuildWebhookFilterGroup" {
   type = object({
     filter = map(object({
       type                    = string
@@ -540,7 +532,7 @@ variable "CLCC_CECC_WebhookFilterGroup" {
   default = null
 }
 
-variable "CLCC_CECC_WebhookScopeConfiguration" {
+variable "CLCC_CECC_CodebuildWebhookScopeConfiguration" {
   type = object({
     name   = string
     scope  = string
@@ -604,23 +596,24 @@ variable "CLCC_CECC_CodebuildRolePermissionsBoundary" {
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
-variable "CLCC_CECC_CodebuildPolicyDescription" {
+
+variable "CLCC_CECC_CodebuildRolePolicyDescription" {
   type    = string
   default = null
 }
-variable "CLCC_CECC_CodebuildPolicyNamePrefix" {
+variable "CLCC_CECC_CodebuildRolePolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CLCC_CECC_CodebuildPolicyPath" {
+variable "CLCC_CECC_CodebuildRolePolicyPath" {
   type    = string
   default = "/"
 }
-variable "CLCC_CECC_CodebuildPolicyVersion" {
+variable "CLCC_CECC_CodebuildRolePolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CLCC_CECC_CodebuildPolicyDocumentAdditionalStatements" {
+variable "CLCC_CECC_CodebuildRolePolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -635,32 +628,34 @@ variable "CLCC_CECC_CodebuildPolicyDocumentAdditionalStatements" {
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group#argument-reference
-variable "CLCC_CECC_LogGroupNamePrefix" {
+
+
+variable "CLCC_CECC_CodebuildLogGroupNamePrefix" {
   type    = string
   default = null
 }
 
-variable "CLCC_CECC_LogGroupSkipDestroy" {
+variable "CLCC_CECC_CodebuildLogGroupSkipDestroy" {
   type    = bool
   default = null
 }
 
-variable "CLCC_CECC_LogGroupClass" {
+variable "CLCC_CECC_CodebuildLogGroupClass" {
   type = string
   validation {
-    condition = var.CLCC_CECC_LogGroupClass == null || can(contains([
+    condition = var.CLCC_CECC_CodebuildLogGroupClass == null || can(contains([
       "STANDARD",
       "INFREQUENT_ACCESS"
-    ], var.CLCC_CECC_LogGroupClass))
-    error_message = "Valid inputs for | variable: var.CLCC_CECC_LogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
+    ], var.CLCC_CECC_CodebuildLogGroupClass))
+    error_message = "Valid inputs for | variable: var.CLCC_CECC_CodebuildLogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
   }
   default = null
 }
 
-variable "CLCC_CECC_LogGroupRetentionInDays" {
+variable "CLCC_CECC_CodebuildLogGroupRetentionInDays" {
   type = number
   validation {
-    condition = var.CLCC_CECC_LogGroupRetentionInDays == null || can(contains([
+    condition = var.CLCC_CECC_CodebuildLogGroupRetentionInDays == null || can(contains([
       1,
       3,
       5,
@@ -684,37 +679,42 @@ variable "CLCC_CECC_LogGroupRetentionInDays" {
       3288,
       3653,
       0
-    ], var.CLCC_CECC_LogGroupRetentionInDays))
-    error_message = "Valid inputs for | variable: var.CLCC_CECC_LogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
+    ], var.CLCC_CECC_CodebuildLogGroupRetentionInDays))
+    error_message = "Valid inputs for | variable: var.CLCC_CECC_CodebuildLogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
   }
   default = null
 }
 
-variable "CLCC_CECC_LogGroupKmsKeyId" {
+variable "CLCC_CECC_CodebuildLogGroupKmsKeyId" {
   type    = string
   default = null
 }
+
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
 
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
-variable "CLCC_CECC_EcrAccessPolicyDescription" {
+
+variable "CLCC_CECC_CodebuildRoleEcrPolicyDescription" {
   type    = string
   default = null
 }
-variable "CLCC_CECC_EcrAccessPolicyNamePrefix" {
+variable "CLCC_CECC_CodebuildRoleEcrPolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CLCC_CECC_EcrAccessPolicyPath" {
+variable "CLCC_CECC_CodebuildRoleEcrPolicyPath" {
   type    = string
   default = "/"
 }
-variable "CLCC_CECC_EcrAccessPolicyVersion" {
+variable "CLCC_CECC_CodebuildRoleEcrPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CLCC_CECC_EcrAccessPolicyDocumentAdditionalStatements" {
+variable "CLCC_CECC_CodebuildRoleEcrPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -726,41 +726,16 @@ variable "CLCC_CECC_EcrAccessPolicyDocumentAdditionalStatements" {
   default = []
 }
 
-#---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 
-variable "CLCC_UpdateLambdaPolicyDescription" {
-  type    = string
-  default = null
-}
-variable "CLCC_UpdateLambdaPolicyNamePrefix" {
-  type    = string
-  default = null
-}
-variable "CLCC_UpdateLambdaPolicyPath" {
-  type    = string
-  default = "/"
-}
-variable "CLCC_UpdateLambdaPolicyVersion" {
-  type    = string
-  default = "2012-10-17"
-}
-variable "CLCC_UpdateLambdaPolicyDocumentStatements" {
-  type = list(object({
-    Action    = list(string)
-    Effect    = string
-    Resource  = list(string)
-    Sid       = optional(string, "")
-    Condition = optional(map(map(string)), {})
-    Principal = optional(map(list(string)), {})
-  }))
-  default = []
-}
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
+
+
 
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#argument-reference
+
 variable "CLCC_LFWLGSAR_LambdaFunctionArchitectures" {
   type    = list(string)
   default = null
@@ -840,11 +815,9 @@ variable "CLCC_LFWLGSAR_LambdaFunctionLayers" {
 variable "CLCC_LFWLGSAR_LambdaFunctionLoggingConfig" {
   type = object({
     application_log_level = optional(string, null)
-    log_format            = string
-    log_group             = optional(string, null)
     system_log_level      = optional(string, null)
   })
-  default = null
+  default = {}
 }
 
 variable "CLCC_LFWLGSAR_LambdaFunctionMemorySize" {
@@ -1052,23 +1025,23 @@ variable "CLCC_LFWLGSAR_LambdaFunctionRolePermissionsBoundary" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 
-variable "CLCC_LFWLGSAR_LambdaPolicyDescription" {
+variable "CLCC_LFWLGSAR_LambdaGenericPolicyDescription" {
   type    = string
   default = null
 }
-variable "CLCC_LFWLGSAR_LambdaPolicyNamePrefix" {
+variable "CLCC_LFWLGSAR_LambdaGenericPolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CLCC_LFWLGSAR_LambdaPolicyPath" {
+variable "CLCC_LFWLGSAR_LambdaGenericPolicyPath" {
   type    = string
   default = "/"
 }
-variable "CLCC_LFWLGSAR_LambdaPolicyVersion" {
+variable "CLCC_LFWLGSAR_LambdaGenericPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CLCC_LFWLGSAR_LambdaPolicyDocumentStatements" {
+variable "CLCC_LFWLGSAR_LambdaGenericPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -1082,34 +1055,38 @@ variable "CLCC_LFWLGSAR_LambdaPolicyDocumentStatements" {
 
 
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
 
-variable "CLCC_LFWLGSAR_SecretDescription" {
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/CLCC_LFWLGSAR_LambdaSecretsmanager_CLCC_LFWLGSAR_LambdaSecret#argument-reference
+
+variable "CLCC_LFWLGSAR_LambdaSecretDescription" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_SecretKmsKeyId" {
+variable "CLCC_LFWLGSAR_LambdaSecretKmsKeyId" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_SecretNamePrefix" {
+variable "CLCC_LFWLGSAR_LambdaSecretNamePrefix" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_SecretPolicy" {
+variable "CLCC_LFWLGSAR_LambdaSecretPolicy" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_SecretRecoveryWindowInDays" {
+variable "CLCC_LFWLGSAR_LambdaSecretRecoveryWindowInDays" {
   type    = number
   default = null
 }
 
-variable "CLCC_LFWLGSAR_SecretReplica" {
+variable "CLCC_LFWLGSAR_LambdaSecretReplica" {
   type = object({
     kms_key_id = optional(string, null)
     region     = string
@@ -1117,7 +1094,7 @@ variable "CLCC_LFWLGSAR_SecretReplica" {
   default = null
 }
 
-variable "CLCC_LFWLGSAR_SecretForceSecretOverwrite" {
+variable "CLCC_LFWLGSAR_LambdaSecretForceSecretOverwrite" {
   type    = bool
   default = null
 }
@@ -1126,17 +1103,17 @@ variable "CLCC_LFWLGSAR_SecretForceSecretOverwrite" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
 
-variable "CLCC_LFWLGSAR_SecretVersionSecretString" {
+variable "CLCC_LFWLGSAR_LambdaSecretVersionSecretString" {
   type    = map(string)
   default = null
 }
 
-variable "CLCC_LFWLGSAR_SecretVersionSecretBinary" {
+variable "CLCC_LFWLGSAR_LambdaSecretVersionSecretBinary" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_SecretVersionStages" {
+variable "CLCC_LFWLGSAR_LambdaSecretVersionStages" {
   type    = list(string)
   default = null
 }
@@ -1145,23 +1122,23 @@ variable "CLCC_LFWLGSAR_SecretVersionStages" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 
-variable "CLCC_LFWLGSAR_SecretPolicyDescription" {
+variable "CLCC_LFWLGSAR_LambdaSecretPolicyDescription" {
   type    = string
   default = null
 }
-variable "CLCC_LFWLGSAR_SecretPolicyNamePrefix" {
+variable "CLCC_LFWLGSAR_LambdaSecretPolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CLCC_LFWLGSAR_SecretPolicyPath" {
+variable "CLCC_LFWLGSAR_LambdaSecretPolicyPath" {
   type    = string
   default = "/"
 }
-variable "CLCC_LFWLGSAR_SecretPolicyVersion" {
+variable "CLCC_LFWLGSAR_LambdaSecretPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CLCC_LFWLGSAR_SecretPolicyDocumentStatements" {
+variable "CLCC_LFWLGSAR_LambdaSecretPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -1175,33 +1152,39 @@ variable "CLCC_LFWLGSAR_SecretPolicyDocumentStatements" {
 
 
 
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
+
+
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group#argument-reference
-variable "CLCC_LFWLGSAR_LogGroupNamePrefix" {
+
+
+variable "CLCC_LFWLGSAR_LambdaLogGroupNamePrefix" {
   type    = string
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LogGroupSkipDestroy" {
+variable "CLCC_LFWLGSAR_LambdaLogGroupSkipDestroy" {
   type    = bool
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LogGroupClass" {
+variable "CLCC_LFWLGSAR_LambdaLogGroupClass" {
   type = string
   validation {
-    condition = var.CLCC_LFWLGSAR_LogGroupClass == null || can(contains([
+    condition = var.CLCC_LFWLGSAR_LambdaLogGroupClass == null || can(contains([
       "STANDARD",
       "INFREQUENT_ACCESS"
-    ], var.CLCC_LFWLGSAR_LogGroupClass))
-    error_message = "Valid inputs for | variable: var.CLCC_LFWLGSAR_LogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
+    ], var.CLCC_LFWLGSAR_LambdaLogGroupClass))
+    error_message = "Valid inputs for | variable: var.CLCC_LFWLGSAR_LambdaLogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
   }
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LogGroupRetentionInDays" {
+variable "CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays" {
   type = number
   validation {
-    condition = var.CLCC_LFWLGSAR_LogGroupRetentionInDays == null || can(contains([
+    condition = var.CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays == null || can(contains([
       1,
       3,
       5,
@@ -1225,15 +1208,53 @@ variable "CLCC_LFWLGSAR_LogGroupRetentionInDays" {
       3288,
       3653,
       0
-    ], var.CLCC_LFWLGSAR_LogGroupRetentionInDays))
-    error_message = "Valid inputs for | variable: var.CLCC_LFWLGSAR_LogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
+    ], var.CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays))
+    error_message = "Valid inputs for | variable: var.CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
   }
   default = null
 }
 
-variable "CLCC_LFWLGSAR_LogGroupKmsKeyId" {
+variable "CLCC_LFWLGSAR_LambdaLogGroupKmsKeyId" {
   type    = string
   default = null
 }
+
+
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
+
+variable "CLCC_IamPolicyUpdateLambdaDescription" {
+  type    = string
+  default = null
+}
+variable "CLCC_IamPolicyUpdateLambdaNamePrefix" {
+  type    = string
+  default = null
+}
+variable "CLCC_IamPolicyUpdateLambdaPath" {
+  type    = string
+  default = "/"
+}
+variable "CLCC_IamPolicyUpdateLambdaVersion" {
+  type    = string
+  default = "2012-10-17"
+}
+variable "CLCC_IamPolicyUpdateLambdaDocumentStatements" {
+  type = list(object({
+    Action    = list(string)
+    Effect    = string
+    Resource  = list(string)
+    Sid       = optional(string, "")
+    Condition = optional(map(map(string)), {})
+    Principal = optional(map(list(string)), {})
+  }))
+  default = []
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
 
 #---

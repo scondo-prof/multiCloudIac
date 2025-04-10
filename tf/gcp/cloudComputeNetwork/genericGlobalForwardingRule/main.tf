@@ -21,10 +21,11 @@ resource "google_compute_global_forwarding_rule" "gfr" {
   ip_protocol = var.gfrIpProtocol
   ip_version  = var.gfrIpVersion
   labels = merge({
-    "project" : var.projectName
-    "deployed-date" : var.deployedDate
-    "created-by" : var.createdBy
-  }, var.additionalLabels)
+    project       = var.projectName
+    deployed-date = var.deployedDate
+    created-by    = var.createdBy
+    tf-module     = var.tfModule
+  }, var.additionalTags)
   load_balancing_scheme = var.gfrLoadBalancingScheme
 
   dynamic "metadata_filters" {

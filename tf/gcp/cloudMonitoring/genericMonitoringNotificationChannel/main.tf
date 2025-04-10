@@ -26,10 +26,11 @@ resource "google_monitoring_notification_channel" "notificationChannel" {
   }
 
   user_labels = merge({
-    "project" : var.projectName
-    "deployed-date" : var.deployedDate
-    "created-by" : var.createdBy
-  }, var.notificationChannelAdditionalUserLabels)
+    project       = var.projectName
+    deployed-date = var.deployedDate
+    created-by    = var.createdBy
+    tf-module     = var.tfModule
+  }, var.additionalTags)
 
   display_name = "${var.resourceName}-notification-channel"
   enabled      = var.notificationChannelEnabled

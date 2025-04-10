@@ -105,29 +105,46 @@ output "VFSI_RouteTableTagsAll" {
 }
 
 #---
-
 output "VFSI_RouteTableAssociationId" {
   value = module.routeTableAssociation.routeTableAssociationId
 }
 
 #---
 output "VFSI_IgArn" {
-  value = module.ig.igArn
+  value = module.Ig.igArn
 }
 
 output "VFSI_IgId" {
-  value = module.ig.igId
+  value = module.Ig.igId
 }
 
 output "VFSI_IgOwnerId" {
-  value = module.ig.igOwnerId
+  value = module.Ig.igOwnerId
 }
 
 output "VFSI_IgTagsAll" {
-  value = module.ig.igTagsAll
+  value = module.Ig.igTagsAll
 }
 
 #---
+output "VFSI_RWP_IamRoleName" {
+  value = module.RWP.RWP_IamRoleName
+}
+
+output "VFSI_RWP_IamRoleArn" {
+  value = module.RWP.RWP_IamRoleArn
+}
+
+
+output "VFSI_RWP_IamPolicyArn" {
+  value = module.RWP.RWP_IamPolicyArn
+}
+
+output "VFSI_RWP_IamPolicyName" {
+  value = module.RWP.RWP_IamPolicyName
+}
+
+# ---
 output "VFSI_FlowLogArn" {
   value = module.flowLog.flowLogArn
 }

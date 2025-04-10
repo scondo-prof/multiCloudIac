@@ -1,46 +1,42 @@
-terraform {
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "~> 6.12.0"
-    }
-  }
+
+module "SWSV_Cloudbuild" {
+  source                            = "../../gcp/secretsManager/_SWSV_secretWithSecretVersion"
+  gcpProjectId                      = var.gcpProjectId
+  gcpRegion                         = var.gcpRegion
+  SWSV_SecretReplicationAuto        = var.CRDPFG_SWSV_Cloudbuild_SecretReplicationAuto
+  SWSV_SecretReplicationUserManaged = var.CRDPFG_SWSV_Cloudbuild_SecretReplicationUserManaged
+  resourceName                      = var.resourceName
+  projectName                       = var.projectName
+  deployedDate                      = var.deployedDate
+  createdBy                         = var.createdBy
+  tfModule                          = var.tfModule
+  additionalTags                    = var.additionalTags
+  SWSV_SecretAnnotations            = var.CRDPFG_SWSV_Cloudbuild_SecretAnnotations
+  SWSV_SecretVersionAliases         = var.CRDPFG_SWSV_Cloudbuild_SecretVersionAliases
+  SWSV_SecretVersionDestroyTtl      = var.CRDPFG_SWSV_Cloudbuild_SecretVersionDestroyTtl
+  SWSV_SecretTopics                 = var.CRDPFG_SWSV_Cloudbuild_SecretTopics
+  SWSV_SecretExpireTime             = var.CRDPFG_SWSV_Cloudbuild_SecretExpireTime
+  SWSV_SecretTtl                    = var.CRDPFG_SWSV_Cloudbuild_SecretTtl
+  SWSV_SecretRotation               = var.CRDPFG_SWSV_Cloudbuild_SecretRotation
+  SWSV_SecretVersionObjects         = var.CRDPFG_SWSV_Cloudbuild_SecretVersionObjects
 }
 
-provider "google" {
-  project = var.gcpProjectId
-  region  = var.gcpRegion
-}
+#---
 
-module "secret" {
-  source = "../../gcp/secretsManager/secretWithSecretVersion"
-
-  projectId                   = var.gcpProjectId
-  gcpRegion                   = var.gcpRegion
-  resourceName                = var.resourceName
-  projectName                 = var.projectName
-  deployedDate                = var.deployedDate
-  createdBy                   = var.createdBy
-  secretVersionSecretData     = var.CRDPFG_SecretVersionSecretData
-  secretVersionEnabled        = var.CRDPFG_SecretVersionEnabled
-  secretVersionDeletionPolicy = var.CRDPFG_SecretVersionDeletionPolicy
-}
-
-module "cloudBuildTrigger" {
-  source = "../../gcp/cloudBuild/githubRepoPushCloudbuildTrigger"
-
-  resourceName                            = var.resourceName
+module "cloudbuildTrigger" {
+  source                                  = "../../gcp/cloudBuild/githubRepoPushCloudbuildTrigger"
+  gcpProjectId                            = var.gcpProjectId
   gcpRegion                               = var.gcpRegion
+  resourceName                            = var.resourceName
   serviceAccountAccountId                 = "${var.resourceName}-prod"
-  serviceAccountDisabled                  = var.CRDPFG_CloudBuildTriggerServiceAccountDisabled
-  serviceAccountCreateIgnoreAlreadyExists = var.CRDPFG_CloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists
-  serviceAccountRoleId                    = var.CRDPFG_CloudBuildTriggerRoleId
-  serviceAccountRoleStage                 = var.CRDPFG_CloudBuildTriggerRoleStage
+  serviceAccountDisabled                  = var.CRDPFG_ServiceAccountDisabled
+  serviceAccountCreateIgnoreAlreadyExists = var.CRDPFG_ServiceAccountCreateIgnoreAlreadyExists
+  serviceAccountRoleId                    = var.CRDPFG_ServiceAccountRoleId
+  serviceAccountRoleStage                 = var.CRDPFG_ServiceAccountRoleStage
   cloudBuildTriggerYamlPath               = var.CRDPFG_CloudBuildTriggerYamlPath
   cloudBuildTriggerGithubRepoName         = var.CRDPFG_CloudBuildTriggerGithubRepoName
   cloudBuildTriggerBranchName             = var.CRDPFG_CloudBuildTriggerBranchName
   cloudBuildTriggerArtifactRepoName       = var.CRDPFG_CloudBuildTriggerArtifactRepoName
-  projectId                               = var.gcpProjectId
   cloudBuildTriggerBucketName             = var.CRDPFG_CloudBuildTriggerBucketName
   cloudBuildTriggerAdditionalSubstitutions = merge({
     _CONCURRENT_REQUESTS = var.CRDPFG_CloudRunConcurrentRequests
@@ -54,23 +50,43 @@ module "cloudBuildTrigger" {
     _AMOUNT_OF_MEMORY    = "${var.CRDPFG_CloudRunAmountOfMemory}Gi"
     _NUMBER_OF_VCPU      = var.CRDPFG_CloudRunNumberOfVcpus
     _ENV_VARIABLE_NAME   = var.CRDPFG_CloudRunEnvVariableName
-    _SECRET_NAME         = module.secret.secretName
+    _SECRET_NAME         = module.SWSV_Cloudbuild.SWSV_SecretName
   }, var.CRDPFG_CloudBuildTriggerAdditionalSubstitutions)
 }
 
-module "cloudRunAlertPolicy" {
-  source = "../../gcp/cloudMonitoring/cloudRunError"
+#---
 
-  resourceName                             = var.resourceName
-  projectId                                = var.gcpProjectId
-  cloudRunAlertPolicyNotificationChannelId = var.CRDPFG_CloudRunAlertPolicyNotificationChannelId
-  cloudRunAlertPolicyNotificationRateLimit = var.CRDPFG_CloudRunAlertPolicyNotificationRateLimit
-  cloudRunAlertPolicyAutoClose             = var.CRDPFG_CloudRunAlertPolicyAutoClose
+module "cloudRunLogsAlertPolicy" {
+  source              = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
+  gcpProjectId        = var.gcpProjectId
+  gcpRegion           = var.gcpRegion
+  resourceName        = var.resourceName
+  alertPolicyCombiner = "OR"
+  alertPolicyConditions = {
+    condition_matched_log = {
+      filter = "resource.type=\"cloud_run_revision\"\nseverity=ERROR\nresource.labels.service_name=\"${var.resourceName}\""
+      label_extractors = {
+        "Summary" = "EXTRACT(textPayload)"
+      }
+    }
+    display_name = "${var.resourceName} - Cloud Run Logs Alert Policy"
+  }
+  alertPolicyEnabled              = var.CRDPFG_CloudRunLogsAlertPolicyEnabled
+  alertPolicyNotificationChannels = var.CRDPFG_CloudRunInfraAlertPolicyNotificationChannels
+  alertPolicyAlertStrategy        = var.CRDPFG_CloudRunLogsAlertPolicyAlertStrategy
+  projectName                     = var.projectName
+  deployedDate                    = var.deployedDate
+  createdBy                       = var.createdBy
+  tfModule                        = var.tfModule
+  additionalTags                  = var.additionalTags
+  alertPolicySeverity             = var.CRDPFG_CloudRunLogsAlertPolicySeverity
+  alertPolicyDocumentation        = var.CRDPFG_CloudRunLogsAlertPolicyDocumentation
 }
 
-module "cloudRunMemAlertPolicy" {
-  source = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
+#---
 
+module "cloudRunMemAlertPolicy" {
+  source              = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
   gcpProjectId        = var.gcpProjectId
   gcpRegion           = var.gcpRegion
   resourceName        = "${var.resourceName}-cloud-run-mem"
@@ -93,18 +109,22 @@ EOT
     }
     display_name = "${var.resourceName} - High Mem Utilization in Cloud Run Service"
   }
-  alertPolicyEnabled              = true
+  alertPolicyEnabled              = var.CRDPFG_CloudRunMemAlertPolicyEnabled
   alertPolicyNotificationChannels = var.CRDPFG_CloudRunInfraAlertPolicyNotificationChannels
-  createdBy                       = var.createdBy
-  deployedDate                    = var.deployedDate
+  alertPolicyAlertStrategy        = var.CRDPFG_CloudRunMemAlertPolicyAlertStrategy
   projectName                     = var.projectName
-  additionalAlertPolicyUserLabels = var.additionalLabels
-  alertPolicySeverity             = "WARNING"
+  deployedDate                    = var.deployedDate
+  createdBy                       = var.createdBy
+  tfModule                        = var.tfModule
+  additionalTags                  = var.additionalTags
+  alertPolicySeverity             = var.CRDPFG_CloudRunMemAlertPolicySeverity
+  alertPolicyDocumentation        = var.CRDPFG_CloudRunMemAlertPolicyDocumentation
 }
 
-module "cloudRunCpuAlertPolicy" {
-  source = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
+#---
 
+module "cloudRunCpuAlertPolicy" {
+  source              = "../../gcp/cloudMonitoring/genericMonitoringAlertPolicy"
   gcpProjectId        = var.gcpProjectId
   gcpRegion           = var.gcpRegion
   resourceName        = "${var.resourceName}-cloud-run-cpu"
@@ -127,11 +147,16 @@ EOT
     }
     display_name = "${var.resourceName} - High Cpu Utilization in Cloud Run Service"
   }
-  alertPolicyEnabled              = true
+  alertPolicyEnabled              = var.CRDPFG_CloudRunCpuAlertPolicyEnabled
   alertPolicyNotificationChannels = var.CRDPFG_CloudRunInfraAlertPolicyNotificationChannels
-  createdBy                       = var.createdBy
-  deployedDate                    = var.deployedDate
+  alertPolicyAlertStrategy        = var.CRDPFG_CloudRunCpuAlertPolicyAlertStrategy
   projectName                     = var.projectName
-  additionalAlertPolicyUserLabels = var.additionalLabels
-  alertPolicySeverity             = "WARNING"
+  deployedDate                    = var.deployedDate
+  createdBy                       = var.createdBy
+  tfModule                        = var.tfModule
+  additionalTags                  = var.additionalTags
+  alertPolicySeverity             = var.CRDPFG_CloudRunCpuAlertPolicySeverity
+  alertPolicyDocumentation        = var.CRDPFG_CloudRunCpuAlertPolicyDocumentation
 }
+
+#---

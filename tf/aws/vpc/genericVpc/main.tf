@@ -25,8 +25,9 @@ resource "aws_vpc" "vpc" {
   assign_generated_ipv6_cidr_block     = var.vpcAssignGeneratedIpv6CidrBlock
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
-    Name = "${var.resourceName}-vpc"
+    TfModule     = var.tfModule
+    Name         = "${var.resourceName}-vpc"
   }, var.additionalTags)
 }

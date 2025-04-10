@@ -22,8 +22,9 @@ module "secret" {
   secretReplica              = var.SWVFF_SecretReplica
   secretForceSecretOverwrite = var.SWVFF_SecretForceSecretOverwrite
   projectName                = var.projectName
-  creator                    = var.creator
+  createdBy                  = var.createdBy
   deployedDate               = var.deployedDate
+  tfModule                   = var.tfModule
   additionalTags             = var.additionalTags
 }
 

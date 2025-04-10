@@ -11,6 +11,28 @@ variable "resourceName" {
   type = string
 }
 
+variable "projectName" {
+  type = string
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_forwarding_rule#argument-reference
 variable "gfrTarget" {
   type = string
@@ -52,24 +74,6 @@ variable "gfrIpVersion" {
     error_message = "Valid inputs for | variable: gfrIpVersion | are: IPV4, IPV6"
   }
   default = null
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "createdBy" {
-  type    = string
-  default = "scott-condo"
-}
-
-variable "additionalLabels" {
-  type    = map(string)
-  default = {}
 }
 
 variable "gfrLoadBalancingScheme" {

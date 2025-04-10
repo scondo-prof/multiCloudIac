@@ -21,12 +21,16 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
-  default = "Scott Condo"
+  default = "scott-condo"
 }
 
 variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
   type = string
 }
 
@@ -35,9 +39,7 @@ variable "additionalTags" {
   default = {}
 }
 
-#---
-
-#https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/PKS_Password#schema
+#https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password#schema
 
 variable "PKS_PasswordLength" {
   type = number
@@ -150,8 +152,19 @@ variable "PKS_PrivateKeyRsaBits" {
 
 #---
 
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
+
+variable "PKS_SWV_SecretDescription" {
+  type    = string
+  default = null
+}
 
 variable "PKS_SWV_SecretKmsKeyId" {
+  type    = string
+  default = null
+}
+
+variable "PKS_SWV_SecretNamePrefix" {
   type    = string
   default = null
 }
@@ -163,12 +176,12 @@ variable "PKS_SWV_SecretPolicy" {
 
 variable "PKS_SWV_SecretRecoveryWindowInDays" {
   type    = number
-  default = 7
+  default = null
 }
 
 variable "PKS_SWV_SecretReplica" {
   type = object({
-    kms_key_id = string
+    kms_key_id = optional(string, null)
     region     = string
   })
   default = null
@@ -176,14 +189,17 @@ variable "PKS_SWV_SecretReplica" {
 
 variable "PKS_SWV_SecretForceSecretOverwrite" {
   type    = bool
-  default = true
-}
-
-variable "PKS_privateKeyP8FilePath" {
-  type    = string
   default = null
 }
 
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
+
+variable "PKS_SWV_PrivateKeyP8FilePath" {
+  type = string
+  default = null
+}
 variable "PKS_SWV_SecretVersionSecretString" {
   type    = map(string)
   default = {}
@@ -198,5 +214,3 @@ variable "PKS_SWV_SecretVersionStages" {
   type    = list(string)
   default = null
 }
-
-#---

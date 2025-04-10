@@ -1,3 +1,5 @@
+#https://search.google.com/search-console
+
 variable "awsRegion" {
   type    = string
   default = "us-east-1"
@@ -12,12 +14,17 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
+variable "resourceName" {
+  type = string
+}
+
 variable "projectName" {
   type = string
 }
 
 variable "deployedDate" {
-  type = string
+  type    = string
+  default = null
 }
 
 variable "createdBy" {
@@ -25,16 +32,14 @@ variable "createdBy" {
   default = "scott-condo"
 }
 
-variable "additionalLabels" {
-  type    = map(string)
-  default = {}
-}
-
-variable "resourceName" {
+variable "tfModule" {
   type = string
 }
 
-#--
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_address#argument-reference
 variable "CRLBR53D_GlobalAddressAddress" {
@@ -95,12 +100,12 @@ variable "CRLBR53D_GlobalAddressNetwork" {
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#argument-reference
-variable "CRLBR53D_Route53DnsARecordZoneId" {
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#argument-reference
+variable "CRLBR53D_Route53DnsRecordsZoneId" {
   type = string
 }
 
-variable "CRLBR53D_Route53DnsARecordName" {
+variable "CRLBR53D_Route53DnsRecordsName" {
   type = string
 }
 
@@ -109,7 +114,7 @@ variable "CRLBR53D_Route53DnsARecordTtl" {
   default = null
 }
 
-variable "CRLBR53D_Route53DnsARecordAdditionalRecords" {
+variable "CRLBR53D_Route53DnsARecordRecords" {
   type    = list(string)
   default = []
 }
@@ -124,7 +129,7 @@ variable "CRLBR53D_Route53DnsARecordHealthCheckId" {
   default = null
 }
 
-variable "CRLBR53D_Route53DnsARecordAlias" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#alias
+variable "CRLBR53D_Route53DnsARecordAlias" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#alias
   type = object({
     name                   = string
     zone_id                = string
@@ -133,7 +138,7 @@ variable "CRLBR53D_Route53DnsARecordAlias" { #https://registry.terraform.io/prov
   default = null
 }
 
-variable "CRLBR53D_Route53DnsARecordCidrRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#cidr-routing-policy
+variable "CRLBR53D_Route53DnsARecordCidrRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#cidr-routing-policy
   type = object({
     collection_id = string
     location_name = string
@@ -141,14 +146,14 @@ variable "CRLBR53D_Route53DnsARecordCidrRoutingPolicy" { #https://registry.terra
   default = null
 }
 
-variable "CRLBR53D_Route53DnsARecordFailoverRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#failover-routing-policy
+variable "CRLBR53D_Route53DnsARecordFailoverRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#failover-routing-policy
   type = object({
     type = string
   })
   default = null
 }
 
-variable "CRLBR53D_Route53DnsARecordGeolocationRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#geolocation-routing-policy
+variable "CRLBR53D_Route53DnsARecordGeolocationRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#geolocation-routing-policy
   type = object({
     continent   = optional(string, null)
     country     = optional(string, null)
@@ -157,7 +162,7 @@ variable "CRLBR53D_Route53DnsARecordGeolocationRoutingPolicy" { #https://registr
   default = null
 }
 
-variable "CRLBR53D_Route53DnsARecordGeoproximityRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#geoproximityrouting-policy
+variable "CRLBR53D_Route53DnsARecordGeoproximityRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#geoproximityrouting-policy
   type = object({
     aws_region = optional(string, null)
     bias       = optional(number, null)
@@ -172,7 +177,7 @@ variable "CRLBR53D_Route53DnsARecordGeoproximityRoutingPolicy" { #https://regist
   default = null
 }
 
-variable "CRLBR53D_Route53DnsARecordLatencyRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#latency-routing-policy
+variable "CRLBR53D_Route53DnsARecordLatencyRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#latency-routing-policy
   type = object({
     region = string
   })
@@ -184,7 +189,7 @@ variable "CRLBR53D_Route53DnsARecordMultivalueAnswerRoutingPolicy" {
   default = null
 }
 
-variable "CRLBR53D_Route53DnsARecordWeightedRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#weighted-routing-policy-1
+variable "CRLBR53D_Route53DnsARecordWeightedRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsARecord#weighted-routing-policy-1
   type = object({
     weight = number
   })
@@ -198,14 +203,16 @@ variable "CRLBR53D_Route53DnsARecordAllowOverwrite" {
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#argument-reference
+
 variable "CRLBR53D_Route53DnsTxtRecordTtl" {
   type    = number
   default = null
 }
 
 variable "CRLBR53D_Route53DnsTxtRecordRecords" {
-  type = list(string)
+  type    = list(string)
+  default = null
 }
 
 variable "CRLBR53D_Route53DnsTxtRecordSetIdentifier" {
@@ -218,7 +225,7 @@ variable "CRLBR53D_Route53DnsTxtRecordHealthCheckId" {
   default = null
 }
 
-variable "CRLBR53D_Route53DnsTxtRecordAlias" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#alias
+variable "CRLBR53D_Route53DnsTxtRecordAlias" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#alias
   type = object({
     name                   = string
     zone_id                = string
@@ -227,7 +234,7 @@ variable "CRLBR53D_Route53DnsTxtRecordAlias" { #https://registry.terraform.io/pr
   default = null
 }
 
-variable "CRLBR53D_Route53DnsTxtRecordCidrRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#cidr-routing-policy
+variable "CRLBR53D_Route53DnsTxtRecordCidrRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#cidr-routing-policy
   type = object({
     collection_id = string
     location_name = string
@@ -235,14 +242,14 @@ variable "CRLBR53D_Route53DnsTxtRecordCidrRoutingPolicy" { #https://registry.ter
   default = null
 }
 
-variable "CRLBR53D_Route53DnsTxtRecordFailoverRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#failover-routing-policy
+variable "CRLBR53D_Route53DnsTxtRecordFailoverRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#failover-routing-policy
   type = object({
     type = string
   })
   default = null
 }
 
-variable "CRLBR53D_Route53DnsTxtRecordGeolocationRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#geolocation-routing-policy
+variable "CRLBR53D_Route53DnsTxtRecordGeolocationRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#geolocation-routing-policy
   type = object({
     continent   = optional(string, null)
     country     = optional(string, null)
@@ -251,7 +258,7 @@ variable "CRLBR53D_Route53DnsTxtRecordGeolocationRoutingPolicy" { #https://regis
   default = null
 }
 
-variable "CRLBR53D_Route53DnsTxtRecordGeoproximityRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#geoproximityrouting-policy
+variable "CRLBR53D_Route53DnsTxtRecordGeoproximityRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#geoproximityrouting-policy
   type = object({
     aws_region = optional(string, null)
     bias       = optional(number, null)
@@ -266,7 +273,7 @@ variable "CRLBR53D_Route53DnsTxtRecordGeoproximityRoutingPolicy" { #https://regi
   default = null
 }
 
-variable "CRLBR53D_Route53DnsTxtRecordLatencyRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#latency-routing-policy
+variable "CRLBR53D_Route53DnsTxtRecordLatencyRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#latency-routing-policy
   type = object({
     region = string
   })
@@ -278,7 +285,7 @@ variable "CRLBR53D_Route53DnsTxtRecordMultivalueAnswerRoutingPolicy" {
   default = null
 }
 
-variable "CRLBR53D_Route53DnsTxtRecordWeightedRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record#weighted-routing-policy-1
+variable "CRLBR53D_Route53DnsTxtRecordWeightedRoutingPolicy" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_CRLBR53D_Route53DnsTxtRecord#weighted-routing-policy-1
   type = object({
     weight = number
   })
@@ -298,7 +305,7 @@ variable "CRLBR53D_MscDescription" {
   default = null
 }
 
-variable "CRLBR53D_MscAdditionalDomains" {
+variable "CRLBR53D_MscManaged" {
   type    = list(string)
   default = []
 }
@@ -317,6 +324,7 @@ variable "CRLBR53D_MscType" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_region_network_endpoint_group#argument-reference
+
 variable "CRLBR53D_RnegDescription" {
   type    = string
   default = null
@@ -660,10 +668,10 @@ variable "CRLBR53D_BackendServiceStrongSessionAffinityCookie" { #https://registr
 variable "CRLBR53D_BackendServiceTimeoutSec" {
   type = number
   validation {
-    condition     = var.CRLBR53D_BackendServiceTimeoutSec >= 1 && var.CRLBR53D_BackendServiceTimeoutSec <= 2147483647
+    condition     = var.CRLBR53D_BackendServiceTimeoutSec == null || can((var.CRLBR53D_BackendServiceTimeoutSec >= 1 && var.CRLBR53D_BackendServiceTimeoutSec <= 2147483647))
     error_message = "Variable CRLBR53D_BackendServiceTimeoutSec must be greater than or equal to 1 or less than or equal to 2,147,483,647"
   }
-  default = 30
+  default = null
 }
 
 variable "CRLBR53D_BackendServiceLogConfig" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service#nested_log_config
@@ -682,10 +690,6 @@ variable "CRLBR53D_BackendServiceServiceLbPolicy" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_url_map#argument-reference
-variable "CRLBR53D_UrlMapDefaultService" {
-  type    = string
-  default = null
-}
 
 variable "CRLBR53D_UrlMapDescription" {
   type    = string
@@ -1238,7 +1242,7 @@ variable "CRLBR53D_ThpCertificateManagerCertificates" {
   default = null
 }
 
-variable "CRLBR53D_AdditionalThpSslCertificates" {
+variable "CRLBR53D_ThpSslCertificates" {
   type    = list(string)
   default = []
 }
@@ -1366,3 +1370,5 @@ variable "CRLBR53D_GfrNoAutomateDnsZone" {
   type    = bool
   default = null
 }
+
+#---

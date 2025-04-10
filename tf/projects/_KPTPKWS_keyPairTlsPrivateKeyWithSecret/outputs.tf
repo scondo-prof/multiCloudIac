@@ -1,65 +1,65 @@
-output "KPTPKWS_KeyPairId" {
-  value = module.keyPair.keyPairId
+output "KPTPKWS_Ec2KeyPairId" {
+  value = module.Ec2KeyPair.keyPairId
 }
 
-output "KPTPKWS_KeyPairArn" {
-  value = module.keyPair.keyPairArn
+output "KPTPKWS_Ec2KeyPairArn" {
+  value = module.Ec2KeyPair.keyPairArn
 }
 
-output "KPTPKWS_KeyPairKeyName" {
-  value = module.keyPair.keyPairKeyName
+output "KPTPKWS_Ec2KeyPairKeyName" {
+  value = module.Ec2KeyPair.keyPairKeyName
 }
 
-output "KPTPKWS_KeyPairKeyPairId" {
-  value = module.keyPair.keyPairKeyPairId
+output "KPTPKWS_Ec2KeyPairKeyPairId" {
+  value = module.Ec2KeyPair.keyPairKeyPairId
 }
 
-output "KPTPKWS_KeyPairKeyType" {
-  value = module.keyPair.keyPairKeyType
+output "KPTPKWS_Ec2KeyPairKeyType" {
+  value = module.Ec2KeyPair.keyPairKeyType
 }
 
-output "KPTPKWS_KeyPairFingerprint" {
-  value = module.keyPair.keyPairFingerprint
+output "KPTPKWS_Ec2KeyPairFingerprint" {
+  value = module.Ec2KeyPair.keyPairFingerprint
 }
 
-output "KPTPKWS_KeyPairTagsAll" {
-  value = module.keyPair.keyPairTagsAll
+output "KPTPKWS_Ec2KeyPairTagsAll" {
+  value = module.Ec2KeyPair.keyPairTagsAll
 }
 
 #---
-output "KPTPKWS_PrivateKeyId" {
-  value = module.privateKey.privateKeyId
+output "KPTPKWS_Ec2PrivateKeyId" {
+  value = module.ec2PrivateKey.privateKeyId
 }
 
-output "KPTPKWS_PrivateKeyOpenSsh" {
-  value     = module.privateKey.privateKeyOpenSsh
+output "KPTPKWS_Ec2PrivateKeyOpenSsh" {
+  value     = module.ec2PrivateKey.privateKeyOpenSsh
   sensitive = true
 }
 
-output "KPTPKWS_PrivateKeyPrivateKeyPem" {
-  value     = module.privateKey.privateKeyPrivateKeyPem
+output "KPTPKWS_Ec2PrivateKeyPrivateKeyPem" {
+  value     = module.ec2PrivateKey.privateKeyPrivateKeyPem
   sensitive = true
 }
 
-output "KPTPKWS_PrivateKeyPemPkcs8" {
-  value     = module.privateKey.privateKeyPemPkcs8
+output "KPTPKWS_Ec2PrivateKeyPemPkcs8" {
+  value     = module.ec2PrivateKey.privateKeyPemPkcs8
   sensitive = true
 }
 
-output "KPTPKWS_PrivateKeyPublicKeyFingerprintMd5" {
-  value = module.privateKey.privateKeyPublicKeyFingerprintMd5
+output "KPTPKWS_Ec2PrivateKeyPublicKeyFingerprintMd5" {
+  value = module.ec2PrivateKey.privateKeyPublicKeyFingerprintMd5
 }
 
-output "KPTPKWS_PrivateKeyPublicKeyFingerprintSha256" {
-  value = module.privateKey.privateKeyPublicKeyFingerprintSha256
+output "KPTPKWS_Ec2PrivateKeyPublicKeyFingerprintSha256" {
+  value = module.ec2PrivateKey.privateKeyPublicKeyFingerprintSha256
 }
 
-output "KPTPKWS_PrivateKeyPublicKeyOpenSsh" {
-  value = module.privateKey.privateKeyPublicKeyOpenSsh
+output "KPTPKWS_Ec2PrivateKeyPublicKeyOpenSsh" {
+  value = module.ec2PrivateKey.privateKeyPublicKeyOpenSsh
 }
 
-output "KPTPKWS_PrivateKeyPublicKeyPem" {
-  value = module.privateKey.privateKeyPublicKeyPem
+output "KPTPKWS_Ec2PrivateKeyPublicKeyPem" {
+  value = module.ec2PrivateKey.privateKeyPublicKeyPem
 }
 
 #---

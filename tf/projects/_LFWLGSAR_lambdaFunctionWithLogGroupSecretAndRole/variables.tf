@@ -11,7 +11,7 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
 }
@@ -20,14 +20,17 @@ variable "deployedDate" {
   type = string
 }
 
+variable "tfModule" {
+  type = string
+}
+
 variable "additionalTags" {
   type    = map(string)
   default = {}
 }
 
-#---
-
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#argument-reference
+
 variable "LFWLGSAR_LambdaFunctionArchitectures" {
   type    = list(string)
   default = null
@@ -51,7 +54,7 @@ variable "LFWLGSAR_LambdaFunctionDescription" {
 }
 
 variable "LFWLGSAR_LambdaFunctionEnvironmentVariables" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#environment
-  type    = map(string)
+  type = map(string)
   default = {}
 }
 
@@ -109,7 +112,7 @@ variable "LFWLGSAR_LambdaFunctionLoggingConfig" {
     application_log_level = optional(string, null)
     system_log_level      = optional(string, null)
   })
-  default = null
+  default = {}
 }
 
 variable "LFWLGSAR_LambdaFunctionMemorySize" {
@@ -317,23 +320,23 @@ variable "LFWLGSAR_LambdaFunctionRolePermissionsBoundary" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 
-variable "LFWLGSAR_LambdaPolicyDescription" {
+variable "LFWLGSAR_LambdaGenericPolicyDescription" {
   type    = string
   default = null
 }
-variable "LFWLGSAR_LambdaPolicyNamePrefix" {
+variable "LFWLGSAR_LambdaGenericPolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "LFWLGSAR_LambdaPolicyPath" {
+variable "LFWLGSAR_LambdaGenericPolicyPath" {
   type    = string
   default = "/"
 }
-variable "LFWLGSAR_LambdaPolicyVersion" {
+variable "LFWLGSAR_LambdaGenericPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "LFWLGSAR_LambdaPolicyDocumentStatements" {
+variable "LFWLGSAR_LambdaGenericPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -347,34 +350,38 @@ variable "LFWLGSAR_LambdaPolicyDocumentStatements" {
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
 
-variable "LFWLGSAR_SecretDescription" {
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/LFWLGSAR_LambdaSecretsmanager_LFWLGSAR_LambdaSecret#argument-reference
+
+variable "LFWLGSAR_LambdaSecretDescription" {
   type    = string
   default = null
 }
 
-variable "LFWLGSAR_SecretKmsKeyId" {
+variable "LFWLGSAR_LambdaSecretKmsKeyId" {
   type    = string
   default = null
 }
 
-variable "LFWLGSAR_SecretNamePrefix" {
+variable "LFWLGSAR_LambdaSecretNamePrefix" {
   type    = string
   default = null
 }
 
-variable "LFWLGSAR_SecretPolicy" {
+variable "LFWLGSAR_LambdaSecretPolicy" {
   type    = string
   default = null
 }
 
-variable "LFWLGSAR_SecretRecoveryWindowInDays" {
+variable "LFWLGSAR_LambdaSecretRecoveryWindowInDays" {
   type    = number
   default = null
 }
 
-variable "LFWLGSAR_SecretReplica" {
+variable "LFWLGSAR_LambdaSecretReplica" {
   type = object({
     kms_key_id = optional(string, null)
     region     = string
@@ -382,7 +389,7 @@ variable "LFWLGSAR_SecretReplica" {
   default = null
 }
 
-variable "LFWLGSAR_SecretForceSecretOverwrite" {
+variable "LFWLGSAR_LambdaSecretForceSecretOverwrite" {
   type    = bool
   default = null
 }
@@ -391,17 +398,17 @@ variable "LFWLGSAR_SecretForceSecretOverwrite" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
 
-variable "LFWLGSAR_SecretVersionSecretString" {
+variable "LFWLGSAR_LambdaSecretVersionSecretString" {
   type    = map(string)
   default = null
 }
 
-variable "LFWLGSAR_SecretVersionSecretBinary" {
+variable "LFWLGSAR_LambdaSecretVersionSecretBinary" {
   type    = string
   default = null
 }
 
-variable "LFWLGSAR_SecretVersionStages" {
+variable "LFWLGSAR_LambdaSecretVersionStages" {
   type    = list(string)
   default = null
 }
@@ -410,23 +417,23 @@ variable "LFWLGSAR_SecretVersionStages" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 
-variable "LFWLGSAR_SecretPolicyDescription" {
+variable "LFWLGSAR_LambdaSecretPolicyDescription" {
   type    = string
   default = null
 }
-variable "LFWLGSAR_SecretPolicyNamePrefix" {
+variable "LFWLGSAR_LambdaSecretPolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "LFWLGSAR_SecretPolicyPath" {
+variable "LFWLGSAR_LambdaSecretPolicyPath" {
   type    = string
   default = "/"
 }
-variable "LFWLGSAR_SecretPolicyVersion" {
+variable "LFWLGSAR_LambdaSecretPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "LFWLGSAR_SecretPolicyDocumentStatements" {
+variable "LFWLGSAR_LambdaSecretPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -440,33 +447,39 @@ variable "LFWLGSAR_SecretPolicyDocumentStatements" {
 
 #---
 
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
+
+#---
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group#argument-reference
-variable "LFWLGSAR_LogGroupNamePrefix" {
+
+
+variable "LFWLGSAR_LambdaLogGroupNamePrefix" {
   type    = string
   default = null
 }
 
-variable "LFWLGSAR_LogGroupSkipDestroy" {
+variable "LFWLGSAR_LambdaLogGroupSkipDestroy" {
   type    = bool
   default = null
 }
 
-variable "LFWLGSAR_LogGroupClass" {
+variable "LFWLGSAR_LambdaLogGroupClass" {
   type = string
   validation {
-    condition = var.LFWLGSAR_LogGroupClass == null || can(contains([
+    condition = var.LFWLGSAR_LambdaLogGroupClass == null || can(contains([
       "STANDARD",
       "INFREQUENT_ACCESS"
-    ], var.LFWLGSAR_LogGroupClass))
-    error_message = "Valid inputs for | variable: var.LFWLGSAR_LogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
+    ], var.LFWLGSAR_LambdaLogGroupClass))
+    error_message = "Valid inputs for | variable: var.LFWLGSAR_LambdaLogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
   }
   default = null
 }
 
-variable "LFWLGSAR_LogGroupRetentionInDays" {
+variable "LFWLGSAR_LambdaLogGroupRetentionInDays" {
   type = number
   validation {
-    condition = var.LFWLGSAR_LogGroupRetentionInDays == null || can(contains([
+    condition = var.LFWLGSAR_LambdaLogGroupRetentionInDays == null || can(contains([
       1,
       3,
       5,
@@ -490,13 +503,15 @@ variable "LFWLGSAR_LogGroupRetentionInDays" {
       3288,
       3653,
       0
-    ], var.LFWLGSAR_LogGroupRetentionInDays))
-    error_message = "Valid inputs for | variable: var.LFWLGSAR_LogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
+    ], var.LFWLGSAR_LambdaLogGroupRetentionInDays))
+    error_message = "Valid inputs for | variable: var.LFWLGSAR_LambdaLogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
   }
   default = null
 }
 
-variable "LFWLGSAR_LogGroupKmsKeyId" {
+variable "LFWLGSAR_LambdaLogGroupKmsKeyId" {
   type    = string
   default = null
 }
+
+#---

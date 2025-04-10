@@ -1,105 +1,95 @@
-provider "google" {
-  project = var.projectId
-  region  = var.gcpRegion
-}
 
 module "databaseInstance" {
-  source = "../genericCloudSqlDatabaseInstance"
-
-  projectId                                = var.projectId
-  region                                   = var.gcpRegion
-  resourceName                             = var.resourceName
-  databaseVersion                          = var.CSDIU_DatabaseInstanceDatabaseVersion
-  rootPassword                             = var.CSDIU_DatabaseInstanceRootPassword
-  deletionProtection                       = var.CSDIU_DatabaseInstanceDeletionProtection
-  tier                                     = var.CSDIU_DatabaseInstanceTier
-  edition                                  = var.CSDIU_DatabaseInstanceEdition
-  projectName                              = var.projectName
-  deployedDate                             = var.deployedDate
-  createdBy                                = var.createdBy
-  activationPolicy                         = var.CSDIU_DatabaseInstanceActivationPolicy
-  availabilityType                         = var.CSDIU_DatabaseInstanceAvailabilityType
-  collation                                = var.CSDIU_DatabaseInstanceCollation
-  diskAutoresize                           = var.CSDIU_DatabaseInstanceDiskAutoresize
-  diskAutoresizeLimit                      = var.CSDIU_DatabaseInstanceDiskAutoresizeLimit
-  diskSize                                 = var.CSDIU_DatabaseInstanceDiskSize
-  diskType                                 = var.CSDIU_DatabaseInstanceDiskType
-  databaseInstanceAuthorizedNetworkIpRange = var.CSDIU_DatabaseInstanceAuthorizedNetworkIpRange
+  source                               = "../genericCloudSqlDatabaseInstance"
+  gcpProjectId                         = var.gcpProjectId
+  gcpRegion                            = var.gcpRegion
+  databaseInstanceSettings             = var.CSDIU_DatabaseInstanceSettings
+  projectName                          = var.projectName
+  deployedDate                         = var.deployedDate
+  createdBy                            = var.createdBy
+  tfModule                             = var.tfModule
+  additionalTags                       = var.additionalTags
+  databaseInstanceDatabaseVersion      = var.CSDIU_DatabaseInstanceDatabaseVersion
+  databseInstanceName                  = var.databseInstanceName
+  databaseInstanceMaintenanceVersion   = var.CSDIU_DatabaseInstanceMaintenanceVersion
+  databaseInstanceMasterInstanceName   = var.CSDIU_DatabaseInstanceMasterInstanceName
+  databaseInstanceReplicaConfiguration = var.CSDIU_DatabaseInstanceReplicaConfiguration
+  databaseInstanceRootPassword         = var.CSDIU_DatabaseInstanceRootPassword
+  databaseInstanceEncryptionKeyName    = var.CSDIU_DatabaseInstanceEncryptionKeyName
+  databaseInstanceDeletionProtection   = var.CSDIU_DatabaseInstanceDeletionProtection
+  databaseInstanceRestoreBackupContext = var.CSDIU_DatabaseInstanceRestoreBackupContext
+  databaseInstanceClone                = var.CSDIU_DatabaseInstanceClone
 }
+
+#---
 
 module "database" {
-  source = "../genericCloudSqlDatabase"
-
-  projectId        = var.projectId
-  region           = var.gcpRegion
-  resourceName     = var.resourceName
-  databaseInstance = module.databaseInstance.name
-  deletionPolicy   = var.CSDIU_DatabaseDeletionPolicy
+  source                 = "../genericCloudSqlDatabase"
+  gcpProjectId           = var.gcpProjectId
+  gcpRegion              = var.gcpRegion
+  resourceName           = var.resourceName
+  databaseInstance       = module.databaseInstance.databaseInstanceSelfLink
+  databaseCharset        = var.CSDIU_DatabaseCharset
+  databaseCollation      = var.CSDIU_DatabaseCollation
+  databaseDeletionPolicy = var.CSDIU_DatabaseDeletionPolicy
 }
+
+#---
 
 module "databaseUser" {
-  source = "../genericCloudSqlDatabaseUser"
-
-  projectId          = var.projectId
-  region             = var.gcpRegion
-  databseInstance    = module.databaseInstance.name
-  resourceName       = var.resourceName
-  userPassword       = var.CSDIU_DatabaseUserPassword
-  userType           = var.CSDIU_DatabaseUserType
-  userDeletionPolicy = var.CSDIU_DatabaseUserDeletionPolicy
+  source                     = "../genericCloudSqlDatabaseUser"
+  gcpProjectId               = var.gcpProjectId
+  gcpRegion                  = var.gcpRegion
+  databaseUserInstance       = module.databaseInstance.databaseInstanceSelfLink
+  resourceName               = var.resourceName
+  databaseUserPassword       = var.CSDIU_DatabaseUserPassword
+  databaseUserType           = var.CSDIU_DatabaseUserType
+  databaseUserDeletionPolicy = var.CSDIU_DatabaseUserDeletionPolicy
+  databaseUserHost           = var.CSDIU_DatabaseUserHost
+  databaseUserPasswordPolicy = var.CSDIU_DatabaseUserPasswordPolicy
 }
 
-module "databaseSecret" {
-  source = "../../secretsmanager/genericSecret"
+#---
 
-  projectId    = var.projectId
+module "secret" {
+  source                       = "../../secretsManager/genericSecret"
+  gcpProjectId                 = var.gcpProjectId
+  gcpRegion                    = var.gcpRegion
+  secretReplicationAuto        = var.CSDIU_SecretReplicationAuto
+  secretReplicationUserManaged = var.CSDIU_SecretReplicationUserManaged
+  resourceName                 = var.resourceName
+  projectName                  = var.projectName
+  deployedDate                 = var.deployedDate
+  createdBy                    = var.createdBy
+  tfModule                     = var.tfModule
+  additionalTags               = var.additionalTags
+  secretAnnotations            = var.CSDIU_SecretAnnotations
+  secretVersionAliases         = var.CSDIU_SecretVersionAliases
+  secretVersionDestroyTtl      = var.CSDIU_SecretVersionDestroyTtl
+  secretTopics                 = var.CSDIU_SecretTopics
+  secretExpireTime             = var.CSDIU_SecretExpireTime
+  secretTtl                    = var.CSDIU_SecretTtl
+  secretRotation               = var.CSDIU_SecretRotation
+}
+
+#---
+
+module "secretVersion" {
+  source       = "../../secretsManager/genericSecretVersion"
+  gcpProjectId = var.gcpProjectId
   gcpRegion    = var.gcpRegion
-  resourceName = var.resourceName
-  projectName  = var.projectName
-  deployedDate = var.deployedDate
-  createdBy    = var.createdBy
+  secretVersionObjects = concat([{
+    secret_data = module.databaseUser.databaseUserName
+    },
+    {
+      secret_data = module.databaseUser.databaseUserPassword
+    },
+    {
+      secret_data = module.database.databaseName
+    },
+  ], var.CSDIU_SecretVersionObjects)
+
+  secretVersionSecret = module.secret.secretName
 }
 
-module "databasePublicIpSecretVersion" {
-  source = "../../secretsmanager/genericSecretVersion"
-
-  projectId                   = var.projectId
-  gcpRegion                   = var.gcpRegion
-  secretVersionSecretData     = module.databaseInstance.publicIp
-  secretVersionSecret         = module.databaseSecret.secretId
-  secretVersionEnabled        = var.CSDIU_DatabasePublicIpSecretVersionEnabled
-  secretVersionDeletionPolicy = var.CSDIU_DatabasePublicIpSecretVersionDeletionPolicy
-}
-
-module "databaseUserNameSecretVersion" {
-  source = "../../secretsmanager/genericSecretVersion"
-
-  projectId                   = var.projectId
-  gcpRegion                   = var.gcpRegion
-  secretVersionSecretData     = module.databaseUser.name
-  secretVersionSecret         = module.databaseSecret.secretId
-  secretVersionEnabled        = var.CSDIU_DatabaseUserNameSecretVersionEnabled
-  secretVersionDeletionPolicy = var.CSDIU_DatabaseUserNameSecretVersionDeletionPolicy
-}
-
-module "databaseUserPasswordSecretVersion" {
-  source = "../../secretsmanager/genericSecretVersion"
-
-  projectId                   = var.projectId
-  gcpRegion                   = var.gcpRegion
-  secretVersionSecretData     = module.databaseUser.password
-  secretVersionSecret         = module.databaseSecret.secretId
-  secretVersionEnabled        = var.CSDIU_DatabaseUserPasswordSecretVersionEnabled
-  secretVersionDeletionPolicy = var.CSDIU_DatabaseUserPasswordSecretVersionDeletionPolicy
-}
-
-module "databaseNameSecretVersion" {
-  source = "../../secretsmanager/genericSecretVersion"
-
-  projectId                   = var.projectId
-  gcpRegion                   = var.gcpRegion
-  secretVersionSecretData     = module.database.name
-  secretVersionSecret         = module.databaseSecret.secretId
-  secretVersionEnabled        = var.CSDIU_DatabaseNameSecretVersionEnabled
-  secretVersionDeletionPolicy = var.CSDIU_DatabaseNameSecretVersionDeletionPolicy
-}
+#---

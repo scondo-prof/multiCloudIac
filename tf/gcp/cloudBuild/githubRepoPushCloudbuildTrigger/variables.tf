@@ -52,7 +52,7 @@ variable "cloudBuildTriggerArtifactRepoName" {
   type = string
 }
 
-variable "projectId" {
+variable "gcpProjectId" {
   type = string
 }
 

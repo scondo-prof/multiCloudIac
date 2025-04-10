@@ -9,3 +9,7 @@ output "networkRouterName" {
 output "networkRouterSelfLink" {
   value = google_compute_router.networkRouter.self_link
 }
+
+output "networkRouterCreationTimestamp" {
+  value = google_compute_router.networkRouter.creation_timestamp
+}

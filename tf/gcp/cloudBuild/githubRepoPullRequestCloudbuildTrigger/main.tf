@@ -1,19 +1,19 @@
 provider "google" {
-  project = var.projectId
+  project = var.gcpProjectId
   region  = var.gcpRegion
 }
 
 module "serviceAccount" {
   source = "../../iam/cloudBuildCloudRunRoleServiceBinding"
 
-  projectId                               = var.projectId
+  gcpProjectId                               = var.gcpProjectId
   gcpRegion                               = var.gcpRegion
   resourceName                            = var.resourceName
-  serviceAccountAccountId                 = var.serviceAccountAccountId
-  serviceAccountDisabled                  = var.serviceAccountDisabled
-  serviceAccountCreateIgnoreAlreadyExists = var.serviceAccountCreateIgnoreAlreadyExists
-  roleId                                  = var.serviceAccountRoleId
-  roleStage                               = var.serviceAccountRoleStage
+  serviceAccountAccountId                 = var.cloudBuildTriggerServiceAccountAccountId
+  serviceAccountDisabled                  = var.cloudBuildTriggerServiceAccountDisabled
+  serviceAccountCreateIgnoreAlreadyExists = var.cloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists
+  roleId                                  = var.cloudBuildTriggerServiceAccountRoleId
+  roleStage                               = var.cloudBuildTriggerServiceAccountRoleStage
 }
 
 resource "google_cloudbuild_trigger" "cloudBuildTrigger" {
@@ -44,7 +44,7 @@ resource "google_cloudbuild_trigger" "cloudBuildTrigger" {
     _APP_NAME        = var.resourceName
     _REGION_NAME     = var.gcpRegion
     _ARTIFACT_REPO   = var.cloudBuildTriggerArtifactRepoName
-    _PROJECT_NAME    = var.projectId
+    _PROJECT_NAME    = var.gcpProjectId
     _SERVICE_ACCOUNT = module.serviceAccount.serviceAccountEmail
     _BUCKET_NAME     = var.cloudBuildTriggerBucketName
   }, var.cloudBuildTriggerAdditionalSubstitutions)

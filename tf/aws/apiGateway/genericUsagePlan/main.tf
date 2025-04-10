@@ -51,7 +51,8 @@ resource "aws_api_gateway_usage_plan" "usagePlan" {
   product_code = var.usagePlanProductCode
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }

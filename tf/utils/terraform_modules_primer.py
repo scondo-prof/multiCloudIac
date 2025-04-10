@@ -9,53 +9,33 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../projects/_CLCC_containerLambdaCiCd",
-            "source_path": "../_CLCC_containerLambdaCiCd",
-            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
+            "project_path": "../projects/_VFSI_vpcFlowlogSubnetIg",
+            "source_path": "../_VFSI_vpcFlowlogSubnetIg",
+            "destination_path": "./temp",
         },
-        "previous_variable_prefix": "CLCC",
-        "new_variable_prefix": "CSQSNLSM_CLCC",
-        "module_name": "CLCC",
+        "previous_variable_prefix": "VFSI",
+        "new_variable_prefix": "VEN_VFSI",
+        "module_name": "VFSI",
     },
     {
         "paths": {
-            "project_path": "../aws/sqs/genericQueue",
-            "source_path": "../../aws/sqs/genericQueue",
-            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
+            "project_path": "../aws/ec2/genericEip",
+            "source_path": "../../aws/ec2/genericEip",
+            "destination_path": "./temp",
         },
-        "previous_variable_prefix": "queue",
-        "new_variable_prefix": "CSQSNLSM_S3Queue",
-        "module_name": "s3Queue",
+        "previous_variable_prefix": "eip",
+        "new_variable_prefix": "VEN_EipNat",
+        "module_name": "eipNat",
     },
     {
         "paths": {
-            "project_path": "../aws/sqs/genericQueuePolicy",
-            "source_path": "../../aws/sqs/genericQueuePolicy",
-            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
+            "project_path": "../aws/vpc/genericNatGateway",
+            "source_path": "../../aws/vpc/genericNatGateway",
+            "destination_path": "./temp",
         },
-        "previous_variable_prefix": "queuePolicy",
-        "new_variable_prefix": "CSQSNLSM_S3QueuePolicy",
-        "module_name": "s3QueuePolicy",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/s3/genericBucketNotification",
-            "source_path": "../../aws/s3/genericBucketNotification",
-            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
-        },
-        "previous_variable_prefix": "bucketNotification",
-        "new_variable_prefix": "CSQSNLSM_LambdaBucketNotification",
-        "module_name": "lambdaBucketNotification",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/lambda/genericLambdaEventSourceMapping",
-            "source_path": "../../aws/lambda/genericLambdaEventSourceMapping",
-            "destination_path": "../projects/_CSQSNLSM_ClccSqsQueueS3NotificationLambdaSourceMapping",
-        },
-        "previous_variable_prefix": "eventSourceMapping",
-        "new_variable_prefix": "CSQSNLSM_S3EventSourceMapping",
-        "module_name": "s3EventSourceMapping",
+        "previous_variable_prefix": "nat",
+        "new_variable_prefix": "VEN_Nat",
+        "module_name": "nat",
     },
 ]
 

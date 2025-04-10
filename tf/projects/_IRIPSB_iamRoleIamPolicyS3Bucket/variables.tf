@@ -3,25 +3,20 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
-variable "resourceName" {
-  type = string
-}
-
-variable "IRIPSB_S3BucketForceDestroy" {
-  type    = bool
-  default = true
-}
-
 variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
-  default = "Scott Condo"
+  default = "scott-condo"
 }
 
 variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
   type = string
 }
 
@@ -30,9 +25,12 @@ variable "additionalTags" {
   default = {}
 }
 
-#---
+variable "resourceName" {
+  type = string
+}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#argument-reference
+
 variable "IRIPSB_BWV_S3BucketPrefix" {
   type    = string
   default = null
@@ -85,8 +83,11 @@ variable "IRIPSB_BWV_S3BucketVersioningMfa" {
   default = null
 }
 
-#---
 
+
+
+#---
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role#argument-reference
 variable "IRIPSB_IamRoleAssumeRolePolicyVersion" {
   type    = string
   default = "2012-10-17"
@@ -96,10 +97,11 @@ variable "IRIPSB_IamRoleAssumeRolePolicy" {
   type = list(object({
     Action    = list(string)
     Effect    = string
-    Sid       = optional(string, null)
-    Condition = optional(map(map(string)), null)
-    Principal = optional(map(list(string)), null)
+    Sid       = optional(string, "")
+    Condition = optional(map(map(string)), {})
+    Principal = optional(map(list(string)), {})
   }))
+  default = []
 }
 
 variable "IRIPSB_IamRoleDescription" {
@@ -136,36 +138,40 @@ variable "IRIPSB_IamRolePermissionsBoundary" {
   default = null
 }
 
-#--
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 
 variable "IRIPSB_IamPolicyDescription" {
   type    = string
   default = null
 }
-
 variable "IRIPSB_IamPolicyNamePrefix" {
   type    = string
   default = null
 }
-
 variable "IRIPSB_IamPolicyPath" {
   type    = string
   default = "/"
 }
-
 variable "IRIPSB_IamPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-
-variable "additionalPolicyDocumentStatements" {
+variable "IRIPSB_IamPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
     Resource  = list(string)
-    Sid       = optional(string, null)
-    Condition = optional(map(map(list(string))), null)
-    Principal = optional(map(list(string)), null)
+    Sid       = optional(string, "")
+    Condition = optional(map(map(string)), {})
+    Principal = optional(map(list(string)), {})
   }))
   default = []
 }
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
+
+#---

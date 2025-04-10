@@ -11,6 +11,28 @@ variable "resourceName" {
   type = string
 }
 
+variable "projectName" {
+  type = string
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_forwarding_rule#argument-reference
 variable "forwardingRuleIsMirroringCollector" {
   type    = bool
@@ -90,24 +112,6 @@ variable "forwardingRuleTarget" {
 variable "forwardingRuleAllowGlobalAccess" {
   type    = bool
   default = null
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "createdBy" {
-  type    = string
-  default = "scott-condo"
-}
-
-variable "additionalLabels" {
-  type    = map(string)
-  default = {}
 }
 
 variable "forwardingRuleAllPorts" {

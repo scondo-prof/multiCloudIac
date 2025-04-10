@@ -1,10 +1,10 @@
 provider "google" {
-  project = var.projectId
-  region  = var.region
+  project = var.gcpProjectId
+  region  = var.gcpRegion
 }
 
 resource "google_project_iam_binding" "iamBinding" {
-  project = var.projectId
+  project = var.gcpProjectId
   role    = var.iamBindingRole
 
   members = var.iamBindingMembers

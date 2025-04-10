@@ -10,6 +10,7 @@ output "serviceAccountDisplayName" {
   value = module.serviceAccount.serviceAccountDisplayName
 }
 
+#---
 output "roleId" {
   value = module.role.roleId
 }
@@ -17,3 +18,9 @@ output "roleId" {
 output "roleName" {
   value = module.role.roleName
 }
+
+output "roleRoleId" {
+  value = module.role.roleRoleId
+}
+
+#---

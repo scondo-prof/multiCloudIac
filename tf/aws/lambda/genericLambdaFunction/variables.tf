@@ -7,13 +7,35 @@ variable "resourceName" {
   type = string
 }
 
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#argument-reference
 variable "lambdaFunctionRole" {
   type = string
 }
 
 variable "lambdaFunctionArchitectures" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
@@ -221,24 +243,6 @@ variable "lambdaFunctionSnapStart" { #https://registry.terraform.io/providers/ha
     apply_on = string
   })
   default = null
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "creator" {
-  type    = string
-  default = "scott-condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
 }
 
 variable "lambdaFunctionTimeout" {

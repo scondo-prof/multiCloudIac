@@ -1,32 +1,22 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-provider "aws" {
-  region = var.awsRegion
-}
 
 module "iamUser" {
-  source = "../genericIamUser"
-
+  source                    = "../genericIamUser"
   awsRegion                 = var.awsRegion
   resourceName              = var.resourceName
   iamUserPath               = var.UWP_IamUserPath
   iamUserPermissionBoundary = var.UWP_IamUserPermissionBoundary
   iamUserForceDestroy       = var.UWP_IamUserForceDestroy
   projectName               = var.projectName
-  creator                   = var.creator
+  createdBy                 = var.createdBy
   deployedDate              = var.deployedDate
+  tfModule                  = var.tfModule
   additionalTags            = var.additionalTags
 }
 
-module "iamPolicy" {
-  source = "../genericIamPolicy"
+#---
 
+module "iamPolicy" {
+  source                      = "../genericIamPolicy"
   awsRegion                   = var.awsRegion
   iamPolicyDescription        = var.UWP_IamPolicyDescription
   iamPolicyNamePrefix         = var.UWP_IamPolicyNamePrefix
@@ -35,14 +25,17 @@ module "iamPolicy" {
   iamPolicyVersion            = var.UWP_IamPolicyVersion
   iamPolicyDocumentStatements = var.UWP_IamPolicyDocumentStatements
   projectName                 = var.projectName
-  creator                     = var.creator
+  createdBy                   = var.createdBy
   deployedDate                = var.deployedDate
+  tfModule                    = var.tfModule
   additionalTags              = var.additionalTags
 }
 
-module "policyAttatchment" {
-  source = "../genericIamUserPolicyAttatchment"
+#---
 
+module "policyAttatchmentIamPolicy" {
+  source                       = "../genericIamUserPolicyAttatchment"
+  awsRegion                    = var.awsRegion
   policyAttatchmentIamUserName = module.iamUser.iamUserName
   policyAttatchmentPolicyArn   = module.iamPolicy.iamPolicyArn
 }

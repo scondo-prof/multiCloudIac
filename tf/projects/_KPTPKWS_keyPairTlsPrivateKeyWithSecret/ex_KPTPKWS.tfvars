@@ -1,11 +1,13 @@
 projectName = "test"
 
-deployedDate = "01-24-2025"
+deployedDate = "2025-04-03"
+
+tfModule = "kptpkws"
 
 resourceName = "wild-stuff"
 
-KPTPKWS_PrivateKeyAlgorithm = "RSA"
+KPTPKWS_Ec2PrivateKeyAlgorithm = "RSA"
 
-KPTPKWS_PrivateKeyRsaBits = 2048
+KPTPKWS_Ec2PrivateKeyRsaBits = 2048
 
 KPTPKWS_SWV_SecretRecoveryWindowInDays = 0

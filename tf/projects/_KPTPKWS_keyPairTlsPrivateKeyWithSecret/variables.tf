@@ -7,12 +7,16 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
 }
 
 variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
   type = string
 }
 
@@ -40,40 +44,52 @@ variable "tlsProxy" { #https://registry.terraform.io/providers/hashicorp/tls/lat
 
 #https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key#schema
 
-variable "KPTPKWS_PrivateKeyAlgorithm" {
+variable "KPTPKWS_Ec2PrivateKeyAlgorithm" {
   type = string
   validation {
     condition = contains([
       "RSA",
       "ECDSA",
       "ED25519"
-    ], var.KPTPKWS_PrivateKeyAlgorithm)
-    error_message = "Valid inputs for | variable: var.KPTPKWS_PrivateKeyAlgorithm | are: RSA, ECDSA, ED25519"
+    ], var.KPTPKWS_Ec2PrivateKeyAlgorithm)
+    error_message = "Valid inputs for | variable: var.KPTPKWS_Ec2PrivateKeyAlgorithm | are: RSA, ECDSA, ED25519"
   }
 }
 
-variable "KPTPKWS_PrivateKeyEcdsaCurve" {
+variable "KPTPKWS_Ec2PrivateKeyEcdsaCurve" {
   type = string
   validation {
-    condition = var.KPTPKWS_PrivateKeyEcdsaCurve == null || can(contains([
+    condition = var.KPTPKWS_Ec2PrivateKeyEcdsaCurve == null || can(contains([
       "P224",
       "P256",
       "P384",
       "P521"
-    ], var.KPTPKWS_PrivateKeyEcdsaCurve))
-    error_message = "Valid inputs for | variable: var.KPTPKWS_PrivateKeyEcdsaCurve | are: P224, P256, P384, P521"
+    ], var.KPTPKWS_Ec2PrivateKeyEcdsaCurve))
+    error_message = "Valid inputs for | variable: var.KPTPKWS_Ec2PrivateKeyEcdsaCurve | are: P224, P256, P384, P521"
   }
   default = null
 }
 
-variable "KPTPKWS_PrivateKeyRsaBits" {
+variable "KPTPKWS_Ec2PrivateKeyRsaBits" {
   type    = number
   default = null
 }
 
 #---
 
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/KPTPKWS_SWV_Secretsmanager_KPTPKWS_SWV_Secret#argument-reference
+
+variable "KPTPKWS_SWV_SecretDescription" {
+  type    = string
+  default = null
+}
+
 variable "KPTPKWS_SWV_SecretKmsKeyId" {
+  type    = string
+  default = null
+}
+
+variable "KPTPKWS_SWV_SecretNamePrefix" {
   type    = string
   default = null
 }
@@ -85,12 +101,12 @@ variable "KPTPKWS_SWV_SecretPolicy" {
 
 variable "KPTPKWS_SWV_SecretRecoveryWindowInDays" {
   type    = number
-  default = 7
+  default = null
 }
 
 variable "KPTPKWS_SWV_SecretReplica" {
   type = object({
-    kms_key_id = string
+    kms_key_id = optional(string, null)
     region     = string
   })
   default = null
@@ -98,17 +114,29 @@ variable "KPTPKWS_SWV_SecretReplica" {
 
 variable "KPTPKWS_SWV_SecretForceSecretOverwrite" {
   type    = bool
-  default = true
+  default = null
 }
+
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
+
 
 variable "KPTPKWS_SWV_SecretVersionSecretString" {
   type    = map(string)
   default = {}
 }
 
+variable "KPTPKWS_SWV_SecretVersionSecretBinary" {
+  type    = string
+  default = null
+}
+
 variable "KPTPKWS_SWV_SecretVersionStages" {
   type    = list(string)
   default = null
 }
+
+
 
 #---

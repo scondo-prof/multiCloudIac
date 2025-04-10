@@ -18,7 +18,8 @@ resource "aws_api_gateway_api_key" "apiKey" {
   value       = var.apiKeyValue
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }

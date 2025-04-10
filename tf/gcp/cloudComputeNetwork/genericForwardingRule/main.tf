@@ -28,10 +28,11 @@ resource "google_compute_forwarding_rule" "forwardingRule" {
   target                 = var.forwardingRuleTarget
   allow_global_access    = var.forwardingRuleAllowGlobalAccess
   labels = merge({
-    "project" : var.projectName
-    "deployed-date" : var.deployedDate
-    "created-by" : var.createdBy
-  }, var.additionalLabels)
+    project       = var.projectName
+    deployed-date = var.deployedDate
+    created-by    = var.createdBy
+    tf-module     = var.tfModule
+  }, var.additionalTags)
   all_ports    = var.forwardingRuleAllPorts
   network_tier = var.forwardingRuleNetworkTier
 

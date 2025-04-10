@@ -33,7 +33,8 @@ resource "aws_api_gateway_rest_api" "restApi" {
   put_rest_api_mode        = var.restApiPutRestApiMode
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }

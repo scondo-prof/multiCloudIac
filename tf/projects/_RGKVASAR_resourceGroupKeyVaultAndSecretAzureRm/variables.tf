@@ -1,3 +1,13 @@
+variable "azurermKeyVaultPurgeSoftDeleteOnDestroy" {
+  type    = bool
+  default = true
+}
+
+variable "azurermKeyVaultRecoverSoftDeletedKeyVaults" {
+  type    = bool
+  default = true
+}
+
 variable "azurermSubscriptionId" {
   type    = string
   default = "dad93de7-5388-43ff-86d8-5a1b9b2e87ce"
@@ -12,18 +22,17 @@ variable "resourceName" {
   type = string
 }
 
-variable "RGKVASAR_ResourceGroupManagedBy" {
-  type    = string
-  default = null
-}
-
 variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
+}
+
+variable "tfModule" {
+  type = string
 }
 
 variable "deployedDate" {
@@ -35,17 +44,16 @@ variable "additionalTags" {
   default = {}
 }
 
-#--
+#https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group#arguments-reference
 
-variable "azurermKeyVaultPurgeSoftDeleteOnDestroy" {
-  type    = bool
-  default = true
+variable "RGKVASAR_ResourceGroupManagedBy" {
+  type    = string
+  default = null
 }
 
-variable "azurermKeyVaultRecoverSoftDeletedKeyVaults" {
-  type    = bool
-  default = true
-}
+#---
+
+#https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault#argument-reference
 
 variable "RGKVASAR_KeyVaultSkuName" {
   type = string
@@ -134,31 +142,19 @@ variable "RGKVASAR_KeyVaultContact" { #https://registry.terraform.io/providers/h
   default = null
 }
 
-#--
+#---
+#https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret#argument-reference
 
-variable "RGKVASAR_KeyVaultSecretValue" {
-  type = string
+#https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret#argument-reference
+
+variable "RGKVASAR_KeyVaultSecretObjects" {
+  type = list(object({
+    name            = string
+    value           = string
+    content_type    = optional(string, null)
+    not_before_date = optional(string, null)
+    expiration_date = optional(string, null)
+  }))
 }
 
-variable "RGKVASAR_KeyVaultSecretContentType" {
-  type = string
-  validation {
-    condition = var.RGKVASAR_KeyVaultSecretContentType == null || can(contains([
-      "application/json",
-      "text/plain",
-      "application/x-pem-file"
-    ]))
-    error_message = "Valid inputs for | variable: RGKVASAR_KeyVaultSecretContentType | are: application/json, text/plain, application/x-pem-file"
-  }
-  default = null
-}
-
-variable "RGKVASAR_KeyVaultSecretNotBeforeDate" { #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret#not_before_date
-  type    = string
-  default = null
-}
-
-variable "RGKVASAR_KeyVaultSecretExperiationDate" { #https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_secret#expiration_date
-  type    = string
-  default = null
-}
+#---

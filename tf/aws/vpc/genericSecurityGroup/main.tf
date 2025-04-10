@@ -19,8 +19,9 @@ resource "aws_security_group" "awsSecurityGroup" {
   revoke_rules_on_delete = var.awsSecurityGroupRevokeRulesOnDelete
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
   vpc_id = var.awsSecurityGroupVpcId
 }

@@ -3,6 +3,32 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
+variable "resourceName" {
+  type = string
+}
+
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "Scott Condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role#argument-reference
 variable "iamRoleAssumeRolePolicyVersion" {
   type    = string
@@ -51,26 +77,4 @@ variable "iamRolePath" {
 variable "iamRolePermissionsBoundary" {
   type    = string
   default = null
-}
-
-variable "resourceName" {
-  type = string
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "creator" {
-  type    = string
-  default = "Scott Condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
 }

@@ -22,7 +22,8 @@ resource "aws_eip" "eip" {
   public_ipv4_pool          = var.eipPublicIpv4Pool
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }

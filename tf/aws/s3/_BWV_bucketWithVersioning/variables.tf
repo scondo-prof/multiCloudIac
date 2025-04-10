@@ -3,15 +3,11 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
-variable "resourceName" {
-  type = string
-}
-
 variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
 }
@@ -20,14 +16,21 @@ variable "deployedDate" {
   type = string
 }
 
+variable "tfModule" {
+  type = string
+}
+
 variable "additionalTags" {
   type    = map(string)
   default = {}
 }
 
-#---
+variable "resourceName" {
+  type = string
+}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket#argument-reference
+
 variable "BWV_S3BucketPrefix" {
   type    = string
   default = null
@@ -79,3 +82,5 @@ variable "BWV_S3BucketVersioningMfa" {
   type    = string
   default = null
 }
+
+#---

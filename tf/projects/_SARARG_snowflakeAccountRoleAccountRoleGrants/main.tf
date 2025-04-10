@@ -28,7 +28,7 @@ module "accountRole" {
   snowflakePasscodeInPassword             = var.snowflakePasscodeInPassword
   snowflakePassword                       = var.snowflakePassword
   snowflakePort                           = var.snowflakePort
-  snowflakePreveiwFeaturesEnabled         = var.snowflakePreveiwFeaturesEnabled
+  snowflakePreviewFeaturesEnabled         = var.snowflakePreviewFeaturesEnabled
   snowflakePrivateKey                     = var.snowflakePrivateKey
   snowflakePrivateKeyPassphrase           = var.snowflakePrivateKeyPassphrase
   snowflakeProfile                        = var.snowflakeProfile
@@ -37,12 +37,11 @@ module "accountRole" {
   snowflakeRole                           = var.snowflakeRole
   snowflakeTmpDirectoryPath               = var.snowflakeTmpDirectoryPath
   snowflakeToken                          = var.snowflakeToken
-  # snowflakeTokenAccessor                  = var.snowflakeTokenAccessor
-  snowflakeUser                      = var.snowflakeUser
-  snowflakeValidateDefaultParameters = var.snowflakeValidateDefaultParameters
-  snowflakeWarehouse                 = var.snowflakeWarehouse
-  resourceName                       = var.resourceName
-  accountRoleComment                 = var.SARARG_AccountRoleComment
+  snowflakeUser                           = var.snowflakeUser
+  snowflakeValidateDefaultParameters      = var.snowflakeValidateDefaultParameters
+  snowflakeWarehouse                      = var.snowflakeWarehouse
+  resourceName                            = var.resourceName
+  accountRoleComment                      = var.SARARG_AccountRoleComment
 }
 
 #---
@@ -76,7 +75,7 @@ module "grantPrivileges" {
   snowflakePasscodeInPassword             = var.snowflakePasscodeInPassword
   snowflakePassword                       = var.snowflakePassword
   snowflakePort                           = var.snowflakePort
-  snowflakePreveiwFeaturesEnabled         = var.snowflakePreveiwFeaturesEnabled
+  snowflakePreviewFeaturesEnabled         = var.snowflakePreviewFeaturesEnabled
   snowflakePrivateKey                     = var.snowflakePrivateKey
   snowflakePrivateKeyPassphrase           = var.snowflakePrivateKeyPassphrase
   snowflakeProfile                        = var.snowflakeProfile
@@ -85,16 +84,15 @@ module "grantPrivileges" {
   snowflakeRole                           = var.snowflakeRole
   snowflakeTmpDirectoryPath               = var.snowflakeTmpDirectoryPath
   snowflakeToken                          = var.snowflakeToken
-  # snowflakeTokenAccessor                  = var.snowflakeTokenAccessor
-  snowflakeUser                      = var.snowflakeUser
-  snowflakeValidateDefaultParameters = var.snowflakeValidateDefaultParameters
-  snowflakeWarehouse                 = var.snowflakeWarehouse
-  grantPrivilegesObjects             = var.SARARG_GrantPrivilegesObjects
-  grantPrivilegesAccountRoleName     = module.accountRole.accountRoleFullyQualifiedName
-  grantPrivilegesAllPrivileges       = var.SARARG_GrantPrivilegesAllPrivileges
-  grantPrivilegesAlwaysApply         = var.SARARG_GrantPrivilegesAlwaysApply
-  grantPrivilegesAlwaysApplyTrigger  = var.SARARG_GrantPrivilegesAlwaysApplyTrigger
-  grantPrivilegesOnAccount           = var.SARARG_GrantPrivilegesOnAccount
+  snowflakeUser                           = var.snowflakeUser
+  snowflakeValidateDefaultParameters      = var.snowflakeValidateDefaultParameters
+  snowflakeWarehouse                      = var.snowflakeWarehouse
+  grantPrivilegesObjects                  = var.SARARG_GrantPrivilegesObjects
+  grantPrivilegesAccountRoleName          = module.accountRole.snowflakeRoleFullyQualifiedName
+  grantPrivilegesAllPrivileges            = var.SARARG_GrantPrivilegesAllPrivileges
+  grantPrivilegesAlwaysApply              = var.SARARG_GrantPrivilegesAlwaysApply
+  grantPrivilegesAlwaysApplyTrigger       = var.SARARG_GrantPrivilegesAlwaysApplyTrigger
+  grantPrivilegesOnAccount                = var.SARARG_GrantPrivilegesOnAccount
 }
 
 #---

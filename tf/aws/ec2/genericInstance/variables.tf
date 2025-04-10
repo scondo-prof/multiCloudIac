@@ -7,7 +7,7 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
 }
@@ -17,6 +17,10 @@ variable "deployedDate" {
 }
 
 variable "resourceName" {
+  type = string
+}
+
+variable "tfModule" {
   type = string
 }
 

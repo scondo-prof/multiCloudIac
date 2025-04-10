@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "4.6.0"
+      version = "~> 4.20"
     }
   }
 }
@@ -20,17 +20,19 @@ provider "azurerm" {
 }
 
 resource "azurerm_key_vault_secret" "keyVaultSecret" {
-  name         = "${var.resourceName}-secret"
-  value        = var.keyVaultSecretValue
+  count        = len(var.keyVaultSecretObjects)
+  name         = var.keyVaultSecretObjects[count.index]["name"]
+  value        = var.keyVaultSecretObjects[count.index]["value"]
   key_vault_id = var.keyVaultSecretVaultId
-  content_type = var.keyVaultSecretContentType
+  content_type = var.keyVaultSecretObjects[count.index]["content_type"]
 
   tags = merge({
-    "project"       = var.projectName
-    "created-by"    = var.creator
-    "deployed-date" = var.deployedDate
+    project       = var.projectName
+    created-by    = var.createdBy
+    tf-module     = var.tfModule
+    deployed-date = var.deployedDate
   }, var.additionalTags)
 
-  not_before_date = var.keyVaultSecretNotBeforeDate
-  expiration_date = var.keyVaultSecretExperiationDate
+  not_before_date = var.keyVaultSecretObjects[count.index]["not_before_date"]
+  expiration_date = var.keyVaultSecretObjects[count.index]["expiration_date"]
 }

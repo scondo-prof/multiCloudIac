@@ -7,7 +7,10 @@ load_dotenv()
 
 
 def create_valid_variables_list(valid_variables_string: str) -> list[str]:
-    variables_list = valid_variables_string.split(",")
+    if "," in valid_variables_string:
+        variables_list = valid_variables_string.split(",")
+    elif "|" in valid_variables_string:
+        variables_list = valid_variables_string.split("|")
     valid_variables_list = []
 
     for variable in variables_list:

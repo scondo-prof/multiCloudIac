@@ -8,16 +8,20 @@ terraform {
 }
 
 provider "google" {
-  project = var.projectId
-  region  = var.region
+  project = var.gcpProjectId
+  region  = var.gcpRegion
 }
 
 resource "google_compute_network" "network" {
-  name = "${var.resourceName}-network"
-  auto_create_subnetworks = var.networkAutoCreateSubNetworks
-  routing_mode = var.networkRoutingMode
-  mtu = var.networkMaximumTransmissionUnitBytes
-  project = var.projectId
-  delete_default_routes_on_create = var.networkDeleteDefaultRoutesOnCreate
+  name                                      = "${var.resourceName}-network"
+  description                               = var.networkDescription
+  auto_create_subnetworks                   = var.networkAutoCreateSubNetworks
+  routing_mode                              = var.networkRoutingMode
+  mtu                                       = var.networkMaximumTransmissionUnitBytes
+  enable_ula_internal_ipv6                  = var.networkEnableUlaInternalIpv6
+  internal_ipv6_range                       = var.networkInternalIpv6Range
+  network_firewall_policy_enforcement_order = var.networkFirewallPolicyEnforcementOrder
+  project                                   = var.gcpProjectId
+  delete_default_routes_on_create           = var.networkDeleteDefaultRoutesOnCreate
 }
 

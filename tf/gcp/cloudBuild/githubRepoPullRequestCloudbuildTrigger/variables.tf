@@ -6,35 +6,36 @@ variable "gcpRegion" {
   type = string
 }
 
-variable "serviceAccountAccountId" {
+variable "cloudBuildTriggerServiceAccountAccountId" {
   type = string
 }
 
-variable "serviceAccountDisabled" {
+variable "cloudBuildTriggerServiceAccountDisabled" {
   type    = bool
   default = false
 }
 
-variable "serviceAccountCreateIgnoreAlreadyExists" {
+variable "cloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists" {
   type    = bool
   default = true
 }
 
-variable "serviceAccountRoleId" {
+variable "cloudBuildTriggerServiceAccountRoleId" {
   type = string
 }
 
-variable "serviceAccountRoleStage" {
+variable "cloudBuildTriggerServiceAccountRoleStage" {
   type = string
   validation {
-    condition     = contains(["ALPHA", "BETA", "GA", "DEPRECATED", "DISABLED", "EAP"], var.serviceAccountRoleStage)
-    error_message = "Variable serviceAccountRoleStage only has valid values of: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
+    condition     = contains(["ALPHA", "BETA", "GA", "DEPRECATED", "DISABLED", "EAP"], var.cloudBuildTriggerServiceAccountRoleStage)
+    error_message = "Variable cloudBuildTriggerServiceAccountRoleStage only has valid values of: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
   }
   default = "GA"
 }
 
 variable "cloudBuildTriggerYamlPath" {
   type = string
+  default = "buildspec.yaml"
 }
 
 variable "cloudBuildTriggerGithubRepoName" {
@@ -43,13 +44,14 @@ variable "cloudBuildTriggerGithubRepoName" {
 
 variable "cloudBuildTriggerBranchName" {
   type = string
+  default = "main"
 }
 
 variable "cloudBuildTriggerArtifactRepoName" {
   type = string
 }
 
-variable "projectId" {
+variable "gcpProjectId" {
   type = string
 }
 

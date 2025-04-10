@@ -1,6 +1,5 @@
 variable "gcpProjectId" {
   type    = string
-  default = "p3-prod-aa94d"
 }
 
 variable "gcpRegion" {
@@ -25,43 +24,118 @@ variable "createdBy" {
   default = "scott-condo"
 }
 
-variable "CRDPFG_SecretVersionSecretData" {
+variable "tfModule" {
   type = string
 }
 
-variable "CRDPFG_SecretVersionEnabled" {
-  type    = bool
-  default = true
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
 }
 
-variable "CRDPFG_SecretVersionDeletionPolicy" {
-  type = string
-  validation {
-    condition     = contains(["ABANDON", "DISABLE", "DELETE"], var.CRDPFG_SecretVersionDeletionPolicy)
-    error_message = "The only valid options for CRDPFG_SecretVersionDeletionPolicy are ABANDON, DISABLE, DELETE."
-  }
-  default = "DELETE"
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CRDPFG_SWSV_Cloudbuild_Secret_manager_CRDPFG_SWSV_Cloudbuild_Secret#argument-reference
+
+variable "CRDPFG_SWSV_Cloudbuild_SecretReplicationAuto" {
+  type = object({                                   #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CRDPFG_SWSV_Cloudbuild_Secret_manager_CRDPFG_SWSV_Cloudbuild_Secret#nested_replication_auto
+    customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CRDPFG_SWSV_Cloudbuild_Secret_manager_CRDPFG_SWSV_Cloudbuild_Secret#nested_replication_auto_customer_managed_encryption
+      kms_key_name = string
+    }), null)
+  })
+
+  default = null
 }
 
-variable "CRDPFG_CloudBuildTriggerServiceAccountDisabled" {
+variable "CRDPFG_SWSV_Cloudbuild_SecretReplicationUserManaged" {
+  type = object({       #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret#replicas-1
+    replicas = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CRDPFG_SWSV_Cloudbuild_Secret_manager_CRDPFG_SWSV_Cloudbuild_Secret#location-2
+      location = string
+      customer_managed_encryption = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CRDPFG_SWSV_Cloudbuild_Secret_manager_CRDPFG_SWSV_Cloudbuild_Secret#nested_replication_user_managed_replicas_replicas_customer_managed_encryption
+        kms_key_name = string
+      }), null)
+
+    })
+  })
+  default = null
+}
+
+variable "CRDPFG_SWSV_Cloudbuild_SecretAnnotations" {
+  type    = map(string)
+  default = null
+}
+
+variable "CRDPFG_SWSV_Cloudbuild_SecretVersionAliases" {
+  type    = map(string)
+  default = null
+}
+
+variable "CRDPFG_SWSV_Cloudbuild_SecretVersionDestroyTtl" {
+  type    = number
+  default = null
+}
+
+variable "CRDPFG_SWSV_Cloudbuild_SecretTopics" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CRDPFG_SWSV_Cloudbuild_Secret_manager_CRDPFG_SWSV_Cloudbuild_Secret#nested_topics
+    name = string
+  })
+  default = null
+}
+
+variable "CRDPFG_SWSV_Cloudbuild_SecretExpireTime" {
+  type    = string
+  default = null
+}
+
+variable "CRDPFG_SWSV_Cloudbuild_SecretTtl" {
+  type    = string
+  default = null
+}
+
+variable "CRDPFG_SWSV_Cloudbuild_SecretRotation" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/CRDPFG_SWSV_Cloudbuild_Secret_manager_CRDPFG_SWSV_Cloudbuild_Secret#nested_rotation
+    next_rotation_time = optional(string, null)
+    rotation_period    = optional(string, null)
+  })
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/secret_manager_secret_version#argument-reference
+
+variable "CRDPFG_SWSV_Cloudbuild_SecretVersionObjects" {
+  type = list(object({
+    enabled               = optional(bool, null)
+    secret_data           = string
+    deletion_policy       = optional(string, null)
+    is_secret_data_base64 = optional(bool, null)
+  }))
+  sensitive = true
+}
+
+
+
+
+#---
+
+variable "CRDPFG_ServiceAccountDisabled" {
   type    = bool
   default = false
 }
 
-variable "CRDPFG_CloudBuildTriggerServiceAccountCreateIgnoreAlreadyExists" {
+variable "CRDPFG_ServiceAccountCreateIgnoreAlreadyExists" {
   type    = bool
   default = true
 }
 
-variable "CRDPFG_CloudBuildTriggerRoleId" {
+variable "CRDPFG_ServiceAccountRoleId" {
   type = string
 }
 
-variable "CRDPFG_CloudBuildTriggerRoleStage" {
+variable "CRDPFG_ServiceAccountRoleStage" {
   type = string
   validation {
-    condition     = contains(["ALPHA", "BETA", "GA", "DEPRECATED", "DISABLED", "EAP"], var.CRDPFG_CloudBuildTriggerRoleStage)
-    error_message = "Variable CRDPFG_CloudBuildTriggerRoleStage only has valid values of: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
+    condition     = contains(["ALPHA", "BETA", "GA", "DEPRECATED", "DISABLED", "EAP"], var.CRDPFG_ServiceAccountRoleStage)
+    error_message = "Variable CRDPFG_ServiceAccountRoleStage only has valid values of: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
   }
   default = "GA"
 }
@@ -81,8 +155,7 @@ variable "CRDPFG_CloudBuildTriggerBranchName" {
 }
 
 variable "CRDPFG_CloudBuildTriggerArtifactRepoName" {
-  type    = string
-  default = "dash-apps"
+  type = string
 }
 
 variable "CRDPFG_CloudBuildTriggerBucketName" {
@@ -169,22 +242,62 @@ variable "CRDPFG_CloudBuildTriggerAdditionalSubstitutions" {
   default     = {}
 }
 
-variable "CRDPFG_CloudRunAlertPolicyNotificationChannelId" {
-  type    = string
-  default = "11762886701350469070"
+#---
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
+
+
+variable "CRDPFG_CloudRunLogsAlertPolicyEnabled" {
+  type    = bool
+  default = true
 }
 
-variable "CRDPFG_CloudRunAlertPolicyNotificationRateLimit" {
-  type    = string
-  default = "600s"
+variable "CRDPFG_CloudRunLogsAlertPolicyAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
+  type = object({
+
+    notification_rate_limit = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_rate_limit
+      period = optional(string, null)
+    }), null)
+
+    auto_close = optional(string, null)
+
+    notification_channel_strategy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_channel_strategy
+      notification_channel_names = optional(list(string), null)
+      renotify_interval          = optional(number, null)
+    }), null)
+  })
+  default = null
 }
 
-variable "CRDPFG_CloudRunAlertPolicyAutoClose" {
-  type    = string
-  default = "604800s"
+variable "CRDPFG_CloudRunLogsAlertPolicySeverity" {
+  type = string
+  validation {
+    condition = var.CRDPFG_CloudRunLogsAlertPolicySeverity == null || can(contains([
+      "CRITICAL",
+      "ERROR",
+      "WARNING"
+    ], var.CRDPFG_CloudRunLogsAlertPolicySeverity))
+    error_message = "Valid inputs for | variable: CRDPFG_CloudRunLogsAlertPolicySeverity | are: CRITICAL, ERROR, WARNING"
+  }
+  default = "ERROR"
 }
 
-#-- 
+variable "CRDPFG_CloudRunLogsAlertPolicyDocumentation" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_documentation
+  type = object({
+    content   = optional(string, null)
+    mime_type = optional(string, null)
+    subject   = optional(string, null)
+    links = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_links
+      display_name = optional(string, null)
+      url          = optional(string, null)
+    }), {})
+  })
+  default = null
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
 
 variable "CRDPFG_CloudRunMemAlertPolicyMemoryConditionTriggerPercent" {
   type = number
@@ -206,16 +319,63 @@ variable "CRDPFG_CloudRunMemAlertPolicyMemoryThresholdPercent" {
   default = 80
 }
 
+
+variable "CRDPFG_CloudRunMemAlertPolicyEnabled" {
+  type    = bool
+  default = true
+}
+
 variable "CRDPFG_CloudRunInfraAlertPolicyNotificationChannels" {
   type = list(string)
 }
 
-variable "additionalLabels" {
-  type    = map(string)
-  default = {}
+variable "CRDPFG_CloudRunMemAlertPolicyAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
+  type = object({
+
+    notification_rate_limit = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_rate_limit
+      period = optional(string, null)
+    }), null)
+
+    auto_close = optional(string, null)
+
+    notification_channel_strategy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_channel_strategy
+      notification_channel_names = optional(list(string), null)
+      renotify_interval          = optional(number, null)
+    }), null)
+  })
+  default = null
 }
 
-#--
+variable "CRDPFG_CloudRunMemAlertPolicySeverity" {
+  type = string
+  validation {
+    condition = var.CRDPFG_CloudRunMemAlertPolicySeverity == null || can(contains([
+      "CRITICAL",
+      "ERROR",
+      "WARNING"
+    ], var.CRDPFG_CloudRunMemAlertPolicySeverity))
+    error_message = "Valid inputs for | variable: CRDPFG_CloudRunMemAlertPolicySeverity | are: CRITICAL, ERROR, WARNING"
+  }
+  default = "ERROR"
+}
+
+variable "CRDPFG_CloudRunMemAlertPolicyDocumentation" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_documentation
+  type = object({
+    content   = optional(string, null)
+    mime_type = optional(string, null)
+    subject   = optional(string, null)
+    links = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_links
+      display_name = optional(string, null)
+      url          = optional(string, null)
+    }), {})
+  })
+  default = null
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#argument-reference
+
 
 variable "CRDPFG_CloudRunCpuAlertPolicyCpuConditionTriggerPercent" {
   type = number
@@ -236,3 +396,54 @@ variable "CRDPFG_CloudRunCpuAlertPolicyCpuThresholdPercent" {
 
   default = 50
 }
+
+
+variable "CRDPFG_CloudRunCpuAlertPolicyEnabled" {
+  type    = bool
+  default = true
+}
+
+variable "CRDPFG_CloudRunCpuAlertPolicyAlertStrategy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_alert_strategy
+  type = object({
+
+    notification_rate_limit = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_rate_limit
+      period = optional(string, null)
+    }), null)
+
+    auto_close = optional(string, null)
+
+    notification_channel_strategy = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_notification_channel_strategy
+      notification_channel_names = optional(list(string), null)
+      renotify_interval          = optional(number, null)
+    }), null)
+  })
+  default = null
+}
+
+variable "CRDPFG_CloudRunCpuAlertPolicySeverity" {
+  type = string
+  validation {
+    condition = var.CRDPFG_CloudRunCpuAlertPolicySeverity == null || can(contains([
+      "CRITICAL",
+      "ERROR",
+      "WARNING"
+    ], var.CRDPFG_CloudRunCpuAlertPolicySeverity))
+    error_message = "Valid inputs for | variable: CRDPFG_CloudRunCpuAlertPolicySeverity | are: CRITICAL, ERROR, WARNING"
+  }
+  default = "ERROR"
+}
+
+variable "CRDPFG_CloudRunCpuAlertPolicyDocumentation" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_documentation
+  type = object({
+    content   = optional(string, null)
+    mime_type = optional(string, null)
+    subject   = optional(string, null)
+    links = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/monitoring_alert_policy#nested_links
+      display_name = optional(string, null)
+      url          = optional(string, null)
+    }), {})
+  })
+  default = null
+}
+
+#---

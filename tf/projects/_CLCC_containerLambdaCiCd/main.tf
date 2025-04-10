@@ -1,37 +1,38 @@
 
 module "CECC" {
-  source                                                   = "../_CECC_codebuildEcrCiCd"
-  awsRegion                                                = var.awsRegion
-  resourceName                                             = var.resourceName
-  CECC_EcrRepositoryEncryptionConfiguration                = var.CLCC_CECC_EcrRepositoryEncryptionConfiguration
-  CECC_EcrRepositoryForceDelete                            = var.CLCC_CECC_EcrRepositoryForceDelete
-  CECC_EcrRepositoryImageTagMutability                     = var.CLCC_CECC_EcrRepositoryImageTagMutability
-  CECC_EcrRepositoryImageScanningConfiguration             = var.CLCC_CECC_EcrRepositoryImageScanningConfiguration
-  projectName                                              = var.projectName
-  creator                                                  = var.creator
-  deployedDate                                             = var.deployedDate
-  additionalTags                                           = var.additionalTags
-  CECC_CodebuildProjectArtifactsIdentifier                 = var.CLCC_CECC_CodebuildProjectArtifactsIdentifier
-  CECC_CodebuildProjectArtifactsBucketOwnerAccess          = var.CLCC_CECC_CodebuildProjectArtifactsBucketOwnerAccess
-  CECC_CodebuildProjectArtifactsEncryptionDisabled         = var.CLCC_CECC_CodebuildProjectArtifactsEncryptionDisabled
-  CECC_CodebuildProjectArtifactsLocation                   = var.CLCC_CECC_CodebuildProjectArtifactsLocation
-  CECC_CodebuildProjectArtifactsName                       = var.CLCC_CECC_CodebuildProjectArtifactsName
-  CECC_CodebuildProjectArtifactsNamespaceType              = var.CLCC_CECC_CodebuildProjectArtifactsNamespaceType
-  CECC_CodebuildProjectArtifactsOverrideArtifactName       = var.CLCC_CECC_CodebuildProjectArtifactsOverrideArtifactName
-  CECC_CodebuildProjectArtifactsPackaging                  = var.CLCC_CECC_CodebuildProjectArtifactsPackaging
-  CECC_CodebuildProjectArtifactsPath                       = var.CLCC_CECC_CodebuildProjectArtifactsPath
-  CECC_CodebuildProjectArtifactsType                       = var.CLCC_CECC_CodebuildProjectArtifactsType
-  CECC_CodebuildProjectEnvironmentCertificate              = var.CLCC_CECC_CodebuildProjectEnvironmentCertificate
-  CECC_CodebuildProjectEnvironmentComputeType              = var.CLCC_CECC_CodebuildProjectEnvironmentComputeType
-  CECC_CodebuildProjectEnvironmentFleet                    = var.CLCC_CECC_CodebuildProjectEnvironmentFleet
-  awsAccountId                                             = var.awsAccountId
-  codebuildProjectEcrRepoImageTag                          = var.codebuildProjectEcrRepoImageTag
-  CECC_CodebuildProjectEnvironmentEnvironmentVariables     = merge({
+  source                                             = "../_CECC_codebuildEcrCiCd"
+  awsRegion                                          = var.awsRegion
+  resourceName                                       = var.resourceName
+  CECC_EcrRepositoryEncryptionConfiguration          = var.CLCC_CECC_EcrRepositoryEncryptionConfiguration
+  CECC_EcrRepositoryForceDelete                      = var.CLCC_CECC_EcrRepositoryForceDelete
+  CECC_EcrRepositoryImageTagMutability               = var.CLCC_CECC_EcrRepositoryImageTagMutability
+  CECC_EcrRepositoryImageScanningConfiguration       = var.CLCC_CECC_EcrRepositoryImageScanningConfiguration
+  projectName                                        = var.projectName
+  createdBy                                          = var.createdBy
+  deployedDate                                       = var.deployedDate
+  tfModule                                           = var.tfModule
+  additionalTags                                     = var.additionalTags
+  CECC_CodebuildProjectArtifactsIdentifier           = var.CLCC_CECC_CodebuildProjectArtifactsIdentifier
+  CECC_CodebuildProjectArtifactsBucketOwnerAccess    = var.CLCC_CECC_CodebuildProjectArtifactsBucketOwnerAccess
+  CECC_CodebuildProjectArtifactsEncryptionDisabled   = var.CLCC_CECC_CodebuildProjectArtifactsEncryptionDisabled
+  CECC_CodebuildProjectArtifactsLocation             = var.CLCC_CECC_CodebuildProjectArtifactsLocation
+  CECC_CodebuildProjectArtifactsName                 = var.CLCC_CECC_CodebuildProjectArtifactsName
+  CECC_CodebuildProjectArtifactsNamespaceType        = var.CLCC_CECC_CodebuildProjectArtifactsNamespaceType
+  CECC_CodebuildProjectArtifactsOverrideArtifactName = var.CLCC_CECC_CodebuildProjectArtifactsOverrideArtifactName
+  CECC_CodebuildProjectArtifactsPackaging            = var.CLCC_CECC_CodebuildProjectArtifactsPackaging
+  CECC_CodebuildProjectArtifactsPath                 = var.CLCC_CECC_CodebuildProjectArtifactsPath
+  CECC_CodebuildProjectArtifactsType                 = var.CLCC_CECC_CodebuildProjectArtifactsType
+  CECC_CodebuildProjectEnvironmentCertificate        = var.CLCC_CECC_CodebuildProjectEnvironmentCertificate
+  CECC_CodebuildProjectEnvironmentComputeType        = var.CLCC_CECC_CodebuildProjectEnvironmentComputeType
+  # CECC_CodebuildProjectEnvironmentFleet = var.CLCC_CECC_CodebuildProjectEnvironmentFleet
+  awsAccountId                    = var.awsAccountId
+  codebuildProjectEcrRepoImageTag = var.codebuildProjectEcrRepoImageTag
+  CECC_CodebuildProjectEnvironmentEnvironmentVariable = merge({
     "LAMBDA_FUNCTION" = {
       name  = "LAMBDA_FUNCTION"
       value = "${var.resourceName}-lambda-function" #Had to hardcode this to ensure there is no circular ref and ECCFG_ codebuild project builds prior to lambda fail.
     }
-  }, var.CLCC_CECC_CodebuildProjectEnvironmentEnvironmentVariables)
+  }, var.CLCC_CECC_CodebuildProjectEnvironmentEnvironmentVariable)
   CECC_CodebuildProjectEnvironmentImagePullCredentialsType = var.CLCC_CECC_CodebuildProjectEnvironmentImagePullCredentialsType
   CECC_CodebuildProjectEnvironmentImage                    = var.CLCC_CECC_CodebuildProjectEnvironmentImage
   CECC_CodebuildProjectEnvironmentPrivilegedMode           = var.CLCC_CECC_CodebuildProjectEnvironmentPrivilegedMode
@@ -53,9 +54,7 @@ module "CECC" {
   CECC_CodebuildProjectDescription                         = var.CLCC_CECC_CodebuildProjectDescription
   CECC_CodebuildProjectFileSystemLocations                 = var.CLCC_CECC_CodebuildProjectFileSystemLocations
   CECC_CodebuildProjectEncryptionKey                       = var.CLCC_CECC_CodebuildProjectEncryptionKey
-  CECC_CodebuildProjectCloudwatchLogsConfigStatus          = var.CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStatus
-  CECC_CodebuildProjectCloudwatchLogsConfigStreamName      = var.CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStreamName
-  CECC_CodebuildProjectS3LogsConfig                        = var.CLCC_CECC_CodebuildProjectS3LogsConfig
+  CECC_CodebuildProjectCloudwatchLogsStatus                = var.CLCC_CECC_CodebuildProjectCloudwatchLogsStatus
   CECC_CodebuildProjectVisibility                          = var.CLCC_CECC_CodebuildProjectVisibility
   CECC_CodebuildProjectResourceAccessRole                  = var.CLCC_CECC_CodebuildProjectResourceAccessRole
   CECC_CodebuildProjectQueuedTimeout                       = var.CLCC_CECC_CodebuildProjectQueuedTimeout
@@ -64,14 +63,14 @@ module "CECC" {
   CECC_CodebuildProjectSecondarySourceVersion              = var.CLCC_CECC_CodebuildProjectSecondarySourceVersion
   CECC_CodebuildProjectSourceVersion                       = var.CLCC_CECC_CodebuildProjectSourceVersion
   CECC_CodebuildProjectVpcConfig                           = var.CLCC_CECC_CodebuildProjectVpcConfig
-  CECC_CredentialsAuthType                                 = var.CLCC_CECC_CredentialsAuthType
-  CECC_CredentialsServerType                               = var.CLCC_CECC_CredentialsServerType
-  CECC_CredentialsToken                                    = var.CLCC_CECC_CredentialsToken
-  CECC_CredentialsUserName                                 = var.CLCC_CECC_CredentialsUserName
-  CECC_WebhookBuildType                                    = var.CLCC_CECC_WebhookBuildType
-  CECC_WebhookBranchFilter                                 = var.CLCC_CECC_WebhookBranchFilter
-  CECC_WebhookFilterGroup                                  = var.CLCC_CECC_WebhookFilterGroup
-  CECC_WebhookScopeConfiguration                           = var.CLCC_CECC_WebhookScopeConfiguration
+  CECC_CodebuildCredentialsAuthType                        = var.CLCC_CECC_CodebuildCredentialsAuthType
+  CECC_CodebuildCredentialsServerType                      = var.CLCC_CECC_CodebuildCredentialsServerType
+  CECC_CodebuildCredentialsToken                           = var.CLCC_CECC_CodebuildCredentialsToken
+  CECC_CodebuildCredentialsUserName                        = var.CLCC_CECC_CodebuildCredentialsUserName
+  CECC_CodebuildWebhookBuildType                           = var.CLCC_CECC_CodebuildWebhookBuildType
+  CECC_CodebuildWebhookBranchFilter                        = var.CLCC_CECC_CodebuildWebhookBranchFilter
+  CECC_CodebuildWebhookFilterGroup                         = var.CLCC_CECC_CodebuildWebhookFilterGroup
+  CECC_CodebuildWebhookScopeConfiguration                  = var.CLCC_CECC_CodebuildWebhookScopeConfiguration
   CECC_CodebuildRoleAssumeRolePolicyVersion                = var.CLCC_CECC_CodebuildRoleAssumeRolePolicyVersion
   CECC_CodebuildRoleAssumeRolePolicy                       = var.CLCC_CECC_CodebuildRoleAssumeRolePolicy
   CECC_CodebuildRoleDescription                            = var.CLCC_CECC_CodebuildRoleDescription
@@ -80,73 +79,36 @@ module "CECC" {
   CECC_CodebuildRoleNamePrefix                             = var.CLCC_CECC_CodebuildRoleNamePrefix
   CECC_CodebuildRolePath                                   = var.CLCC_CECC_CodebuildRolePath
   CECC_CodebuildRolePermissionsBoundary                    = var.CLCC_CECC_CodebuildRolePermissionsBoundary
-  CECC_CodebuildPolicyDescription                          = var.CLCC_CECC_CodebuildPolicyDescription
-  CECC_CodebuildPolicyNamePrefix                           = var.CLCC_CECC_CodebuildPolicyNamePrefix
-  CECC_CodebuildPolicyPath                                 = var.CLCC_CECC_CodebuildPolicyPath
-  CECC_CodebuildPolicyVersion                              = var.CLCC_CECC_CodebuildPolicyVersion
-  CECC_CodebuildPolicyDocumentAdditionalStatements         = var.CLCC_CECC_CodebuildPolicyDocumentAdditionalStatements
-  CECC_LogGroupNamePrefix                                  = var.CLCC_CECC_LogGroupNamePrefix
-  CECC_LogGroupSkipDestroy                                 = var.CLCC_CECC_LogGroupSkipDestroy
-  CECC_LogGroupClass                                       = var.CLCC_CECC_LogGroupClass
-  CECC_LogGroupRetentionInDays                             = var.CLCC_CECC_LogGroupRetentionInDays
-  CECC_LogGroupKmsKeyId                                    = var.CLCC_CECC_LogGroupKmsKeyId
-  CECC_EcrAccessPolicyDescription                          = var.CLCC_CECC_EcrAccessPolicyDescription
-  CECC_EcrAccessPolicyNamePrefix                           = var.CLCC_CECC_EcrAccessPolicyNamePrefix
-  CECC_EcrAccessPolicyPath                                 = var.CLCC_CECC_EcrAccessPolicyPath
-  CECC_EcrAccessPolicyVersion                              = var.CLCC_CECC_EcrAccessPolicyVersion
-  CECC_EcrAccessPolicyDocumentAdditionalStatements         = var.CLCC_CECC_EcrAccessPolicyDocumentAdditionalStatements
-}
-
-#---
-
-module "updateLambdaPolicy" {
-  source                      = "../../aws/iam/genericIamPolicy"
-  awsRegion                   = var.awsRegion
-  iamPolicyDescription        = var.CLCC_UpdateLambdaPolicyDescription
-  iamPolicyNamePrefix         = var.CLCC_UpdateLambdaPolicyNamePrefix
-  resourceName                = "${module.CECC.CECC_CodebuildProjectName}-lambda-update"
-  iamPolicyPath               = var.CLCC_UpdateLambdaPolicyPath
-  iamPolicyVersion            = var.CLCC_UpdateLambdaPolicyVersion
-  iamPolicyDocumentStatements = concat([
-    {
-    Action = [
-      "lambda:UpdateFunctionCode"
-    ]
-    Effect = "Allow"
-    Resource = [
-      module.LFWLGSAR.LFWLGSAR_LambdaFunctionArn,
-    ]
-    Sid = "updateLambda"
-  }
-  ], var.CLCC_UpdateLambdaPolicyDocumentStatements)
-  projectName                 = var.projectName
-  creator                     = var.creator
-  deployedDate                = var.deployedDate
-  additionalTags              = var.additionalTags
-}
-
-#---
-
-module "updateLambdaPolicyAttatchment" {
-  source                    = "../../aws/iam/genericIamRolePolicyAttachment"
-  awsRegion                 = var.awsRegion
-  policyAttachmentRoleName  = module.CECC.CECC_CodebuildRoleName
-  policyAttachmentPolicyArn = module.updateLambdaPolicy.iamPolicyArn
+  CECC_CodebuildRolePolicyDescription                      = var.CLCC_CECC_CodebuildRolePolicyDescription
+  CECC_CodebuildRolePolicyNamePrefix                       = var.CLCC_CECC_CodebuildRolePolicyNamePrefix
+  CECC_CodebuildRolePolicyPath                             = var.CLCC_CECC_CodebuildRolePolicyPath
+  CECC_CodebuildRolePolicyVersion                          = var.CLCC_CECC_CodebuildRolePolicyVersion
+  CECC_CodebuildRolePolicyDocumentStatements               = var.CLCC_CECC_CodebuildRolePolicyDocumentStatements
+  CECC_CodebuildLogGroupNamePrefix                         = var.CLCC_CECC_CodebuildLogGroupNamePrefix
+  CECC_CodebuildLogGroupSkipDestroy                        = var.CLCC_CECC_CodebuildLogGroupSkipDestroy
+  CECC_CodebuildLogGroupClass                              = var.CLCC_CECC_CodebuildLogGroupClass
+  CECC_CodebuildLogGroupRetentionInDays                    = var.CLCC_CECC_CodebuildLogGroupRetentionInDays
+  CECC_CodebuildLogGroupKmsKeyId                           = var.CLCC_CECC_CodebuildLogGroupKmsKeyId
+  CECC_CodebuildRoleEcrPolicyDescription                   = var.CLCC_CECC_CodebuildRoleEcrPolicyDescription
+  CECC_CodebuildRoleEcrPolicyNamePrefix                    = var.CLCC_CECC_CodebuildRoleEcrPolicyNamePrefix
+  CECC_CodebuildRoleEcrPolicyPath                          = var.CLCC_CECC_CodebuildRoleEcrPolicyPath
+  CECC_CodebuildRoleEcrPolicyVersion                       = var.CLCC_CECC_CodebuildRoleEcrPolicyVersion
+  CECC_CodebuildRoleEcrPolicyDocumentStatements            = var.CLCC_CECC_CodebuildRoleEcrPolicyDocumentStatements
 }
 
 #---
 
 module "LFWLGSAR" {
-  source                                                = "../_LFWLGSAR_lambdaFunctionWithLogGroupSecretAndRole"
-  awsRegion                                             = var.awsRegion
-  resourceName                                          = var.resourceName
-  LFWLGSAR_LambdaFunctionArchitectures                  = var.CLCC_LFWLGSAR_LambdaFunctionArchitectures
-  LFWLGSAR_LambdaFunctionCodeSigningConfigArn           = var.CLCC_LFWLGSAR_LambdaFunctionCodeSigningConfigArn
-  LFWLGSAR_LambdaFunctionDeadLetterConfig               = var.CLCC_LFWLGSAR_LambdaFunctionDeadLetterConfig
-  LFWLGSAR_LambdaFunctionDescription                    = var.CLCC_LFWLGSAR_LambdaFunctionDescription
-  LFWLGSAR_LambdaFunctionEnvironmentVariables           = merge({
+  source                                      = "../_LFWLGSAR_lambdaFunctionWithLogGroupSecretAndRole"
+  awsRegion                                   = var.awsRegion
+  resourceName                                = var.resourceName
+  LFWLGSAR_LambdaFunctionArchitectures        = var.CLCC_LFWLGSAR_LambdaFunctionArchitectures
+  LFWLGSAR_LambdaFunctionCodeSigningConfigArn = var.CLCC_LFWLGSAR_LambdaFunctionCodeSigningConfigArn
+  LFWLGSAR_LambdaFunctionDeadLetterConfig     = var.CLCC_LFWLGSAR_LambdaFunctionDeadLetterConfig
+  LFWLGSAR_LambdaFunctionDescription          = var.CLCC_LFWLGSAR_LambdaFunctionDescription
+  LFWLGSAR_LambdaFunctionEnvironmentVariables = merge({
     "CODEBUILD_PROJECT_NAME" = module.CECC.CECC_CodebuildProjectName
-  },var.CLCC_LFWLGSAR_LambdaFunctionEnvironmentVariables)
+  }, var.CLCC_LFWLGSAR_LambdaFunctionEnvironmentVariables)
   LFWLGSAR_LambdaFunctionEphemeralStorage               = var.CLCC_LFWLGSAR_LambdaFunctionEphemeralStorage
   LFWLGSAR_LambdaFunctionFileSystemConfig               = var.CLCC_LFWLGSAR_LambdaFunctionFileSystemConfig
   LFWLGSAR_LambdaFunctionFilename                       = var.CLCC_LFWLGSAR_LambdaFunctionFilename
@@ -170,8 +132,9 @@ module "LFWLGSAR" {
   LFWLGSAR_LambdaFunctionSourceCodeHash                 = var.CLCC_LFWLGSAR_LambdaFunctionSourceCodeHash
   LFWLGSAR_LambdaFunctionSnapStart                      = var.CLCC_LFWLGSAR_LambdaFunctionSnapStart
   projectName                                           = var.projectName
-  creator                                               = var.creator
+  createdBy                                             = var.createdBy
   deployedDate                                          = var.deployedDate
+  tfModule                                              = var.tfModule
   additionalTags                                        = var.additionalTags
   LFWLGSAR_LambdaFunctionTimeout                        = var.CLCC_LFWLGSAR_LambdaFunctionTimeout
   LFWLGSAR_LambdaFunctionTracingConfig                  = var.CLCC_LFWLGSAR_LambdaFunctionTracingConfig
@@ -184,31 +147,68 @@ module "LFWLGSAR" {
   LFWLGSAR_LambdaFunctionRoleNamePrefix                 = var.CLCC_LFWLGSAR_LambdaFunctionRoleNamePrefix
   LFWLGSAR_LambdaFunctionRolePath                       = var.CLCC_LFWLGSAR_LambdaFunctionRolePath
   LFWLGSAR_LambdaFunctionRolePermissionsBoundary        = var.CLCC_LFWLGSAR_LambdaFunctionRolePermissionsBoundary
-  LFWLGSAR_LambdaPolicyDescription                      = var.CLCC_LFWLGSAR_LambdaPolicyDescription
-  LFWLGSAR_LambdaPolicyNamePrefix                       = var.CLCC_LFWLGSAR_LambdaPolicyNamePrefix
-  LFWLGSAR_LambdaPolicyPath                             = var.CLCC_LFWLGSAR_LambdaPolicyPath
-  LFWLGSAR_LambdaPolicyVersion                          = var.CLCC_LFWLGSAR_LambdaPolicyVersion
-  LFWLGSAR_LambdaPolicyDocumentStatements               = var.CLCC_LFWLGSAR_LambdaPolicyDocumentStatements
-  LFWLGSAR_SecretDescription                            = var.CLCC_LFWLGSAR_SecretDescription
-  LFWLGSAR_SecretKmsKeyId                               = var.CLCC_LFWLGSAR_SecretKmsKeyId
-  LFWLGSAR_SecretNamePrefix                             = var.CLCC_LFWLGSAR_SecretNamePrefix
-  LFWLGSAR_SecretPolicy                                 = var.CLCC_LFWLGSAR_SecretPolicy
-  LFWLGSAR_SecretRecoveryWindowInDays                   = var.CLCC_LFWLGSAR_SecretRecoveryWindowInDays
-  LFWLGSAR_SecretReplica                                = var.CLCC_LFWLGSAR_SecretReplica
-  LFWLGSAR_SecretForceSecretOverwrite                   = var.CLCC_LFWLGSAR_SecretForceSecretOverwrite
-  LFWLGSAR_SecretVersionSecretString                    = var.CLCC_LFWLGSAR_SecretVersionSecretString
-  LFWLGSAR_SecretVersionSecretBinary                    = var.CLCC_LFWLGSAR_SecretVersionSecretBinary
-  LFWLGSAR_SecretVersionStages                          = var.CLCC_LFWLGSAR_SecretVersionStages
-  LFWLGSAR_SecretPolicyDescription                      = var.CLCC_LFWLGSAR_SecretPolicyDescription
-  LFWLGSAR_SecretPolicyNamePrefix                       = var.CLCC_LFWLGSAR_SecretPolicyNamePrefix
-  LFWLGSAR_SecretPolicyPath                             = var.CLCC_LFWLGSAR_SecretPolicyPath
-  LFWLGSAR_SecretPolicyVersion                          = var.CLCC_LFWLGSAR_SecretPolicyVersion
-  LFWLGSAR_SecretPolicyDocumentStatements               = var.CLCC_LFWLGSAR_SecretPolicyDocumentStatements
-  LFWLGSAR_LogGroupNamePrefix                           = var.CLCC_LFWLGSAR_LogGroupNamePrefix
-  LFWLGSAR_LogGroupSkipDestroy                          = var.CLCC_LFWLGSAR_LogGroupSkipDestroy
-  LFWLGSAR_LogGroupClass                                = var.CLCC_LFWLGSAR_LogGroupClass
-  LFWLGSAR_LogGroupRetentionInDays                      = var.CLCC_LFWLGSAR_LogGroupRetentionInDays
-  LFWLGSAR_LogGroupKmsKeyId                             = var.CLCC_LFWLGSAR_LogGroupKmsKeyId
+  LFWLGSAR_LambdaGenericPolicyDescription               = var.CLCC_LFWLGSAR_LambdaGenericPolicyDescription
+  LFWLGSAR_LambdaGenericPolicyNamePrefix                = var.CLCC_LFWLGSAR_LambdaGenericPolicyNamePrefix
+  LFWLGSAR_LambdaGenericPolicyPath                      = var.CLCC_LFWLGSAR_LambdaGenericPolicyPath
+  LFWLGSAR_LambdaGenericPolicyVersion                   = var.CLCC_LFWLGSAR_LambdaGenericPolicyVersion
+  LFWLGSAR_LambdaGenericPolicyDocumentStatements        = var.CLCC_LFWLGSAR_LambdaGenericPolicyDocumentStatements
+  LFWLGSAR_LambdaSecretDescription                      = var.CLCC_LFWLGSAR_LambdaSecretDescription
+  LFWLGSAR_LambdaSecretKmsKeyId                         = var.CLCC_LFWLGSAR_LambdaSecretKmsKeyId
+  LFWLGSAR_LambdaSecretNamePrefix                       = var.CLCC_LFWLGSAR_LambdaSecretNamePrefix
+  LFWLGSAR_LambdaSecretPolicy                           = var.CLCC_LFWLGSAR_LambdaSecretPolicy
+  LFWLGSAR_LambdaSecretRecoveryWindowInDays             = var.CLCC_LFWLGSAR_LambdaSecretRecoveryWindowInDays
+  LFWLGSAR_LambdaSecretReplica                          = var.CLCC_LFWLGSAR_LambdaSecretReplica
+  LFWLGSAR_LambdaSecretForceSecretOverwrite             = var.CLCC_LFWLGSAR_LambdaSecretForceSecretOverwrite
+  LFWLGSAR_LambdaSecretVersionSecretString              = var.CLCC_LFWLGSAR_LambdaSecretVersionSecretString
+  LFWLGSAR_LambdaSecretVersionSecretBinary              = var.CLCC_LFWLGSAR_LambdaSecretVersionSecretBinary
+  LFWLGSAR_LambdaSecretVersionStages                    = var.CLCC_LFWLGSAR_LambdaSecretVersionStages
+  LFWLGSAR_LambdaSecretPolicyDescription                = var.CLCC_LFWLGSAR_LambdaSecretPolicyDescription
+  LFWLGSAR_LambdaSecretPolicyNamePrefix                 = var.CLCC_LFWLGSAR_LambdaSecretPolicyNamePrefix
+  LFWLGSAR_LambdaSecretPolicyPath                       = var.CLCC_LFWLGSAR_LambdaSecretPolicyPath
+  LFWLGSAR_LambdaSecretPolicyVersion                    = var.CLCC_LFWLGSAR_LambdaSecretPolicyVersion
+  LFWLGSAR_LambdaSecretPolicyDocumentStatements         = var.CLCC_LFWLGSAR_LambdaSecretPolicyDocumentStatements
+  LFWLGSAR_LambdaLogGroupNamePrefix                     = var.CLCC_LFWLGSAR_LambdaLogGroupNamePrefix
+  LFWLGSAR_LambdaLogGroupSkipDestroy                    = var.CLCC_LFWLGSAR_LambdaLogGroupSkipDestroy
+  LFWLGSAR_LambdaLogGroupClass                          = var.CLCC_LFWLGSAR_LambdaLogGroupClass
+  LFWLGSAR_LambdaLogGroupRetentionInDays                = var.CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays
+  LFWLGSAR_LambdaLogGroupKmsKeyId                       = var.CLCC_LFWLGSAR_LambdaLogGroupKmsKeyId
 }
 
 #---
+
+module "iamPolicyUpdateLambda" {
+  source               = "../../aws/iam/genericIamPolicy"
+  awsRegion            = var.awsRegion
+  iamPolicyDescription = var.CLCC_IamPolicyUpdateLambdaDescription
+  iamPolicyNamePrefix  = var.CLCC_IamPolicyUpdateLambdaNamePrefix
+  resourceName         = "${module.CECC.CECC_CodebuildProjectName}-lambda-update"
+  iamPolicyPath        = var.CLCC_IamPolicyUpdateLambdaPath
+  iamPolicyVersion     = var.CLCC_IamPolicyUpdateLambdaVersion
+  iamPolicyDocumentStatements = concat([
+    {
+      Action = [
+        "lambda:UpdateFunctionCode"
+      ]
+      Effect = "Allow"
+      Resource = [
+        module.LFWLGSAR.LFWLGSAR_LambdaFunctionArn,
+      ]
+      Sid = "updateLambda"
+    }
+  ], var.CLCC_IamPolicyUpdateLambdaDocumentStatements)
+  projectName    = var.projectName
+  createdBy      = var.createdBy
+  deployedDate   = var.deployedDate
+  tfModule       = var.tfModule
+  additionalTags = var.additionalTags
+}
+
+#---
+
+module "policyAttachmentUpdateLambda" {
+  source                    = "../../aws/iam/genericIamRolePolicyAttachment"
+  awsRegion                 = var.awsRegion
+  policyAttachmentRoleName  = module.CECC.CECC_CodebuildRoleName
+  policyAttachmentPolicyArn = module.iamPolicyUpdateLambda.iamPolicyArn
+}
+

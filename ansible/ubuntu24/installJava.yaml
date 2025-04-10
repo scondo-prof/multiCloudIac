@@ -1,0 +1,22 @@
+---
+- name: Install Java on Jenkins agent (Ubuntu 24.04)
+  hosts: web-app-server
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install OpenJDK 17 (recommended for Jenkins)
+      apt:
+        name: openjdk-17-jdk
+        state: present
+
+    - name: Ensure Java is available
+      shell: java -version
+      register: java_check
+      changed_when: false
+
+    - name: Show installed Java version
+      debug:
+        var: java_check.stdout

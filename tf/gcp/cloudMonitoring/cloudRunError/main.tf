@@ -1,3 +1,4 @@
+
 resource "google_monitoring_alert_policy" "cloudRunAlertPolicy" {
   display_name = "${var.resourceName}-cloud-run-log-error-alert-policy"
 
@@ -17,7 +18,7 @@ resource "google_monitoring_alert_policy" "cloudRunAlertPolicy" {
   enabled  = true
 
   notification_channels = [
-    "projects/${var.projectId}/notificationChannels/${var.cloudRunAlertPolicyNotificationChannelId}"
+    "projects/${var.gcpProjectId}/notificationChannels/${var.cloudRunAlertPolicyNotificationChannelId}"
   ]
 
   alert_strategy {

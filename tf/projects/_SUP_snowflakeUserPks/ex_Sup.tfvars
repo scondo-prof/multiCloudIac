@@ -1,8 +1,10 @@
-resourceName = "wee-wah"
+resourceName = "yeah-double-quarter-pounder-with-cheese"
 
-projectName = "wah-wee"
+projectName = "test"
 
-deployedDate = "02-06-2025"
+deployedDate = "2025-04-08"
+
+tfModule = "sup"
 
 snowflakeAccountName = "main"
 
@@ -12,7 +14,7 @@ snowflakeUser = "PROD_TERRAFORM_USER"
 
 snowflakeAuthenticator = "SNOWFLAKE_JWT"
 
-snowflakePrivateKey = "path/to/p8"
+snowflakePrivateKey = "../../utils/tfSnowflake/prod_terraform_private_rsa_key.p8"
 
 snowflakePrivateKeyPassphrase = "<p8-passphrase>"
 
@@ -28,7 +30,7 @@ SUP_PKS_PrivateKeyRsaBits = 2048
 
 SUP_PKS_SWV_SecretRecoveryWindowInDays = 0
 
-SUP_PKS_privateKeyP8FilePath = "keys/ex_Sup.p8"
+# SUP_PKS_privateKeyP8FilePath = "keys/ex_Sup.p8"
 
 SUP_SnowflakeUserDisabled = "false"
 

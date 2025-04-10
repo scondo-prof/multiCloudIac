@@ -1,11 +1,11 @@
-output "accountRoleFullyQualifiedName" {
+output "snowflakeRoleFullyQualifiedName" {
   value = snowflake_account_role.accountRole.fully_qualified_name
 }
 
-output "accountRoleId" {
+output "snowflakeRoleId" {
   value = snowflake_account_role.accountRole.id
 }
 
-output "accountRoleShowOutput" {
+output "snowflakeRoleShowOutput" {
   value = snowflake_account_role.accountRole.show_output
 }

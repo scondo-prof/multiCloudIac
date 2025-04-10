@@ -2,7 +2,7 @@ terraform {
   required_providers {
     snowflake = {
       source  = "Snowflake-Labs/snowflake"
-      version = "~> 1.0"
+      version = "1.0.0"
     }
   }
 }
@@ -35,7 +35,7 @@ provider "snowflake" {
   passcode_in_password              = var.snowflakePasscodeInPassword
   password                          = var.snowflakePassword
   port                              = var.snowflakePort
-  preview_features_enabled          = var.snowflakePreveiwFeaturesEnabled
+  preview_features_enabled          = var.snowflakePreviewFeaturesEnabled
   private_key                       = can(file(var.snowflakePrivateKey)) ? file(var.snowflakePrivateKey) : null
   private_key_passphrase            = var.snowflakePrivateKeyPassphrase
   profile                           = var.snowflakeProfile
@@ -44,21 +44,9 @@ provider "snowflake" {
   role                              = var.snowflakeRole
   tmp_directory_path                = var.snowflakeTmpDirectoryPath
   token                             = var.snowflakeToken
-
-  #   dynamic "token_accessor" {
-  #     for_each = var.snowflakeTokenAccessor != null ? [var.snowflakeTokenAccessor] : []
-  #     content {
-  #       client_id      = token.value["client_id"]
-  #       client_secret  = token.value["client_secret"]
-  #       redirect_uri   = token.value["redirect_uri"]
-  #       refresh_token  = token.value["refresh_token"]
-  #       token_endpoint = token.value["token_endpoint"]
-  #     }
-  #   }
-
-  user                        = var.snowflakeUser
-  validate_default_parameters = var.snowflakeValidateDefaultParameters
-  warehouse                   = var.snowflakeWarehouse
+  user                              = var.snowflakeUser
+  validate_default_parameters       = var.snowflakeValidateDefaultParameters
+  warehouse                         = var.snowflakeWarehouse
 }
 
 resource "snowflake_user" "user" {

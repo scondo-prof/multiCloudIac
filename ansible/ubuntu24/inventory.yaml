@@ -1,6 +1,20 @@
-ubuntu_server:
-  hosts:
-    107.20.217.98: # Replace with your instance IP
-      ansible_user: ubuntu
-      ansible_ssh_private_key_file: ~/.ssh/tgbfs-web-app-instance.pem
-      ansible_python_interpreter: /usr/bin/python3
+all:
+  children:
+    remoteCode:
+      hosts:
+        jenkins-server:
+          ansible_host: 10.0.134.201
+          ansible_user: ubuntu
+          ansible_ssh_private_key_file: ~/.ssh/tgbfs-web-app-key-pair.pem
+          ansible_ssh_common_args: >
+            -o ProxyCommand="ssh -i ~/.ssh/tgbfs-web-app-instance.pem -W %h:%p ubuntu@34.231.64.4"
+
+        web-app-server:
+          ansible_host: 10.0.140.27
+          ansible_user: ubuntu
+          ansible_ssh_private_key_file: ~/.ssh/tgbfs-web-app-key-pair.pem
+          ansible_ssh_common_args: >
+            -o ProxyCommand="ssh -i ~/.ssh/tgbfs-web-app-instance.pem -W %h:%p ubuntu@34.231.64.4"
+
+  vars:
+    ansible_python_interpreter: /usr/bin/python3

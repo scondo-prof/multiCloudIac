@@ -13,7 +13,6 @@ output "PKS_PasswordResult" {
 }
 
 #---
-
 output "PKS_PrivateKeyId" {
   value = module.privateKey.privateKeyId
 }

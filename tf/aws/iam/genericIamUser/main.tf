@@ -16,7 +16,8 @@ resource "aws_iam_user" "iamUser" {
   force_destroy        = var.iamUserForceDestroy
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }

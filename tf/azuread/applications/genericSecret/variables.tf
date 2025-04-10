@@ -3,11 +3,12 @@ variable "azureAdTenantId" {
   default = "c251bfb1-a539-45ec-a5e0-8911fffbb0a9"
 }
 
-variable "azureAdApplicationPasswordApplicationObjectId" {
+variable "resourceName" {
   type = string
 }
+#https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application_password#argument-reference
 
-variable "resourceName" {
+variable "azureAdApplicationPasswordApplicationObjectId" {
   type = string
 }
 

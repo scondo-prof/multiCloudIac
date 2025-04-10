@@ -1,6 +1,6 @@
 ---
 - name: Install GitHub CLI on Ubuntu 24.04
-  hosts: all
+  hosts: remoteCode
   become: yes # Runs commands with sudo privileges
 
   tasks:

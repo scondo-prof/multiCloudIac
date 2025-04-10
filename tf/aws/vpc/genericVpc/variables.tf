@@ -7,12 +7,16 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
 }
 
 variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
   type = string
 }
 
@@ -22,7 +26,7 @@ variable "additionalTags" {
 }
 
 variable "resourceName" {
-  
+  type = string
 }
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc#argument-reference

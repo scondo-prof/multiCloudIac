@@ -21,10 +21,11 @@ resource "google_compute_address" "networkAddress" {
   network_tier = var.networkAddressNetworkTier
   subnetwork   = var.networkAddressSubnetwork
   labels = merge({
-    "project" : var.projectName
-    "deployed-date" : var.deployedDate
-    "created-by" : var.createdBy
-  }, var.additionalLabels)
+    project       = var.projectName
+    deployed-date = var.deployedDate
+    created-by    = var.createdBy
+    tf-module     = var.tfModule
+  }, var.additionalTags)
   network            = var.networkAddressNetwork
   prefix_length      = var.networkAddressPrefixLength
   ip_version         = var.networkAddressIpVersion

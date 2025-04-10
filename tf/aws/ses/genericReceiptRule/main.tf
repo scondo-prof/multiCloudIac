@@ -12,7 +12,7 @@ provider "aws" {
 
 resource "aws_ses_receipt_rule" "receiptRule" {
   count         = length(var.receiptRuleObjects)
-  name          = "${var.resourceName}-receipt-rule-${count.index}"
+  name          = "${var.receiptRuleObjects[count.index]["name"]}-receipt-rule"
   rule_set_name = var.receiptRuleObjects[count.index]["rule_set_name"]
   after         = var.receiptRuleObjects[count.index]["after"]
   enabled       = var.receiptRuleObjects[count.index]["enabled"]

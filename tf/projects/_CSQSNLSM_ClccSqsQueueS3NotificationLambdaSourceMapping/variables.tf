@@ -29,7 +29,10 @@ variable "additionalTags" {
   default = {}
 }
 
-
+variable "awsAccountId" {
+  type    = string
+  default = "us-east1"
+}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository#argument-reference
 
@@ -67,6 +70,8 @@ variable "CSQSNLSM_CLCC_CECC_EcrRepositoryImageScanningConfiguration" {
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#argument-reference
+
+##https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#artifacts
 variable "CSQSNLSM_CLCC_CECC_CodebuildProjectArtifactsIdentifier" {
   type    = string
   default = null
@@ -172,23 +177,19 @@ variable "CSQSNLSM_CLCC_CECC_CodebuildProjectEnvironmentComputeType" {
   }
 }
 
-variable "CSQSNLSM_CLCC_CECC_CodebuildProjectEnvironmentFleet" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#fleet_arn-1
-    fleet_arn = optional(string, null)
-  })
-  default = null
-}
-
-variable "awsAccountId" {
-  type = string
-}
+# variable "CSQSNLSM_CLCC_CECC_CodebuildProjectEnvironmentFleet" {
+#   type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#fleet_arn-1
+#     fleet_arn = optional(string, null)
+#   })
+#   default = null
+# }
 
 variable "codebuildProjectEcrRepoImageTag" {
   type    = string
   default = "latest"
 }
 
-variable "CSQSNLSM_CLCC_CECC_CodebuildProjectEnvironmentEnvironmentVariables" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildProjectEnvironmentEnvironmentVariable" {
   type = map(object({
     name  = string
     type  = optional(string, null)
@@ -367,30 +368,15 @@ variable "CSQSNLSM_CLCC_CECC_CodebuildProjectEncryptionKey" {
   default = null
 }
 
-variable "CSQSNLSM_CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStatus" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildProjectCloudwatchLogsStatus" {
   type = string
   validation {
-    condition = var.CSQSNLSM_CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStatus == null || can(contains([
+    condition = var.CSQSNLSM_CLCC_CECC_CodebuildProjectCloudwatchLogsStatus == null || can(contains([
       "ENABLED",
       "DISABLED"
-    ], var.CSQSNLSM_CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStatus))
-    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStatus | are: ENABLED, DISABLED"
+    ], var.CSQSNLSM_CLCC_CECC_CodebuildProjectCloudwatchLogsStatus))
+    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_CECC_CodebuildProjectCloudwatchLogsStatus | are: ENABLED, DISABLED"
   }
-  default = null
-}
-
-variable "CSQSNLSM_CLCC_CECC_CodebuildProjectCloudwatchLogsConfigStreamName" {
-  type    = string
-  default = null
-}
-
-variable "CSQSNLSM_CLCC_CECC_CodebuildProjectS3LogsConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#logs_config 
-  type = object({
-    encryption_disabled = optional(bool, null)
-    location            = optional(string, null)
-    status              = optional(string, null)
-    bucket_owner_access = optional(string, null)
-  })
   default = null
 }
 
@@ -474,6 +460,7 @@ variable "CSQSNLSM_CLCC_CECC_CodebuildProjectSourceVersion" {
   default = null
 }
 
+
 variable "CSQSNLSM_CLCC_CECC_CodebuildProjectVpcConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#vpc_config
   type = object({
     security_group_ids = list(string)
@@ -486,7 +473,7 @@ variable "CSQSNLSM_CLCC_CECC_CodebuildProjectVpcConfig" { #https://registry.terr
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_source_credential#argument-reference
-variable "CSQSNLSM_CLCC_CECC_CredentialsAuthType" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildCredentialsAuthType" {
   type = string
   validation {
     condition = contains([
@@ -495,45 +482,46 @@ variable "CSQSNLSM_CLCC_CECC_CredentialsAuthType" {
       "PERSONAL_ACCESS_TOKEN",
       "CODECONNECTIONS",
       "SECRETS_MANAGER"
-    ], var.CSQSNLSM_CLCC_CECC_CredentialsAuthType)
-    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_CECC_CredentialsAuthType | are: OAUTH, BASIC_AUTH, PERSONAL_ACCESS_TOKEN, CODECONNECTIONS, SECRETS_MANAGER"
+    ], var.CSQSNLSM_CLCC_CECC_CodebuildCredentialsAuthType)
+    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_CECC_CodebuildCredentialsAuthType | are: OAUTH, BASIC_AUTH, PERSONAL_ACCESS_TOKEN, CODECONNECTIONS, SECRETS_MANAGER"
   }
 }
 
-variable "CSQSNLSM_CLCC_CECC_CredentialsServerType" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildCredentialsServerType" {
   type = string
 }
 
-variable "CSQSNLSM_CLCC_CECC_CredentialsToken" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildCredentialsToken" {
   type = string
 }
 
-variable "CSQSNLSM_CLCC_CECC_CredentialsUserName" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildCredentialsUserName" {
   type    = string
   default = null
 }
 
 
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_webhook#argument-reference
-variable "CSQSNLSM_CLCC_CECC_WebhookBuildType" {
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_CSQSNLSM_CLCC_CECC_CodebuildWebhook#argument-reference
+
+variable "CSQSNLSM_CLCC_CECC_CodebuildWebhookBuildType" {
   type = string
   validation {
-    condition = var.CSQSNLSM_CLCC_CECC_WebhookBuildType == null || can(contains([
+    condition = var.CSQSNLSM_CLCC_CECC_CodebuildWebhookBuildType == null || can(contains([
       "BUILD",
       "BUILD_BATCH"
-    ], var.CSQSNLSM_CLCC_CECC_WebhookBuildType))
-    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_CECC_WebhookBuildType | are: BUILD, BUILD_BATCH"
+    ], var.CSQSNLSM_CLCC_CECC_CodebuildWebhookBuildType))
+    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_CECC_CodebuildWebhookBuildType | are: BUILD, BUILD_BATCH"
   }
   default = null
 }
 
-variable "CSQSNLSM_CLCC_CECC_WebhookBranchFilter" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildWebhookBranchFilter" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_CLCC_CECC_WebhookFilterGroup" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildWebhookFilterGroup" {
   type = object({
     filter = map(object({
       type                    = string
@@ -544,7 +532,7 @@ variable "CSQSNLSM_CLCC_CECC_WebhookFilterGroup" {
   default = null
 }
 
-variable "CSQSNLSM_CLCC_CECC_WebhookScopeConfiguration" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildWebhookScopeConfiguration" {
   type = object({
     name   = string
     scope  = string
@@ -608,23 +596,24 @@ variable "CSQSNLSM_CLCC_CECC_CodebuildRolePermissionsBoundary" {
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
-variable "CSQSNLSM_CLCC_CECC_CodebuildPolicyDescription" {
+
+variable "CSQSNLSM_CLCC_CECC_CodebuildRolePolicyDescription" {
   type    = string
   default = null
 }
-variable "CSQSNLSM_CLCC_CECC_CodebuildPolicyNamePrefix" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildRolePolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CSQSNLSM_CLCC_CECC_CodebuildPolicyPath" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildRolePolicyPath" {
   type    = string
   default = "/"
 }
-variable "CSQSNLSM_CLCC_CECC_CodebuildPolicyVersion" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildRolePolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CSQSNLSM_CLCC_CECC_CodebuildPolicyDocumentAdditionalStatements" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildRolePolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -639,32 +628,34 @@ variable "CSQSNLSM_CLCC_CECC_CodebuildPolicyDocumentAdditionalStatements" {
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group#argument-reference
-variable "CSQSNLSM_CLCC_CECC_LogGroupNamePrefix" {
+
+
+variable "CSQSNLSM_CLCC_CECC_CodebuildLogGroupNamePrefix" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_CLCC_CECC_LogGroupSkipDestroy" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildLogGroupSkipDestroy" {
   type    = bool
   default = null
 }
 
-variable "CSQSNLSM_CLCC_CECC_LogGroupClass" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildLogGroupClass" {
   type = string
   validation {
-    condition = var.CSQSNLSM_CLCC_CECC_LogGroupClass == null || can(contains([
+    condition = var.CSQSNLSM_CLCC_CECC_CodebuildLogGroupClass == null || can(contains([
       "STANDARD",
       "INFREQUENT_ACCESS"
-    ], var.CSQSNLSM_CLCC_CECC_LogGroupClass))
-    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_CECC_LogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
+    ], var.CSQSNLSM_CLCC_CECC_CodebuildLogGroupClass))
+    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_CECC_CodebuildLogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
   }
   default = null
 }
 
-variable "CSQSNLSM_CLCC_CECC_LogGroupRetentionInDays" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildLogGroupRetentionInDays" {
   type = number
   validation {
-    condition = var.CSQSNLSM_CLCC_CECC_LogGroupRetentionInDays == null || can(contains([
+    condition = var.CSQSNLSM_CLCC_CECC_CodebuildLogGroupRetentionInDays == null || can(contains([
       1,
       3,
       5,
@@ -688,37 +679,42 @@ variable "CSQSNLSM_CLCC_CECC_LogGroupRetentionInDays" {
       3288,
       3653,
       0
-    ], var.CSQSNLSM_CLCC_CECC_LogGroupRetentionInDays))
-    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_CECC_LogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
+    ], var.CSQSNLSM_CLCC_CECC_CodebuildLogGroupRetentionInDays))
+    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_CECC_CodebuildLogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
   }
   default = null
 }
 
-variable "CSQSNLSM_CLCC_CECC_LogGroupKmsKeyId" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildLogGroupKmsKeyId" {
   type    = string
   default = null
 }
+
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
 
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
-variable "CSQSNLSM_CLCC_CECC_EcrAccessPolicyDescription" {
+
+variable "CSQSNLSM_CLCC_CECC_CodebuildRoleEcrPolicyDescription" {
   type    = string
   default = null
 }
-variable "CSQSNLSM_CLCC_CECC_EcrAccessPolicyNamePrefix" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildRoleEcrPolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CSQSNLSM_CLCC_CECC_EcrAccessPolicyPath" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildRoleEcrPolicyPath" {
   type    = string
   default = "/"
 }
-variable "CSQSNLSM_CLCC_CECC_EcrAccessPolicyVersion" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildRoleEcrPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CSQSNLSM_CLCC_CECC_EcrAccessPolicyDocumentAdditionalStatements" {
+variable "CSQSNLSM_CLCC_CECC_CodebuildRoleEcrPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -732,39 +728,14 @@ variable "CSQSNLSM_CLCC_CECC_EcrAccessPolicyDocumentAdditionalStatements" {
 
 
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
 
-variable "CSQSNLSM_CLCC_UpdateLambdaPolicyDescription" {
-  type    = string
-  default = null
-}
-variable "CSQSNLSM_CLCC_UpdateLambdaPolicyNamePrefix" {
-  type    = string
-  default = null
-}
-variable "CSQSNLSM_CLCC_UpdateLambdaPolicyPath" {
-  type    = string
-  default = "/"
-}
-variable "CSQSNLSM_CLCC_UpdateLambdaPolicyVersion" {
-  type    = string
-  default = "2012-10-17"
-}
-variable "CSQSNLSM_CLCC_UpdateLambdaPolicyDocumentStatements" {
-  type = list(object({
-    Action    = list(string)
-    Effect    = string
-    Resource  = list(string)
-    Sid       = optional(string, "")
-    Condition = optional(map(map(string)), {})
-    Principal = optional(map(list(string)), {})
-  }))
-  default = []
-}
+
 
 
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_function#argument-reference
+
 variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionArchitectures" {
   type    = list(string)
   default = null
@@ -844,11 +815,9 @@ variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionLayers" {
 variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionLoggingConfig" {
   type = object({
     application_log_level = optional(string, null)
-    log_format            = string
-    log_group             = optional(string, null)
     system_log_level      = optional(string, null)
   })
-  default = null
+  default = {}
 }
 
 variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionMemorySize" {
@@ -1056,23 +1025,23 @@ variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaFunctionRolePermissionsBoundary" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaPolicyDescription" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaGenericPolicyDescription" {
   type    = string
   default = null
 }
-variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaPolicyNamePrefix" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaGenericPolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaPolicyPath" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaGenericPolicyPath" {
   type    = string
   default = "/"
 }
-variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaPolicyVersion" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaGenericPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaPolicyDocumentStatements" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaGenericPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -1086,34 +1055,38 @@ variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaPolicyDocumentStatements" {
 
 
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretDescription" {
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretsmanager_CSQSNLSM_CLCC_LFWLGSAR_LambdaSecret#argument-reference
+
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretDescription" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretKmsKeyId" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretKmsKeyId" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretNamePrefix" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretNamePrefix" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretPolicy" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretPolicy" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretRecoveryWindowInDays" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretRecoveryWindowInDays" {
   type    = number
   default = null
 }
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretReplica" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretReplica" {
   type = object({
     kms_key_id = optional(string, null)
     region     = string
@@ -1121,7 +1094,7 @@ variable "CSQSNLSM_CLCC_LFWLGSAR_SecretReplica" {
   default = null
 }
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretForceSecretOverwrite" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretForceSecretOverwrite" {
   type    = bool
   default = null
 }
@@ -1130,17 +1103,17 @@ variable "CSQSNLSM_CLCC_LFWLGSAR_SecretForceSecretOverwrite" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretVersionSecretString" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretVersionSecretString" {
   type    = map(string)
   default = null
 }
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretVersionSecretBinary" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretVersionSecretBinary" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretVersionStages" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretVersionStages" {
   type    = list(string)
   default = null
 }
@@ -1149,23 +1122,23 @@ variable "CSQSNLSM_CLCC_LFWLGSAR_SecretVersionStages" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyDescription" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretPolicyDescription" {
   type    = string
   default = null
 }
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyNamePrefix" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretPolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyPath" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretPolicyPath" {
   type    = string
   default = "/"
 }
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyVersion" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyDocumentStatements" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaSecretPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -1179,33 +1152,39 @@ variable "CSQSNLSM_CLCC_LFWLGSAR_SecretPolicyDocumentStatements" {
 
 
 
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
+
+
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group#argument-reference
-variable "CSQSNLSM_CLCC_LFWLGSAR_LogGroupNamePrefix" {
+
+
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaLogGroupNamePrefix" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_LogGroupSkipDestroy" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaLogGroupSkipDestroy" {
   type    = bool
   default = null
 }
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_LogGroupClass" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaLogGroupClass" {
   type = string
   validation {
-    condition = var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupClass == null || can(contains([
+    condition = var.CSQSNLSM_CLCC_LFWLGSAR_LambdaLogGroupClass == null || can(contains([
       "STANDARD",
       "INFREQUENT_ACCESS"
-    ], var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupClass))
-    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
+    ], var.CSQSNLSM_CLCC_LFWLGSAR_LambdaLogGroupClass))
+    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_LFWLGSAR_LambdaLogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
   }
   default = null
 }
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_LogGroupRetentionInDays" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays" {
   type = number
   validation {
-    condition = var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupRetentionInDays == null || can(contains([
+    condition = var.CSQSNLSM_CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays == null || can(contains([
       1,
       3,
       5,
@@ -1229,110 +1208,142 @@ variable "CSQSNLSM_CLCC_LFWLGSAR_LogGroupRetentionInDays" {
       3288,
       3653,
       0
-    ], var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupRetentionInDays))
-    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_LFWLGSAR_LogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
+    ], var.CSQSNLSM_CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays))
+    error_message = "Valid inputs for | variable: var.CSQSNLSM_CLCC_LFWLGSAR_LambdaLogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
   }
   default = null
 }
 
-variable "CSQSNLSM_CLCC_LFWLGSAR_LogGroupKmsKeyId" {
+variable "CSQSNLSM_CLCC_LFWLGSAR_LambdaLogGroupKmsKeyId" {
   type    = string
   default = null
 }
 
+
+
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
+
+variable "CSQSNLSM_CLCC_IamPolicyUpdateLambdaDescription" {
+  type    = string
+  default = null
+}
+variable "CSQSNLSM_CLCC_IamPolicyUpdateLambdaNamePrefix" {
+  type    = string
+  default = null
+}
+variable "CSQSNLSM_CLCC_IamPolicyUpdateLambdaPath" {
+  type    = string
+  default = "/"
+}
+variable "CSQSNLSM_CLCC_IamPolicyUpdateLambdaVersion" {
+  type    = string
+  default = "2012-10-17"
+}
+variable "CSQSNLSM_CLCC_IamPolicyUpdateLambdaDocumentStatements" {
+  type = list(object({
+    Action    = list(string)
+    Effect    = string
+    Resource  = list(string)
+    Sid       = optional(string, "")
+    Condition = optional(map(map(string)), {})
+    Principal = optional(map(list(string)), {})
+  }))
+  default = []
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
 
 
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_CSQSNLSM_S3Queue#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_CSQSNLSM_QueueS3#argument-reference
 
-variable "CSQSNLSM_S3QueueContentBasedDeduplication" {
+variable "CSQSNLSM_QueueS3ContentBasedDeduplication" {
   type    = bool
   default = null
 }
 
-variable "CSQSNLSM_S3QueueDeduplicationScope" {
+variable "CSQSNLSM_QueueS3DeduplicationScope" {
   type = string
   validation {
-    condition = var.CSQSNLSM_S3QueueDeduplicationScope == null || can(contains([
+    condition = var.CSQSNLSM_QueueS3DeduplicationScope == null || can(contains([
       "messageGroup",
-      "CSQSNLSM_S3Queue"
-    ], var.CSQSNLSM_S3QueueDeduplicationScope))
-    error_message = "Valid inputs for | variable: var.CSQSNLSM_S3QueueDeduplicationScope | are: messageGroup , CSQSNLSM_S3Queue"
+      "CSQSNLSM_QueueS3"
+    ], var.CSQSNLSM_QueueS3DeduplicationScope))
+    error_message = "Valid inputs for | variable: var.CSQSNLSM_QueueS3DeduplicationScope | are: messageGroup , CSQSNLSM_QueueS3"
   }
   default = null
 }
 
-variable "CSQSNLSM_S3QueueDelaySeconds" {
+variable "CSQSNLSM_QueueS3DelaySeconds" {
   type = number
   validation {
-    condition     = var.CSQSNLSM_S3QueueDelaySeconds == null || can(var.CSQSNLSM_S3QueueDelaySeconds >= 0 && var.CSQSNLSM_S3QueueDelaySeconds <= 900)
-    error_message = "var.CSQSNLSM_S3QueueDelaySeconds must be Greater than or Equal to 0 AND Less Than or Equal to 900"
+    condition     = var.CSQSNLSM_QueueS3DelaySeconds == null || can(var.CSQSNLSM_QueueS3DelaySeconds >= 0 && var.CSQSNLSM_QueueS3DelaySeconds <= 900)
+    error_message = "var.CSQSNLSM_QueueS3DelaySeconds must be Greater than or Equal to 0 AND Less Than or Equal to 900"
   }
   default = null
 }
 
-variable "CSQSNLSM_S3QueueFifoQueue" {
+variable "CSQSNLSM_QueueS3FifoQueue" {
   type    = bool
   default = null
 }
 
-variable "CSQSNLSM_S3QueueFifoThroughputLimit" {
+variable "CSQSNLSM_QueueS3FifoThroughputLimit" {
   type = string
   validation {
-    condition = var.CSQSNLSM_S3QueueFifoThroughputLimit == null || can(contains([
+    condition = var.CSQSNLSM_QueueS3FifoThroughputLimit == null || can(contains([
       "perQueue",
       "perMessageGroupId"
-    ], var.CSQSNLSM_S3QueueFifoThroughputLimit))
-    error_message = "Valid inputs for | variable: var.CSQSNLSM_S3QueueFifoThroughputLimit | are: perQueue , perMessageGroupId"
+    ], var.CSQSNLSM_QueueS3FifoThroughputLimit))
+    error_message = "Valid inputs for | variable: var.CSQSNLSM_QueueS3FifoThroughputLimit | are: perQueue , perMessageGroupId"
   }
   default = null
 }
 
-variable "CSQSNLSM_S3QueueKmsDataKeyReusePeriodSeconds" {
+variable "CSQSNLSM_QueueS3KmsDataKeyReusePeriodSeconds" {
   type = number
   validation {
-    condition     = var.CSQSNLSM_S3QueueKmsDataKeyReusePeriodSeconds == null || can(var.CSQSNLSM_S3QueueKmsDataKeyReusePeriodSeconds >= 60 && var.CSQSNLSM_S3QueueKmsDataKeyReusePeriodSeconds <= 86400)
-    error_message = "var.CSQSNLSM_S3QueueKmsDataKeyReusePeriodSeconds must be Greater than or Equal to 60 AND Less Than or Equal to 86400"
+    condition     = var.CSQSNLSM_QueueS3KmsDataKeyReusePeriodSeconds == null || can(var.CSQSNLSM_QueueS3KmsDataKeyReusePeriodSeconds >= 60 && var.CSQSNLSM_QueueS3KmsDataKeyReusePeriodSeconds <= 86400)
+    error_message = "var.CSQSNLSM_QueueS3KmsDataKeyReusePeriodSeconds must be Greater than or Equal to 60 AND Less Than or Equal to 86400"
   }
   default = null
 }
 
-variable "CSQSNLSM_S3QueueKmsMasterKeyId" {
+variable "CSQSNLSM_QueueS3KmsMasterKeyId" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_S3QueueMaxMessageSize" {
+variable "CSQSNLSM_QueueS3MaxMessageSize" {
   type = number
   validation {
-    condition     = var.CSQSNLSM_S3QueueMaxMessageSize == null || can(var.CSQSNLSM_S3QueueMaxMessageSize >= 1024 && var.CSQSNLSM_S3QueueMaxMessageSize <= 262144)
-    error_message = "var.CSQSNLSM_S3QueueMaxMessageSize must be Greater than or Equal to 1024 AND Less Than or Equal to 262144"
+    condition     = var.CSQSNLSM_QueueS3MaxMessageSize == null || can(var.CSQSNLSM_QueueS3MaxMessageSize >= 1024 && var.CSQSNLSM_QueueS3MaxMessageSize <= 262144)
+    error_message = "var.CSQSNLSM_QueueS3MaxMessageSize must be Greater than or Equal to 1024 AND Less Than or Equal to 262144"
   }
   default = null
 }
 
-variable "CSQSNLSM_S3QueueMessageRetentionSeconds" {
+variable "CSQSNLSM_QueueS3MessageRetentionSeconds" {
   type = number
   validation {
-    condition     = var.CSQSNLSM_S3QueueMessageRetentionSeconds == null || can(var.CSQSNLSM_S3QueueMessageRetentionSeconds >= 60 && var.CSQSNLSM_S3QueueMessageRetentionSeconds <= 1209600)
-    error_message = "var.CSQSNLSM_S3QueueMessageRetentionSeconds must be Greater than or Equal to 60 AND Less Than or Equal to 1209600"
+    condition     = var.CSQSNLSM_QueueS3MessageRetentionSeconds == null || can(var.CSQSNLSM_QueueS3MessageRetentionSeconds >= 60 && var.CSQSNLSM_QueueS3MessageRetentionSeconds <= 1209600)
+    error_message = "var.CSQSNLSM_QueueS3MessageRetentionSeconds must be Greater than or Equal to 60 AND Less Than or Equal to 1209600"
   }
   default = null
 }
 
-variable "CSQSNLSM_S3QueueName" {
+variable "CSQSNLSM_QueueS3Name" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_S3QueueNamePrefix" {
-  type    = string
-  default = null
-}
-
-variable "CSQSNLSM_S3QueuePolicyDocumentStatements" {
+variable "CSQSNLSM_QueueS3PolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -1344,47 +1355,47 @@ variable "CSQSNLSM_S3QueuePolicyDocumentStatements" {
   default = []
 }
 
-variable "CSQSNLSM_S3QueueRecieveWaitTimeSeconds" {
+variable "CSQSNLSM_QueueS3RecieveWaitTimeSeconds" {
   type = number
   validation {
-    condition     = var.CSQSNLSM_S3QueueRecieveWaitTimeSeconds == null || can(var.CSQSNLSM_S3QueueRecieveWaitTimeSeconds >= 0 && var.CSQSNLSM_S3QueueRecieveWaitTimeSeconds <= 20)
-    error_message = "var.CSQSNLSM_S3QueueRecieveWaitTimeSeconds must be Greater than or Equal to 0 AND Less Than or Equal to 20"
+    condition     = var.CSQSNLSM_QueueS3RecieveWaitTimeSeconds == null || can(var.CSQSNLSM_QueueS3RecieveWaitTimeSeconds >= 0 && var.CSQSNLSM_QueueS3RecieveWaitTimeSeconds <= 20)
+    error_message = "var.CSQSNLSM_QueueS3RecieveWaitTimeSeconds must be Greater than or Equal to 0 AND Less Than or Equal to 20"
   }
   default = null
 }
 
-variable "CSQSNLSM_S3QueueRedriveAllowPolicy" {
+variable "CSQSNLSM_QueueS3RedriveAllowPolicy" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_S3QueueRedrivePolicy" {
+variable "CSQSNLSM_QueueS3RedrivePolicy" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_S3QueueSqsManagedSseEnabled" {
+variable "CSQSNLSM_QueueS3SqsManagedSseEnabled" {
   type    = bool
   default = null
 }
 
-variable "CSQSNLSM_S3QueueVisibilityTimeoutSeconds" {
+variable "CSQSNLSM_QueueS3VisibilityTimeoutSeconds" {
   type = number
   validation {
-    condition     = var.CSQSNLSM_S3QueueVisibilityTimeoutSeconds == null || can(var.CSQSNLSM_S3QueueVisibilityTimeoutSeconds >= 0 && var.CSQSNLSM_S3QueueVisibilityTimeoutSeconds <= 43200)
-    error_message = "var.CSQSNLSM_S3QueueVisibilityTimeoutSeconds must be Greater than or Equal to 0 AND Less Than or Equal to 43200"
+    condition     = var.CSQSNLSM_QueueS3VisibilityTimeoutSeconds == null || can(var.CSQSNLSM_QueueS3VisibilityTimeoutSeconds >= 0 && var.CSQSNLSM_QueueS3VisibilityTimeoutSeconds <= 43200)
+    error_message = "var.CSQSNLSM_QueueS3VisibilityTimeoutSeconds must be Greater than or Equal to 0 AND Less Than or Equal to 43200"
   }
   default = null
 }
 
 #---
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/sqs_queue_policy#argument-reference
 
-variable "CSQSNLSM_ExternalS3QueuePolicyBucket" {
+variable "CSQSNLSM_QueuePolicyS3AccessBucketArn" {
   type = string
 }
-
-variable "CSQSNLSM_ExternalS3QueuePolicyDocumentStatements" {
+variable "CSQSNLSM_QueuePolicyS3AccessDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -1400,16 +1411,16 @@ variable "CSQSNLSM_ExternalS3QueuePolicyDocumentStatements" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification#argument-reference
 
-variable "CSQSNLSM_QueueBucketNotificationBucket" {
+variable "CSQSNLSM_BucketNotificationToQueueBucket" {
   type = string
 }
 
-variable "CSQSNLSM_QueueBucketNotificationQueueEvents" {
+variable "CSQSNLSM_BucketNotificationToQueueEvents" {
   type    = list(string)
   default = []
 }
 
-variable "CSQSNLSM_QueueBucketNotificationQueue" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification#queue
+variable "CSQSNLSM_BucketNotificationToQueueQueue" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_notification#queue
   type = object({
     filter_prefix = optional(string, null)
     filter_suffix = optional(string, null)
@@ -1419,26 +1430,27 @@ variable "CSQSNLSM_QueueBucketNotificationQueue" { #https://registry.terraform.i
 }
 
 #---
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#argument-reference
 
-variable "CSQSNLSM_S3EventSourceMappingAmazonManagedKafkaEventSourceConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#amazon_managed_kafka_event_source_config-configuration-block
+variable "CSQSNLSM_EventSourceMappingToQueueAmazonManagedKafkaEventSourceConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#amazon_managed_kafka_event_source_config-configuration-block
   type = object({
     consumer_group_id = optional(string, null)
   })
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingBatchSize" {
+variable "CSQSNLSM_EventSourceMappingToQueueBatchSize" {
   type    = number
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingBisectBatchOnFunctionError" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#amazon_managed_kafka_event_source_config-configuration-block
+variable "CSQSNLSM_EventSourceMappingToQueueBisectBatchOnFunctionError" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#amazon_managed_kafka_event_source_config-configuration-block
   type    = bool
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingDestinationConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#destination_config-configuration-block
+variable "CSQSNLSM_EventSourceMappingToQueueDestinationConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#destination_config-configuration-block
   type = object({
     on_failure = optional(object({
       destination_arn = string
@@ -1447,7 +1459,7 @@ variable "CSQSNLSM_S3EventSourceMappingDestinationConfig" { #https://registry.te
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingDocumentDbEventSourceConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#document_db_event_source_config-configuration-block
+variable "CSQSNLSM_EventSourceMappingToQueueDocumentDbEventSourceConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#document_db_event_source_config-configuration-block
   type = object({
     collection_name = optional(string, null)
     database_name   = string
@@ -1456,17 +1468,12 @@ variable "CSQSNLSM_S3EventSourceMappingDocumentDbEventSourceConfig" { #https://r
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingEnabled" {
+variable "CSQSNLSM_EventSourceMappingToQueueEnabled" {
   type    = bool
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingEventSourceArn" {
-  type    = string
-  default = null
-}
-
-variable "CSQSNLSM_S3EventSourceMappingFilterCriteria" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#filter_criteria-configuration-block
+variable "CSQSNLSM_EventSourceMappingToQueueFilterCriteria" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#filter_criteria-configuration-block
   type = object({
     filter = optional(object({
       pattern = optional(string, null)
@@ -1475,60 +1482,60 @@ variable "CSQSNLSM_S3EventSourceMappingFilterCriteria" { #https://registry.terra
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingFunctionResponseTypes" {
+variable "CSQSNLSM_EventSourceMappingToQueueFunctionResponseTypes" {
   type    = list(string)
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingKmsKeyArn" {
+variable "CSQSNLSM_EventSourceMappingToQueueKmsKeyArn" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingMaximumBatchingWindowInSeconds" {
+variable "CSQSNLSM_EventSourceMappingToQueueMaximumBatchingWindowInSeconds" {
   type = number
   validation {
-    condition     = var.CSQSNLSM_S3EventSourceMappingMaximumBatchingWindowInSeconds == null || var.CSQSNLSM_S3EventSourceMappingMaximumBatchingWindowInSeconds == -1 || can(var.CSQSNLSM_S3EventSourceMappingMaximumBatchingWindowInSeconds >= 60 && var.CSQSNLSM_S3EventSourceMappingMaximumBatchingWindowInSeconds <= 604800)
-    error_message = "var.CSQSNLSM_S3EventSourceMappingMaximumBatchingWindowInSeconds must be Greater than or Equal to 60 AND Less Than or Equal to 604800"
+    condition     = var.CSQSNLSM_EventSourceMappingToQueueMaximumBatchingWindowInSeconds == null || var.CSQSNLSM_EventSourceMappingToQueueMaximumBatchingWindowInSeconds == -1 || can(var.CSQSNLSM_EventSourceMappingToQueueMaximumBatchingWindowInSeconds >= 60 && var.CSQSNLSM_EventSourceMappingToQueueMaximumBatchingWindowInSeconds <= 604800)
+    error_message = "var.CSQSNLSM_EventSourceMappingToQueueMaximumBatchingWindowInSeconds must be Greater than or Equal to 60 AND Less Than or Equal to 604800"
   }
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingMaximumRecordAgeInSeconds" {
+variable "CSQSNLSM_EventSourceMappingToQueueMaximumRecordAgeInSeconds" {
   type = number
   validation {
-    condition     = var.CSQSNLSM_S3EventSourceMappingMaximumRecordAgeInSeconds == null || var.CSQSNLSM_S3EventSourceMappingMaximumRecordAgeInSeconds == -1 || can(var.CSQSNLSM_S3EventSourceMappingMaximumRecordAgeInSeconds >= 60 && var.CSQSNLSM_S3EventSourceMappingMaximumRecordAgeInSeconds <= 604800)
-    error_message = "var.CSQSNLSM_S3EventSourceMappingMaximumRecordAgeInSeconds must be Greater than or Equal to 60 AND Less Than or Equal to 604800"
+    condition     = var.CSQSNLSM_EventSourceMappingToQueueMaximumRecordAgeInSeconds == null || var.CSQSNLSM_EventSourceMappingToQueueMaximumRecordAgeInSeconds == -1 || can(var.CSQSNLSM_EventSourceMappingToQueueMaximumRecordAgeInSeconds >= 60 && var.CSQSNLSM_EventSourceMappingToQueueMaximumRecordAgeInSeconds <= 604800)
+    error_message = "var.CSQSNLSM_EventSourceMappingToQueueMaximumRecordAgeInSeconds must be Greater than or Equal to 60 AND Less Than or Equal to 604800"
   }
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingMaximumRetryAttempts" {
+variable "CSQSNLSM_EventSourceMappingToQueueMaximumRetryAttempts" {
   type = number
   validation {
-    condition     = var.CSQSNLSM_S3EventSourceMappingMaximumRetryAttempts == null || can(var.CSQSNLSM_S3EventSourceMappingMaximumRetryAttempts >= -1 && var.CSQSNLSM_S3EventSourceMappingMaximumRetryAttempts <= 10000)
-    error_message = "var.CSQSNLSM_S3EventSourceMappingMaximumRetryAttempts must be Greater than or Equal to -1 AND Less Than or Equal to 10000"
+    condition     = var.CSQSNLSM_EventSourceMappingToQueueMaximumRetryAttempts == null || can(var.CSQSNLSM_EventSourceMappingToQueueMaximumRetryAttempts >= -1 && var.CSQSNLSM_EventSourceMappingToQueueMaximumRetryAttempts <= 10000)
+    error_message = "var.CSQSNLSM_EventSourceMappingToQueueMaximumRetryAttempts must be Greater than or Equal to -1 AND Less Than or Equal to 10000"
   }
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingMetricsConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#metrics_config-configuration-block
+variable "CSQSNLSM_EventSourceMappingToQueueMetricsConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#metrics_config-configuration-block
   type = object({
     metrics = list(string)
   })
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingParallelizationFactor" {
+variable "CSQSNLSM_EventSourceMappingToQueueParallelizationFactor" {
   type = number
   validation {
-    condition     = var.CSQSNLSM_S3EventSourceMappingParallelizationFactor == null || can(var.CSQSNLSM_S3EventSourceMappingParallelizationFactor >= 1 && var.CSQSNLSM_S3EventSourceMappingParallelizationFactor <= 10)
-    error_message = "var.CSQSNLSM_S3EventSourceMappingParallelizationFactor must be Greater than or Equal to 1 AND Less Than or Equal to 10"
+    condition     = var.CSQSNLSM_EventSourceMappingToQueueParallelizationFactor == null || can(var.CSQSNLSM_EventSourceMappingToQueueParallelizationFactor >= 1 && var.CSQSNLSM_EventSourceMappingToQueueParallelizationFactor <= 10)
+    error_message = "var.CSQSNLSM_EventSourceMappingToQueueParallelizationFactor must be Greater than or Equal to 1 AND Less Than or Equal to 10"
   }
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingProvisionedPollerConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#provisioned_poller_config-configuration-block
+variable "CSQSNLSM_EventSourceMappingToQueueProvisionedPollerConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#provisioned_poller_config-configuration-block
   type = object({
     maximum_pollers = optional(number, null)
     minimum_pollers = optional(number, null)
@@ -1536,33 +1543,33 @@ variable "CSQSNLSM_S3EventSourceMappingProvisionedPollerConfig" { #https://regis
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingQueues" {
+variable "CSQSNLSM_EventSourceMappingToQueueQueues" {
   type    = list(string)
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingScalingConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#scaling_config-configuration-block
+variable "CSQSNLSM_EventSourceMappingToQueueScalingConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#scaling_config-configuration-block
   type = object({
     maximum_concurrency = optional(number, null)
   })
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingSelfManagedEventSource" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#self_managed_event_source-configuration-block
+variable "CSQSNLSM_EventSourceMappingToQueueSelfManagedEventSource" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#self_managed_event_source-configuration-block
   type = object({
     endpoints = map(string)
   })
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingSelfManagedKafkaEventSourceConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#self_managed_kafka_event_source_config-configuration-block
+variable "CSQSNLSM_EventSourceMappingToQueueSelfManagedKafkaEventSourceConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#self_managed_kafka_event_source_config-configuration-block
   type = object({
     consumer_group_id = optional(string, null)
   })
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingSourceAccessConfiguration" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#source_access_configuration-configuration-block
+variable "CSQSNLSM_EventSourceMappingToQueueSourceAccessConfiguration" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lambda_event_source_mapping#source_access_configuration-configuration-block
   type = object({
     type = string
     uri  = string
@@ -1570,34 +1577,34 @@ variable "CSQSNLSM_S3EventSourceMappingSourceAccessConfiguration" { #https://reg
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingStartingPosition" {
+variable "CSQSNLSM_EventSourceMappingToQueueStartingPosition" {
   type = string
   validation {
-    condition = var.CSQSNLSM_S3EventSourceMappingStartingPosition == null || can(contains([
+    condition = var.CSQSNLSM_EventSourceMappingToQueueStartingPosition == null || can(contains([
       "AT_TIMESTAMP",
       "LATEST",
       "TRIM_HORIZON"
-    ], var.CSQSNLSM_S3EventSourceMappingStartingPosition))
-    error_message = "Valid inputs for | variable: var.CSQSNLSM_S3EventSourceMappingStartingPosition | are: AT_TIMESTAMP , LATEST, TRIM_HORIZON"
+    ], var.CSQSNLSM_EventSourceMappingToQueueStartingPosition))
+    error_message = "Valid inputs for | variable: var.CSQSNLSM_EventSourceMappingToQueueStartingPosition | are: AT_TIMESTAMP , LATEST, TRIM_HORIZON"
   }
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingStartingPositionTimestamp" {
+variable "CSQSNLSM_EventSourceMappingToQueueStartingPositionTimestamp" {
   type    = string
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingTopics" {
+variable "CSQSNLSM_EventSourceMappingToQueueTopics" {
   type    = list(string)
   default = null
 }
 
-variable "CSQSNLSM_S3EventSourceMappingTumblingWindowInSeconds" {
+variable "CSQSNLSM_EventSourceMappingToQueueTumblingWindowInSeconds" {
   type = number
   validation {
-    condition     = var.CSQSNLSM_S3EventSourceMappingTumblingWindowInSeconds == null || can(var.CSQSNLSM_S3EventSourceMappingTumblingWindowInSeconds >= 1 && var.CSQSNLSM_S3EventSourceMappingTumblingWindowInSeconds <= 900)
-    error_message = "var.CSQSNLSM_S3EventSourceMappingTumblingWindowInSeconds must be Greater than or Equal to 1 AND Less Than or Equal to 900"
+    condition     = var.CSQSNLSM_EventSourceMappingToQueueTumblingWindowInSeconds == null || can(var.CSQSNLSM_EventSourceMappingToQueueTumblingWindowInSeconds >= 1 && var.CSQSNLSM_EventSourceMappingToQueueTumblingWindowInSeconds <= 900)
+    error_message = "var.CSQSNLSM_EventSourceMappingToQueueTumblingWindowInSeconds must be Greater than or Equal to 1 AND Less Than or Equal to 900"
   }
   default = null
 }

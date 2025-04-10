@@ -16,7 +16,8 @@ resource "aws_key_pair" "keyPair" {
   public_key      = var.keyPairPublicKey
   tags = merge({
     Project      = var.projectName
-    CreatedBy    = var.creator
+    CreatedBy    = var.createdBy
     DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
   }, var.additionalTags)
 }

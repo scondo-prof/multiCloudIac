@@ -11,12 +11,16 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
 }
 
 variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
   type = string
 }
 
@@ -147,11 +151,6 @@ variable "AGRAMVKUP_LambdaPermissionSourceAccount" {
   default = null
 }
 
-variable "AGRAMVKUP_LambdaPermissionSourceArn" {
-  type    = string
-  default = null
-}
-
 variable "AGRAMVKUP_LambdaPermissionStatementId" {
   type    = string
   default = null
@@ -169,17 +168,17 @@ variable "AGRAMVKUP_LambdaPermissionPrincipalOrgId" {
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/AGRAMVKUP_Resources/api_gateway_AGRAMVKUP_Resource#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/AGRAMVKUP_RestApiResources/api_gateway_AGRAMVKUP_RestApiResource#argument-reference
 
-variable "AGRAMVKUP_ResourcePathPart" {
+variable "AGRAMVKUP_RestApiResourcePathPart" {
   type = string
 }
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiMethod#argument-reference
 
-variable "AGRAMVKUP_MethodHttpMethod" {
+variable "AGRAMVKUP_RestApiMethodHttpMethod" {
   type = string
   validation {
     condition = contains([
@@ -190,12 +189,12 @@ variable "AGRAMVKUP_MethodHttpMethod" {
       "HEAD",
       "OPTIONS",
       "ANY"
-    ], var.AGRAMVKUP_MethodHttpMethod)
-    error_message = "Valid inputs for | variable: var.AGRAMVKUP_MethodHttpMethod | are: GET, POST, PUT, DELETE, HEAD, OPTIONS, ANY"
+    ], var.AGRAMVKUP_RestApiMethodHttpMethod)
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiMethodHttpMethod | are: GET, POST, PUT, DELETE, HEAD, OPTIONS, ANY"
   }
 }
 
-variable "AGRAMVKUP_MethodAuthorization" {
+variable "AGRAMVKUP_RestApiMethodAuthorization" {
   type = string
   validation {
     condition = contains([
@@ -203,42 +202,37 @@ variable "AGRAMVKUP_MethodAuthorization" {
       "CUSTOM",
       "AWS_IAM",
       "COGNITO_USER_POOLS"
-    ], var.AGRAMVKUP_MethodAuthorization)
-    error_message = "Valid inputs for | variable: var.AGRAMVKUP_MethodAuthorization | are: NONE, CUSTOM, AWS_IAM, COGNITO_USER_POOLS"
+    ], var.AGRAMVKUP_RestApiMethodAuthorization)
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiMethodAuthorization | are: NONE, CUSTOM, AWS_IAM, COGNITO_USER_POOLS"
   }
 }
 
-variable "AGRAMVKUP_MethodAuthorizerId" {
+variable "AGRAMVKUP_RestApiMethodAuthorizerId" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_MethodAuthorizationScopes" {
+variable "AGRAMVKUP_RestApiMethodAuthorizationScopes" {
   type    = list(string)
   default = null
 }
 
-variable "AGRAMVKUP_MethodApiKeyRequired" {
+variable "AGRAMVKUP_RestApiMethodApiKeyRequired" {
   type    = bool
   default = null
 }
 
-variable "AGRAMVKUP_MethodOperationName" {
+variable "AGRAMVKUP_RestApiMethodOperationName" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_MethodRequestModels" {
+variable "AGRAMVKUP_RestApiMethodRequestModels" {
   type    = map(string)
   default = null
 }
 
-variable "AGRAMVKUP_MethodRequestValidatorId" {
-  type    = string
-  default = null
-}
-
-variable "AGRAMVKUP_MethodRequestParameters" {
+variable "AGRAMVKUP_RestApiMethodRequestParameters" {
   type    = map(string)
   default = null
 }
@@ -247,16 +241,32 @@ variable "AGRAMVKUP_MethodRequestParameters" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method_response#argument-reference
 
-variable "AGRAMVKUP_MethodResponseStatusCode" {
+variable "AGRAMVKUP_RestApiMethodResponseHttpMethod" {
+  type = string
+  validation {
+    condition = contains([
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "HEAD",
+      "OPTIONS",
+      "ANY"
+    ], var.AGRAMVKUP_RestApiMethodResponseHttpMethod)
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiMethodResponseHttpMethod | are: GET, POST, PUT, DELETE, HEAD, OPTIONS, ANY"
+  }
+}
+
+variable "AGRAMVKUP_RestApiMethodResponseStatusCode" {
   type = number
 }
 
-variable "AGRAMVKUP_MethodResponseModels" {
+variable "AGRAMVKUP_RestApiMethodResponseModels" {
   type    = map(string)
   default = null
 }
 
-variable "AGRAMVKUP_MethodResponseParameters" {
+variable "AGRAMVKUP_RestApiMethodResponseParameters" {
   type    = map(string)
   default = null
 }
@@ -265,46 +275,42 @@ variable "AGRAMVKUP_MethodResponseParameters" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_request_validator#argument-reference
 
-variable "AGRAMVKUP_RequestValidatorName" {
-  type = string
-}
-
-variable "AGRAMVKUP_RequestValidatorValidateRequestBody" {
+variable "AGRAMVKUP_RestApiRequestValidatorValidateRequestBody" {
   type    = bool
   default = null
 }
 
-variable "AGRAMVKUP_RequestValidatorValidateRequestParameters" {
+variable "AGRAMVKUP_RestApiRequestValidatorValidateRequestParameters" {
   type    = bool
   default = null
 }
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_model#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiModel#argument-reference
 
-variable "AGRAMVKUP_ModelName" {
+variable "AGRAMVKUP_RestApiModelName" {
   type = string
 }
 
-variable "AGRAMVKUP_ModelDescription" {
+variable "AGRAMVKUP_RestApiModelDescription" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_ModelContentType" {
+variable "AGRAMVKUP_RestApiModelContentType" {
   type = string
 }
 
-variable "AGRAMVKUP_ModelSchemaFile" {
+variable "AGRAMVKUP_RestApiModelSchemaFile" {
   type = string
 }
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiIntegration#argument-reference
 
-variable "AGRAMVKUP_IntegrationHttpMethod" {
+variable "AGRAMVKUP_RestApiIntegrationHttpMethod" {
   type = string
   validation {
     condition = contains([
@@ -315,15 +321,15 @@ variable "AGRAMVKUP_IntegrationHttpMethod" {
       "HEAD",
       "OPTION",
       "ANY"
-    ], var.AGRAMVKUP_IntegrationHttpMethod)
-    error_message = "Valid inputs for | variable: var.AGRAMVKUP_IntegrationHttpMethod | are: GET, POST, PUT, DELETE, HEAD, OPTION, ANY"
+    ], var.AGRAMVKUP_RestApiIntegrationHttpMethod)
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiIntegrationHttpMethod | are: GET, POST, PUT, DELETE, HEAD, OPTION, ANY"
   }
 }
 
-variable "AGRAMVKUP_IntegrationIntegrationHttpMethod" {
+variable "AGRAMVKUP_RestApiIntegrationIntegrationHttpMethod" {
   type = string
   validation {
-    condition = var.AGRAMVKUP_IntegrationIntegrationHttpMethod == null || can(contains([
+    condition = var.AGRAMVKUP_RestApiIntegrationIntegrationHttpMethod == null || can(contains([
       "GET",
       "POST",
       "PUT",
@@ -331,109 +337,109 @@ variable "AGRAMVKUP_IntegrationIntegrationHttpMethod" {
       "HEAD",
       "OPTION",
       "ANY"
-    ], var.AGRAMVKUP_IntegrationIntegrationHttpMethod))
-    error_message = "Valid inputs for | variable: var.AGRAMVKUP_IntegrationIntegrationHttpMethod | are: GET, POST, PUT, DELETE, HEAD, OPTION, ANY"
+    ], var.AGRAMVKUP_RestApiIntegrationIntegrationHttpMethod))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiIntegrationIntegrationHttpMethod | are: GET, POST, PUT, DELETE, HEAD, OPTION, ANY"
   }
   default = null
 }
 
-variable "AGRAMVKUP_IntegrationType" {
+variable "AGRAMVKUP_RestApiIntegrationType" {
   type = string
   validation {
-    condition = var.AGRAMVKUP_IntegrationType == null || can(contains([
+    condition = var.AGRAMVKUP_RestApiIntegrationType == null || can(contains([
       "HTTP",
       "MOCK",
       "AWS",
       "AWS_PROXY",
       "HTTP_PROX"
-    ], var.AGRAMVKUP_IntegrationType))
-    error_message = "Valid inputs for | variable: var.AGRAMVKUP_IntegrationType | are: HTTP, MOCK, AWS, AWS_PROXY, HTTP_PROX"
+    ], var.AGRAMVKUP_RestApiIntegrationType))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiIntegrationType | are: HTTP, MOCK, AWS, AWS_PROXY, HTTP_PROX"
   }
   default = null
 }
 
-variable "AGRAMVKUP_IntegrationConnectionType" {
+variable "AGRAMVKUP_RestApiIntegrationConnectionType" {
   type = string
   validation {
-    condition = var.AGRAMVKUP_IntegrationConnectionType == null || can(contains([
+    condition = var.AGRAMVKUP_RestApiIntegrationConnectionType == null || can(contains([
       "INTERNET",
       "VPC_LINK"
-    ], var.AGRAMVKUP_IntegrationConnectionType))
-    error_message = "Valid inputs for | variable: var.AGRAMVKUP_IntegrationConnectionType | are: INTERNET, VPC_LINK"
+    ], var.AGRAMVKUP_RestApiIntegrationConnectionType))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiIntegrationConnectionType | are: INTERNET, VPC_LINK"
   }
   default = null
 }
 
-variable "AGRAMVKUP_IntegrationConnectionId" {
+variable "AGRAMVKUP_RestApiIntegrationConnectionId" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_IntegrationUri" {
+variable "AGRAMVKUP_RestApiIntegrationUri" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_IntegrationCredentials" {
+variable "AGRAMVKUP_RestApiIntegrationCredentials" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_IntegrationRequestTemplates" {
+variable "AGRAMVKUP_RestApiIntegrationRequestTemplates" {
   type    = map(string)
   default = null
 }
 
-variable "AGRAMVKUP_IntegrationRequestParameters" {
+variable "AGRAMVKUP_RestApiIntegrationRequestParameters" {
   type    = map(string)
   default = null
 }
 
-variable "AGRAMVKUP_IntegrationPassthroughBehavior" {
+variable "AGRAMVKUP_RestApiIntegrationPassthroughBehavior" {
   type = string
   validation {
-    condition = var.AGRAMVKUP_IntegrationPassthroughBehavior == null || can(contains([
+    condition = var.AGRAMVKUP_RestApiIntegrationPassthroughBehavior == null || can(contains([
       "WHEN_NO_MATCH",
       "WHEN_NO_TEMPLATES",
       "NEVER"
-    ], var.AGRAMVKUP_IntegrationPassthroughBehavior))
-    error_message = "Valid inputs for | variable: var.AGRAMVKUP_IntegrationPassthroughBehavior | are: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, NEVER"
+    ], var.AGRAMVKUP_RestApiIntegrationPassthroughBehavior))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiIntegrationPassthroughBehavior | are: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, NEVER"
   }
   default = null
 }
 
-variable "AGRAMVKUP_IntegrationCacheKeyParameters" {
+variable "AGRAMVKUP_RestApiIntegrationCacheKeyParameters" {
   type    = list(string)
   default = null
 }
 
-variable "AGRAMVKUP_IntegrationCacheNamespace" {
+variable "AGRAMVKUP_RestApiIntegrationCacheNamespace" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_IntegrationContentHandling" {
+variable "AGRAMVKUP_RestApiIntegrationContentHandling" {
   type = string
   validation {
-    condition = var.AGRAMVKUP_IntegrationContentHandling == null || can(contains([
+    condition = var.AGRAMVKUP_RestApiIntegrationContentHandling == null || can(contains([
       "CONVERT_TO_BINARY",
       "CONVERT_TO_TEXT"
-    ], var.AGRAMVKUP_IntegrationContentHandling))
-    error_message = "Valid inputs for | variable: var.AGRAMVKUP_IntegrationContentHandling | are: CONVERT_TO_BINARY, CONVERT_TO_TEXT"
+    ], var.AGRAMVKUP_RestApiIntegrationContentHandling))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiIntegrationContentHandling | are: CONVERT_TO_BINARY, CONVERT_TO_TEXT"
   }
   default = null
 }
 
-variable "AGRAMVKUP_IntegrationTimeoutMilliseconds" {
+variable "AGRAMVKUP_RestApiIntegrationTimeoutMilliseconds" {
   type = number
   validation {
-    condition     = var.AGRAMVKUP_IntegrationTimeoutMilliseconds == null || can(var.AGRAMVKUP_IntegrationTimeoutMilliseconds >= 50 && var.AGRAMVKUP_IntegrationTimeoutMilliseconds <= 300000)
-    error_message = "var.AGRAMVKUP_IntegrationTimeoutMilliseconds must be Greater than or Equal to 50 AND Less Than or Equal to 300000"
+    condition     = var.AGRAMVKUP_RestApiIntegrationTimeoutMilliseconds == null || can(var.AGRAMVKUP_RestApiIntegrationTimeoutMilliseconds >= 50 && var.AGRAMVKUP_RestApiIntegrationTimeoutMilliseconds <= 300000)
+    error_message = "var.AGRAMVKUP_RestApiIntegrationTimeoutMilliseconds must be Greater than or Equal to 50 AND Less Than or Equal to 300000"
   }
   default = null
 }
 
-variable "AGRAMVKUP_IntegrationTlsConfig" {
+variable "AGRAMVKUP_RestApiIntegrationTlsConfig" {
   type = object({
     insecure_skip_verification = optional(bool, null)
   })
@@ -442,24 +448,25 @@ variable "AGRAMVKUP_IntegrationTlsConfig" {
 
 #---
 
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_api_key#argument-reference
 
-variable "AGRAMVKUP_ApiKeyCustomerId" {
+variable "AGRAMVKUP_RestApiKeyCustomerId" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_ApiKeyDescription" {
+variable "AGRAMVKUP_RestApiKeyDescription" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_ApiKeyEnabled" {
+variable "AGRAMVKUP_RestApiKeyEnabled" {
   type    = bool
   default = null
 }
 
-variable "AGRAMVKUP_ApiKeyValue" {
+variable "AGRAMVKUP_RestApiKeyValue" {
   type    = string
   default = null
 }
@@ -468,12 +475,12 @@ variable "AGRAMVKUP_ApiKeyValue" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan#argument-reference
 
-variable "AGRAMVKUP_UsagePlanDescription" {
+variable "AGRAMVKUP_RestApiUsagePlanDescription" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_UsagePlanApiStages" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan#api_id-1
+variable "AGRAMVKUP_RestApiUsagePlanApiStages" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan#api_id-1
   type = object({
     throttle = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan#path-1
       path        = string
@@ -484,7 +491,7 @@ variable "AGRAMVKUP_UsagePlanApiStages" { #https://registry.terraform.io/provide
   default = {}
 }
 
-variable "AGRAMVKUP_UsagePlanQuotaSettings" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan#limit-1
+variable "AGRAMVKUP_RestApiUsagePlanQuotaSettings" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan#limit-1
   type = object({
     limit  = optional(number, null)
     offset = optional(number, null)
@@ -493,7 +500,7 @@ variable "AGRAMVKUP_UsagePlanQuotaSettings" { #https://registry.terraform.io/pro
   default = null
 }
 
-variable "AGRAMVKUP_UsagePlanThrottleSettings" {
+variable "AGRAMVKUP_RestApiUsagePlanThrottleSettings" {
   type = object({
     burst_limit = optional(number, null)
     rate_limit  = optional(number, null)
@@ -501,7 +508,7 @@ variable "AGRAMVKUP_UsagePlanThrottleSettings" {
   default = null
 }
 
-variable "AGRAMVKUP_UsagePlanProductCode" {
+variable "AGRAMVKUP_RestApiUsagePlanProductCode" {
   type    = string
   default = null
 }
@@ -510,21 +517,21 @@ variable "AGRAMVKUP_UsagePlanProductCode" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_usage_plan_key#argument-reference
 
-variable "AGRAMVKUP_UsagePlanKeyType" {
+variable "AGRAMVKUP_RestApiUsagePlanKeyType" {
   type = string
   validation {
     condition = contains([
       "API_KEY"
-    ], var.AGRAMVKUP_UsagePlanKeyType)
-    error_message = "Valid inputs for | variable: var.AGRAMVKUP_UsagePlanKeyType | are: API_KEY"
+    ], var.AGRAMVKUP_RestApiUsagePlanKeyType)
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiUsagePlanKeyType | are: API_KEY"
   }
 }
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_Stage#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiStage#argument-reference
 
-variable "AGRAMVKUP_StageAccessLogSettings" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_Stage#access-log-settings
+variable "AGRAMVKUP_RestApiStageAccessLogSettings" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiStage#access-log-settings
   type = object({
     destination_arn = string
     format          = string
@@ -532,15 +539,15 @@ variable "AGRAMVKUP_StageAccessLogSettings" { #https://registry.terraform.io/pro
   default = null
 }
 
-variable "AGRAMVKUP_StageCacheClusterEnabled" {
+variable "AGRAMVKUP_RestApiStageCacheClusterEnabled" {
   type    = bool
   default = null
 }
 
-variable "AGRAMVKUP_StageCacheClusterSize" {
+variable "AGRAMVKUP_RestApiStageCacheClusterSize" {
   type = number
   validation {
-    condition = var.AGRAMVKUP_StageCacheClusterSize == null || can(contains([
+    condition = var.AGRAMVKUP_RestApiStageCacheClusterSize == null || can(contains([
       0.5,
       1.6,
       6.1,
@@ -549,62 +556,62 @@ variable "AGRAMVKUP_StageCacheClusterSize" {
       58.2,
       118,
       237
-    ], var.AGRAMVKUP_StageCacheClusterSize))
-    error_message = "Valid inputs for | variable: var.AGRAMVKUP_StageCacheClusterSize | are: 0.5, 1.6, 6.1, 13.5, 28.4, 58.2, 118 and 237"
+    ], var.AGRAMVKUP_RestApiStageCacheClusterSize))
+    error_message = "Valid inputs for | variable: var.AGRAMVKUP_RestApiStageCacheClusterSize | are: 0.5, 1.6, 6.1, 13.5, 28.4, 58.2, 118 and 237"
   }
   default = null
 }
 
-variable "AGRAMVKUP_StageCanarySettings" {
+variable "AGRAMVKUP_RestApiStageCanarySettings" {
   type = object({
-    deployment_id                      = string
-    percent_traffic                    = optional(string, null)
-    AGRAMVKUP_Stage_variable_overrides = optional(map(string), null)
-    use_AGRAMVKUP_Stage_cache          = optional(bool, null)
+    deployment_id                             = string
+    percent_traffic                           = optional(string, null)
+    AGRAMVKUP_RestApiStage_variable_overrides = optional(map(string), null)
+    use_AGRAMVKUP_RestApiStage_cache          = optional(bool, null)
   })
   default = null
 }
 
-variable "AGRAMVKUP_StageClientCertificateId" {
+variable "AGRAMVKUP_RestApiStageClientCertificateId" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_StageDescription" {
+variable "AGRAMVKUP_RestApiStageDescription" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_StageDocumentationVersion" {
+variable "AGRAMVKUP_RestApiStageDocumentationVersion" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_StageVariables" {
+variable "AGRAMVKUP_RestApiStageVariables" {
   type    = map(string)
   default = null
 }
 
-variable "AGRAMVKUP_StageXrayTracingEnabled" {
+variable "AGRAMVKUP_RestApiStageXrayTracingEnabled" {
   type    = bool
   default = null
 }
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_Deployment#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_AGRAMVKUP_RestApiDeployment#argument-reference
 
-variable "AGRAMVKUP_DeploymentDescription" {
+variable "AGRAMVKUP_RestApiDeploymentDescription" {
   type    = string
   default = null
 }
 
-variable "AGRAMVKUP_DeploymentTriggers" {
+variable "AGRAMVKUP_RestApiDeploymentTriggers" {
   type    = map(string)
   default = null
 }
 
-variable "AGRAMVKUP_DeploymentVariables" {
+variable "AGRAMVKUP_RestApiDeploymentVariables" {
   type    = map(string)
   default = null
 }

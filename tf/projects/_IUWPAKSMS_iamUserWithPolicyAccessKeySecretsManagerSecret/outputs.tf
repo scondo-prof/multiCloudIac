@@ -6,6 +6,8 @@ output "IUWPAKSMS_UWP_IamUserName" {
   value = module.UWP.UWP_IamUserName
 }
 
+
+
 output "IUWPAKSMS_UWP_IamPolicyArn" {
   value = module.UWP.UWP_IamPolicyArn
 }
@@ -15,7 +17,6 @@ output "IUWPAKSMS_UWP_IamPolicyName" {
 }
 
 #---
-
 output "IUWPAKSMS_IamAccessKeyEncryptedPgpSecret" {
   value     = module.iamAccessKey.iamAccessKeyEncryptedPgpSecret
   sensitive = true
@@ -31,17 +32,16 @@ output "IUWPAKSMS_IamAccessKeySecret" {
 }
 
 #---
-
-output "IUWPAKSMS_SecretArn" {
-  value = module.secret.secretArn
+output "IUWPAKSMS_SWV_SecretArn" {
+  value = module.SWV.SWV_SecretArn
 }
 
-output "IUWPAKSMS_SecretName" {
-  value = module.secret.secretName
+output "IUWPAKSMS_SWV_SecretName" {
+  value = module.SWV.SWV_SecretName
+}
+
+output "IUWPAKSMS_SWV_SecretVersionId" {
+  value = module.SWV.SWV_SecretVersionId
 }
 
 #---
-
-output "IUWPAKSMS_SecretVersionId" {
-  value = module.secretVersion.secretVersionId
-}

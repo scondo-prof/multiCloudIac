@@ -6,7 +6,7 @@ snowflakeUser = "PROD_TERRAFORM_USER"
 
 snowflakeAuthenticator = "SNOWFLAKE_JWT"
 
-snowflakePrivateKey = "path/to/key"
+snowflakePrivateKey = "../../../utils/tfSnowflake/prod_terraform_private_rsa_key.p8"
 
 snowflakePrivateKeyPassphrase = "<passphrase>"
 

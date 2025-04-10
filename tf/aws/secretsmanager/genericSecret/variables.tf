@@ -3,6 +3,32 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
+variable "resourceName" {
+  type = string
+}
+
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
 
 variable "secretDescription" {
@@ -18,10 +44,6 @@ variable "secretKmsKeyId" {
 variable "secretNamePrefix" {
   type    = string
   default = null
-}
-
-variable "resourceName" {
-  type = string
 }
 
 variable "secretPolicy" {
@@ -45,22 +67,4 @@ variable "secretReplica" {
 variable "secretForceSecretOverwrite" {
   type    = bool
   default = null
-}
-
-variable "projectName" {
-  type = string
-}
-
-variable "creator" {
-  type    = string
-  default = "Scott Condo"
-}
-
-variable "deployedDate" {
-  type = string
-}
-
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
 }

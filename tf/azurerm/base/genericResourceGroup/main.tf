@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "4.6.0"
+      version = "~> 4.20"
     }
   }
 }
@@ -19,8 +19,9 @@ resource "azurerm_resource_group" "resourceGroup" {
   name       = "${var.resourceName}-resource-group"
   managed_by = var.resourceGroupManagedBy
   tags = merge({
-    "project"       = var.projectName
-    "created-by"    = var.creator
-    "deployed-date" = var.deployedDate
+    project       = var.projectName
+    created-by    = var.createdBy
+    tf-module     = var.tfModule
+    deployed-date = var.deployedDate
   }, var.additionalTags)
 }

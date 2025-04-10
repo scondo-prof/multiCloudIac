@@ -11,7 +11,7 @@ variable "projectName" {
   type = string
 }
 
-variable "creator" {
+variable "createdBy" {
   type    = string
   default = "scott-condo"
 }
@@ -20,12 +20,19 @@ variable "deployedDate" {
   type = string
 }
 
+variable "tfModule" {
+  type = string
+}
+
 variable "additionalTags" {
   type    = map(string)
   default = {}
 }
 
-#---
+variable "awsAccountId" {
+  type    = string
+  default = "us-east1"
+}
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_repository#argument-reference
 
@@ -63,6 +70,8 @@ variable "CECC_EcrRepositoryImageScanningConfiguration" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#argument-reference
+
+##https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#artifacts
 variable "CECC_CodebuildProjectArtifactsIdentifier" {
   type    = string
   default = null
@@ -168,23 +177,19 @@ variable "CECC_CodebuildProjectEnvironmentComputeType" {
   }
 }
 
-variable "CECC_CodebuildProjectEnvironmentFleet" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#fleet_arn-1
-    fleet_arn = optional(string, null)
-  })
-  default = null
-}
-
-variable "awsAccountId" {
-  type = string
-}
+# variable "CECC_CodebuildProjectEnvironmentFleet" {
+#   type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#fleet_arn-1
+#     fleet_arn = optional(string, null)
+#   })
+#   default = null
+# }
 
 variable "codebuildProjectEcrRepoImageTag" {
   type    = string
   default = "latest"
 }
 
-variable "CECC_CodebuildProjectEnvironmentEnvironmentVariables" {
+variable "CECC_CodebuildProjectEnvironmentEnvironmentVariable" {
   type = map(object({
     name  = string
     type  = optional(string, null)
@@ -363,30 +368,15 @@ variable "CECC_CodebuildProjectEncryptionKey" {
   default = null
 }
 
-variable "CECC_CodebuildProjectCloudwatchLogsConfigStatus" {
+variable "CECC_CodebuildProjectCloudwatchLogsStatus" {
   type = string
   validation {
-    condition = var.CECC_CodebuildProjectCloudwatchLogsConfigStatus == null || can(contains([
-      "ENABLED",
-      "DISABLED"
-    ], var.CECC_CodebuildProjectCloudwatchLogsConfigStatus))
-    error_message = "Valid inputs for | variable: var.CECC_CodebuildProjectCloudwatchLogsConfigStatus | are: ENABLED, DISABLED"
+    condition = var.CECC_CodebuildProjectCloudwatchLogsStatus == null || can(contains([
+    "ENABLED",
+    "DISABLED"
+], var.CECC_CodebuildProjectCloudwatchLogsStatus))
+    error_message = "Valid inputs for | variable: var.CECC_CodebuildProjectCloudwatchLogsStatus | are: ENABLED, DISABLED"
   }
-  default = null
-}
-
-variable "CECC_CodebuildProjectCloudwatchLogsConfigStreamName" {
-  type    = string
-  default = null
-}
-
-variable "CECC_CodebuildProjectS3LogsConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#logs_config 
-  type = object({
-    encryption_disabled = optional(bool, null)
-    location            = optional(string, null)
-    status              = optional(string, null)
-    bucket_owner_access = optional(string, null)
-  })
   default = null
 }
 
@@ -470,6 +460,7 @@ variable "CECC_CodebuildProjectSourceVersion" {
   default = null
 }
 
+
 variable "CECC_CodebuildProjectVpcConfig" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_project#vpc_config
   type = object({
     security_group_ids = list(string)
@@ -482,7 +473,7 @@ variable "CECC_CodebuildProjectVpcConfig" { #https://registry.terraform.io/provi
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_source_credential#argument-reference
-variable "CECC_CredentialsAuthType" {
+variable "CECC_CodebuildCredentialsAuthType" {
   type = string
   validation {
     condition = contains([
@@ -491,45 +482,46 @@ variable "CECC_CredentialsAuthType" {
       "PERSONAL_ACCESS_TOKEN",
       "CODECONNECTIONS",
       "SECRETS_MANAGER"
-    ], var.CECC_CredentialsAuthType)
-    error_message = "Valid inputs for | variable: var.CECC_CredentialsAuthType | are: OAUTH, BASIC_AUTH, PERSONAL_ACCESS_TOKEN, CODECONNECTIONS, SECRETS_MANAGER"
+    ], var.CECC_CodebuildCredentialsAuthType)
+    error_message = "Valid inputs for | variable: var.CECC_CodebuildCredentialsAuthType | are: OAUTH, BASIC_AUTH, PERSONAL_ACCESS_TOKEN, CODECONNECTIONS, SECRETS_MANAGER"
   }
 }
 
-variable "CECC_CredentialsServerType" {
+variable "CECC_CodebuildCredentialsServerType" {
   type = string
 }
 
-variable "CECC_CredentialsToken" {
+variable "CECC_CodebuildCredentialsToken" {
   type = string
 }
 
-variable "CECC_CredentialsUserName" {
+variable "CECC_CodebuildCredentialsUserName" {
   type    = string
   default = null
 }
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_webhook#argument-reference
-variable "CECC_WebhookBuildType" {
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/codebuild_CECC_CodebuildWebhook#argument-reference
+
+variable "CECC_CodebuildWebhookBuildType" {
   type = string
   validation {
-    condition = var.CECC_WebhookBuildType == null || can(contains([
+    condition = var.CECC_CodebuildWebhookBuildType == null || can(contains([
       "BUILD",
       "BUILD_BATCH"
-    ], var.CECC_WebhookBuildType))
-    error_message = "Valid inputs for | variable: var.CECC_WebhookBuildType | are: BUILD, BUILD_BATCH"
+    ], var.CECC_CodebuildWebhookBuildType))
+    error_message = "Valid inputs for | variable: var.CECC_CodebuildWebhookBuildType | are: BUILD, BUILD_BATCH"
   }
   default = null
 }
 
-variable "CECC_WebhookBranchFilter" {
+variable "CECC_CodebuildWebhookBranchFilter" {
   type    = string
   default = null
 }
 
-variable "CECC_WebhookFilterGroup" {
+variable "CECC_CodebuildWebhookFilterGroup" {
   type = object({
     filter = map(object({
       type                    = string
@@ -540,7 +532,7 @@ variable "CECC_WebhookFilterGroup" {
   default = null
 }
 
-variable "CECC_WebhookScopeConfiguration" {
+variable "CECC_CodebuildWebhookScopeConfiguration" {
   type = object({
     name   = string
     scope  = string
@@ -604,23 +596,24 @@ variable "CECC_CodebuildRolePermissionsBoundary" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
-variable "CECC_CodebuildPolicyDescription" {
+
+variable "CECC_CodebuildRolePolicyDescription" {
   type    = string
   default = null
 }
-variable "CECC_CodebuildPolicyNamePrefix" {
+variable "CECC_CodebuildRolePolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CECC_CodebuildPolicyPath" {
+variable "CECC_CodebuildRolePolicyPath" {
   type    = string
   default = "/"
 }
-variable "CECC_CodebuildPolicyVersion" {
+variable "CECC_CodebuildRolePolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CECC_CodebuildPolicyDocumentAdditionalStatements" {
+variable "CECC_CodebuildRolePolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -635,32 +628,34 @@ variable "CECC_CodebuildPolicyDocumentAdditionalStatements" {
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group#argument-reference
-variable "CECC_LogGroupNamePrefix" {
+
+
+variable "CECC_CodebuildLogGroupNamePrefix" {
   type    = string
   default = null
 }
 
-variable "CECC_LogGroupSkipDestroy" {
+variable "CECC_CodebuildLogGroupSkipDestroy" {
   type    = bool
   default = null
 }
 
-variable "CECC_LogGroupClass" {
+variable "CECC_CodebuildLogGroupClass" {
   type = string
   validation {
-    condition = var.CECC_LogGroupClass == null || can(contains([
+    condition = var.CECC_CodebuildLogGroupClass == null || can(contains([
       "STANDARD",
       "INFREQUENT_ACCESS"
-    ], var.CECC_LogGroupClass))
-    error_message = "Valid inputs for | variable: var.CECC_LogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
+    ], var.CECC_CodebuildLogGroupClass))
+    error_message = "Valid inputs for | variable: var.CECC_CodebuildLogGroupClass | are: STANDARD, or INFREQUENT_ACCESS"
   }
   default = null
 }
 
-variable "CECC_LogGroupRetentionInDays" {
+variable "CECC_CodebuildLogGroupRetentionInDays" {
   type = number
   validation {
-    condition = var.CECC_LogGroupRetentionInDays == null || can(contains([
+    condition = var.CECC_CodebuildLogGroupRetentionInDays == null || can(contains([
       1,
       3,
       5,
@@ -684,37 +679,42 @@ variable "CECC_LogGroupRetentionInDays" {
       3288,
       3653,
       0
-    ], var.CECC_LogGroupRetentionInDays))
-    error_message = "Valid inputs for | variable: var.CECC_LogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
+    ], var.CECC_CodebuildLogGroupRetentionInDays))
+    error_message = "Valid inputs for | variable: var.CECC_CodebuildLogGroupRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
   }
   default = null
 }
 
-variable "CECC_LogGroupKmsKeyId" {
+variable "CECC_CodebuildLogGroupKmsKeyId" {
   type    = string
   default = null
 }
 
 #---
 
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
+
+#---
+
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
-variable "CECC_EcrAccessPolicyDescription" {
+
+variable "CECC_CodebuildRoleEcrPolicyDescription" {
   type    = string
   default = null
 }
-variable "CECC_EcrAccessPolicyNamePrefix" {
+variable "CECC_CodebuildRoleEcrPolicyNamePrefix" {
   type    = string
   default = null
 }
-variable "CECC_EcrAccessPolicyPath" {
+variable "CECC_CodebuildRoleEcrPolicyPath" {
   type    = string
   default = "/"
 }
-variable "CECC_EcrAccessPolicyVersion" {
+variable "CECC_CodebuildRoleEcrPolicyVersion" {
   type    = string
   default = "2012-10-17"
 }
-variable "CECC_EcrAccessPolicyDocumentAdditionalStatements" {
+variable "CECC_CodebuildRoleEcrPolicyDocumentStatements" {
   type = list(object({
     Action    = list(string)
     Effect    = string
@@ -725,3 +725,9 @@ variable "CECC_EcrAccessPolicyDocumentAdditionalStatements" {
   }))
   default = []
 }
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment#argument-reference
+
+#---

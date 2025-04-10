@@ -20,93 +20,92 @@ output "AGRAMVKUP_RestApiRootResourceId" {
 
 #---
 
-output "AGRAMVKUP_RequestValidatorId" {
-  value = module.requestValidator.requestValidatorId
-}
-
-output "AGRAMVKUP_RequestValidatorName" {
-  value = module.requestValidator.requestValidatorName
+output "AGRAMVKUP_RestApiResourceId" {
+  value = module.restApiResource.resourceId
 }
 
 #---
-output "AGRAMVKUP_ResourceId" {
-  value = module.resource.resourceId
+output "AGRAMVKUP_RestApiMethodHttpMethod" {
+  value = module.restApiMethod.methodHttpMethod
 }
 
 #---
+output "AGRAMVKUP_RestApiRequestValidatorId" {
+  value = module.restApiRequestValidator.requestValidatorId
+}
 
-output "AGRAMVKUP_MethodHttpMethod" {
-  value = module.method.methodHttpMethod
+output "AGRAMVKUP_RestApiRequestValidatorName" {
+  value = module.restApiRequestValidator.requestValidatorName
 }
 
 #---
-output "AGRAMVKUP_ModelId" {
-  value = module.model.modelId
+output "AGRAMVKUP_RestApiModelId" {
+  value = module.restApiModel.modelId
 }
 
-output "AGRAMVKUP_ModelName" {
-  value = module.model.modelName
-}
-
-#---
-output "AGRAMVKUP_ApiKeyArn" {
-  value = module.apiKey.apiKeyArn
-}
-
-output "AGRAMVKUP_ApiKeyId" {
-  value = module.apiKey.apiKeyId
-}
-
-output "AGRAMVKUP_ApiKeyName" {
-  value = module.apiKey.apiKeyName
+output "AGRAMVKUP_RestApiModelName" {
+  value = module.restApiModel.modelName
 }
 
 #---
-output "AGRAMVKUP_UsagePlanArn" {
-  value = module.usagePlan.usagePlanArn
+output "AGRAMVKUP_RestApiKeyArn" {
+  value = module.restApiKey.apiKeyArn
 }
 
-output "AGRAMVKUP_UsagePlanId" {
-  value = module.usagePlan.usagePlanId
+output "AGRAMVKUP_RestApiKeyId" {
+  value = module.restApiKey.apiKeyId
 }
 
-output "AGRAMVKUP_UsagePlanName" {
-  value = module.usagePlan.usagePlanName
-}
-
-#---
-output "AGRAMVKUP_UsagePlanKeyId" {
-  value = module.usagePlanKey.usagePlanKeyId
-}
-
-output "AGRAMVKUP_UsagePlanKeyName" {
-  value = module.usagePlanKey.usagePlanKeyName
-}
-
-output "AGRAMVKUP_UsagePlanKeyValue" {
-  value = module.usagePlanKey.usagePlanKeyValue
+output "AGRAMVKUP_RestApiKeyName" {
+  value = module.restApiKey.apiKeyName
 }
 
 #---
-output "AGRAMVKUP_StageArn" {
-  value = module.stage.stageArn
+output "AGRAMVKUP_RestApiUsagePlanArn" {
+  value = module.restApiUsagePlan.usagePlanArn
 }
 
-output "AGRAMVKUP_StageInvokeUrl" {
-  value = module.stage.stageInvokeUrl
+output "AGRAMVKUP_RestApiUsagePlanId" {
+  value = module.restApiUsagePlan.usagePlanId
 }
 
-output "AGRAMVKUP_StageExecutionArn" {
-  value = module.stage.stageExecutionArn
-}
-
-output "AGRAMVKUP_StageName" {
-  value = module.stage.stageName
+output "AGRAMVKUP_RestApiUsagePlanName" {
+  value = module.restApiUsagePlan.usagePlanName
 }
 
 #---
-output "AGRAMVKUP_DeploymentId" {
-  value = module.deployment.deploymentId
+output "AGRAMVKUP_RestApiUsagePlanKeyId" {
+  value = module.restApiUsagePlanKey.usagePlanKeyId
+}
+
+output "AGRAMVKUP_RestApiUsagePlanKeyName" {
+  value = module.restApiUsagePlanKey.usagePlanKeyName
+}
+
+output "AGRAMVKUP_RestApiUsagePlanKeyValue" {
+  value = module.restApiUsagePlanKey.usagePlanKeyValue
+}
+
+#---
+output "AGRAMVKUP_RestApiStageArn" {
+  value = module.restApiStage.stageArn
+}
+
+output "AGRAMVKUP_RestApiStageInvokeUrl" {
+  value = module.restApiStage.stageInvokeUrl
+}
+
+output "AGRAMVKUP_RestApiStageExecutionArn" {
+  value = module.restApiStage.stageExecutionArn
+}
+
+output "AGRAMVKUP_RestApiStageName" {
+  value = module.restApiStage.stageName
+}
+
+#---
+output "AGRAMVKUP_RestApiDeploymentId" {
+  value = module.restApiDeployment.deploymentId
 }
 
 #---

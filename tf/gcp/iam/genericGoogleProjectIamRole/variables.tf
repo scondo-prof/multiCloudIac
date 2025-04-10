@@ -1,4 +1,4 @@
-variable "projectId" {
+variable "gcpProjectId" {
   type = string
 }
 
@@ -7,11 +7,13 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
-variable "roleId" {
+variable "resourceName" {
   type = string
 }
 
-variable "resourceName" {
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/google_project_iam_custom_role#argument-reference
+
+variable "roleId" {
   type = string
 }
 
@@ -22,7 +24,20 @@ variable "rolePermissions" {
 variable "roleStage" {
   type = string
   validation {
-    condition     = contains(["ALPHA", "BETA", "GA", "DEPRECATED", "DISABLED", "EAP"], var.roleStage)
-    error_message = "Variable roleStage only has valid values of: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
+    condition = var.roleStage == null || can(contains([
+      "ALPHA",
+      "BETA",
+      "GA",
+      "DEPRECATED",
+      "DISABLED",
+      "EAP"
+    ], var.roleStage))
+    error_message = "Valid inputs for | variable: var.roleStage | are: ALPHA, BETA, GA, DEPRECATED, DISABLED, EAP"
   }
+  default = null
+}
+
+variable "roleDescription" {
+  type    = string
+  default = null
 }
