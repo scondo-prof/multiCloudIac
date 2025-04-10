@@ -175,18 +175,13 @@ variable "VFSI_RouteTableObjects" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association#argument-reference
 
-variable "VFSI_RouteTableAssociationSubnetId" {
-  type    = string
-  default = null
-}
-
-variable "VFSI_RouteTableAssociationGatewayId" {
-  type    = string
-  default = null
-}
-
-variable "VFSI_RouteTableAssociationRouteTableId" {
-  type = string
+variable "VFSI_RouteTableAssociationObjects" {
+  type = list(object({
+    subnet_id      = opriotnal(string, null)
+    gateway_id     = optional(string, null)
+    route_table_id = string
+  }))
+  default = []
 }
 
 #---

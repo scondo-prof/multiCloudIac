@@ -33,8 +33,12 @@ module "subnet" {
   awsRegion      = var.awsRegion
   subnetObjects  = [
     {
-    name = "${var.resourceName}-public"
-  }
+    name = "${var.resourceName}-public-1"
+  },
+  {
+    name = "${var.resourceName}-private-1"
+    map_customer_owned_ip_on_launch = false
+  },
   ]
   subnetVpcId    = module.vpc.vpcId
   projectName    = var.projectName
@@ -73,11 +77,14 @@ module "routeTable" {
 #---
 
 module "routeTableAssociation" {
-  source                            = "../../aws/vpc/genericRouteTableAssociation"
-  awsRegion                         = var.awsRegion
-  routeTableAssociationSubnetId     = var.VFSI_RouteTableAssociationSubnetId
-  routeTableAssociationGatewayId    = var.VFSI_RouteTableAssociationGatewayId
-  routeTableAssociationRouteTableId = var.VFSI_RouteTableAssociationRouteTableId
+  source                       = "../../aws/vpc/genericRouteTableAssociation"
+  awsRegion                    = var.awsRegion
+  routeTableAssociationObjects = concat([
+    {
+      subnet_id = module.subnet.subnetId
+      route_table_id = module.routeTable.routeTableId
+  }
+  ], var.VFSI_RouteTableAssociationObjects)
 }
 
 #---
