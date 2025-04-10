@@ -27,9 +27,12 @@ variable "additionalTags" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table#argument-reference
 
+variable "routeTableVpcId" {
+  type = string
+}
+
 variable "routeTableObjects" {
   type = list(object({
-    vpc_id = string
     name   = string
 
     route = optional(list(object({

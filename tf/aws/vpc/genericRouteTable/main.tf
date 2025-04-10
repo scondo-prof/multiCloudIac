@@ -12,7 +12,7 @@ provider "aws" {
 
 resource "aws_route_table" "routeTable" {
   count  = length(var.routeTableObjects)
-  vpc_id = var.routeTableObjects[count.index]["vpc_id"]
+  vpc_id = var.routeTableVpcId
   route  = var.routeTableObjects[count.index]["route"]
   tags = merge({
     Name         = "${var.routeTableObjects[count.index]["name"]}-rt"

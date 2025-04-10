@@ -5,16 +5,10 @@ variable "awsRegion" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table_association#argument-reference
 
-variable "routeTableAssociationSubnetId" {
-  type    = string
-  default = null
-}
-
-variable "routeTableAssociationGatewayId" {
-  type    = string
-  default = null
-}
-
-variable "routeTableAssociationRouteTableId" {
-  type = string
+variable "routeTableAssociationObjects" {
+  type = list(object({
+    subnet_id = opriotnal(string, null)
+    gateway_id = optional(string, null)
+    route_table_id = string
+  }))
 }

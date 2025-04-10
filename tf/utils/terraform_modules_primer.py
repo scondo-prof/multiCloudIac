@@ -39,6 +39,16 @@ modules = [
     },
     {
         "paths": {
+            "project_path": "../aws/vpc/genericRouteTable",
+            "source_path": "../../aws/vpc/genericRouteTable",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "routeTable",
+        "new_variable_prefix": "VFSI_RouteTable",
+        "module_name": "routeTable",
+    },
+    {
+        "paths": {
             "project_path": "../aws/vpc/genericRouteTableAssociation",
             "source_path": "../../aws/vpc/genericRouteTableAssociation",
             "destination_path": "./temp",

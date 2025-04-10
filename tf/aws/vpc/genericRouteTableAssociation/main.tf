@@ -11,7 +11,8 @@ provider "aws" {
 }
 
 resource "aws_route_table_association" "routeTableAssociation" {
-  subnet_id      = var.routeTableAssociationSubnetId
-  gateway_id     = var.routeTableAssociationGatewayId
-  route_table_id = var.routeTableAssociationRouteTableId
+  count = length(var.routeTableAssociationObjects)
+  subnet_id      = var.routeTableAssociationObjects[count.index]["subnet_id"]
+  gateway_id     = var.routeTableAssociationObjects[count.index]["gateway_id"]
+  route_table_id = var.routeTableAssociationObjects[count.index]["route_table_id"]
 }

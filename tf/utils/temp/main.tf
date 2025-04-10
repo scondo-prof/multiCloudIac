@@ -52,12 +52,24 @@ module "routeTable" {
 
 #---
 
+module "routeTable" {
+  source            = "../../aws/vpc/genericRouteTable"
+  awsRegion         = var.awsRegion
+  routeTableObjects = var.VFSI_RouteTableObjects
+  routeTableVpcId   = var.VFSI_RouteTableVpcId
+  projectName       = var.projectName
+  createdBy         = var.createdBy
+  deployedDate      = var.deployedDate
+  tfModule          = var.tfModule
+  additionalTags    = var.additionalTags
+}
+
+#---
+
 module "routeTableAssociation" {
-  source                            = "../../aws/vpc/genericRouteTableAssociation"
-  awsRegion                         = var.awsRegion
-  routeTableAssociationSubnetId     = var.VFSI_RouteTableAssociationSubnetId
-  routeTableAssociationGatewayId    = var.VFSI_RouteTableAssociationGatewayId
-  routeTableAssociationRouteTableId = var.VFSI_RouteTableAssociationRouteTableId
+  source                       = "../../aws/vpc/genericRouteTableAssociation"
+  awsRegion                    = var.awsRegion
+  routeTableAssociationObjects = var.VFSI_RouteTableAssociationObjects
 }
 
 #---

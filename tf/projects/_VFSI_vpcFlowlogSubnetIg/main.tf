@@ -24,10 +24,18 @@ module "vpc" {
 
 #---
 
+# <-- Attention --> add module for subnet with private subnet 
+
+#---
+
 module "subnet" {
   source         = "../../aws/vpc/genericSubnet"
   awsRegion      = var.awsRegion
-  subnetObjects  = var.VFSI_SubnetObjects
+  subnetObjects  = [
+    {
+    name = "${var.resourceName}-public"
+  }
+  ]
   subnetVpcId    = module.vpc.vpcId
   projectName    = var.projectName
   createdBy      = var.createdBy
@@ -77,7 +85,7 @@ module "routeTableAssociation" {
 module "Ig" {
   source         = "../../aws/vpc/genericInternetGateway"
   awsRegion      = var.awsRegion
-  igVpcId        = var.VFSI_IgVpcId
+  igVpcId        = module.vpc.vpcId
   projectName    = var.projectName
   createdBy      = var.createdBy
   deployedDate   = var.deployedDate
@@ -99,7 +107,7 @@ module "flowLog" {
   flowLogSubnetId                    = var.VFSI_FlowLogSubnetId
   flowLogtransitGatewayId            = var.VFSI_FlowLogtransitGatewayId
   flowLogTransitGatewayAttatchmentId = var.VFSI_FlowLogTransitGatewayAttatchmentId
-  flowLogVpcId                       = var.VFSI_FlowLogVpcId
+  flowLogVpcId                       = module.vpc.vpcId
   flowLogLogFormat                   = var.VFSI_FlowLogLogFormat
   flowLogMaxAggregationInterval      = var.VFSI_FlowLogMaxAggregationInterval
   flowLogDestinationOptions          = var.VFSI_FlowLogDestinationOptions
@@ -109,72 +117,3 @@ module "flowLog" {
   tfModule                           = var.tfModule
   additionalTags                     = var.additionalTags
 }
-
-#---
-
-# module "routeTable" {
-#   source          = "../../aws/vpc/genericRouteTable"
-#   awsRegion       = var.awsRegion
-#   routeTableVpcId = module.vpc.vpcId
-#   routeTableRoutes = concat([merge({
-#     cidr_block = "0.0.0.0/0"
-#     gateway_id = module.ig.igId
-#     }, var.VFSI_RouteTableIgRoute),
-#     merge({
-#       cidr_block = module.vpc.vpcCidrBlock
-#       gateway_id = "local"
-#   }, var.VFSI_RouteTableIgRoute)], var.VFSI_RouteTableRoutes)
-#   projectName               = var.projectName
-#   creator                   = var.createdBy
-#   deployedDate              = var.deployedDate
-#   additionalTags            = var.additionalTags
-#   routeTablePropagatingVgws = var.VFSI_RouteTablePropagatingVgws
-# }
-
-# #---
-
-# module "routeTableAssociation" {
-#   source                            = "../../aws/vpc/genericRouteTableAssociation"
-#   awsRegion                         = var.awsRegion
-#   routeTableAssociationSubnetId     = module.subnet.subnetId
-#   routeTableAssociationGatewayId    = var.VFSI_RouteTableAssociationGatewayId
-#   routeTableAssociationRouteTableId = module.routeTable.routeTableId
-# }
-
-# #---
-
-# module "ig" {
-#   source         = "../../aws/vpc/genericInternetGateway"
-#   awsRegion      = var.awsRegion
-#   igVpcId        = module.vpc.vpcId
-#   projectName    = var.projectName
-#   creator        = var.createdBy
-#   deployedDate   = var.deployedDate
-#   additionalTags = var.additionalTags
-# }
-
-# #---
-
-# module "flowLog" {
-#   source                             = "../../aws/vpc/genericFlowLog"
-#   awsRegion                          = var.awsRegion
-#   flowLogTrafficType                 = var.VFSI_FlowLogTrafficType
-#   flowLogdeliverCrossAccountRole     = var.VFSI_FlowLogdeliverCrossAccountRole
-#   flowLogEniId                       = var.VFSI_FlowLogEniId
-#   flowLogIamRoleArn                  = var.VFSI_FlowLogIamRoleArn
-#   flowLogDestinationType             = var.VFSI_FlowLogDestinationType
-#   flowLogDestination                 = var.VFSI_FlowLogDestination
-#   flowLogSubnetId                    = var.VFSI_FlowLogSubnetId
-#   flowLogtransitGatewayId            = var.VFSI_FlowLogtransitGatewayId
-#   flowLogTransitGatewayAttatchmentId = var.VFSI_FlowLogTransitGatewayAttatchmentId
-#   flowLogVpcId                       = module.vpc.vpcId
-#   flowLogLogFormat                   = var.VFSI_FlowLogLogFormat
-#   flowLogMaxAggregationInterval      = var.VFSI_FlowLogMaxAggregationInterval
-#   flowLogDestinationOptions          = var.VFSI_FlowLogDestinationOptions
-#   projectName                        = var.projectName
-#   creator                            = var.createdBy
-#   deployedDate                       = var.deployedDate
-#   additionalTags                     = var.additionalTags
-# }
-
-# #---

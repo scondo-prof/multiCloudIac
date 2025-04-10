@@ -105,6 +105,23 @@ output "VFSI_RouteTableTagsAll" {
 }
 
 #---
+output "VFSI_RouteTableArn" {
+  value = module.routeTable.routeTableArn
+}
+
+output "VFSI_RouteTableId" {
+  value = module.routeTable.routeTableId
+}
+
+output "VFSI_RouteTableOwnerId" {
+  value = module.routeTable.routeTableOwnerId
+}
+
+output "VFSI_RouteTableTagsAll" {
+  value = module.routeTable.routeTableTagsAll
+}
+
+#---
 output "VFSI_RouteTableAssociationId" {
   value = module.routeTableAssociation.routeTableAssociationId
 }

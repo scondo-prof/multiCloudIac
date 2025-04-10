@@ -4,10 +4,11 @@ deployedDate = "2025-04-10"
 
 tfModule = "generic-route-table"
 
+routeTableVpcId = "vpc-934696ee"
+
 routeTableObjects = [
   {
-    vpc_id = "vpc-934696ee"
-    name = "test"
+    name   = "test"
     route = [
       {
         cidr_block = "0.0.0.0/0"
@@ -20,8 +21,7 @@ routeTableObjects = [
     ]
   },
   {
-    vpc_id = "vpc-934696ee"
-    name = "test-2"
+    name   = "test-2"
     route = [
       {
         cidr_block = "0.0.0.0/0"

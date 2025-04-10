@@ -29,7 +29,7 @@ variable "resourceName" {
   type = string
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/VFSI_Vpc#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc#argument-reference
 
 variable "VFSI_VpcCidrBlock" {
   type    = string
@@ -99,7 +99,7 @@ variable "VFSI_VpcAssignGeneratedIpv6CidrBlock" {
 }
 
 #---
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/VFSI_Subnet#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet#argument-reference
 
 variable "VFSI_SubnetObjects" {
   type = list(object({
@@ -193,11 +193,6 @@ variable "VFSI_RouteTableAssociationRouteTableId" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway#argument-reference
 
-variable "VFSI_IgVpcId" {
-  type    = string
-  default = null
-}
-
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/flow_log#argument-reference
@@ -258,11 +253,6 @@ variable "VFSI_FlowLogtransitGatewayId" {
 }
 
 variable "VFSI_FlowLogTransitGatewayAttatchmentId" {
-  type    = string
-  default = null
-}
-
-variable "VFSI_FlowLogVpcId" {
   type    = string
   default = null
 }
