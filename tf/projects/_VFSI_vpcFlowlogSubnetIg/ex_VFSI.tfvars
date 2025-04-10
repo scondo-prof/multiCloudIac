@@ -1,8 +1,8 @@
-resourceName = "test-my-balls-bozo"
+resourceName = "skir-skirrrr"
 
-projectName = "test-my-balls-bozo"
+projectName = "test"
 
-deployedDate = "01-27-2025"
+deployedDate = "2025-04-10"
 
 VFSI_VpcCidrBlock = "122.22.0.0/18"
 

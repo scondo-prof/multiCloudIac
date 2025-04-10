@@ -144,6 +144,34 @@ output "VFSI_IgTagsAll" {
 }
 
 #---
+output "VFSI_LogGroupFlowLogsArn" {
+  value = module.logGroupFlowLogs.logGroupArn
+}
+
+output "VFSI_LogGroupFlowLogsName" {
+  value = module.logGroupFlowLogs.logGroupName
+}
+
+#---
+output "VFSI_RWP_IamRoleName" {
+  value = module.RWP.RWP_IamRoleName
+}
+
+output "VFSI_RWP_IamRoleArn" {
+  value = module.RWP.RWP_IamRoleArn
+}
+
+
+output "VFSI_RWP_IamPolicyArn" {
+  value = module.RWP.RWP_IamPolicyArn
+}
+
+output "VFSI_RWP_IamPolicyName" {
+  value = module.RWP.RWP_IamPolicyName
+}
+
+
+#---
 output "VFSI_FlowLogArn" {
   value = module.flowLog.flowLogArn
 }

@@ -69,6 +69,26 @@ modules = [
     },
     {
         "paths": {
+            "project_path": "../aws/cloudwatch/genericLogGroup",
+            "source_path": "../../aws/cloudwatch/genericLogGroup",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "logGroup",
+        "new_variable_prefix": "VFSI_LogGroupFlowLogs",
+        "module_name": "logGroupFlowLogs",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/iam/_RWP_roleWithPolicy",
+            "source_path": "../../aws/iam/_RWP_roleWithPolicy",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "RWP",
+        "new_variable_prefix": "VFSI_RWP",
+        "module_name": "RWP",
+    },
+    {
+        "paths": {
             "project_path": "../aws/vpc/genericFlowLog",
             "source_path": "../../aws/vpc/genericFlowLog",
             "destination_path": "./temp",

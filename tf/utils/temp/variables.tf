@@ -329,6 +329,215 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
+variable "resourceName" {
+  type = string
+}
+
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group#argument-reference
+
+
+variable "VFSI_LogGroupFlowLogsNamePrefix" {
+  type    = string
+  default = null
+}
+
+variable "VFSI_LogGroupFlowLogsSkipDestroy" {
+  type    = bool
+  default = null
+}
+
+variable "VFSI_LogGroupFlowLogsClass" {
+  type = string
+  validation {
+    condition = var.VFSI_LogGroupFlowLogsClass == null || can(contains([
+      "STANDARD",
+      "INFREQUENT_ACCESS"
+    ], var.VFSI_LogGroupFlowLogsClass))
+    error_message = "Valid inputs for | variable: var.VFSI_LogGroupFlowLogsClass | are: STANDARD, or INFREQUENT_ACCESS"
+  }
+  default = null
+}
+
+variable "VFSI_LogGroupFlowLogsRetentionInDays" {
+  type = number
+  validation {
+    condition = var.VFSI_LogGroupFlowLogsRetentionInDays == null || can(contains([
+      1,
+      3,
+      5,
+      7,
+      14,
+      30,
+      60,
+      90,
+      120,
+      150,
+      180,
+      365,
+      400,
+      545,
+      731,
+      1096,
+      1827,
+      2192,
+      2557,
+      2922,
+      3288,
+      3653,
+      0
+    ], var.VFSI_LogGroupFlowLogsRetentionInDays))
+    error_message = "Valid inputs for | variable: var.VFSI_LogGroupFlowLogsRetentionInDays | are: 1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653, and 0"
+  }
+  default = null
+}
+
+variable "VFSI_LogGroupFlowLogsKmsKeyId" {
+  type    = string
+  default = null
+}
+
+#---
+variable "awsRegion" {
+  type    = string
+  default = "us-east-1"
+}
+
+variable "resourceName" {
+  type = string
+}
+
+variable "projectName" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role#argument-reference
+variable "VFSI_RWP_IamRoleAssumeRolePolicyVersion" {
+  type    = string
+  default = "2012-10-17"
+}
+
+variable "VFSI_RWP_IamRoleAssumeRolePolicy" {
+  type = list(object({
+    Action    = list(string)
+    Effect    = string
+    Sid       = optional(string, "")
+    Condition = optional(map(map(string)), {})
+    Principal = optional(map(list(string)), {})
+  }))
+}
+
+variable "VFSI_RWP_IamRoleDescription" {
+  type    = string
+  default = null
+}
+
+variable "VFSI_RWP_IamRoleForceDetatchPolicies" {
+  type    = bool
+  default = false
+}
+
+variable "VFSI_RWP_IamRoleMaxSessionDuration" {
+  type = number
+  validation {
+    condition     = var.VFSI_RWP_IamRoleMaxSessionDuration >= 3600 && var.VFSI_RWP_IamRoleMaxSessionDuration <= 43200
+    error_message = "Variable VFSI_RWP_IamRoleMaxSessionDuration must be greater than or equal to 3600 and less than or equal to 43200"
+  }
+  default = 3600
+}
+
+variable "VFSI_RWP_IamRoleNamePrefix" {
+  type    = string
+  default = null
+}
+
+variable "VFSI_RWP_IamRolePath" {
+  type    = string
+  default = "/"
+}
+
+variable "VFSI_RWP_IamRolePermissionsBoundary" {
+  type    = string
+  default = null
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy
+
+variable "VFSI_RWP_IamPolicyDescription" {
+  type    = string
+  default = null
+}
+variable "VFSI_RWP_IamPolicyNamePrefix" {
+  type    = string
+  default = null
+}
+variable "VFSI_RWP_IamPolicyPath" {
+  type    = string
+  default = "/"
+}
+variable "VFSI_RWP_IamPolicyVersion" {
+  type    = string
+  default = "2012-10-17"
+}
+variable "VFSI_RWP_IamPolicyDocumentStatements" {
+  type = list(object({
+    Action    = list(string)
+    Effect    = string
+    Resource  = list(string)
+    Sid       = optional(string, "")
+    Condition = optional(map(map(string)), {})
+    Principal = optional(map(list(string)), {})
+  }))
+}
+
+
+#---
+variable "awsRegion" {
+  type    = string
+  default = "us-east-1"
+}
+
 variable "projectName" {
   type = string
 }

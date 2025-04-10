@@ -87,6 +87,50 @@ module "Ig" {
 
 #---
 
+module "logGroupFlowLogs" {
+  source                  = "../../aws/cloudwatch/genericLogGroup"
+  awsRegion               = var.awsRegion
+  resourceName            = var.resourceName
+  logGroupNamePrefix      = var.VFSI_LogGroupFlowLogsNamePrefix
+  logGroupSkipDestroy     = var.VFSI_LogGroupFlowLogsSkipDestroy
+  logGroupClass           = var.VFSI_LogGroupFlowLogsClass
+  logGroupRetentionInDays = var.VFSI_LogGroupFlowLogsRetentionInDays
+  logGroupKmsKeyId        = var.VFSI_LogGroupFlowLogsKmsKeyId
+  projectName             = var.projectName
+  createdBy               = var.createdBy
+  deployedDate            = var.deployedDate
+  tfModule                = var.tfModule
+  additionalTags          = var.additionalTags
+}
+
+#---
+
+module "RWP" {
+  source                             = "../../aws/iam/_RWP_roleWithPolicy"
+  awsRegion                          = var.awsRegion
+  RWP_IamRoleAssumeRolePolicyVersion = var.VFSI_RWP_IamRoleAssumeRolePolicyVersion
+  RWP_IamRoleAssumeRolePolicy        = var.VFSI_RWP_IamRoleAssumeRolePolicy
+  RWP_IamRoleDescription             = var.VFSI_RWP_IamRoleDescription
+  RWP_IamRoleForceDetatchPolicies    = var.VFSI_RWP_IamRoleForceDetatchPolicies
+  RWP_IamRoleMaxSessionDuration      = var.VFSI_RWP_IamRoleMaxSessionDuration
+  resourceName                       = var.resourceName
+  RWP_IamRoleNamePrefix              = var.VFSI_RWP_IamRoleNamePrefix
+  RWP_IamRolePath                    = var.VFSI_RWP_IamRolePath
+  RWP_IamRolePermissionsBoundary     = var.VFSI_RWP_IamRolePermissionsBoundary
+  projectName                        = var.projectName
+  createdBy                          = var.createdBy
+  deployedDate                       = var.deployedDate
+  tfModule                           = var.tfModule
+  additionalTags                     = var.additionalTags
+  RWP_IamPolicyDescription           = var.VFSI_RWP_IamPolicyDescription
+  RWP_IamPolicyNamePrefix            = var.VFSI_RWP_IamPolicyNamePrefix
+  RWP_IamPolicyPath                  = var.VFSI_RWP_IamPolicyPath
+  RWP_IamPolicyVersion               = var.VFSI_RWP_IamPolicyVersion
+  RWP_IamPolicyDocumentStatements    = var.VFSI_RWP_IamPolicyDocumentStatements
+}
+
+#---
+
 module "flowLog" {
   source                             = "../../aws/vpc/genericFlowLog"
   awsRegion                          = var.awsRegion

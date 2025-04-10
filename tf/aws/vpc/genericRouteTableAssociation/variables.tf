@@ -7,7 +7,7 @@ variable "awsRegion" {
 
 variable "routeTableAssociationObjects" {
   type = list(object({
-    subnet_id = opriotnal(string, null)
+    subnet_id = optional(string, null)
     gateway_id = optional(string, null)
     route_table_id = string
   }))
