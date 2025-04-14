@@ -26,49 +26,46 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
   }
 
-  dynamic "default_cache_behavior" {
-    for_each = var.cdnDefaultCacheBehavior != null ? [var.cdnDefaultCacheBehavior] : []
-    content {
-      allowed_methods           = default_cache_behavior.value["allowed_methods"]
-      cached_methods            = default_cache_behavior.value["cached_methods"]
-      cache_policy_id           = default_cache_behavior.value["cache_policy_id"]
-      compress                  = default_cache_behavior.value["compress"]
-      default_ttl               = default_cache_behavior.value["default_ttl"]
-      field_level_encryption_id = default_cache_behavior.value["field_level_encryption_id"]
+  default_cache_behavior {
+    allowed_methods           = var.cdnDefaultCacheBehavior["allowed_methods"]
+    cached_methods            = var.cdnDefaultCacheBehavior["cached_methods"]
+    cache_policy_id           = var.cdnDefaultCacheBehavior["cache_policy_id"]
+    compress                  = var.cdnDefaultCacheBehavior["compress"]
+    default_ttl               = var.cdnDefaultCacheBehavior["default_ttl"]
+    field_level_encryption_id = var.cdnDefaultCacheBehavior["field_level_encryption_id"]
 
-      dynamic "lambda_function_association" {
-        for_each = default_cache_behavior.value["lambda_function_association"] != null ? default_cache_behavior.value["lambda_function_association"] : []
-        content {
-          event_type   = lambda_function_association.value["event_type"]
-          lambda_arn   = lambda_function_association.value["lambda_arn"]
-          include_body = lambda_function_association.value["include_body"]
-        }
+    dynamic "lambda_function_association" {
+      for_each = var.cdnDefaultCacheBehavior["lambda_function_association"] != null ? var.cdnDefaultCacheBehavior["lambda_function_association"] : []
+      content {
+        event_type   = lambda_function_association.value["event_type"]
+        lambda_arn   = lambda_function_association.value["lambda_arn"]
+        include_body = lambda_function_association.value["include_body"]
       }
+    }
 
-      dynamic "function_association" {
-        for_each = default_cache_behavior.value["function_association"] != null ? default_cache_behavior.value["function_association"] : []
-        content {
-          event_type   = function_association.value["event_type"]
-          function_arn = function_association.value["function_arn"]
-        }
+    dynamic "function_association" {
+      for_each = var.cdnDefaultCacheBehavior["function_association"] != null ? var.cdnDefaultCacheBehavior["function_association"] : []
+      content {
+        event_type   = function_association.value["event_type"]
+        function_arn = function_association.value["function_arn"]
       }
+    }
 
-      max_ttl                    = default_cache_behavior.value["max_ttl"]
-      min_ttl                    = default_cache_behavior.value["min_ttl"]
-      origin_request_policy_id   = default_cache_behavior.value["origin_request_policy_id"]
-      realtime_log_config_arn    = default_cache_behavior.value["realtime_log_config_arn"]
-      response_headers_policy_id = default_cache_behavior.value["response_headers_policy_id"]
-      smooth_streaming           = default_cache_behavior.value["smooth_streaming"]
-      target_origin_id           = default_cache_behavior.value["target_origin_id"]
-      trusted_key_groups         = default_cache_behavior.value["trusted_key_groups"]
-      trusted_signers            = default_cache_behavior.value["trusted_signers"]
-      viewer_protocol_policy     = default_cache_behavior.value["viewer_protocol_policy"]
+    max_ttl                    = var.cdnDefaultCacheBehavior["max_ttl"]
+    min_ttl                    = var.cdnDefaultCacheBehavior["min_ttl"]
+    origin_request_policy_id   = var.cdnDefaultCacheBehavior["origin_request_policy_id"]
+    realtime_log_config_arn    = var.cdnDefaultCacheBehavior["realtime_log_config_arn"]
+    response_headers_policy_id = var.cdnDefaultCacheBehavior["response_headers_policy_id"]
+    smooth_streaming           = var.cdnDefaultCacheBehavior["smooth_streaming"]
+    target_origin_id           = var.cdnDefaultCacheBehavior["target_origin_id"]
+    trusted_key_groups         = var.cdnDefaultCacheBehavior["trusted_key_groups"]
+    trusted_signers            = var.cdnDefaultCacheBehavior["trusted_signers"]
+    viewer_protocol_policy     = var.cdnDefaultCacheBehavior["viewer_protocol_policy"]
 
-      dynamic "grpc_config" {
-        for_each = default_cache_behavior.value[""] != null ? [default_cache_behavior.value[""]] : []
-        content {
-
-        }
+    dynamic "grpc_config" {
+      for_each = var.cdnDefaultCacheBehavior["grpc_config"] != null ? [var.cdnDefaultCacheBehavior["grpc_config"]] : []
+      content {
+        enabled = grpc_config.value["enabled"]
       }
     }
   }

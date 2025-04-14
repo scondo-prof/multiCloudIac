@@ -86,5 +86,10 @@ variable "cdnDefaultCacheBehavior" {
     trusted_key_groups         = optional(list(string), null)
     trusted_signers            = optional(list(string), null)
     viewer_protocol_policy     = string
+
+    grpc_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#grpc-config-arguments
+      enabled = bool
+    }), null)
   })
+  default = null
 }
