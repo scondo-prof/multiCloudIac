@@ -60,14 +60,14 @@ variable "cdnDefaultCacheBehavior" {
   type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#default-cache-behavior-arguments
     allowed_methods           = list(string)
     cached_methods            = list(string)
-    cache_policy_id           = optonal(string, null)
+    cache_policy_id           = optional(string, null)
     compress                  = optional(bool, null)
     default_ttl               = optional(number, null)
     field_level_encryption_id = optional(string, null)
 
     lambda_function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#lambda-function-association
-      event_type = string
-      lambda_arn = string
+      event_type   = string
+      lambda_arn   = string
       include_body = optional(bool, null)
     })), null)
 
@@ -75,5 +75,16 @@ variable "cdnDefaultCacheBehavior" {
       event_type = string
       lambda_arn = string
     })), null)
+
+    max_ttl                    = optional(number, null)
+    min_ttl                    = optional(number, null)
+    origin_request_policy_id   = optional(string, null)
+    realtime_log_config_arn    = optional(string, null)
+    response_headers_policy_id = optional(string, null)
+    smooth_streaming           = optional(bool, null)
+    target_origin_id           = string
+    trusted_key_groups         = optional(list(string), null)
+    trusted_signers            = optional(list(string), null)
+    viewer_protocol_policy     = string
   })
 }

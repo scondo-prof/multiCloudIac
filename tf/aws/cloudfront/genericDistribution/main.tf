@@ -39,8 +39,8 @@ resource "aws_cloudfront_distribution" "cdn" {
       dynamic "lambda_function_association" {
         for_each = default_cache_behavior.value["lambda_function_association"] != null ? default_cache_behavior.value["lambda_function_association"] : []
         content {
-          event_type = lambda_function_association.value["event_type"]
-          lambda_arn = lambda_function_association.value["lambda_arn"]
+          event_type   = lambda_function_association.value["event_type"]
+          lambda_arn   = lambda_function_association.value["lambda_arn"]
           include_body = lambda_function_association.value["include_body"]
         }
       }
@@ -48,21 +48,21 @@ resource "aws_cloudfront_distribution" "cdn" {
       dynamic "function_association" {
         for_each = default_cache_behavior.value["function_association"] != null ? default_cache_behavior.value["function_association"] : []
         content {
-          event_type = function_association.value["event_type"]
+          event_type   = function_association.value["event_type"]
           function_arn = function_association.value["function_arn"]
         }
       }
 
-      max_ttl                    = default_cache_behavior.value[""]
-      min_ttl                    = default_cache_behavior.value[""]
-      origin_request_policy_id   = default_cache_behavior.value[""]
-      realtime_log_config_arn    = default_cache_behavior.value[""]
-      response_headers_policy_id = default_cache_behavior.value[""]
-      smooth_streaming           = default_cache_behavior.value[""]
-      target_origin_id           = default_cache_behavior.value[""]
-      trusted_key_groups         = default_cache_behavior.value[""]
-      trusted_signers            = default_cache_behavior.value[""]
-      viewer_protocol_policy     = default_cache_behavior.value[""]
+      max_ttl                    = default_cache_behavior.value["max_ttl"]
+      min_ttl                    = default_cache_behavior.value["min_ttl"]
+      origin_request_policy_id   = default_cache_behavior.value["origin_request_policy_id"]
+      realtime_log_config_arn    = default_cache_behavior.value["realtime_log_config_arn"]
+      response_headers_policy_id = default_cache_behavior.value["response_headers_policy_id"]
+      smooth_streaming           = default_cache_behavior.value["smooth_streaming"]
+      target_origin_id           = default_cache_behavior.value["target_origin_id"]
+      trusted_key_groups         = default_cache_behavior.value["trusted_key_groups"]
+      trusted_signers            = default_cache_behavior.value["trusted_signers"]
+      viewer_protocol_policy     = default_cache_behavior.value["viewer_protocol_policy"]
 
       dynamic "grpc_config" {
         for_each = default_cache_behavior.value[""] != null ? [default_cache_behavior.value[""]] : []
