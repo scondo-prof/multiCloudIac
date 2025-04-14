@@ -32,26 +32,37 @@ variable "additionalTags" {
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#argument-reference
 
 variable "cdnAliases" {
-  type = list(string)
+  type    = list(string)
   default = null
 }
 
 variable "cdnComment" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "cdnContinuousDeploymentPolicyId" {
-  type = string
+  type    = string
   default = null
 }
 
 variable "cdnCustomErrorResponse" {
-  type = list(object({
+  type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#custom-error-response-arguments
     error_caching_min_ttl = optional(number, null)
-    error_code = number
-    response_code = optional(number, null)
-    response_page_path = optional(string, null)
+    error_code            = number
+    response_code         = optional(number, null)
+    response_page_path    = optional(string, null)
   }))
   default = null
+}
+
+variable "cdnDefaultCacheBehavior" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#default-cache-behavior-arguments
+    allowed_methods           = list(string)
+    cached_methods            = list(string)
+    cache_policy_id           = optonal(string, null)
+    compress                  = optional(bool, null)
+    default_ttl               = optional(number, null)
+    field_level_encryption_id = optional(string, null)
+  })
 }
