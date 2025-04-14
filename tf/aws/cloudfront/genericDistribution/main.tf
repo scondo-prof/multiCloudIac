@@ -70,10 +70,10 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
   }
 
-  default_root_object = var.cdn
-  enabled             = var.cdn
-  is_ipv6_enabled     = var.cdn
-  http_version        = var.cdn
+  default_root_object = var.cdnDefaultRootObject
+  enabled             = var.cdnEnabled
+  is_ipv6_enabled     = var.cdnIsIpv6Enabled
+  http_version        = var.cdnHttpVersion
 
   dynamic "logging_config" {
 

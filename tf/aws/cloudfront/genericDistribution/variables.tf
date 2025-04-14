@@ -92,3 +92,31 @@ variable "cdnDefaultCacheBehavior" {
     }), null)
   })
 }
+
+variable "cdnDefaultRootObject" {
+  type = string
+  default = null
+}
+
+variable "cdnEnabled" {
+  type = bool
+}
+
+variable "cdnIsIpv6Enabled" {
+  type = bool
+  default = null
+}
+
+variable "cdnHttpVersion" {
+  type = string
+  validation {
+    condition = var.cdnHttpVersion == null || can(contains([
+    "http1.1",
+    "http2",
+    "http2and3",
+    "http3"
+], var.cdnHttpVersion))
+    error_message = "Valid inputs for | variable: var.cdnHttpVersion | are: http1.1, http2, http2and3, and http3"
+  }
+  default = null
+}
