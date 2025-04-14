@@ -76,11 +76,60 @@ resource "aws_cloudfront_distribution" "cdn" {
   http_version        = var.cdnHttpVersion
 
   dynamic "logging_config" {
-
+    for_each = var.cdnLoggingConfig != null ? [var.cdnLoggingConfig] : []
+    content {
+      bucket          = logging_config.value["bucket"]
+      include_cookies = logging_config.value["include_cookies"]
+      prefix          = logging_config.value["prefix"]
+    }
   }
 
   dynamic "ordered_cache_behavior" {
+    for_each = var.cdnOrderedCacheBehavior != null ? var.cdnOrderedCacheBehavior : []
+    content {
+      allowed_methods           = ordered_cache_behavior.value["allowed_methods"]
+      cached_methods            = ordered_cache_behavior.value["cached_methods"]
+      cache_policy_id           = ordered_cache_behavior.value["cache_policy_id"]
+      compress                  = ordered_cache_behavior.value["compress"]
+      default_ttl               = ordered_cache_behavior.value["default_ttl"]
+      field_level_encryption_id = ordered_cache_behavior.value["field_level_encryption_id"]
 
+      dynamic "lambda_function_association" {
+        for_each = ordered_cache_behavior.value["lambda_function_association"] != null ? ordered_cache_behavior.value["lambda_function_association"] : []
+        content {
+          event_type   = lambda_function_association.value["event_type"]
+          lambda_arn   = lambda_function_association.value["lambda_arn"]
+          include_body = lambda_function_association.value["include_body"]
+        }
+      }
+
+      dynamic "function_association" {
+        for_each = ordered_cache_behavior.value["function_association"] != null ? ordered_cache_behavior.value["function_association"] : []
+        content {
+          event_type   = function_association.value["event_type"]
+          function_arn = function_association.value["function_arn"]
+        }
+      }
+
+      max_ttl                    = ordered_cache_behavior.value["max_ttl"]
+      min_ttl                    = ordered_cache_behavior.value["min_ttl"]
+      origin_request_policy_id   = ordered_cache_behavior.value["origin_request_policy_id"]
+      path_pattern               = ordered_cache_behavior.value["path_pattern"]
+      realtime_log_config_arn    = ordered_cache_behavior.value["realtime_log_config_arn"]
+      response_headers_policy_id = ordered_cache_behavior.value["response_headers_policy_id"]
+      smooth_streaming           = ordered_cache_behavior.value["smooth_streaming"]
+      target_origin_id           = ordered_cache_behavior.value["target_origin_id"]
+      trusted_key_groups         = ordered_cache_behavior.value["trusted_key_groups"]
+      trusted_signers            = ordered_cache_behavior.value["trusted_signers"]
+      viewer_protocol_policy     = ordered_cache_behavior.value["viewer_protocol_policy"]
+
+      dynamic "grpc_config" {
+        for_each = ordered_cache_behavior.value["grpc_config"] != null ? [ordered_cache_behavior.value["grpc_config"]] : []
+        content {
+          enabled = grpc_config.value["enabled"]
+        }
+      }
+    }
   }
 
   origin {

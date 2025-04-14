@@ -94,7 +94,7 @@ variable "cdnDefaultCacheBehavior" {
 }
 
 variable "cdnDefaultRootObject" {
-  type = string
+  type    = string
   default = null
 }
 
@@ -103,7 +103,7 @@ variable "cdnEnabled" {
 }
 
 variable "cdnIsIpv6Enabled" {
-  type = bool
+  type    = bool
   default = null
 }
 
@@ -111,12 +111,60 @@ variable "cdnHttpVersion" {
   type = string
   validation {
     condition = var.cdnHttpVersion == null || can(contains([
-    "http1.1",
-    "http2",
-    "http2and3",
-    "http3"
-], var.cdnHttpVersion))
+      "http1.1",
+      "http2",
+      "http2and3",
+      "http3"
+    ], var.cdnHttpVersion))
     error_message = "Valid inputs for | variable: var.cdnHttpVersion | are: http1.1, http2, http2and3, and http3"
   }
+  default = null
+}
+
+variable "cdnLoggingConfig" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#logging-config-arguments
+    bucket          = string
+    include_cookies = optional(bool, null)
+    prefix          = optional(string, null)
+  })
+  default = null
+}
+
+variable "cdnOrderedCacheBehavior" {
+  type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#default-cache-behavior-arguments
+    allowed_methods           = list(string)
+    cached_methods            = list(string)
+    cache_policy_id           = optional(string, null)
+    compress                  = optional(bool, null)
+    default_ttl               = optional(number, null)
+    field_level_encryption_id = optional(string, null)
+
+    lambda_function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#lambda-function-association
+      event_type   = string
+      lambda_arn   = string
+      include_body = optional(bool, null)
+    })), null)
+
+    function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#function-association
+      event_type = string
+      lambda_arn = string
+    })), null)
+
+    max_ttl                    = optional(number, null)
+    min_ttl                    = optional(number, null)
+    origin_request_policy_id   = optional(string, null)
+    path_pattern               = string
+    realtime_log_config_arn    = optional(string, null)
+    response_headers_policy_id = optional(string, null)
+    smooth_streaming           = optional(bool, null)
+    target_origin_id           = string
+    trusted_key_groups         = optional(list(string), null)
+    trusted_signers            = optional(list(string), null)
+    viewer_protocol_policy     = string
+
+    grpc_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#grpc-config-arguments
+      enabled = bool
+    }), null)
+  }))
   default = null
 }
