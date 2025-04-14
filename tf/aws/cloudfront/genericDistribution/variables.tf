@@ -91,5 +91,4 @@ variable "cdnDefaultCacheBehavior" {
       enabled = bool
     }), null)
   })
-  default = null
 }
