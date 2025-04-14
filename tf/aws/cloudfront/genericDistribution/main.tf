@@ -37,16 +37,19 @@ resource "aws_cloudfront_distribution" "cdn" {
       field_level_encryption_id = default_cache_behavior.value["field_level_encryption_id"]
 
       dynamic "lambda_function_association" {
-        for_each = default_cache_behavior.value[""] != null ? default_cache_behavior.value[""] : []
+        for_each = default_cache_behavior.value["lambda_function_association"] != null ? default_cache_behavior.value["lambda_function_association"] : []
         content {
-
+          event_type = lambda_function_association.value["event_type"]
+          lambda_arn = lambda_function_association.value["lambda_arn"]
+          include_body = lambda_function_association.value["include_body"]
         }
       }
 
       dynamic "function_association" {
-        for_each = default_cache_behavior.value[""] != null ? default_cache_behavior.value[""] : []
+        for_each = default_cache_behavior.value["function_association"] != null ? default_cache_behavior.value["function_association"] : []
         content {
-
+          event_type = function_association.value["event_type"]
+          function_arn = function_association.value["function_arn"]
         }
       }
 

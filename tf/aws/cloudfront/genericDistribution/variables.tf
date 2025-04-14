@@ -64,5 +64,16 @@ variable "cdnDefaultCacheBehavior" {
     compress                  = optional(bool, null)
     default_ttl               = optional(number, null)
     field_level_encryption_id = optional(string, null)
+
+    lambda_function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#lambda-function-association
+      event_type = string
+      lambda_arn = string
+      include_body = optional(bool, null)
+    })), null)
+
+    function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#function-association
+      event_type = string
+      lambda_arn = string
+    })), null)
   })
 }
