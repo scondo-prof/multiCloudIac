@@ -165,23 +165,26 @@ resource "aws_cloudfront_distribution" "cdn" {
       origin_path              = origin.value["origin_path"]
 
       dynamic "origin_shield" {
-        for_each = origin.value[""] != null ? [origin.value[""]] : []
+        for_each = origin.value["origin_shield"] != null ? [origin.value["origin_shield"]] : []
         content {
-
+          enabled              = origin_shield.value["enabled"]
+          origin_shield_region = origin_shield.value["origin_shield_region"]
         }
       }
 
       dynamic "s3_origin_config" {
-        for_each = origin.value[""] != null ? [origin.value[""]] : []
+        for_each = origin.value["s3_origin_config"] != null ? [origin.value["s3_origin_config"]] : []
         content {
-
+          origin_access_identity = s3_origin_config.value["origin_access_identity"]
         }
       }
 
       dynamic "vpc_origin_config" {
-        for_each = origin.value[""] != null ? [origin.value[""]] : []
+        for_each = origin.value["vpc_origin_config"] != null ? [origin.value["vpc_origin_config"]] : []
         content {
-
+          origin_keepalive_timeout = vpc_origin_config.value["origin_keepalive_timeout"]
+          origin_read_timeout      = vpc_origin_config.value["origin_read_timeout"]
+          vpc_origin_id            = vpc_origin_config.value["vpc_origin_id"]
         }
       }
     }

@@ -193,5 +193,20 @@ variable "cdnOrigin" {
     origin_access_control_id = optional(string, null)
     origin_id                = string
     origin_path              = optional(string, null)
+
+    origin_shield = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#origin-shield-arguments
+      enabled              = bool
+      origin_shield_region = optional(string, null)
+    }), null)
+
+    s3_origin_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#s3-origin-config-arguments
+      origin_access_identity = string
+    }), null)
+
+    vpc_origin_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#origin_keepalive_timeout-2
+      origin_keepalive_timeout = optional(number, null)
+      origin_read_timeout      = optional(number, null)
+      vpc_origin_id            = string
+    }), null)
   }))
 }
