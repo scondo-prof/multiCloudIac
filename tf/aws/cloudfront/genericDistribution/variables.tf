@@ -170,11 +170,11 @@ variable "cdnOrderedCacheBehavior" {
 }
 
 variable "cdnOrigin" {
-  type = list(object({
+  type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#origin-arguments
     connection_attempts = optional(number, null)
     connection_timeout  = optional(number, null)
 
-    custom_origin_config = optional(object({
+    custom_origin_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#custom-origin-config-arguments
       http_port                = number
       https_port               = number
       origin_protocol_policy   = string
@@ -182,5 +182,16 @@ variable "cdnOrigin" {
       origin_keepalive_timeout = optional(number, null)
       origin_read_timeout      = optional(number, null)
     }), null)
+
+    domain_name = string
+
+    custom_header = optional(list(object({
+      name  = string
+      value = string
+    })), null)
+
+    origin_access_control_id = optional(string, null)
+    origin_id                = string
+    origin_path              = optional(string, null)
   }))
 }

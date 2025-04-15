@@ -150,18 +150,19 @@ resource "aws_cloudfront_distribution" "cdn" {
         }
       }
 
-      domain_name = origin.value[""]
+      domain_name = origin.value["domain_name"]
 
       dynamic "custom_header" {
-        for_each = origin.value[""] != null ? [origin.value[""]] : []
+        for_each = origin.value["custom_header"] != null ? origin.value["custom_header"] : []
         content {
-
+          name  = custom_header.value["name"]
+          value = custom_header.value["value"]
         }
       }
 
-      origin_access_control_id = origin.value[""]
-      origin_id                = origin.value[""]
-      origin_path              = origin.value[""]
+      origin_access_control_id = origin.value["origin_access_control_id"]
+      origin_id                = origin.value["origin_id"]
+      origin_path              = origin.value["origin_path"]
 
       dynamic "origin_shield" {
         for_each = origin.value[""] != null ? [origin.value[""]] : []
