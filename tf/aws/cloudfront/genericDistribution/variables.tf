@@ -3,10 +3,6 @@ variable "awsRegion" {
   default = "us-east-1"
 }
 
-variable "resourceName" {
-  type = string
-}
-
 variable "projectName" {
   type = string
 }
