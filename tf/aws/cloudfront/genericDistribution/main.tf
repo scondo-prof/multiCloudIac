@@ -190,7 +190,24 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
   }
   dynamic "origin_group" {
+    for_each = var.cdnOriginGroup != null ? var.cdnOriginGroup : []
+    content {
+      origin_id = origin_group.value["origin_id"]
 
+      dynamic "failover_criteria" {
+        for_each = origin_group.value["failover_criteria"]
+        content {
+          status_codes = failover_criteria.value["status_codes"]
+        }
+      }
+
+      dynamic "member" {
+        for_each = origin_group.value["member"]
+        content {
+          origin_id = member.value["origin_id"]
+        }
+      }
+    }
   }
 
   price_class = var.cdn

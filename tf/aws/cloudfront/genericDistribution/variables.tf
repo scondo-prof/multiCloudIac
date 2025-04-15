@@ -210,3 +210,18 @@ variable "cdnOrigin" {
     }), null)
   }))
 }
+
+variable "cdnOriginGroup" {
+  type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#origin-group-arguments
+    origin_id = string
+
+    failover_criteria = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#failover-criteria-arguments
+      status_codes = list(number)
+    }))
+
+    member = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#member-arguments
+      origin_id = string
+    }))
+  }))
+  default = null
+}
