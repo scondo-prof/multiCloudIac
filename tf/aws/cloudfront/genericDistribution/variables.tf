@@ -225,3 +225,53 @@ variable "cdnOriginGroup" {
   }))
   default = null
 }
+
+variable "cdnPriceClass" {
+  type = string
+  validation {
+    condition = var.cdnPriceClass == null || can(contains([
+      "PriceClass_All",
+      "PriceClass_200",
+      "PriceClass_100"
+    ], var.cdnPriceClass))
+    error_message = "Valid inputs for | variable: var.cdnPriceClass | are: PriceClass_All, PriceClass_200, PriceClass_100"
+  }
+  default = null
+}
+
+variable "cdnRestrictionsGeoRestrictions" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#restrictions-arguments
+  type = object({
+    locations        = list(string)
+    restriction_type = string
+  })
+}
+
+variable "cdnStaging" {
+  type    = bool
+  default = null
+}
+
+variable "cdnViewerCertificate" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#viewer-certificate-arguments
+    acm_certificate_arn            = optional(string, null)
+    cloudfront_default_certificate = optional(bool, null)
+    iam_certificate_id             = optional(string, null)
+    minimum_protocol_version       = optional(string, null)
+    ssl_support_method             = optional(string, null)
+  })
+}
+
+variable "cdnWebAclId" {
+  type    = string
+  default = null
+}
+
+variable "cdnRetainOnDelete" {
+  type    = bool
+  default = null
+}
+
+variable "cdnWaitForDeployment" {
+  type    = bool
+  default = null
+}

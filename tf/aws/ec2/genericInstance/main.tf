@@ -192,11 +192,12 @@ resource "aws_instance" "instance" {
   source_dest_check     = var.instanceSourceDestCheck
   subnet_id             = var.instanceSubnetId
   tags = merge({
-    Project      = var.projectName
-    CreatedBy    = var.createdBy
-    DeployedDate = var.deployedDate
-    Name         = "${var.resourceName}-ec2"
-  }, var.additionalTags)
+        Project      = var.projectName
+        CreatedBy    = var.createdBy
+        DeployedDate = var.deployedDate
+        TfModule     = var.tfModule
+        Name         = "${var.resourceName}-ec2"
+      }, var.additionalTags)
   tenancy                     = var.instanceTenancy
   user_data                   = var.instanceUserData != null ? file(var.instanceUserData) : null
   user_data_base64            = var.instanceUserDataBase64

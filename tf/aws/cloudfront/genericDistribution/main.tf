@@ -210,20 +210,32 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
   }
 
-  price_class = var.cdn
+  price_class = var.cdnPriceClass
 
   restrictions {
-
+    geo_restriction {
+      locations        = var.cdnRestrictionsGeoRestrictions["locations"]
+      restriction_type = var.cdnRestrictionsGeoRestrictions["restriction_type"]
+    }
   }
 
-  staging = var.cdn
-  tags    = var.cdn
+  staging = var.cdnStaging
+  tags = merge({
+    Project      = var.projectName
+    CreatedBy    = var.createdBy
+    DeployedDate = var.deployedDate
+    TfModule     = var.tfModule
+  }, var.additionalTags)
 
   viewer_certificate {
-
+    acm_certificate_arn            = var.cdnViewerCertificate["acm_certificate_arn"]
+    cloudfront_default_certificate = var.cdnViewerCertificate["cloudfront_default_certificate"]
+    iam_certificate_id             = var.cdnViewerCertificate["iam_certificate_id"]
+    minimum_protocol_version       = var.cdnViewerCertificate["minimum_protocol_version"]
+    ssl_support_method             = var.cdnViewerCertificate["ssl_support_method"]
   }
 
-  web_acl_id          = var.cdn
-  retain_on_delete    = var.cdn
-  wait_for_deployment = var.cdn
+  web_acl_id          = var.cdnWebAclId
+  retain_on_delete    = var.cdnRetainOnDelete
+  wait_for_deployment = var.cdnWaitForDeployment
 }
