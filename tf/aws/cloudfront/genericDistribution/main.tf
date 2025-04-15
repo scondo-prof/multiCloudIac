@@ -132,10 +132,59 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
   }
 
-  origin {
+  dynamic "origin" {
+    for_each = var.cdnOrigin
+    content {
+      connection_attempts = origin.value["connection_attempts"]
+      connection_timeout  = origin.value["connection_timeout"]
 
+      dynamic "custom_origin_config" {
+        for_each = origin.value["custom_origin_config"] != null ? [origin.value["custom_origin_config"]] : []
+        content {
+          http_port                = custom_origin_config.value["http_port"]
+          https_port               = custom_origin_config.value["https_port"]
+          origin_protocol_policy   = custom_origin_config.value["origin_protocol_policy"]
+          origin_ssl_protocols     = custom_origin_config.value["origin_ssl_protocols"]
+          origin_keepalive_timeout = custom_origin_config.value["origin_keepalive_timeout"]
+          origin_read_timeout      = custom_origin_config.value["origin_read_timeout"]
+        }
+      }
+
+      domain_name = origin.value[""]
+
+      dynamic "custom_header" {
+        for_each = origin.value[""] != null ? [origin.value[""]] : []
+        content {
+
+        }
+      }
+
+      origin_access_control_id = origin.value[""]
+      origin_id                = origin.value[""]
+      origin_path              = origin.value[""]
+
+      dynamic "origin_shield" {
+        for_each = origin.value[""] != null ? [origin.value[""]] : []
+        content {
+
+        }
+      }
+
+      dynamic "s3_origin_config" {
+        for_each = origin.value[""] != null ? [origin.value[""]] : []
+        content {
+
+        }
+      }
+
+      dynamic "vpc_origin_config" {
+        for_each = origin.value[""] != null ? [origin.value[""]] : []
+        content {
+
+        }
+      }
+    }
   }
-
   dynamic "origin_group" {
 
   }

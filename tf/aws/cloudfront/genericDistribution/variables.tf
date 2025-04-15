@@ -168,3 +168,19 @@ variable "cdnOrderedCacheBehavior" {
   }))
   default = null
 }
+
+variable "cdnOrigin" {
+  type = list(object({
+    connection_attempts = optional(number, null)
+    connection_timeout  = optional(number, null)
+
+    custom_origin_config = optional(object({
+      http_port                = number
+      https_port               = number
+      origin_protocol_policy   = string
+      origin_ssl_protocols     = string
+      origin_keepalive_timeout = optional(number, null)
+      origin_read_timeout      = optional(number, null)
+    }), null)
+  }))
+}
