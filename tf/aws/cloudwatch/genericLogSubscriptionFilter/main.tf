@@ -11,17 +11,11 @@ provider "aws" {
   region = var.awsRegion
 }
 
-resource "aws_cloudwatch_log_group" "logGroup" {
-  name              = "${var.resourceName}-log-group"
-  name_prefix       = var.logGroupNamePrefix
-  skip_destroy      = var.logGroupSkipDestroy
-  log_group_class   = var.logGroupClass
-  retention_in_days = var.logGroupRetentionInDays
-  kms_key_id        = var.logGroupKmsKeyId
-  tags = merge({
-    Project      = var.projectName
-    CreatedBy    = var.createdBy
-    DeployedDate = var.deployedDate
-    TfModule     = var.tfModule
-  }, var.additionalTags)
+resource "aws_cloudwatch_log_subscription_filter" "logSubscriptionFilter" {
+  name            = "${var.resourceName}-log-subscription-filter"
+  destination_arn = var.logSubscriptionFilterDestinationArn
+  filter_pattern  = var.logSubscriptionFilterPattern
+  log_group_name  = var.logSubscriptionFilterLogGroupName
+  role_arn        = var.logSubscriptionFilterRoleArn
+  distribution    = var.logSubscriptionFilterDistribution
 }
