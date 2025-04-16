@@ -1,5 +1,5 @@
 variable "gcpProjectId" {
-  type    = string
+  type = string
 }
 
 variable "gcpRegion" {
@@ -20,7 +20,7 @@ variable "deployedDate" {
 }
 
 variable "createdBy" {
-  type = string
+  type    = string
   default = "scott-condo"
 }
 
@@ -29,7 +29,7 @@ variable "tfModule" {
 }
 
 variable "additionalTags" {
-  type = map(string)
+  type    = map(string)
   default = {}
 }
 
@@ -40,6 +40,26 @@ variable "topicName" {
 }
 
 variable "topicKmsKeyName" {
-  type = string
+  type    = string
+  default = null
+}
+
+variable "topicMessageStoragePolicy" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic#nested_message_storage_policy
+    allowed_persistence_regions = list(string)
+  })
+  default = null
+}
+
+variable "topicSchemaSettings" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic#nested_schema_settings
+    schema   = string
+    encoding = optional(string, null)
+  })
+  default = null
+}
+
+variable "topicMessageRetentionDuration" {
+  type    = string
   default = null
 }
