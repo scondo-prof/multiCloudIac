@@ -35,10 +35,6 @@ variable "additionalTags" {
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic#argument-reference
 
-variable "topicName" {
-  type = string
-}
-
 variable "topicKmsKeyName" {
   type    = string
   default = null

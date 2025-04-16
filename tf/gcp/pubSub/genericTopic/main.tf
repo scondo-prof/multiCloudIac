@@ -13,7 +13,7 @@ provider "google" {
 }
 
 resource "google_pubsub_topic" "topic" {
-  name         = var.topicName
+  name         = "${var.resourceName}-topic"
   kms_key_name = var.topicKmsKeyName
   labels = merge({
     project       = var.projectName
