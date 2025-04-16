@@ -43,23 +43,50 @@ resource "google_pubsub_topic" "topic" {
     for_each = var.topicIngestionDataSourceSettings != null ? [var.topicIngestionDataSourceSettings] : []
     content {
       dynamic "aws_kinesis" {
-        for_each = ingestion_data_source_settings.value[""] != null ? [ingestion_data_source_settings.value[""]] : []
+        for_each = ingestion_data_source_settings.value["aws_kinesis"] != null ? [ingestion_data_source_settings.value["aws_kinesis"]] : []
         content {
-
+          stream_arn          = aws_kinesis.value["stream_arn"]
+          consumer_arn        = aws_kinesis.value["consumer_arn"]
+          aws_role_arn        = aws_kinesis.value["aws_role_arn"]
+          gcp_service_account = aws_kinesis.value["gcp_service_account"]
         }
       }
 
       dynamic "cloud_storage" {
-        for_each = ingestion_data_source_settings.value[""] != null ? [ingestion_data_source_settings.value[""]] : []
+        for_each = ingestion_data_source_settings.value["cloud_storage"] != null ? [ingestion_data_source_settings.value["cloud_storage"]] : []
         content {
+          bucket = cloud_storage.value["bucket"]
 
+          dynamic "text_format" {
+            for_each = cloud_storage.value["text_format"] != null ? [cloud_storage.value["text_format"]] : []
+            content {
+              delimiter = text_format.value["delimiter"]
+            }
+          }
+
+          dynamic "avro_format" {
+            for_each = cloud_storage.value["avro_format"] != null ? [cloud_storage.value["avro_format"]] : []
+            content {
+
+            }
+          }
+
+          dynamic "pubsub_avro_format" {
+            for_each = cloud_storage.value["pubsub_avro_format"] != null ? [cloud_storage.value["pubsub_avro_format"]] : []
+            content {
+
+            }
+          }
+
+          minimum_object_create_time = cloud_storage.value["minimum_object_create_time"]
+          match_glob                 = cloud_storage.value["match_glob"]
         }
       }
 
       dynamic "platform_logs_settings" {
-        for_each = ingestion_data_source_settings.value[""] != null ? [ingestion_data_source_settings.value[""]] : []
+        for_each = ingestion_data_source_settings.value["platform_logs_settings"] != null ? [ingestion_data_source_settings.value["platform_logs_settings"]] : []
         content {
-
+          severity = platform_logs_settings.value["severity"]
         }
       }
     }

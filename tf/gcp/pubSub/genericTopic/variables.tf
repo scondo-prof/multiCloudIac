@@ -63,3 +63,34 @@ variable "topicMessageRetentionDuration" {
   type    = string
   default = null
 }
+
+variable "topicIngestionDataSourceSettings" {
+  type = object({                   #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic#nested_ingestion_data_source_settings
+    aws_kinesis = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic#nested_ingestion_data_source_settings_aws_kinesis
+      stream_arn          = string
+      consumer_arn        = string
+      aws_role_arn        = string
+      gcp_service_account = string
+    }), null)
+
+    cloud_storage = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic#nested_ingestion_data_source_settings_cloud_storage
+      bucket = string
+
+      text_format = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic#nested_ingestion_data_source_settings_cloud_storage_text_format
+        delimiter = optional(string, null)
+      }), null)
+
+      avro_format = optional(object({}), null)
+
+      pubsub_avro_format = optional(object({}), null)
+
+      minimum_object_create_time = optional(string, null)
+      match_glob                 = optional(string, null)
+    }), null)
+
+    platform_logs_settings = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_topic#nested_ingestion_data_source_settings_platform_logs_settings
+      severity = optional(string, null)
+    }), null)
+  })
+  default = null
+}
