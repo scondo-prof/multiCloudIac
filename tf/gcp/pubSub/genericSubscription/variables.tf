@@ -35,3 +35,18 @@ variable "additionalTags" {
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_subscription#argument-reference
 
+variable "subscriptionTopic" {
+  type = string
+}
+
+variable "subscriptionBigqueryConfig" {
+  type = object({#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_subscription#nested_bigquery_config
+    table = string
+    use_table_schema = optional(bool, null)
+    use_topic_schema = optional(bool, null)
+    write_metadata = optional(bool, null)
+    drop_unknown_fields = optional(bool, null)
+    service_account_email = optional(string, null)
+  })
+  default = null
+}

@@ -23,9 +23,14 @@ resource "google_pubsub_subscription" "subscription" {
   }, var.additionalTags)
 
   dynamic "bigquery_config" {
-    for_each = var.subscription != null ? [var.subscription]: []
+    for_each = var.subscriptionBigqueryConfig != null ? [var.subscriptionBigqueryConfig]: []
     content {
-      
+      table = bigquery_config.value["table"]
+      use_table_schema = bigquery_config.value["use_table_schema"]
+      use_topic_schema = bigquery_config.value["use_topic_schema"]
+      write_metadata = bigquery_config.value["write_metadata"]
+      drop_unknown_fields = bigquery_config.value["drop_unknown_fields"]
+      service_account_email = bigquery_config.value["service_account_email"]
     }
   }
 
