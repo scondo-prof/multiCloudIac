@@ -35,9 +35,25 @@ resource "google_pubsub_subscription" "subscription" {
   }
 
   dynamic "cloud_storage_config" {
-    for_each = var.subscription != null ? [var.subscription]: []
+    for_each = var.subscriptionCloudStorageConfig != null ? [var.subscriptionCloudStorageConfig]: []
     content {
+      bucket = cloud_storage_config.value["bucket"]
+      filename_prefix = cloud_storage_config.value["filename_prefix"]
+      filename_suffix = cloud_storage_config.value["filename_suffix"]
+      filename_datetime_format = cloud_storage_config.value["filename_datetime_format"]
+      max_duration = cloud_storage_config.value["max_duration"]
+      max_bytes = cloud_storage_config.value["max_bytes"]
+      max_messages = cloud_storage_config.value["max_messages"]
       
+      dynamic "avro_config" {
+        for_each = cloud_storage_config.value["avro_config"] != null ? [cloud_storage_config.value["avro_config"]]: []
+        content {
+          write_metadata = avro_config.value["write_metadata"]
+          use_topic_schema = avro_config.value["use_topic_schema"]
+        }
+      }
+
+      service_account_email = cloud_storage_config.value["service_account_email"]
     }
   }
 

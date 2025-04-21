@@ -50,3 +50,24 @@ variable "subscriptionBigqueryConfig" {
   })
   default = null
 }
+
+variable "subscriptionCloudStorageConfig" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_subscription#nested_cloud_storage_config
+    bucket = string
+    filename_prefix = optional(string, null)
+    filename_suffix = optional(string, null)
+    filename_datetime_format = optional(string, null)
+    max_duration = optional(string, null)
+    max_bytes = optional(string, null)
+    max_messages = optional(number, null)
+    
+    avro_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_subscription#nested_cloud_storage_config_avro_config
+      write_metadata = optional(bool, null)
+      use_topic_schema = optional(bool, null)
+    }), null)
+
+    service_account_email = optional(string, null)
+  })
+  default = null
+}
+
