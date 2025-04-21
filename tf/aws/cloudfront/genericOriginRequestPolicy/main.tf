@@ -13,10 +13,16 @@ provider "aws" {
 
 resource "aws_cloudfront_origin_request_policy" "orp" {
   name = "${var.resourceName}-orp"
-  comment = var.orp
+  comment = var.orpComment
   
   cookies_config {
-    cocookie_behavior = var.orp 
+    cookie_behavior = var.orpCookiesConfig["cookie_behavior"]
+    dynamic "cookies" {
+      for_each = var.orpCookiesConfig["cookies"] != null ? [var.orpCookiesConfig["cookies"]]: []
+      content {
+        items = cookies.value["items"]
+      }
+    } 
   }
 
   headers_config {

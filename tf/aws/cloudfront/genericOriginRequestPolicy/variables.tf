@@ -8,3 +8,18 @@ variable "resourceName" {
 }
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_request_policy#argument-reference
+
+variable "orpComment" {
+  type = string
+  default = null
+}
+
+variable "orpCookiesConfig" {
+  type = object({
+    cookie_behavior = string
+    cookies = optional(object({
+      items = list(string)
+    }), null)
+  })
+  default = null
+}
