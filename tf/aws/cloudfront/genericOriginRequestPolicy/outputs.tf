@@ -1,11 +1,11 @@
-output "cachePolicyArn" {
-  value = aws_cloudfront_cache_policy.cachePolicy.arn
+output "orpArn" {
+  value = aws_cloudfront_origin_request_policy.orp.arn
 }
 
-output "cachePolicyEtag" {
-  value = aws_cloudfront_cache_policy.cachePolicy.etag
+output "orpEtag" {
+  value = aws_cloudfront_origin_request_policy.orp.etag
 }
 
-output "cachePolicyId" {
-  value = aws_cloudfront_cache_policy.cachePolicy.id
+output "orpId" {
+  value = aws_cloudfront_origin_request_policy.orp.id
 }
