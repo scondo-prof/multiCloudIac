@@ -1,11 +1,11 @@
-output "topicId" {
-  value = google_pubsub_topic.topic.id
+output "subscriptionId" {
+  value = google_pubsub_subscription.subscription.id
 }
 
-output "topicTerraformLabels" {
-  value = google_pubsub_topic.topic.terraform_labels
+output "subscriptionTerraformLabels" {
+  value = google_pubsub_subscription.subscription.terraform_labels
 }
 
-output "topicEffectiveLabels" {
-  value = google_pubsub_topic.topic.effective_labels
+output "subscriptionEffectiveLabels" {
+  value = google_pubsub_subscription.subscription.effective_labels
 }
