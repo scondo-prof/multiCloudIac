@@ -14,17 +14,17 @@ variable "cachePolicyMinTtl" {
 }
 
 variable "cachePolicyMaxTtl" {
-  type = number
+  type    = number
   default = null
 }
 
 variable "cachePolicyDefaultTtl" {
-  type = number
+  type    = number
   default = null
 }
 
 variable "cachePolicyComment" {
-  type = string
+  type    = string
   default = null
 }
 
@@ -48,6 +48,7 @@ variable "cachePolicyParametersInCacheKeyAndForwardToOrigin" {
       items = list(string)
     }), null)
 
-    
+    enable_accept_encoding_brotli = optional(bool, null)
+    enable_accept_encoding_gzip   = optional(bool, null)
   })
 }
