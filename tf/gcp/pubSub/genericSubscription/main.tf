@@ -93,21 +93,23 @@ resource "google_pubsub_subscription" "subscription" {
 
   filter = var.subscriptionFilter
 
-  dynamic "dead_letter_policy" {
-    for_each = var.subscription != null ? [var.subscription] : []
+  dynamic "dead_letter_policy" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_subscription#nested_dead_letter_policy
+    for_each = var.subscriptionDeadLetterPolicy != null ? [var.subscriptionDeadLetterPolicy] : []
     content {
-
+      dead_letter_topic     = dead_letter_policy.value["dead_letter_topic"]
+      max_delivery_attempts = dead_letter_policy.value["max_delivery_attempts"]
     }
   }
 
   dynamic "retry_policy" {
-    for_each = var.subscription != null ? [var.subscription] : []
+    for_each = var.subscriptionRetryPolicy != null ? [var.subscriptionRetryPolicy] : []
     content {
-
+      minimum_backoff = retry_policy.value["minimum_backoff"]
+      maximum_backoff = retry_policy.value["maximum_backoff"]
     }
   }
 
-  enable_message_ordering      = var.subscription
-  enable_exactly_once_delivery = var.subscription
+  enable_message_ordering      = var.subscriptionEnableMessageOrdering
+  enable_exactly_once_delivery = var.subscriptionEnableExactlyOnceDelivery
   project                      = var.gcpProjectId
 }

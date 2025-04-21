@@ -118,3 +118,29 @@ variable "subscriptionFilter" {
   type    = string
   default = null
 }
+
+variable "subscriptionDeadLetterPolicy" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_subscription#nested_dead_letter_policy
+    dead_letter_topic     = optional(string, null)
+    max_delivery_attempts = optional(number, null)
+  })
+  default = null
+}
+
+variable "subscriptionRetryPolicy" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/pubsub_subscription#nested_retry_policy
+    minimum_backoff = optional(number, null)
+    maximum_backoff = optional(number, null)
+  })
+  default = null
+}
+
+variable "subscriptionEnableMessageOrdering" {
+  type    = bool
+  default = null
+}
+
+variable "subscriptionEnableExactlyOnceDelivery" {
+  type    = bool
+  default = null
+}
