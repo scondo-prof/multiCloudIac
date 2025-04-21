@@ -10,7 +10,7 @@ variable "resourceName" {
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_request_policy#argument-reference
 
 variable "orpComment" {
-  type = string
+  type    = string
   default = null
 }
 
@@ -21,5 +21,22 @@ variable "orpCookiesConfig" {
       items = list(string)
     }), null)
   })
-  default = null
+}
+
+variable "orpHeadersConfig" {
+  type = object({
+    header_behavior = string
+    headers = optional(object({
+      items = list(string)
+    }), null)
+  })
+}
+
+variable "orpQueryStringsConfig" {
+  type = object({
+    query_string_behavior = string
+    query_strings = optional(object({
+      items = list(string)
+    }), null)
+  })
 }
