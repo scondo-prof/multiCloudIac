@@ -1,18 +1,26 @@
-resourceName = "test"
+cachePolicyObjects = [
+  {
+    name        = "test"
+    min_ttl     = 1
+    max_ttl     = 31536000
+    default_ttl = 86400
 
-cachePolicyMinTtl = 1
+    cookies_config = {
+      cookie_behavior = "none"
+    }
 
-cachePolicyMaxTtl = 31536000
+    headers_config = {
+      header_behavior = "whitelist"
+      headers = {
+        items = ["Origin", "Authorization"]
+      }
+    }
 
-cachePolicyDefaultTtl = 86400
+    query_strings_config = {
+      query_string_behavior = "all"
+    }
 
-cachePolicyParametersInCacheKeyAndForwardToOrigin = {
-  cookie_behavior = "none"
-  header_behavior = "whitelist"
-  headers = {
-    items = [ "Origin", "Authorization" ]
+    enable_accept_encoding_brotli = true
+    enable_accept_encoding_gzip   = true
   }
-  query_string_behavior = "all"
-  enable_accept_encoding_brotli = true
-  enable_accept_encoding_gzip = true
-}
+]
