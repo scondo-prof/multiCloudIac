@@ -63,7 +63,11 @@ module "orp" {
 module "orpDataSource" {
   source     = "../aws/cloudfront/genericOriginRequestPolicyDataSource"
   awsRegion  = var.awsRegion
-  orpObjects = var.CRP_OrpDataSourceObjects
+  orpObjects = concat([
+    {
+      name = "Managed-CORS-CustomOrigin"
+    }
+  ], var.CRP_OrpDataSourceObjects)
 }
 
 #---

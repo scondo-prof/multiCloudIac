@@ -111,6 +111,7 @@ variable "CRP_OrpDataSourceObjects" {
     name = optional(string, null)
     id   = optional(string, null)
   }))
+  default = []
 }
 
 #---
