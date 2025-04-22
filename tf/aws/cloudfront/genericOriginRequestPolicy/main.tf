@@ -12,13 +12,14 @@ provider "aws" {
 }
 
 resource "aws_cloudfront_origin_request_policy" "orp" {
-  name    = "${var.resourceName}-orp"
-  comment = var.orpComment
+  count   = length(var.orpObjects)
+  name    = "${var.orpObjects[count.index]["name"]}-orp"
+  comment = var.orpObjects[count.index]["comment"] #var.orpComment
 
   cookies_config {
-    cookie_behavior = var.orpCookiesConfig["cookie_behavior"]
+    cookie_behavior = var.orpObjects[count.index]["cookies_config"]["cookie_behavior"] #var.orpCookiesConfig["cookie_behavior"]
     dynamic "cookies" {
-      for_each = var.orpCookiesConfig["cookies"] != null ? [var.orpCookiesConfig["cookies"]] : []
+      for_each = var.orpObjects[count.index]["cookies_config"]["cookies"] != null ? [var.orpObjects[count.index]["cookies_config"]["cookies"]] : []
       content {
         items = cookies.value["items"]
       }
@@ -26,10 +27,10 @@ resource "aws_cloudfront_origin_request_policy" "orp" {
   }
 
   headers_config {
-    header_behavior = var.orpHeadersConfig["header_behavior"]
+    header_behavior = var.orpObjects[count.index]["headers_config"]["header_behavior"]
 
     dynamic "headers" {
-      for_each = var.orpHeadersConfig["headers"] != null ? [var.orpHeadersConfig["headers"]] : []
+      for_each = var.orpObjects[count.index]["headers_config"]["headers"] != null ? [var.orpObjects[count.index]["headers_config"]["headers"]] : []
       content {
         items = headers.value["items"]
       }
@@ -37,9 +38,9 @@ resource "aws_cloudfront_origin_request_policy" "orp" {
   }
 
   query_strings_config {
-    query_string_behavior = var.orpQueryStringsConfig["query_string_behavior"]
+    query_string_behavior = var.orpObjects[count.index]["query_strings_config"]["query_string_behavior"]
     dynamic "query_strings" {
-      for_each = var.orpQueryStringsConfig["query_strings"] != null ? [var.orpQueryStringsConfig["query_strings"]] : []
+      for_each = var.orpObjects[count.index]["query_strings_config"]["query_strings"] != null ? [var.orpObjects[count.index]["query_strings_config"]["query_strings"]] : []
       content {
         items = query_strings.value["items"]
       }
