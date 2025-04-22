@@ -1,99 +1,99 @@
-output "DCPO_DistributionId" {
+output "CRP_DistributionId" {
   value = module.distribution.distributionId
 }
 
-output "DCPO_DistributionArn" {
+output "CRP_DistributionArn" {
   value = module.distribution.distributionArn
 }
 
-output "DCPO_DistributionCallerReference" {
+output "CRP_DistributionCallerReference" {
   value = module.distribution.distributionCallerReference
 }
 
-output "DCPO_DistributionStatus" {
+output "CRP_DistributionStatus" {
   value = module.distribution.distributionStatus
 }
 
-output "DCPO_DistributionTagsAll" {
+output "CRP_DistributionTagsAll" {
   value = module.distribution.distributionTagsAll
 }
 
-output "DCPO_DistributionTrustedKeyGroups" {
+output "CRP_DistributionTrustedKeyGroups" {
   value = module.distribution.distributionTrustedKeyGroups
 }
 
-output "DCPO_DistributionTrustedSigners" {
+output "CRP_DistributionTrustedSigners" {
   value = module.distribution.distributionTrustedSigners
 }
 
-output "DCPO_DistributionDomainName" {
+output "CRP_DistributionDomainName" {
   value = module.distribution.distributionDomainName
 }
 
-output "DCPO_DistributionLastModifiedTime" {
+output "CRP_DistributionLastModifiedTime" {
   value = module.distribution.distributionLastModifiedTime
 }
 
-output "DCPO_DistributionInProgressValidationBatches" {
+output "CRP_DistributionInProgressValidationBatches" {
   value = module.distribution.distributionInProgressValidationBatches
 }
 
-output "DCPO_DistributionETag" {
+output "CRP_DistributionETag" {
   value = module.distribution.distributionETag
 }
 
-output "DCPO_DistributionHostedZoneId" {
+output "CRP_DistributionHostedZoneId" {
   value = module.distribution.distributionHostedZoneId
 }
 
 #---
-output "DCPO_CachePolicyArn" {
+output "CRP_CachePolicyArn" {
   value = module.cachePolicy.cachePolicyArn
 }
 
-output "DCPO_CachePolicyEtag" {
+output "CRP_CachePolicyEtag" {
   value = module.cachePolicy.cachePolicyEtag
 }
 
-output "DCPO_CachePolicyId" {
+output "CRP_CachePolicyId" {
   value = module.cachePolicy.cachePolicyId
 }
 
 #---
-output "DCPO_OrpArn" {
+output "CRP_OrpArn" {
   value = module.orp.orpArn
 }
 
-output "DCPO_OrpEtag" {
+output "CRP_OrpEtag" {
   value = module.orp.orpEtag
 }
 
-output "DCPO_OrpId" {
+output "CRP_OrpId" {
   value = module.orp.orpId
 }
 
 #---
-output "DCPO_OrpDataSourceArn" {
+output "CRP_OrpDataSourceArn" {
   value = module.orpDataSource.orpArn
 }
 
-output "DCPO_OrpDataSourceComment" {
+output "CRP_OrpDataSourceComment" {
   value = module.orpDataSource.orpComment
 }
 
-output "DCPO_OrpDataSourceCookiesConfig" {
+output "CRP_OrpDataSourceCookiesConfig" {
   value = module.orpDataSource.orpCookiesConfig
 }
 
-output "DCPO_OrpDataSourceEtag" {
+output "CRP_OrpDataSourceEtag" {
   value = module.orpDataSource.orpEtag
 }
 
-output "DCPO_OrpDataSourceHeadersConfig" {
+output "CRP_OrpDataSourceHeadersConfig" {
   value = module.orpDataSource.orpHeadersConfig
 }
 
-output "DCPO_OrpDataSourceQueryStringsConfig" {
+output "CRP_OrpDataSourceQueryStringsConfig" {
   value = module.orpDataSource.orpQueryStringsConfig
 }
 
