@@ -299,7 +299,7 @@ variable "CRP_DistributionOrigin" {
       http_port                = number
       https_port               = number
       origin_protocol_policy   = string
-      origin_ssl_protocols     = string
+      origin_ssl_protocols     = list(string)
       origin_keepalive_timeout = optional(number, null)
       origin_read_timeout      = optional(number, null)
     }), null)
