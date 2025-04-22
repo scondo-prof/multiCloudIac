@@ -1,3 +1,54 @@
+#---
+
+module "cachePolicy" {
+  source             = "../aws/cloudfront/genericCachePolicy"
+  awsRegion          = var.awsRegion
+  cachePolicyObjects = concat([
+    {
+    name        = "${var.resourceName}-origin-cors"
+    min_ttl     = 1
+    max_ttl     = 31536000
+    default_ttl = 86400
+
+    cookies_config = {
+      cookie_behavior = "none"
+    }
+
+    headers_config = {
+      header_behavior = "whitelist"
+      headers = {
+        items = ["Origin", "Authorization"]
+      }
+    }
+
+    query_strings_config = {
+      query_string_behavior = "all"
+    }
+
+    enable_accept_encoding_brotli = true
+    enable_accept_encoding_gzip   = true
+  }
+  ], var.DCPO_CachePolicyObjects)
+}
+
+#---
+
+module "orp" {
+  source     = "../aws/cloudfront/genericOriginRequestPolicy"
+  awsRegion  = var.awsRegion
+  orpObjects = var.DCPO_OrpObjects
+}
+
+#---
+
+module "orpDataSource" {
+  source     = "../aws/cloudfront/genericOriginRequestPolicyDataSource"
+  awsRegion  = var.awsRegion
+  orpObjects = var.DCPO_OrpDataSourceObjects
+}
+
+#---
+
 
 module "distribution" {
   source                                   = "../aws/cloudfront/genericDistribution"
@@ -28,29 +79,3 @@ module "distribution" {
   distributionRetainOnDelete               = var.DCPO_DistributionRetainOnDelete
   distributionWaitForDeployment            = var.DCPO_DistributionWaitForDeployment
 }
-
-#---
-
-module "cachePolicy" {
-  source             = "../aws/cloudfront/genericCachePolicy"
-  awsRegion          = var.awsRegion
-  cachePolicyObjects = var.DCPO_CachePolicyObjects
-}
-
-#---
-
-module "orp" {
-  source     = "../aws/cloudfront/genericOriginRequestPolicy"
-  awsRegion  = var.awsRegion
-  orpObjects = var.DCPO_OrpObjects
-}
-
-#---
-
-module "orpDataSource" {
-  source     = "../aws/cloudfront/genericOriginRequestPolicyDataSource"
-  awsRegion  = var.awsRegion
-  orpObjects = var.DCPO_OrpDataSourceObjects
-}
-
-#---
