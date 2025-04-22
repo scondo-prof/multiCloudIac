@@ -116,7 +116,7 @@ variable "CRP_OrpDataSourceObjects" {
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#argument-reference
 
 variable "CRP_DistributionAliases" {
   type    = list(string)
@@ -134,7 +134,7 @@ variable "CRP_DistributionContinuousDeploymentPolicyId" {
 }
 
 variable "CRP_DistributionCustomErrorResponse" {
-  type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#custom-error-response-arguments
+  type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#custom-error-response-arguments
     error_caching_min_ttl = optional(number, null)
     error_code            = number
     response_code         = optional(number, null)
@@ -144,28 +144,26 @@ variable "CRP_DistributionCustomErrorResponse" {
 }
 
 variable "CRP_DistributionDefaultCacheBehavior" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#default-cache-behavior-arguments
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#default-cache-behavior-arguments
     allowed_methods           = list(string)
     cached_methods            = list(string)
-    cache_policy_id           = optional(string, null)
     compress                  = optional(bool, null)
     default_ttl               = optional(number, null)
     field_level_encryption_id = optional(string, null)
 
-    lambda_function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#lambda-function-association
+    lambda_function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#lambda-function-association
       event_type   = string
       lambda_arn   = string
       include_body = optional(bool, null)
     })), null)
 
-    function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#function-association
+    function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#function-association
       event_type = string
       lambda_arn = string
     })), null)
 
     max_ttl                    = optional(number, null)
     min_ttl                    = optional(number, null)
-    origin_request_policy_id   = optional(string, null)
     realtime_log_config_arn    = optional(string, null)
     response_headers_policy_id = optional(string, null)
     smooth_streaming           = optional(bool, null)
@@ -174,7 +172,7 @@ variable "CRP_DistributionDefaultCacheBehavior" {
     trusted_signers            = optional(list(string), null)
     viewer_protocol_policy     = string
 
-    grpc_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#grpc-config-arguments
+    grpc_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#grpc-config-arguments
       enabled = bool
     }), null)
   })
@@ -209,7 +207,7 @@ variable "CRP_DistributionHttpVersion" {
 }
 
 variable "CRP_DistributionLoggingConfig" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#logging-config-arguments
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#logging-config-arguments
     bucket          = string
     include_cookies = optional(bool, null)
     prefix          = optional(string, null)
@@ -217,8 +215,44 @@ variable "CRP_DistributionLoggingConfig" {
   default = null
 }
 
+variable "CRP_DistributionInitialOrderedCacheBehavior" {
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#default-cache-behavior-arguments
+    allowed_methods           = list(string)
+    cached_methods            = list(string)
+    compress                  = optional(bool, null)
+    default_ttl               = optional(number, null)
+    field_level_encryption_id = optional(string, null)
+
+    lambda_function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#lambda-function-association
+      event_type   = string
+      lambda_arn   = string
+      include_body = optional(bool, null)
+    })), null)
+
+    function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#function-association
+      event_type = string
+      lambda_arn = string
+    })), null)
+
+    max_ttl                    = optional(number, null)
+    min_ttl                    = optional(number, null)
+    path_pattern               = string
+    realtime_log_config_arn    = optional(string, null)
+    response_headers_policy_id = optional(string, null)
+    smooth_streaming           = optional(bool, null)
+    target_origin_id           = string
+    trusted_key_groups         = optional(list(string), null)
+    trusted_signers            = optional(list(string), null)
+    viewer_protocol_policy     = string
+
+    grpc_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#grpc-config-arguments
+      enabled = bool
+    }), null)
+  })
+}
+
 variable "CRP_DistributionOrderedCacheBehavior" {
-  type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#default-cache-behavior-arguments
+  type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#default-cache-behavior-arguments
     allowed_methods           = list(string)
     cached_methods            = list(string)
     cache_policy_id           = optional(string, null)
@@ -226,13 +260,13 @@ variable "CRP_DistributionOrderedCacheBehavior" {
     default_ttl               = optional(number, null)
     field_level_encryption_id = optional(string, null)
 
-    lambda_function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#lambda-function-association
+    lambda_function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#lambda-function-association
       event_type   = string
       lambda_arn   = string
       include_body = optional(bool, null)
     })), null)
 
-    function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#function-association
+    function_association = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#function-association
       event_type = string
       lambda_arn = string
     })), null)
@@ -249,19 +283,19 @@ variable "CRP_DistributionOrderedCacheBehavior" {
     trusted_signers            = optional(list(string), null)
     viewer_protocol_policy     = string
 
-    grpc_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#grpc-config-arguments
+    grpc_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#grpc-config-arguments
       enabled = bool
     }), null)
   }))
-  default = null
+  default = []
 }
 
 variable "CRP_DistributionOrigin" {
-  type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#origin-arguments
+  type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#origin-arguments
     connection_attempts = optional(number, null)
     connection_timeout  = optional(number, null)
 
-    custom_origin_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#custom-origin-config-arguments
+    custom_origin_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#custom-origin-config-arguments
       http_port                = number
       https_port               = number
       origin_protocol_policy   = string
@@ -281,32 +315,33 @@ variable "CRP_DistributionOrigin" {
     origin_id                = string
     origin_path              = optional(string, null)
 
-    origin_shield = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#origin-shield-arguments
+    origin_shield = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#origin-shield-arguments
       enabled              = bool
       origin_shield_region = optional(string, null)
     }), null)
 
-    s3_origin_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#s3-origin-config-arguments
+    s3_origin_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#s3-origin-config-arguments
       origin_access_identity = string
     }), null)
 
-    vpc_origin_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#origin_keepalive_timeout-2
+    vpc_origin_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#origin_keepalive_timeout-2
       origin_keepalive_timeout = optional(number, null)
       origin_read_timeout      = optional(number, null)
       vpc_origin_id            = string
     }), null)
   }))
+  default = []
 }
 
 variable "CRP_DistributionOriginGroup" {
-  type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#origin-group-arguments
+  type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#origin-group-arguments
     origin_id = string
 
-    failover_criteria = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#failover-criteria-arguments
+    failover_criteria = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#failover-criteria-arguments
       status_codes = list(number)
     }))
 
-    member = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#member-arguments
+    member = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#member-arguments
       origin_id = string
     }))
   }))
@@ -326,7 +361,7 @@ variable "CRP_DistributionPriceClass" {
   default = null
 }
 
-variable "CRP_DistributionRestrictionsGeoRestrictions" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#restrictions-arguments
+variable "CRP_DistributionRestrictionsGeoRestrictions" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#restrictions-arguments
   type = object({
     locations        = list(string)
     restriction_type = string
@@ -339,7 +374,7 @@ variable "CRP_DistributionStaging" {
 }
 
 variable "CRP_DistributionViewerCertificate" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_CRP_Distribution#viewer-certificate-arguments
+  type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#viewer-certificate-arguments
     acm_certificate_arn            = optional(string, null)
     cloudfront_default_certificate = optional(bool, null)
     iam_certificate_id             = optional(string, null)

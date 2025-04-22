@@ -21,3 +21,7 @@ output "orpHeadersConfig" {
 output "orpQueryStringsConfig" {
   value = data.aws_cloudfront_origin_request_policy.orp.query_strings_config
 }
+
+output "orpId" {
+  value = data.aws_cloudfront_origin_request_policy.orp.id
+}

@@ -25,3 +25,7 @@ output "cachePolicyComment" {
 output "cachePolicyParametersInCacheKeyAndForwardedToOrigin" {
   value = aws_cloudfront_cache_policy.cachePolicy.parameters_in_cache_key_and_forwarded_to_origin
 }
+
+output "cachePolicyId" {
+  value = data.aws_cloudfront_cache_policy.cachePolicy.id
+}
