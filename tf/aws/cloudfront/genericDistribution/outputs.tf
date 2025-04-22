@@ -1,47 +1,47 @@
-output "cdnId" {
-  value = aws_cloudfront_distribution.cdn.id
+output "distributionId" {
+  value = aws_cloudfront_distribution.distribution.id
 }
 
-output "cdnArn" {
-  value = aws_cloudfront_distribution.cdn.arn
+output "distributionArn" {
+  value = aws_cloudfront_distribution.distribution.arn
 }
 
-output "cdnCallerReference" {
-  value = aws_cloudfront_distribution.cdn.caller_reference
+output "distributionCallerReference" {
+  value = aws_cloudfront_distribution.distribution.caller_reference
 }
 
-output "cdnStatus" {
-  value = aws_cloudfront_distribution.cdn.status
+output "distributionStatus" {
+  value = aws_cloudfront_distribution.distribution.status
 }
 
-output "cdnTagsAll" {
-  value = aws_cloudfront_distribution.cdn.tags_all
+output "distributionTagsAll" {
+  value = aws_cloudfront_distribution.distribution.tags_all
 }
 
-output "cdnTrustedKeyGroups" {
-  value = aws_cloudfront_distribution.cdn.trusted_key_groups
+output "distributionTrustedKeyGroups" {
+  value = aws_cloudfront_distribution.distribution.trusted_key_groups
 }
 
-output "cdnTrustedSigners" {
-  value = aws_cloudfront_distribution.cdn.trusted_signers
+output "distributionTrustedSigners" {
+  value = aws_cloudfront_distribution.distribution.trusted_signers
 }
 
-output "cdnDomainName" {
-  value = aws_cloudfront_distribution.cdn.domain_name
+output "distributionDomainName" {
+  value = aws_cloudfront_distribution.distribution.domain_name
 }
 
-output "cdnLastModifiedTime" {
-  value = aws_cloudfront_distribution.cdn.last_modified_time
+output "distributionLastModifiedTime" {
+  value = aws_cloudfront_distribution.distribution.last_modified_time
 }
 
-output "cdnInProgressValidationBatches" {
-  value = aws_cloudfront_distribution.cdn.in_progress_validation_batches
+output "distributionInProgressValidationBatches" {
+  value = aws_cloudfront_distribution.distribution.in_progress_validation_batches
 }
 
-output "cdnETag" {
-  value = aws_cloudfront_distribution.cdn.etag
+output "distributionETag" {
+  value = aws_cloudfront_distribution.distribution.etag
 }
 
-output "cdnHostedZoneId" {
-  value = aws_cloudfront_distribution.cdn.hosted_zone_id
+output "distributionHostedZoneId" {
+  value = aws_cloudfront_distribution.distribution.hosted_zone_id
 }

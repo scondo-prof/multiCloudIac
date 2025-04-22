@@ -27,22 +27,22 @@ variable "additionalTags" {
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#argument-reference
 
-variable "cdnAliases" {
+variable "distributionAliases" {
   type    = list(string)
   default = null
 }
 
-variable "cdnComment" {
+variable "distributionComment" {
   type    = string
   default = null
 }
 
-variable "cdnContinuousDeploymentPolicyId" {
+variable "distributionContinuousDeploymentPolicyId" {
   type    = string
   default = null
 }
 
-variable "cdnCustomErrorResponse" {
+variable "distributionCustomErrorResponse" {
   type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#custom-error-response-arguments
     error_caching_min_ttl = optional(number, null)
     error_code            = number
@@ -52,7 +52,7 @@ variable "cdnCustomErrorResponse" {
   default = null
 }
 
-variable "cdnDefaultCacheBehavior" {
+variable "distributionDefaultCacheBehavior" {
   type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#default-cache-behavior-arguments
     allowed_methods           = list(string)
     cached_methods            = list(string)
@@ -89,35 +89,35 @@ variable "cdnDefaultCacheBehavior" {
   })
 }
 
-variable "cdnDefaultRootObject" {
+variable "distributionDefaultRootObject" {
   type    = string
   default = null
 }
 
-variable "cdnEnabled" {
+variable "distributionEnabled" {
   type = bool
 }
 
-variable "cdnIsIpv6Enabled" {
+variable "distributionIsIpv6Enabled" {
   type    = bool
   default = null
 }
 
-variable "cdnHttpVersion" {
+variable "distributionHttpVersion" {
   type = string
   validation {
-    condition = var.cdnHttpVersion == null || can(contains([
+    condition = var.distributionHttpVersion == null || can(contains([
       "http1.1",
       "http2",
       "http2and3",
       "http3"
-    ], var.cdnHttpVersion))
-    error_message = "Valid inputs for | variable: var.cdnHttpVersion | are: http1.1, http2, http2and3, and http3"
+    ], var.distributionHttpVersion))
+    error_message = "Valid inputs for | variable: var.distributionHttpVersion | are: http1.1, http2, http2and3, and http3"
   }
   default = null
 }
 
-variable "cdnLoggingConfig" {
+variable "distributionLoggingConfig" {
   type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#logging-config-arguments
     bucket          = string
     include_cookies = optional(bool, null)
@@ -126,7 +126,7 @@ variable "cdnLoggingConfig" {
   default = null
 }
 
-variable "cdnOrderedCacheBehavior" {
+variable "distributionOrderedCacheBehavior" {
   type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#default-cache-behavior-arguments
     allowed_methods           = list(string)
     cached_methods            = list(string)
@@ -165,7 +165,7 @@ variable "cdnOrderedCacheBehavior" {
   default = null
 }
 
-variable "cdnOrigin" {
+variable "distributionOrigin" {
   type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#origin-arguments
     connection_attempts = optional(number, null)
     connection_timeout  = optional(number, null)
@@ -207,7 +207,7 @@ variable "cdnOrigin" {
   }))
 }
 
-variable "cdnOriginGroup" {
+variable "distributionOriginGroup" {
   type = list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#origin-group-arguments
     origin_id = string
 
@@ -222,32 +222,32 @@ variable "cdnOriginGroup" {
   default = null
 }
 
-variable "cdnPriceClass" {
+variable "distributionPriceClass" {
   type = string
   validation {
-    condition = var.cdnPriceClass == null || can(contains([
+    condition = var.distributionPriceClass == null || can(contains([
       "PriceClass_All",
       "PriceClass_200",
       "PriceClass_100"
-    ], var.cdnPriceClass))
-    error_message = "Valid inputs for | variable: var.cdnPriceClass | are: PriceClass_All, PriceClass_200, PriceClass_100"
+    ], var.distributionPriceClass))
+    error_message = "Valid inputs for | variable: var.distributionPriceClass | are: PriceClass_All, PriceClass_200, PriceClass_100"
   }
   default = null
 }
 
-variable "cdnRestrictionsGeoRestrictions" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#restrictions-arguments
+variable "distributionRestrictionsGeoRestrictions" { #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#restrictions-arguments
   type = object({
     locations        = list(string)
     restriction_type = string
   })
 }
 
-variable "cdnStaging" {
+variable "distributionStaging" {
   type    = bool
   default = null
 }
 
-variable "cdnViewerCertificate" {
+variable "distributionViewerCertificate" {
   type = object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution#viewer-certificate-arguments
     acm_certificate_arn            = optional(string, null)
     cloudfront_default_certificate = optional(bool, null)
@@ -257,17 +257,17 @@ variable "cdnViewerCertificate" {
   })
 }
 
-variable "cdnWebAclId" {
+variable "distributionWebAclId" {
   type    = string
   default = null
 }
 
-variable "cdnRetainOnDelete" {
+variable "distributionRetainOnDelete" {
   type    = bool
   default = null
 }
 
-variable "cdnWaitForDeployment" {
+variable "distributionWaitForDeployment" {
   type    = bool
   default = null
 }

@@ -11,13 +11,13 @@ provider "aws" {
   region = var.awsRegion
 }
 
-resource "aws_cloudfront_distribution" "cdn" {
-  aliases                         = var.cdnAliases
-  comment                         = var.cdnComment
-  continuous_deployment_policy_id = var.cdnContinuousDeploymentPolicyId
+resource "aws_cloudfront_distribution" "distribution" {
+  aliases                         = var.distributionAliases
+  comment                         = var.distributionComment
+  continuous_deployment_policy_id = var.distributionContinuousDeploymentPolicyId
 
   dynamic "custom_error_response" {
-    for_each = var.cdnCustomErrorResponse != null ? var.cdnCustomErrorResponse : []
+    for_each = var.distributionCustomErrorResponse != null ? var.distributionCustomErrorResponse : []
     content {
       error_caching_min_ttl = custom_error_response.value["error_caching_min_ttl"]
       error_code            = custom_error_response.value["error_code"]
@@ -27,15 +27,15 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 
   default_cache_behavior {
-    allowed_methods           = var.cdnDefaultCacheBehavior["allowed_methods"]
-    cached_methods            = var.cdnDefaultCacheBehavior["cached_methods"]
-    cache_policy_id           = var.cdnDefaultCacheBehavior["cache_policy_id"]
-    compress                  = var.cdnDefaultCacheBehavior["compress"]
-    default_ttl               = var.cdnDefaultCacheBehavior["default_ttl"]
-    field_level_encryption_id = var.cdnDefaultCacheBehavior["field_level_encryption_id"]
+    allowed_methods           = var.distributionDefaultCacheBehavior["allowed_methods"]
+    cached_methods            = var.distributionDefaultCacheBehavior["cached_methods"]
+    cache_policy_id           = var.distributionDefaultCacheBehavior["cache_policy_id"]
+    compress                  = var.distributionDefaultCacheBehavior["compress"]
+    default_ttl               = var.distributionDefaultCacheBehavior["default_ttl"]
+    field_level_encryption_id = var.distributionDefaultCacheBehavior["field_level_encryption_id"]
 
     dynamic "lambda_function_association" {
-      for_each = var.cdnDefaultCacheBehavior["lambda_function_association"] != null ? var.cdnDefaultCacheBehavior["lambda_function_association"] : []
+      for_each = var.distributionDefaultCacheBehavior["lambda_function_association"] != null ? var.distributionDefaultCacheBehavior["lambda_function_association"] : []
       content {
         event_type   = lambda_function_association.value["event_type"]
         lambda_arn   = lambda_function_association.value["lambda_arn"]
@@ -44,39 +44,39 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
 
     dynamic "function_association" {
-      for_each = var.cdnDefaultCacheBehavior["function_association"] != null ? var.cdnDefaultCacheBehavior["function_association"] : []
+      for_each = var.distributionDefaultCacheBehavior["function_association"] != null ? var.distributionDefaultCacheBehavior["function_association"] : []
       content {
         event_type   = function_association.value["event_type"]
         function_arn = function_association.value["function_arn"]
       }
     }
 
-    max_ttl                    = var.cdnDefaultCacheBehavior["max_ttl"]
-    min_ttl                    = var.cdnDefaultCacheBehavior["min_ttl"]
-    origin_request_policy_id   = var.cdnDefaultCacheBehavior["origin_request_policy_id"]
-    realtime_log_config_arn    = var.cdnDefaultCacheBehavior["realtime_log_config_arn"]
-    response_headers_policy_id = var.cdnDefaultCacheBehavior["response_headers_policy_id"]
-    smooth_streaming           = var.cdnDefaultCacheBehavior["smooth_streaming"]
-    target_origin_id           = var.cdnDefaultCacheBehavior["target_origin_id"]
-    trusted_key_groups         = var.cdnDefaultCacheBehavior["trusted_key_groups"]
-    trusted_signers            = var.cdnDefaultCacheBehavior["trusted_signers"]
-    viewer_protocol_policy     = var.cdnDefaultCacheBehavior["viewer_protocol_policy"]
+    max_ttl                    = var.distributionDefaultCacheBehavior["max_ttl"]
+    min_ttl                    = var.distributionDefaultCacheBehavior["min_ttl"]
+    origin_request_policy_id   = var.distributionDefaultCacheBehavior["origin_request_policy_id"]
+    realtime_log_config_arn    = var.distributionDefaultCacheBehavior["realtime_log_config_arn"]
+    response_headers_policy_id = var.distributionDefaultCacheBehavior["response_headers_policy_id"]
+    smooth_streaming           = var.distributionDefaultCacheBehavior["smooth_streaming"]
+    target_origin_id           = var.distributionDefaultCacheBehavior["target_origin_id"]
+    trusted_key_groups         = var.distributionDefaultCacheBehavior["trusted_key_groups"]
+    trusted_signers            = var.distributionDefaultCacheBehavior["trusted_signers"]
+    viewer_protocol_policy     = var.distributionDefaultCacheBehavior["viewer_protocol_policy"]
 
     dynamic "grpc_config" {
-      for_each = var.cdnDefaultCacheBehavior["grpc_config"] != null ? [var.cdnDefaultCacheBehavior["grpc_config"]] : []
+      for_each = var.distributionDefaultCacheBehavior["grpc_config"] != null ? [var.distributionDefaultCacheBehavior["grpc_config"]] : []
       content {
         enabled = grpc_config.value["enabled"]
       }
     }
   }
 
-  default_root_object = var.cdnDefaultRootObject
-  enabled             = var.cdnEnabled
-  is_ipv6_enabled     = var.cdnIsIpv6Enabled
-  http_version        = var.cdnHttpVersion
+  default_root_object = var.distributionDefaultRootObject
+  enabled             = var.distributionEnabled
+  is_ipv6_enabled     = var.distributionIsIpv6Enabled
+  http_version        = var.distributionHttpVersion
 
   dynamic "logging_config" {
-    for_each = var.cdnLoggingConfig != null ? [var.cdnLoggingConfig] : []
+    for_each = var.distributionLoggingConfig != null ? [var.distributionLoggingConfig] : []
     content {
       bucket          = logging_config.value["bucket"]
       include_cookies = logging_config.value["include_cookies"]
@@ -85,7 +85,7 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 
   dynamic "ordered_cache_behavior" {
-    for_each = var.cdnOrderedCacheBehavior != null ? var.cdnOrderedCacheBehavior : []
+    for_each = var.distributionOrderedCacheBehavior != null ? var.distributionOrderedCacheBehavior : []
     content {
       allowed_methods           = ordered_cache_behavior.value["allowed_methods"]
       cached_methods            = ordered_cache_behavior.value["cached_methods"]
@@ -133,7 +133,7 @@ resource "aws_cloudfront_distribution" "cdn" {
   }
 
   dynamic "origin" {
-    for_each = var.cdnOrigin
+    for_each = var.distributionOrigin
     content {
       connection_attempts = origin.value["connection_attempts"]
       connection_timeout  = origin.value["connection_timeout"]
@@ -190,7 +190,7 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
   }
   dynamic "origin_group" {
-    for_each = var.cdnOriginGroup != null ? var.cdnOriginGroup : []
+    for_each = var.distributionOriginGroup != null ? var.distributionOriginGroup : []
     content {
       origin_id = origin_group.value["origin_id"]
 
@@ -210,16 +210,16 @@ resource "aws_cloudfront_distribution" "cdn" {
     }
   }
 
-  price_class = var.cdnPriceClass
+  price_class = var.distributionPriceClass
 
   restrictions {
     geo_restriction {
-      locations        = var.cdnRestrictionsGeoRestrictions["locations"]
-      restriction_type = var.cdnRestrictionsGeoRestrictions["restriction_type"]
+      locations        = var.distributionRestrictionsGeoRestrictions["locations"]
+      restriction_type = var.distributionRestrictionsGeoRestrictions["restriction_type"]
     }
   }
 
-  staging = var.cdnStaging
+  staging = var.distributionStaging
   tags = merge({
     Project      = var.projectName
     CreatedBy    = var.createdBy
@@ -228,14 +228,14 @@ resource "aws_cloudfront_distribution" "cdn" {
   }, var.additionalTags)
 
   viewer_certificate {
-    acm_certificate_arn            = var.cdnViewerCertificate["acm_certificate_arn"]
-    cloudfront_default_certificate = var.cdnViewerCertificate["cloudfront_default_certificate"]
-    iam_certificate_id             = var.cdnViewerCertificate["iam_certificate_id"]
-    minimum_protocol_version       = var.cdnViewerCertificate["minimum_protocol_version"]
-    ssl_support_method             = var.cdnViewerCertificate["ssl_support_method"]
+    acm_certificate_arn            = var.distributionViewerCertificate["acm_certificate_arn"]
+    cloudfront_default_certificate = var.distributionViewerCertificate["cloudfront_default_certificate"]
+    iam_certificate_id             = var.distributionViewerCertificate["iam_certificate_id"]
+    minimum_protocol_version       = var.distributionViewerCertificate["minimum_protocol_version"]
+    ssl_support_method             = var.distributionViewerCertificate["ssl_support_method"]
   }
 
-  web_acl_id          = var.cdnWebAclId
-  retain_on_delete    = var.cdnRetainOnDelete
-  wait_for_deployment = var.cdnWaitForDeployment
+  web_acl_id          = var.distributionWebAclId
+  retain_on_delete    = var.distributionRetainOnDelete
+  wait_for_deployment = var.distributionWaitForDeployment
 }
