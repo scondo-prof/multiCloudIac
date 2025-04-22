@@ -99,6 +99,7 @@ variable "CRP_OrpObjects" {
       }), null)
     })
   }))
+  default = []
 }
 
 #---

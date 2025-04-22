@@ -36,7 +36,26 @@ module "cachePolicy" {
 module "orp" {
   source     = "../aws/cloudfront/genericOriginRequestPolicy"
   awsRegion  = var.awsRegion
-  orpObjects = var.CRP_OrpObjects
+  orpObjects = concat([
+    {
+    name    = "${var.resourceName}-origin-request-policy"
+
+    cookies_config = {
+      cookie_behavior = "none"
+    }
+
+    headers_config = {
+      header_behavior = "whitelist"
+      headers = {
+        items = ["Origin"]
+      }
+    }
+
+    query_strings_config = {
+      query_string_behavior = "all"
+    }
+  }
+  ], var.CRP_OrpObjects)
 }
 
 #---
