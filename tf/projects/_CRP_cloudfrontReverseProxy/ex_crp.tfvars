@@ -44,7 +44,7 @@ CRP_DistributionInitialOrderedCacheBehavior = {
   path_pattern           = "/static/*"
   allowed_methods        = ["GET", "HEAD", "OPTIONS"]
   cached_methods         = ["GET", "HEAD"]
-  target_origin_id       = "us-eassets.i.posthog.com"
+  target_origin_id       = "us-assets.i.posthog.com"
   viewer_protocol_policy = "allow-all"
 }
 
