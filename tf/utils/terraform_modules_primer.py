@@ -9,33 +9,43 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../projects/_VFSI_vpcFlowlogSubnetIg",
-            "source_path": "../_VFSI_vpcFlowlogSubnetIg",
-            "destination_path": "./temp",
+            "project_path": "../aws/cloudfront/genericDistribution",
+            "source_path": "../aws/cloudfront/genericDistribution",
+            "destination_path": "../projects/_CRP_distributionCachePolicyOrp",
         },
-        "previous_variable_prefix": "VFSI",
-        "new_variable_prefix": "VEN_VFSI",
-        "module_name": "VFSI",
+        "previous_variable_prefix": "distribution",
+        "new_variable_prefix": "CRP_Distribution",
+        "module_name": "distribution",
     },
     {
         "paths": {
-            "project_path": "../aws/ec2/genericEip",
-            "source_path": "../../aws/ec2/genericEip",
-            "destination_path": "./temp",
+            "project_path": "../aws/cloudfront/genericCachePolicy",
+            "source_path": "../aws/cloudfront/genericCachePolicy",
+            "destination_path": "../projects/_CRP_distributionCachePolicyOrp",
         },
-        "previous_variable_prefix": "eip",
-        "new_variable_prefix": "VEN_EipNat",
-        "module_name": "eipNat",
+        "previous_variable_prefix": "cachePolicy",
+        "new_variable_prefix": "CRP_CachePolicy",
+        "module_name": "cachePolicy",
     },
     {
         "paths": {
-            "project_path": "../aws/vpc/genericNatGateway",
-            "source_path": "../../aws/vpc/genericNatGateway",
-            "destination_path": "./temp",
+            "project_path": "../aws/cloudfront/genericOriginRequestPolicy",
+            "source_path": "../aws/cloudfront/genericOriginRequestPolicy",
+            "destination_path": "../projects/_CRP_distributionCachePolicyOrp",
         },
-        "previous_variable_prefix": "nat",
-        "new_variable_prefix": "VEN_Nat",
-        "module_name": "nat",
+        "previous_variable_prefix": "orp",
+        "new_variable_prefix": "CRP_Orp",
+        "module_name": "orp",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/cloudfront/genericOriginRequestPolicyDataSource",
+            "source_path": "../aws/cloudfront/genericOriginRequestPolicyDataSource",
+            "destination_path": "../projects/_CRP_distributionCachePolicyOrp",
+        },
+        "previous_variable_prefix": "orp",
+        "new_variable_prefix": "CRP_OrpDataSource",
+        "module_name": "orpDataSource",
     },
 ]
 
