@@ -46,9 +46,9 @@ resource "google_compute_subnetwork" "subnetwork" {
     }
   }
 
-  stack_type                       = var.subnetworkObjects[count.index]["stack_type"] #var.subnetworkStackType
-  ipv6_access_type                 = var.subnetworkObjects[count.index][""] #var.subnetworkIpv6AccessType
-  external_ipv6_prefix             = var.subnetworkObjects[count.index][""] #var.subnetworkExternalIpv6Prefix
+  stack_type                       = var.subnetworkObjects[count.index]["stack_type"]
+  ipv6_access_type                 = var.subnetworkObjects[count.index]["ipv6_access_type"]
+  external_ipv6_prefix             = var.subnetworkObjects[count.index]["external_ipv6_prefix"]
   project                          = var.gcpProjectId
-  send_secondary_ip_range_if_empty = var.subnetworkObjects[count.index][""] #var.subnetworkSendSecondaryIpRangeIfEmpty
+  send_secondary_ip_range_if_empty = var.subnetworkObjects[count.index]["send_secondary_ip_range_if_empty"]
 }

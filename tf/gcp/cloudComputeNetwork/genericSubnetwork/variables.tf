@@ -17,7 +17,7 @@ variable "subnetworkObjects" {
     ip_cidr_range           = optional(string, null)
     reserved_internal_range = optional(string, null)
     purpose                 = optional(string, null)
-    role                    = optinal(string, null)
+    role                    = optional(string, null)
 
     secondary_ip_range = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#nested_secondary_ip_range
       range_name              = string
@@ -35,40 +35,10 @@ variable "subnetworkObjects" {
       metadata_fields      = optional(list(string), null)
       filter_expr          = optional(string, null)
     }), null)
+
+    stack_type                       = optional(string, null)
+    ipv6_access_type                 = optional(string, null)
+    external_ipv6_prefix             = optional(string, null)
+    send_secondary_ip_range_if_empty = optional(bool, null)
   }))
-}
-
-variable "subnetworkStackType" {
-  type = string
-  validation {
-    condition = var.subnetworkStackType == null || can(contains([
-      "IPV4_ONLY",
-      "IPV4_IPV6",
-      "IPV6_ONLY"
-    ], var.subnetworkStackType))
-    error_message = "Valid inputs for | variable: var.subnetworkStackType | are: IPV4_ONLY, IPV4_IPV6, IPV6_ONLY"
-  }
-  default = null
-}
-
-variable "subnetworkIpv6AccessType" {
-  type = string
-  validation {
-    condition = var.subnetworkIpv6AccessType == null || can(contains([
-      "EXTERNAL",
-      "INTERNAL"
-    ], var.subnetworkIpv6AccessType))
-    error_message = "Valid inputs for | variable: var.subnetworkIpv6AccessType | are: EXTERNAL, INTERNAL"
-  }
-  default = null
-}
-
-variable "subnetworkExternalIpv6Prefix" {
-  type    = string
-  default = null
-}
-
-variable "subnetworkSendSecondaryIpRangeIfEmpty" {
-  type    = bool
-  default = null
 }
