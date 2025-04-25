@@ -11,27 +11,19 @@ variable "gcpRegion" {
 
 variable "firewallObjects" {
   type = list(object({
-    name = string
-  }))
-}
-variable "firewallNetwork" {
-  type = string
-}
+    name    = string
+    network = string
 
-variable "firewallRulesAllow" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_allow
-  type = list(object({
-    protocol = string
-    ports    = optional(list(string), null)
-  }))
-  default = null
-}
+    allow = optional(list(object({
+      protocol = string
+      ports    = optional(list(string), null)
+    })), null)
 
-variable "firewallDeny" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_deny
-  type = list(object({
-    protocol = string
-    ports    = optional(list(string), null)
+    deny = optional(list(object({
+      protocol = string
+      ports    = optional(list(string), null)
+    })), null)
   }))
-  default = null
 }
 
 variable "firewallDescription" {

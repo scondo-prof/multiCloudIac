@@ -15,10 +15,10 @@ provider "google" {
 resource "google_compute_firewall" "firewall" {
   count   = length(var.firewallObjects)
   name    = "${var.firewallObjects[count.index]["name"]}-firewall"
-  network = var.firewallObjects[count.index][""] #var.firewallNetwork
+  network = var.firewallObjects[count.index]["network"]
 
   dynamic "allow" {
-    for_each = var.firewallObjects[count.index][""] != null ? [var.firewallObjects[count.index][""]] : [] #var.firewallRulesAllow
+    for_each = var.firewallObjects[count.index]["allow"] != null ? [var.firewallObjects[count.index]["allow"]] : []
     content {
       protocol = allow.value["protocl"]
       ports    = allow.value["ports"]
@@ -26,7 +26,7 @@ resource "google_compute_firewall" "firewall" {
   }
 
   dynamic "deny" {
-    for_each = var.firewallObjects[count.index][""] != null ? [var.firewallObjects[count.index][""]] : [] #var.firewallDeny
+    for_each = var.firewallObjects[count.index]["deny"] != null ? [var.firewallObjects[count.index]["deny"]] : []
     content {
       protocol = allow.value["protocl"]
       ports    = allow.value["ports"]
