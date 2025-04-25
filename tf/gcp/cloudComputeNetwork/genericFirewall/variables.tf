@@ -23,34 +23,12 @@ variable "firewallObjects" {
       protocol = string
       ports    = optional(list(string), null)
     })), null)
+
+    description = optional(string, null)
+    destination_ranges = optional(list(string), null)
+    direction = optional(string, null)
+    disabled = optional(bool, null)
   }))
-}
-
-variable "firewallDescription" {
-  type    = string
-  default = null
-}
-
-variable "firewallDestinationRanges" {
-  type    = list(string)
-  default = null
-}
-
-variable "firewallDirection" {
-  type = string
-  validation {
-    condition = var.firewallDirection == null || can(contains([
-      "INGRESS",
-      "EGRESS"
-    ], var.firewallDirection))
-    error_message = "Valid inputs for | variable: var.firewallDirection | are: INGRESS, EGRESS"
-  }
-  default = null
-}
-
-variable "firewallDisabled" {
-  type    = bool
-  default = null
 }
 
 variable "firewallLogConfig" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_log_config

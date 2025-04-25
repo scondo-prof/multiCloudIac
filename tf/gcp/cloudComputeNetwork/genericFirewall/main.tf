@@ -33,10 +33,10 @@ resource "google_compute_firewall" "firewall" {
     }
   }
 
-  description        = var.firewallObjects[count.index][""] #var.firewallDescription
-  destination_ranges = var.firewallObjects[count.index][""] #var.firewallDestinationRanges
-  direction          = var.firewallObjects[count.index][""] #var.firewallDirection
-  disabled           = var.firewallObjects[count.index][""] #var.firewallDisabled
+  description        = var.firewallObjects[count.index]["description"]
+  destination_ranges = var.firewallObjects[count.index]["destination_ranges"]
+  direction          = var.firewallObjects[count.index]["direction"]
+  disabled           = var.firewallObjects[count.index]["disabled"]
 
   dynamic "log_config" {
     for_each = var.firewallObjects[count.index][""] != null ? [var.firewallObjects[count.index][""]] : [] #var.firewallLogConfig
