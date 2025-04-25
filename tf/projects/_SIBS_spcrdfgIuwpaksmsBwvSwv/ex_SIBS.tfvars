@@ -6,11 +6,11 @@ deployedDate = "2025-04-08"
 
 tfModule = "sibs"
 
-resourceName = "cool-cucumber"
+resourceName = "cool-cucumbers"
 
 SIBS_SPCRDFG_CRDPRFG_SWSV_SecretReplicationAuto = {}
 
-SIBS_SPCRDFG_CloudBuildTriggerServiceAccountsRoleId = "wubwubTest"
+SIBS_SPCRDFG_CloudBuildTriggerServiceAccountsRoleId = "cucumberRole"
 
 SIBS_SPCRDFG_CloudBuildTriggerGithubRepoName = "Bear-Cognition/UniShippersPricingTool-DASH"
 
@@ -38,11 +38,15 @@ SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicyAlertStrategy = {
   }
 }
 
-SIBS_BWV_S3BucketVersioningConfigurationStatus = "Enabled"
+SIBS_IUWPAKSMS_SWV_SecretRecoveryWindowInDays = 0
+
+SIBS_SWV_Staging_SecretRecoveryWindowInDays = 0
 
 SIBS_SWV_Staging_SecretVersionSecretString = {
   "env" = "dev"
 }
+
+SIBS_SWV_Prod_SecretRecoveryWindowInDays = 0
 
 SIBS_SWV_Prod_SecretVersionSecretString = {
   "env" = "prod"

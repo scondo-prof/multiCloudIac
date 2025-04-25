@@ -121,32 +121,6 @@ module "IUWPAKSMS" {
   IUWPAKSMS_UWP_IamPolicyVersion          = var.SIBS_IUWPAKSMS_UWP_IamPolicyVersion
   IUWPAKSMS_UWP_IamPolicyDocumentStatements = concat([
     {
-      Effect = "Allow"
-      Action = [
-        "s3:ListAllMyBuckets"
-      ]
-      Resource = ["*"]
-      Sid      = "allBuckets"
-    },
-    {
-      Effect = "Allow"
-      Action = [
-        "s3:ListBucket"
-      ]
-      Resource = [module.BWV.BWV_S3BucketArn]
-      Sid      = "s3BucketActions"
-    },
-    {
-      Effect = "Allow"
-      Action = [
-        "s3:GetObject",
-        "s3:PutObject",
-        "s3:DeleteObject"
-      ]
-      Resource = ["${module.BWV.BWV_S3BucketArn}/*"]
-      Sid      = "s3BucketObjectsActions"
-    },
-    {
       Sid    = "allSecrets"
       Effect = "Allow"
       Action = [
@@ -182,26 +156,6 @@ module "IUWPAKSMS" {
 
 #---
 
-module "BWV" {
-  source                                       = "../../aws/s3/_BWV_bucketWithVersioning"
-  awsRegion                                    = var.awsRegion
-  resourceName                                 = var.resourceName
-  BWV_S3BucketPrefix                           = var.SIBS_BWV_S3BucketPrefix
-  BWV_S3BucketForceDestroy                     = var.SIBS_BWV_S3BucketForceDestroy
-  BWV_S3BucketObjectLockEnabled                = var.SIBS_BWV_S3BucketObjectLockEnabled
-  projectName                                  = var.projectName
-  createdBy                                    = var.createdBy
-  tfModule                                     = var.tfModule
-  deployedDate                                 = var.deployedDate
-  additionalTags                               = var.additionalTags
-  BWV_S3BucketVersioningConfigurationStatus    = var.SIBS_BWV_S3BucketVersioningConfigurationStatus
-  BWV_S3BucketVersioningConfigurationMfaDelete = var.SIBS_BWV_S3BucketVersioningConfigurationMfaDelete
-  BWV_S3BucketVersioningExpectedBucketOwner    = var.SIBS_BWV_S3BucketVersioningExpectedBucketOwner
-  BWV_S3BucketVersioningMfa                    = var.SIBS_BWV_S3BucketVersioningMfa
-}
-
-#---
-
 module "SWV_Staging" {
   source                         = "../../aws/secretsmanager/_SWV_secretWithVersion"
   awsRegion                      = var.awsRegion
@@ -218,9 +172,7 @@ module "SWV_Staging" {
   deployedDate                   = var.deployedDate
   tfModule                       = var.tfModule
   additionalTags                 = var.additionalTags
-  SWV_SecretVersionSecretString = merge({
-    S3_BUCKET = module.BWV.BWV_S3BucketName
-  }, var.SIBS_SWV_Staging_SecretVersionSecretString)
+  SWV_SecretVersionSecretString = var.SIBS_SWV_Staging_SecretVersionSecretString
   SWV_SecretVersionSecretBinary = var.SIBS_SWV_Staging_SecretVersionSecretBinary
   SWV_SecretVersionStages       = var.SIBS_SWV_Staging_SecretVersionStages
 }
@@ -243,9 +195,7 @@ module "SWV_Prod" {
   deployedDate                   = var.deployedDate
   tfModule                       = var.tfModule
   additionalTags                 = var.additionalTags
-  SWV_SecretVersionSecretString = merge({
-    S3_BUCKET = module.BWV.BWV_S3BucketName
-  }, var.SIBS_SWV_Prod_SecretVersionSecretString)
+  SWV_SecretVersionSecretString = var.SIBS_SWV_Prod_SecretVersionSecretString
   SWV_SecretVersionSecretBinary = var.SIBS_SWV_Prod_SecretVersionSecretBinary
   SWV_SecretVersionStages       = var.SIBS_SWV_Prod_SecretVersionStages
 }
