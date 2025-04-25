@@ -13,11 +13,12 @@ provider "google" {
 }
 
 resource "google_compute_firewall" "firewall" {
-  name    = "${var.resourceName}-firewall"
-  network = var.firewallNetwork
+  count   = length(var.firewallObjects)
+  name    = "${var.firewallObjects[count.index]["name"]}-firewall"
+  network = var.firewallObjects[count.index][""] #var.firewallNetwork
 
   dynamic "allow" {
-    for_each = var.firewallRulesAllow != null ? [var.firewallRulesAllow] : []
+    for_each = var.firewallObjects[count.index][""] != null ? [var.firewallObjects[count.index][""]] : [] #var.firewallRulesAllow
     content {
       protocol = allow.value["protocl"]
       ports    = allow.value["ports"]
@@ -25,30 +26,30 @@ resource "google_compute_firewall" "firewall" {
   }
 
   dynamic "deny" {
-    for_each = var.firewallDeny != null ? [var.firewallDeny] : []
+    for_each = var.firewallObjects[count.index][""] != null ? [var.firewallObjects[count.index][""]] : [] #var.firewallDeny
     content {
       protocol = allow.value["protocl"]
       ports    = allow.value["ports"]
     }
   }
 
-  description        = var.firewallDescription
-  destination_ranges = var.firewallDestinationRanges
-  direction          = var.firewallDirection
-  disabled           = var.firewallDisabled
+  description        = var.firewallObjects[count.index][""] #var.firewallDescription
+  destination_ranges = var.firewallObjects[count.index][""] #var.firewallDestinationRanges
+  direction          = var.firewallObjects[count.index][""] #var.firewallDirection
+  disabled           = var.firewallObjects[count.index][""] #var.firewallDisabled
 
   dynamic "log_config" {
-    for_each = var.firewallLogConfig != null ? [var.firewallLogConfig] : []
+    for_each = var.firewallObjects[count.index][""] != null ? [var.firewallObjects[count.index][""]] : [] #var.firewallLogConfig
     content {
       metadata = log_config.value["metadata"]
     }
   }
 
-  priority                = var.firewallPriority
-  source_ranges           = var.firewallSourceRanges
-  source_service_accounts = var.firewallSourceServiceAccounts
-  source_tags             = var.firewallSourceTags
-  target_service_accounts = var.firewallTargetServiceAccounts
-  target_tags             = var.firewallTargetTags
+  priority                = var.firewallObjects[count.index][""] #var.firewallPriority
+  source_ranges           = var.firewallObjects[count.index][""] #var.firewallSourceRanges
+  source_service_accounts = var.firewallObjects[count.index][""] #var.firewallSourceServiceAccounts
+  source_tags             = var.firewallObjects[count.index][""] #var.firewallSourceTags
+  target_service_accounts = var.firewallObjects[count.index][""] #var.firewallTargetServiceAccounts
+  target_tags             = var.firewallObjects[count.index][""] #var.firewallTargetTags
   project                 = var.gcpProjectId
 }

@@ -7,12 +7,13 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
-variable "resourceName" {
-  type = string
-}
-
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#argument-reference
 
+variable "firewallObjects" {
+  type = list(object({
+    name = string
+  }))
+}
 variable "firewallNetwork" {
   type = string
 }
