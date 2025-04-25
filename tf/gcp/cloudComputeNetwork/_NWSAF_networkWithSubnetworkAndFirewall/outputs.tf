@@ -1,25 +1,24 @@
 output "NWSAF_NetworkId" {
-  value = google_compute_network.network.id
+  value = module.network.networkId
 }
 
 output "NWSAF_NetworkGatewayIpv4" {
-  value = google_compute_network.network.gateway_ipv4
+  value = module.network.networkGatewayIpv4
 }
 
 output "NWSAF_NetworkNumericId" {
-  value = google_compute_network.network.numeric_id
+  value = module.network.networkNumericId
 }
 
 output "NWSAF_NetworkSelfLink" {
-  value = google_compute_network.network.self_link
+  value = module.network.networkSelfLink
 }
 
 output "NWSAF_NetworkName" {
-  value = google_compute_network.network.name
+  value = module.network.networkName
 }
 
 #---
-
 output "NWSAF_SubnetworkId" {
   value = module.subnetwork.subnetworkId
 }
@@ -53,38 +52,20 @@ output "NWSAF_SubnetworkName" {
 }
 
 #---
-
-output "NWSAF_IngressFirewallId" {
-  value = module.ingressFirewall.firewallId
+output "NWSAF_FirewallId" {
+  value = module.firewall.firewallId
 }
 
-output "NWSAF_IngressFirewallCreationTimestamp" {
-  value = module.ingressFirewall.firewallCreationTimestamp
+output "NWSAF_FirewallCreationTimestamp" {
+  value = module.firewall.firewallCreationTimestamp
 }
 
-output "NWSAF_IngressFirewallSelfLink" {
-  value = module.ingressFirewall.firewallSelfLink
+output "NWSAF_FirewallSelfLink" {
+  value = module.firewall.firewallSelfLink
 }
 
-output "NWSAF_IngressFirewallName" {
-  value = module.ingressFirewall.firewallName
-}
-
-#---
-output "NWSAF_EgressFirewallId" {
-  value = module.egressFirewall.firewallId
-}
-
-output "NWSAF_EgressFirewallCreationTimestamp" {
-  value = module.egressFirewall.firewallCreationTimestamp
-}
-
-output "NWSAF_EgressFirewallSelfLink" {
-  value = module.egressFirewall.firewallSelfLink
-}
-
-output "NWSAF_EgressFirewallName" {
-  value = module.egressFirewall.firewallName
+output "NWSAF_FirewallName" {
+  value = module.firewall.firewallName
 }
 
 #---

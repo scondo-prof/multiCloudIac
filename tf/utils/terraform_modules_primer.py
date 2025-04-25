@@ -9,23 +9,33 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../projects/_SS_SarargSup",
-            "source_path": "../_SS_SarargSup",
-            "destination_path": "./temp",
+            "project_path": "../gcp/cloudComputeNetwork/genericNetwork",
+            "source_path": "../genericNetwork",
+            "destination_path": "../gcp/cloudComputeNetwork/_NWSAF_networkWithSubnetworkAndFirewall",
         },
-        "previous_variable_prefix": "SS",
-        "new_variable_prefix": "SS_SS",
-        "module_name": "SS",
+        "previous_variable_prefix": "network",
+        "new_variable_prefix": "NWSAF_Network",
+        "module_name": "network",
     },
     {
         "paths": {
-            "project_path": "../projects/_SIBS_spcrdfgIuwpaksmsBwvSwv",
-            "source_path": "../_SIBS_spcrdfgIuwpaksmsBwvSwv",
-            "destination_path": "./temp",
+            "project_path": "../gcp/cloudComputeNetwork/genericSubnetwork",
+            "source_path": "../genericSubnetwork",
+            "destination_path": "../gcp/cloudComputeNetwork/_NWSAF_networkWithSubnetworkAndFirewall",
         },
-        "previous_variable_prefix": "SIBS",
-        "new_variable_prefix": "SS_SIBS",
-        "module_name": "SIBS",
+        "previous_variable_prefix": "subnetwork",
+        "new_variable_prefix": "NWSAF_Subnetwork",
+        "module_name": "subnetwork",
+    },
+    {
+        "paths": {
+            "project_path": "../gcp/cloudComputeNetwork/genericFirewall",
+            "source_path": "../genericFirewall",
+            "destination_path": "../gcp/cloudComputeNetwork/_NWSAF_networkWithSubnetworkAndFirewall",
+        },
+        "previous_variable_prefix": "firewall",
+        "new_variable_prefix": "NWSAF_Firewall",
+        "module_name": "firewall",
     },
 ]
 
