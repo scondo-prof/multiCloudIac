@@ -14,7 +14,7 @@ snowflakeRole = "PROD_TERRAFORM_ROLE"
 
 snowflakeWarehouse = "COMPUTE_WH"
 
-resourceName = "lil-ceasar"
+resourceName = "chester-e-cheese"
 
 projectName = "test"
 
@@ -72,7 +72,7 @@ SS_SS_SUP_SnowflakeUserQueryTag = "test"
 
 SS_SIBS_SPCRDFG_CRDPRFG_SWSV_SecretReplicationAuto = {}
 
-SS_SIBS_SPCRDFG_CloudBuildTriggerServiceAccountsRoleId = "lilCeasar"
+SS_SIBS_SPCRDFG_CloudBuildTriggerServiceAccountsRoleId = "cECheese"
 
 SS_SIBS_SPCRDFG_CloudBuildTriggerGithubRepoName = "Bear-Cognition/UniShippersPricingTool-DASH"
 
@@ -100,15 +100,19 @@ SS_SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicyAlertStrategy = {
   }
 }
 
-SS_SIBS_BWV_S3BucketVersioningConfigurationStatus = "Enabled"
-
 SS_SIBS_SWV_Staging_SnowflakeWarehouse = "COMPUTE_WH"
+
+SS_SIBS_IUWPAKSMS_SWV_SecretRecoveryWindowInDays = 0
+
+SS_SIBS_SWV_Staging_SecretRecoveryWindowInDays = 0
 
 SS_SIBS_SWV_Staging_SecretVersionSecretString = {
   "env" = "dev"
 }
 
 SS_SIBS_SWV_Prod_SnowflakeWarehouse = "COMPUTE_WH"
+
+SS_SIBS_SWV_Prod_SecretRecoveryWindowInDays = 0
 
 SS_SIBS_SWV_Prod_SecretVersionSecretString = {
   "env" = "prod"

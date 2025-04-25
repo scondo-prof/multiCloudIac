@@ -9,43 +9,23 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../aws/cloudfront/genericDistribution",
-            "source_path": "../aws/cloudfront/genericDistribution",
-            "destination_path": "../projects/_CRP_distributionCachePolicyOrp",
+            "project_path": "../projects/_SS_SarargSup",
+            "source_path": "../_SS_SarargSup",
+            "destination_path": "./temp",
         },
-        "previous_variable_prefix": "distribution",
-        "new_variable_prefix": "CRP_Distribution",
-        "module_name": "distribution",
+        "previous_variable_prefix": "SS",
+        "new_variable_prefix": "SS_SS",
+        "module_name": "SS",
     },
     {
         "paths": {
-            "project_path": "../aws/cloudfront/genericCachePolicy",
-            "source_path": "../aws/cloudfront/genericCachePolicy",
-            "destination_path": "../projects/_CRP_distributionCachePolicyOrp",
+            "project_path": "../projects/_SIBS_spcrdfgIuwpaksmsBwvSwv",
+            "source_path": "../_SIBS_spcrdfgIuwpaksmsBwvSwv",
+            "destination_path": "./temp",
         },
-        "previous_variable_prefix": "cachePolicy",
-        "new_variable_prefix": "CRP_CachePolicy",
-        "module_name": "cachePolicy",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/cloudfront/genericOriginRequestPolicy",
-            "source_path": "../aws/cloudfront/genericOriginRequestPolicy",
-            "destination_path": "../projects/_CRP_distributionCachePolicyOrp",
-        },
-        "previous_variable_prefix": "orp",
-        "new_variable_prefix": "CRP_Orp",
-        "module_name": "orp",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/cloudfront/genericOriginRequestPolicyDataSource",
-            "source_path": "../aws/cloudfront/genericOriginRequestPolicyDataSource",
-            "destination_path": "../projects/_CRP_distributionCachePolicyOrp",
-        },
-        "previous_variable_prefix": "orp",
-        "new_variable_prefix": "CRP_OrpDataSource",
-        "module_name": "orpDataSource",
+        "previous_variable_prefix": "SIBS",
+        "new_variable_prefix": "SS_SIBS",
+        "module_name": "SIBS",
     },
 ]
 

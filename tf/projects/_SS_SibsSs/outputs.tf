@@ -376,18 +376,6 @@ output "SS_SIBS_IUWPAKSMS_SWV_SecretVersionId" {
   value = module.SIBS.SIBS_IUWPAKSMS_SWV_SecretVersionId
 }
 
-
-
-
-output "SS_SIBS_BWV_S3BucketArn" {
-  value = module.SIBS.SIBS_BWV_S3BucketArn
-}
-
-output "SS_SIBS_BWV_S3BucketName" {
-  value = module.SIBS.SIBS_BWV_S3BucketName
-}
-
-
 output "SS_SIBS_SWV_Staging_SecretArn" {
   value = module.SIBS.SIBS_SWV_Staging_SecretArn
 }
