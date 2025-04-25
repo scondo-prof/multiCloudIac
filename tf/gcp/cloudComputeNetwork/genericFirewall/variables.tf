@@ -14,60 +14,30 @@ variable "firewallObjects" {
     name    = string
     network = string
 
-    allow = optional(list(object({
+    allow = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_allow
       protocol = string
       ports    = optional(list(string), null)
     })), null)
 
-    deny = optional(list(object({
+    deny = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_deny
       protocol = string
       ports    = optional(list(string), null)
     })), null)
 
-    description = optional(string, null)
+    description        = optional(string, null)
     destination_ranges = optional(list(string), null)
-    direction = optional(string, null)
-    disabled = optional(bool, null)
+    direction          = optional(string, null)
+    disabled           = optional(bool, null)
+
+    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_log_config
+      metadata = string
+    }), null)
+
+    priority                = optional(number, null)
+    source_ranges           = optional(list(string), null)
+    source_service_accounts = optional(list(string), null)
+    source_tags             = optional(list(string), null)
+    target_service_accounts = optional(list(string), null)
+    target_tags             = optional(list(string), null)
   }))
-}
-
-variable "firewallLogConfig" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_log_config
-  type = object({
-    metadata = string
-  })
-  default = null
-}
-
-variable "firewallPriority" {
-  type = number
-  validation {
-    condition     = var.firewallPriority == null || can(var.firewallPriority >= 0 && var.firewallPriority <= 65535)
-    error_message = "var.firewallPriority must be Greater than or Equal to 0 AND Less Than or Equal to 65535"
-  }
-  default = null
-}
-
-variable "firewallSourceRanges" {
-  type    = list(string)
-  default = null
-}
-
-variable "firewallSourceServiceAccounts" {
-  type    = list(string)
-  default = null
-}
-
-variable "firewallSourceTags" {
-  type    = list(string)
-  default = null
-}
-
-variable "firewallTargetServiceAccounts" {
-  type    = list(string)
-  default = null
-}
-
-variable "firewallTargetTags" {
-  type    = list(string)
-  default = null
 }

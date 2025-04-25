@@ -39,17 +39,17 @@ resource "google_compute_firewall" "firewall" {
   disabled           = var.firewallObjects[count.index]["disabled"]
 
   dynamic "log_config" {
-    for_each = var.firewallObjects[count.index][""] != null ? [var.firewallObjects[count.index][""]] : [] #var.firewallLogConfig
+    for_each = var.firewallObjects[count.index]["log_config"] != null ? [var.firewallObjects[count.index]["log_config"]] : []
     content {
       metadata = log_config.value["metadata"]
     }
   }
 
-  priority                = var.firewallObjects[count.index][""] #var.firewallPriority
-  source_ranges           = var.firewallObjects[count.index][""] #var.firewallSourceRanges
-  source_service_accounts = var.firewallObjects[count.index][""] #var.firewallSourceServiceAccounts
-  source_tags             = var.firewallObjects[count.index][""] #var.firewallSourceTags
-  target_service_accounts = var.firewallObjects[count.index][""] #var.firewallTargetServiceAccounts
-  target_tags             = var.firewallObjects[count.index][""] #var.firewallTargetTags
+  priority                = var.firewallObjects[count.index]["priority"]
+  source_ranges           = var.firewallObjects[count.index]["source_ranges"]
+  source_service_accounts = var.firewallObjects[count.index]["source_service_accounts"]
+  source_tags             = var.firewallObjects[count.index]["source_tags"]
+  target_service_accounts = var.firewallObjects[count.index]["target_service_accounts"]
+  target_tags             = var.firewallObjects[count.index]["target_tags"]
   project                 = var.gcpProjectId
 }
