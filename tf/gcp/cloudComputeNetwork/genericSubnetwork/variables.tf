@@ -18,37 +18,24 @@ variable "subnetworkObjects" {
     reserved_internal_range = optional(string, null)
     purpose                 = optional(string, null)
     role                    = optinal(string, null)
+
+    secondary_ip_range = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#nested_secondary_ip_range
+      range_name              = string
+      ip_cidr_range           = optional(string, null)
+      reserved_internal_range = optional(string, null)
+    }), null)
+
+    private_ip_google_access   = optional(bool, null)
+    private_ipv6_google_access = optional(string, null)
+
+    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#nested_log_config
+      aggregation_interval = optional(string, null)
+      flow_sampling        = optional(number, null)
+      metadata             = optional(string, null)
+      metadata_fields      = optional(list(string), null)
+      filter_expr          = optional(string, null)
+    }), null)
   }))
-}
-
-variable "subnetworkSecondaryIpRange" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#nested_secondary_ip_range
-    range_name              = string
-    ip_cidr_range           = optional(string, null)
-    reserved_internal_range = optional(string, null)
-  })
-  default = null
-}
-
-variable "subnetworkPrivateIpGoogleAccess" {
-  type    = bool
-  default = null
-}
-
-variable "subnetworkPrivateIpv6GoogleAccess" {
-  type    = string
-  default = null
-}
-
-variable "subnetworkLogConfig" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#nested_log_config
-    aggregation_interval = optional(string, null)
-    flow_sampling        = optional(number, null)
-    metadata             = optional(string, null)
-    metadata_fields      = optional(list(string), null)
-    filter_expr          = optional(string, null)
-  })
-  default = null
 }
 
 variable "subnetworkStackType" {

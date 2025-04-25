@@ -23,7 +23,7 @@ resource "google_compute_subnetwork" "subnetwork" {
   role                    = var.subnetworkObjects[count.index]["role"]
 
   dynamic "secondary_ip_range" {
-    for_each = var.subnetworkObjects[count.index][""] != null ? [var.subnetworkObjects[count.index][""]] : [] #var.subnetworkSecondaryIpRange
+    for_each = var.subnetworkObjects[count.index]["secondary_ip_range"] != null ? [var.subnetworkObjects[count.index]["secondary_ip_range"]] : []
     content {
       range_name              = secondary_ip_range.value["range_name"]
       ip_cidr_range           = secondary_ip_range.value["ip_cidr_range"]
@@ -31,12 +31,12 @@ resource "google_compute_subnetwork" "subnetwork" {
     }
   }
 
-  private_ip_google_access   = var.subnetworkObjects[count.index][""] #var.subnetworkPrivateIpGoogleAccess
-  private_ipv6_google_access = var.subnetworkObjects[count.index][""] #var.subnetworkPrivateIpv6GoogleAccess
+  private_ip_google_access   = var.subnetworkObjects[count.index]["private_ip_google_access"]
+  private_ipv6_google_access = var.subnetworkObjects[count.index]["private_ipv6_google_access"]
   region                     = var.gcpRegion
 
   dynamic "log_config" {
-    for_each = var.subnetworkObjects[count.index][""] != null ? [var.subnetworkObjects[count.index][""]] : [] #var.subnetworkLogConfig
+    for_each = var.subnetworkObjects[count.index]["log_config"] != null ? [var.subnetworkObjects[count.index]["log_config"]] : []
     content {
       aggregation_interval = log_config.value["aggregation_interval"]
       flow_sampling        = log_config.value["flow_sampling"]
@@ -46,7 +46,7 @@ resource "google_compute_subnetwork" "subnetwork" {
     }
   }
 
-  stack_type                       = var.subnetworkObjects[count.index][""] #var.subnetworkStackType
+  stack_type                       = var.subnetworkObjects[count.index]["stack_type"] #var.subnetworkStackType
   ipv6_access_type                 = var.subnetworkObjects[count.index][""] #var.subnetworkIpv6AccessType
   external_ipv6_prefix             = var.subnetworkObjects[count.index][""] #var.subnetworkExternalIpv6Prefix
   project                          = var.gcpProjectId
