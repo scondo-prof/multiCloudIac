@@ -1,184 +1,407 @@
-output "VEN_VFSI_VpcArn" {
-  value = module.VFSI.VFSI_VpcArn
+output "snowflakeRoleFullyQualifiedName" {
+  value = module.SS.snowflakeRoleFullyQualifiedName
 }
 
-output "VEN_VFSI_VpcId" {
-  value = module.VFSI.VFSI_VpcId
+output "snowflakeRoleId" {
+  value = module.SS.snowflakeRoleId
 }
 
-output "VEN_VFSI_VpcCidrBlock" {
-  value = module.VFSI.VFSI_VpcCidrBlock
-}
-
-output "VEN_VFSI_VpcInstanceTenancy" {
-  value = module.VFSI.VFSI_VpcInstanceTenancy
-}
-
-output "VEN_VFSI_VpcDhcpOptionsId" {
-  value = module.VFSI.VFSI_VpcDhcpOptionsId
-}
-
-output "VEN_VFSI_VpcEnableDnsSupport" {
-  value = module.VFSI.VFSI_VpcEnableDnsSupport
-}
-
-output "VEN_VFSI_VpcEnableNetworkAddressUsageMetrics" {
-  value = module.VFSI.VFSI_VpcEnableNetworkAddressUsageMetrics
-}
-
-output "VEN_VFSI_VpcDnsHostnames" {
-  value = module.VFSI.VFSI_VpcDnsHostnames
-}
-
-output "VEN_VFSI_VpcMainrouteTableId" {
-  value = module.VFSI.VFSI_VpcMainrouteTableId
-}
-
-output "VEN_VFSI_VpcDefaultNetworkAclId" {
-  value = module.VFSI.VFSI_VpcDefaultNetworkAclId
-}
-
-output "VEN_VFSI_VpcDefaultSecurityGroupId" {
-  value = module.VFSI.VFSI_VpcDefaultSecurityGroupId
-}
-
-output "VEN_VFSI_VpcDefaultRouteTableId" {
-  value = module.VFSI.VFSI_VpcDefaultRouteTableId
-}
-
-output "VEN_VFSI_VpcIpv6AssociationId" {
-  value = module.VFSI.VFSI_VpcIpv6AssociationId
-}
-
-output "VEN_VFSI_VpcIpv6CidrBlockNetworkBorderGroup" {
-  value = module.VFSI.VFSI_VpcIpv6CidrBlockNetworkBorderGroup
-}
-
-output "VEN_VFSI_VpcOwnerId" {
-  value = module.VFSI.VFSI_VpcOwnerId
-}
-
-output "VEN_VFSI_VpcTagsAll" {
-  value = module.VFSI.VFSI_VpcTagsAll
+output "snowflakeRoleShowOutput" {
+  value = module.SS.snowflakeRoleShowOutput
 }
 
 
-output "VEN_VFSI_SubnetArn" {
-  value = module.VFSI.VFSI_SubnetArn
-}
-
-output "VEN_VFSI_SubnetCidrBlock" {
-  value = module.VFSI.VFSI_SubnetCidrBlock
-}
-
-output "VEN_VFSI_SubnetIpv6CidrBlockAssociationId" {
-  value = module.VFSI.VFSI_SubnetIpv6CidrBlockAssociationId
-}
-
-output "VEN_VFSI_SubnetId" {
-  value = module.VFSI.VFSI_SubnetId
-}
-
-output "VEN_VFSI_SubnetOwnerId" {
-  value = module.VFSI.VFSI_SubnetOwnerId
-}
-
-output "VEN_VFSI_SubnetTagsAll" {
-  value = module.VFSI.VFSI_SubnetTagsAll
+output "SS_SS_SARARG_GrantPrivilegesId" {
+  value = module.SS.SS_SARARG_GrantPrivilegesId
 }
 
 
-output "VEN_VFSI_RouteTableArn" {
-  value = module.VFSI.VFSI_RouteTableArn
+output "SS_SS_SUP_PKS_PasswordBcryptHash" {
+  value     = module.SS.SS_SUP_PKS_PasswordBcryptHash
+  sensitive = true
 }
 
-output "VEN_VFSI_RouteTableId" {
-  value = module.VFSI.VFSI_RouteTableId
+output "SS_SS_SUP_PKS_PasswordId" {
+  value = module.SS.SS_SUP_PKS_PasswordId
 }
 
-output "VEN_VFSI_RouteTableOwnerId" {
-  value = module.VFSI.VFSI_RouteTableOwnerId
-}
-
-output "VEN_VFSI_RouteTableTagsAll" {
-  value = module.VFSI.VFSI_RouteTableTagsAll
-}
-
-
-output "VEN_VFSI_RouteTableAssociationId" {
-  value = module.VFSI.VFSI_RouteTableAssociationId
+output "SS_SS_SUP_PKS_PasswordResult" {
+  value     = module.SS.SS_SUP_PKS_PasswordResult
+  sensitive = true
 }
 
 
-output "VEN_VFSI_IgArn" {
-  value = module.VFSI.VFSI_IgArn
+output "SS_SS_SUP_PKS_PrivateKeyId" {
+  value = module.SS.SS_SUP_PKS_PrivateKeyId
 }
 
-output "VEN_VFSI_IgId" {
-  value = module.VFSI.VFSI_IgId
+output "SS_SS_SUP_PKS_PrivateKeyOpenSsh" {
+  value     = module.SS.SS_SUP_PKS_PrivateKeyOpenSsh
+  sensitive = true
 }
 
-output "VEN_VFSI_IgOwnerId" {
-  value = module.VFSI.VFSI_IgOwnerId
+output "SS_SS_SUP_PKS_PrivateKeyPrivateKeyPem" {
+  value     = module.SS.SS_SUP_PKS_PrivateKeyPrivateKeyPem
+  sensitive = true
 }
 
-output "VEN_VFSI_IgTagsAll" {
-  value = module.VFSI.VFSI_IgTagsAll
+output "SS_SS_SUP_PKS_PrivateKeyPemPkcs8" {
+  value     = module.SS.SS_SUP_PKS_PrivateKeyPemPkcs8
+  sensitive = true
+}
+
+output "SS_SS_SUP_PKS_PrivateKeyPublicKeyFingerprintMd5" {
+  value = module.SS.SS_SUP_PKS_PrivateKeyPublicKeyFingerprintMd5
+}
+
+output "SS_SS_SUP_PKS_PrivateKeyPublicKeyFingerprintSha256" {
+  value = module.SS.SS_SUP_PKS_PrivateKeyPublicKeyFingerprintSha256
+}
+
+output "SS_SS_SUP_PKS_PrivateKeyPublicKeyOpenSsh" {
+  value = module.SS.SS_SUP_PKS_PrivateKeyPublicKeyOpenSsh
+}
+
+output "SS_SS_SUP_PKS_PrivateKeyPublicKeyPem" {
+  value = module.SS.SS_SUP_PKS_PrivateKeyPublicKeyPem
 }
 
 
-output "VEN_VFSI_RWP_IamRoleName" {
-  value = module.VFSI.VFSI_RWP_IamRoleName
+output "SS_SS_SUP_PKS_SWV_SecretArn" {
+  value = module.SS.SS_SUP_PKS_SWV_SecretArn
 }
 
-output "VEN_VFSI_RWP_IamRoleArn" {
-  value = module.VFSI.VFSI_RWP_IamRoleArn
+output "SS_SS_SUP_PKS_SWV_SecretName" {
+  value = module.SS.SS_SUP_PKS_SWV_SecretName
+}
+
+output "SS_SS_SUP_PKS_SWV_SecretVersionId" {
+  value = module.SS.SS_SUP_PKS_SWV_SecretVersionId
 }
 
 
-output "VEN_VFSI_RWP_IamPolicyArn" {
-  value = module.VFSI.VFSI_RWP_IamPolicyArn
+
+
+output "SS_SS_SUP_SnowflakeUserFullyQualifiedName" {
+  value = module.SS.SS_SUP_SnowflakeUserFullyQualifiedName
 }
 
-output "VEN_VFSI_RWP_IamPolicyName" {
-  value = module.VFSI.VFSI_RWP_IamPolicyName
+output "SS_SS_SUP_SnowflakeUserId" {
+  value = module.SS.SS_SUP_SnowflakeUserId
 }
 
-# ---
-output "VEN_VFSI_FlowLogArn" {
-  value = module.VFSI.VFSI_FlowLogArn
+output "SS_SS_SUP_SnowflakeUserParameters" {
+  value = module.SS.SS_SUP_SnowflakeUserParameters
 }
 
-output "VEN_VFSI_FlowLogId" {
-  value = module.VFSI.VFSI_FlowLogId
+output "SS_SS_SUP_SnowflakeUserShowOutput" {
+  value = module.SS.SS_SUP_SnowflakeUserShowOutput
 }
 
-output "VEN_VFSI_FlowLogTagsAll" {
-  value = module.VFSI.VFSI_FlowLogTagsAll
+output "SS_SS_SUP_SnowflakeUserType" {
+  value = module.SS.SS_SUP_SnowflakeUserType
+}
+
+
+
+
+output "SS_SS_GrantAccountRoleId" {
+  value = module.SS.SS_GrantAccountRoleId
 }
 
 
 
 #---
-output "VEN_EipNatAllocationId" {
-  value = module.eipNat.eipAllocationId
+output "SS_SIBS_SPCRDFG_CRDPRFG_SWSV_SecretId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_SWSV_SecretId
 }
 
-output "VEN_EipNatAssociationId" {
-  value = module.eipNat.eipAssociationId
+output "SS_SIBS_SPCRDFG_CRDPRFG_SWSV_SecretName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_SWSV_SecretName
 }
 
-output "VEN_EipNatId" {
-  value = module.eipNat.eipId
+output "SS_SIBS_SPCRDFG_CRDPRFG_SWSV_SecretCreateTime" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_SWSV_SecretCreateTime
 }
 
-output "VEN_EipNatPublicIp" {
-  value = module.eipNat.eipPublicIp
+output "SS_SIBS_SPCRDFG_CRDPRFG_SWSV_SecretTerraformLabels" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_SWSV_SecretTerraformLabels
 }
 
-#---
-output "VEN_NatId" {
-  value = module.nat.natId
+output "SS_SIBS_SPCRDFG_CRDPRFG_SWSV_SecretEffectiveLabels" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_SWSV_SecretEffectiveLabels
 }
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_SWSV_SecretEffectiveAnnotations" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_SWSV_SecretEffectiveAnnotations
+}
+
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionName
+}
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionVersion" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionVersion
+}
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionCreateTime" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionCreateTime
+}
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionDestroyTime" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_SWSV_SecretVersionDestroyTime
+}
+
+
+
+
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_ServiceAccountId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_ServiceAccountId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_ServiceAccountEmail" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_ServiceAccountEmail
+}
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_ServiceAccountDisplayName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_ServiceAccountDisplayName
+}
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_ServiceAccountRoleId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_ServiceAccountRoleId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_ServiceAccountRoleName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_ServiceAccountRoleName
+}
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_CloudBuildTriggerId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_CloudBuildTriggerId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_CloudBuildTriggerName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_CloudBuildTriggerName
+}
+
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppLogsId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppLogsId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppLogsName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppLogsName
+}
+
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppCpuUsageId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppCpuUsageId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppCpuUsageName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppCpuUsageName
+}
+
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppMemUsageId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppMemUsageId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppMemUsageName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPRFG_AlertPolicyCloudRunAppMemUsageName
+}
+
+
+
+
+
+output "SS_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretName
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretCreateTime" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretCreateTime
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretTerraformLabels" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretTerraformLabels
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretEffectiveLabels" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretEffectiveLabels
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretEffectiveAnnotations" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretEffectiveAnnotations
+}
+
+
+output "SS_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionName
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionVersion" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionVersion
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionCreateTime" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionCreateTime
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionDestroyTime" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_SWSV_Cloudbuild_SecretVersionDestroyTime
+}
+
+
+
+
+
+output "SS_SIBS_SPCRDFG_CRDPFG_ServiceAccountId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_ServiceAccountId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_ServiceAccountEmail" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_ServiceAccountEmail
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_ServiceAccountDisplayName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_ServiceAccountDisplayName
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_ServiceAccountRoleId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_ServiceAccountRoleId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_ServiceAccountRoleName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_ServiceAccountRoleName
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_CloudBuildTriggerId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_CloudBuildTriggerId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_CloudBuildTriggerName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_CloudBuildTriggerName
+}
+
+
+output "SS_SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicyId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicyId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicyName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_CloudRunLogsAlertPolicyName
+}
+
+
+output "SS_SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_CloudRunMemAlertPolicyName
+}
+
+
+output "SS_SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyId" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyId
+}
+
+output "SS_SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyName" {
+  value = module.SIBS.SIBS_SPCRDFG_CRDPFG_CloudRunCpuAlertPolicyName
+}
+
+
+
+
+
+
+
+output "SS_SIBS_IUWPAKSMS_UWP_IamUserArn" {
+  value = module.SIBS.SIBS_IUWPAKSMS_UWP_IamUserArn
+}
+
+output "SS_SIBS_IUWPAKSMS_UWP_IamUserName" {
+  value = module.SIBS.SIBS_IUWPAKSMS_UWP_IamUserName
+}
+
+
+
+output "SS_SIBS_IUWPAKSMS_UWP_IamPolicyArn" {
+  value = module.SIBS.SIBS_IUWPAKSMS_UWP_IamPolicyArn
+}
+
+output "SS_SIBS_IUWPAKSMS_UWP_IamPolicyName" {
+  value = module.SIBS.SIBS_IUWPAKSMS_UWP_IamPolicyName
+}
+
+
+output "SS_SIBS_IUWPAKSMS_IamAccessKeyEncryptedPgpSecret" {
+  value     = module.SIBS.SIBS_IUWPAKSMS_IamAccessKeyEncryptedPgpSecret
+  sensitive = true
+}
+
+output "SS_SIBS_IUWPAKSMS_IamAccessKeyId" {
+  value = module.SIBS.SIBS_IUWPAKSMS_IamAccessKeyId
+}
+
+output "SS_SIBS_IUWPAKSMS_IamAccessKeySecret" {
+  value     = module.SIBS.SIBS_IUWPAKSMS_IamAccessKeySecret
+  sensitive = true
+}
+
+
+output "SS_SIBS_IUWPAKSMS_SWV_SecretArn" {
+  value = module.SIBS.SIBS_IUWPAKSMS_SWV_SecretArn
+}
+
+output "SS_SIBS_IUWPAKSMS_SWV_SecretName" {
+  value = module.SIBS.SIBS_IUWPAKSMS_SWV_SecretName
+}
+
+output "SS_SIBS_IUWPAKSMS_SWV_SecretVersionId" {
+  value = module.SIBS.SIBS_IUWPAKSMS_SWV_SecretVersionId
+}
+
+
+output "SS_SIBS_SWV_Staging_SecretArn" {
+  value = module.SIBS.SIBS_SWV_Staging_SecretArn
+}
+
+output "SS_SIBS_SWV_Staging_SecretName" {
+  value = module.SIBS.SIBS_SWV_Staging_SecretName
+}
+
+output "SS_SIBS_SWV_Staging_SecretVersionId" {
+  value = module.SIBS.SIBS_SWV_Staging_SecretVersionId
+}
+
+
+output "SS_SIBS_SWV_Prod_SecretArn" {
+  value = module.SIBS.SIBS_SWV_Prod_SecretArn
+}
+
+output "SS_SIBS_SWV_Prod_SecretName" {
+  value = module.SIBS.SIBS_SWV_Prod_SecretName
+}
+
+output "SS_SIBS_SWV_Prod_SecretVersionId" {
+  value = module.SIBS.SIBS_SWV_Prod_SecretVersionId
+}
+
+
 
 #---

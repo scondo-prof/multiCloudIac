@@ -277,13 +277,6 @@ module "SIBS" {
   SIBS_IUWPAKSMS_SWV_SecretVersionSecretString                                  = var.SS_SIBS_IUWPAKSMS_SWV_SecretVersionSecretString
   SIBS_IUWPAKSMS_SWV_SecretVersionSecretBinary                                  = var.SS_SIBS_IUWPAKSMS_SWV_SecretVersionSecretBinary
   SIBS_IUWPAKSMS_SWV_SecretVersionStages                                        = var.SS_SIBS_IUWPAKSMS_SWV_SecretVersionStages
-  SIBS_BWV_S3BucketPrefix                                                       = var.SS_SIBS_BWV_S3BucketPrefix
-  SIBS_BWV_S3BucketForceDestroy                                                 = var.SS_SIBS_BWV_S3BucketForceDestroy
-  SIBS_BWV_S3BucketObjectLockEnabled                                            = var.SS_SIBS_BWV_S3BucketObjectLockEnabled
-  SIBS_BWV_S3BucketVersioningConfigurationStatus                                = var.SS_SIBS_BWV_S3BucketVersioningConfigurationStatus
-  SIBS_BWV_S3BucketVersioningConfigurationMfaDelete                             = var.SS_SIBS_BWV_S3BucketVersioningConfigurationMfaDelete
-  SIBS_BWV_S3BucketVersioningExpectedBucketOwner                                = var.SS_SIBS_BWV_S3BucketVersioningExpectedBucketOwner
-  SIBS_BWV_S3BucketVersioningMfa                                                = var.SS_SIBS_BWV_S3BucketVersioningMfa
   SIBS_SWV_Staging_SecretDescription                                            = var.SS_SIBS_SWV_Staging_SecretDescription
   SIBS_SWV_Staging_SecretKmsKeyId                                               = var.SS_SIBS_SWV_Staging_SecretKmsKeyId
   SIBS_SWV_Staging_SecretNamePrefix                                             = var.SS_SIBS_SWV_Staging_SecretNamePrefix
