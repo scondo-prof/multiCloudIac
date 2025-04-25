@@ -9,21 +9,21 @@ module "network" {
 #---
 
 module "subnetwork" {
-  depends_on        = [module.network]
   source            = "../genericSubnetwork"
   gcpProjectId      = var.gcpProjectId
   gcpRegion         = var.gcpRegion
   subnetworkObjects = var.NWSAF_SubnetworkObjects
+  subnetworkNetwork = module.network.networkId[0]
 }
 
 #---
 
 module "firewall" {
-  depends_on      = [module.network]
   source          = "../genericFirewall"
   gcpProjectId    = var.gcpProjectId
   gcpRegion       = var.gcpRegion
   firewallObjects = var.NWSAF_FirewallObjects
+  firewallNetwork = module.network.networkId[0]
 }
 
 #---

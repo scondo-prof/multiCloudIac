@@ -3,7 +3,6 @@ gcpProjectId = "dev-env-433017"
 firewallObjects = [
   {
     name    = "wow-cool-ingress"
-    network = "waynes-world-network"
     allow = {
       protocol = "tcp"
     }
@@ -17,7 +16,6 @@ firewallObjects = [
   },
   {
     name    = "wow-cool-egress"
-    network = "waynes-world-network"
     allow = {
       protocol = "tcp"
     }
@@ -27,3 +25,5 @@ firewallObjects = [
     source_ranges = [ "0.0.0.0/0" ]
   }
 ]
+
+firewallNetwork = "waynes-world-network"
