@@ -13,16 +13,17 @@ provider "google" {
 }
 
 resource "google_compute_subnetwork" "subnetwork" {
-  name                    = "${var.resourceName}-subnetwork"
-  network                 = var.subnetworkNetwork
-  description             = var.subnetworkDescription
-  ip_cidr_range           = var.subnetworkIpCidrRange
-  reserved_internal_range = var.subnetworkReservedInternalRange
-  purpose                 = var.subnetworkPurpose
-  role                    = var.subnetworkRole
+  count = length(var.subnetworkObjects)
+  name                    = "${var.subnetworkObjects[count.index]["name"]}-subnetwork"
+  network                 = var.subnetworkObjects[count.index]["network"]
+  description             = var.subnetworkObjects[count.index][""]#var.subnetworkDescription
+  ip_cidr_range           = var.subnetworkObjects[count.index][""]#var.subnetworkIpCidrRange
+  reserved_internal_range = var.subnetworkObjects[count.index][""]#var.subnetworkReservedInternalRange
+  purpose                 = var.subnetworkObjects[count.index][""]#var.subnetworkPurpose
+  role                    = var.subnetworkObjects[count.index][""]#var.subnetworkRole
 
   dynamic "secondary_ip_range" {
-    for_each = var.subnetworkSecondaryIpRange != null ? [var.subnetworkSecondaryIpRange] : []
+    for_each = var.subnetworkObjects[count.index][""] != null ? [var.subnetworkObjects[count.index][""]] : []#var.subnetworkSecondaryIpRange
     content {
       range_name              = secondary_ip_range.value["range_name"]
       ip_cidr_range           = secondary_ip_range.value["ip_cidr_range"]
@@ -30,12 +31,12 @@ resource "google_compute_subnetwork" "subnetwork" {
     }
   }
 
-  private_ip_google_access   = var.subnetworkPrivateIpGoogleAccess
-  private_ipv6_google_access = var.subnetworkPrivateIpv6GoogleAccess
+  private_ip_google_access   = var.subnetworkObjects[count.index][""]#var.subnetworkPrivateIpGoogleAccess
+  private_ipv6_google_access = var.subnetworkObjects[count.index][""]#var.subnetworkPrivateIpv6GoogleAccess
   region                     = var.gcpRegion
 
   dynamic "log_config" {
-    for_each = var.subnetworkLogConfig != null ? [var.subnetworkLogConfig] : []
+    for_each = var.subnetworkObjects[count.index][""] != null ? [var.subnetworkObjects[count.index][""]] : []#var.subnetworkLogConfig
     content {
       aggregation_interval = log_config.value["aggregation_interval"]
       flow_sampling        = log_config.value["flow_sampling"]
@@ -45,10 +46,9 @@ resource "google_compute_subnetwork" "subnetwork" {
     }
   }
 
-  stack_type                       = var.subnetworkStackType
-  ipv6_access_type                 = var.subnetworkIpv6AccessType
-  external_ipv6_prefix             = var.subnetworkExternalIpv6Prefix
+  stack_type                       = var.subnetworkObjects[count.index][""]#var.subnetworkStackType
+  ipv6_access_type                 = var.subnetworkObjects[count.index][""]#var.subnetworkIpv6AccessType
+  external_ipv6_prefix             = var.subnetworkObjects[count.index][""]#var.subnetworkExternalIpv6Prefix
   project                          = var.gcpProjectId
-  send_secondary_ip_range_if_empty = var.subnetworkSendSecondaryIpRangeIfEmpty
-
+  send_secondary_ip_range_if_empty = var.subnetworkObjects[count.index][""]#var.subnetworkSendSecondaryIpRangeIfEmpty
 }
