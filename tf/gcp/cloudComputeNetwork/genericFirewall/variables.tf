@@ -12,7 +12,6 @@ variable "gcpRegion" {
 variable "firewallObjects" {
   type = list(object({
     name    = string
-    network = string
 
     allow = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_allow
       protocol = string
@@ -40,4 +39,8 @@ variable "firewallObjects" {
     target_service_accounts = optional(list(string), null)
     target_tags             = optional(list(string), null)
   }))
+}
+
+variable "firewallNetwork" {
+  type = string
 }

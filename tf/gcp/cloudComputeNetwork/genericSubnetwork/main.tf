@@ -15,7 +15,7 @@ provider "google" {
 resource "google_compute_subnetwork" "subnetwork" {
   count                   = length(var.subnetworkObjects)
   name                    = "${var.subnetworkObjects[count.index]["name"]}-subnetwork"
-  network                 = var.subnetworkObjects[count.index]["network"]
+  network                 = var.subnetworkNetwork
   description             = var.subnetworkObjects[count.index]["description"]
   ip_cidr_range           = var.subnetworkObjects[count.index]["ip_cidr_range"]
   reserved_internal_range = var.subnetworkObjects[count.index]["reserved_internal_range"]

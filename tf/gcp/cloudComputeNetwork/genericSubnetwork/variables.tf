@@ -12,7 +12,6 @@ variable "gcpRegion" {
 variable "subnetworkObjects" {
   type = list(object({
     name                    = string
-    network                 = string
     description             = optional(string, null)
     ip_cidr_range           = optional(string, null)
     reserved_internal_range = optional(string, null)
@@ -41,4 +40,8 @@ variable "subnetworkObjects" {
     external_ipv6_prefix             = optional(string, null)
     send_secondary_ip_range_if_empty = optional(bool, null)
   }))
+}
+
+variable "subnetworkNetwork" {
+  type = string
 }

@@ -15,7 +15,7 @@ provider "google" {
 resource "google_compute_firewall" "firewall" {
   count   = length(var.firewallObjects)
   name    = "${var.firewallObjects[count.index]["name"]}-firewall"
-  network = var.firewallObjects[count.index]["network"]
+  network = var.firewallNetwork
 
   dynamic "allow" {
     for_each = var.firewallObjects[count.index]["allow"] != null ? [var.firewallObjects[count.index]["allow"]] : []
