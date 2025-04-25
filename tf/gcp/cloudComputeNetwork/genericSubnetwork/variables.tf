@@ -11,51 +11,14 @@ variable "gcpRegion" {
 
 variable "subnetworkObjects" {
   type = list(object({
-    name = string
-    network = string
+    name                    = string
+    network                 = string
+    description             = optional(string, null)
+    ip_cidr_range           = optional(string, null)
+    reserved_internal_range = optional(string, null)
+    purpose                 = optional(string, null)
+    role                    = optinal(string, null)
   }))
-}
-
-variable "subnetworkDescription" {
-  type    = string
-  default = null
-}
-
-variable "subnetworkIpCidrRange" {
-  type    = string
-  default = null
-}
-
-variable "subnetworkReservedInternalRange" {
-  type    = string
-  default = null
-}
-
-variable "subnetworkPurpose" {
-  type = string
-  validation {
-    condition = var.subnetworkPurpose == null || can(contains([
-      "PRIVATE",
-      "REGIONAL_MANAGED_PROXY",
-      "GLOBAL_MANAGED_PROXY",
-      "PRIVATE_SERVICE_CONNECT",
-      "PEER_MIGRATION"
-    ], var.subnetworkPurpose))
-    error_message = "Valid inputs for | variable: var.subnetworkPurpose | are: PRIVATE, REGIONAL_MANAGED_PROXY, GLOBAL_MANAGED_PROXY, PRIVATE_SERVICE_CONNECT, PEER_MIGRATION"
-  }
-  default = null
-}
-
-variable "subnetworkRole" {
-  type = string
-  validation {
-    condition = var.subnetworkRole == null || can(contains([
-      "ACTIVE",
-      "BACKUP"
-    ], var.subnetworkRole))
-    error_message = "Valid inputs for | variable: var.subnetworkRole | are: ACTIVE, BACKUP"
-  }
-  default = null
 }
 
 variable "subnetworkSecondaryIpRange" {
