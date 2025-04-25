@@ -20,7 +20,7 @@ resource "google_compute_firewall" "firewall" {
   dynamic "allow" {
     for_each = var.firewallObjects[count.index]["allow"] != null ? [var.firewallObjects[count.index]["allow"]] : []
     content {
-      protocol = allow.value["protocl"]
+      protocol = allow.value["protocol"]
       ports    = allow.value["ports"]
     }
   }
@@ -51,5 +51,5 @@ resource "google_compute_firewall" "firewall" {
   source_tags             = var.firewallObjects[count.index]["source_tags"]
   target_service_accounts = var.firewallObjects[count.index]["target_service_accounts"]
   target_tags             = var.firewallObjects[count.index]["target_tags"]
-  project                 = var.gcpProjectId
+  project = var.gcpProjectId
 }

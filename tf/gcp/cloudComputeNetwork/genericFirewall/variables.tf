@@ -14,15 +14,15 @@ variable "firewallObjects" {
     name    = string
     network = string
 
-    allow = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_allow
+    allow = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_allow
       protocol = string
       ports    = optional(list(string), null)
-    })), null)
+    }), null)
 
-    deny = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_deny
+    deny = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_deny
       protocol = string
       ports    = optional(list(string), null)
-    })), null)
+    }), null)
 
     description        = optional(string, null)
     destination_ranges = optional(list(string), null)
