@@ -13,6 +13,11 @@ variable "resourceName" {
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network#argument-reference
 
+variable "networkObjects" {
+  type = list(object({
+    name = string
+  }))
+}
 variable "networkDescription" {
   type    = string
   default = null
