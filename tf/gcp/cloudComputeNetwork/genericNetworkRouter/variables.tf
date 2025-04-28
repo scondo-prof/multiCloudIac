@@ -27,25 +27,6 @@ variable "networkRouterObjects" {
       identifier_range   = optional(string, null)
     }), null)
 
+    encrypted_interconnect_router = optional(bool, null)
   }))
-}
-
-variable "networkRouterBgp" {
-  type = object({
-    asn               = string
-    advertise_mode    = optional(string, null)
-    advertised_groups = optional(list(string), null)
-    advertised_ip_ranges = optional(object({
-      range       = string
-      description = optional(string, null)
-    }), null)
-    keepalive_interval = optional(number, null)
-    identifier_range   = optional(string, null)
-  })
-  default = null
-}
-
-variable "networkRouterEncryptedInterconnectRouter" {
-  type    = bool
-  default = null
 }

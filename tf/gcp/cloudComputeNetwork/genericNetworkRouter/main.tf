@@ -39,7 +39,7 @@ resource "google_compute_router" "networkRouter" {
     }
   }
 
-  encrypted_interconnect_router = var.networkRouterObjects[count.index][""] #var.networkRouterEncryptedInterconnectRouter
+  encrypted_interconnect_router = var.networkRouterObjects[count.index]["encrypted_interconnect_router"]
   region                        = var.gcpRegion
   project                       = var.gcpProjectId
 }
