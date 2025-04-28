@@ -24,42 +24,16 @@ variable "natObject" {
       source_ip_ranges_to_nat  = list(string)
       secondary_ip_range_names = optional(list(string), null)
     }), null)
+
+    min_ports_per_vm                 = optional(number, null)
+    max_ports_per_vm                 = optional(number, null)
+    enable_dynamic_port_allocation   = optional(bool, null)
+    udp_idle_timeout_sec             = optional(number, null)
+    icmp_idle_timeout_sec            = optional(number, null)
+    tcp_established_idle_timeout_sec = optional(number, null)
+    tcp_transitory_idle_timeout_sec  = optional(number, null)
+    tcp_time_wait_timeout_sec        = optional(number, null)
   })
-}
-
-variable "natMinPortsPerVm" {
-  type    = number
-  default = null
-}
-
-variable "natMaxPortsPerVm" {
-  type    = number
-  default = null
-}
-
-variable "natEnableDynamicPortAllocation" {
-  type    = bool
-  default = null
-}
-
-variable "natUdpIdleTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "natIcmpIdleTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "natTcpEstablishedIdleTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "natTcpTransitoryIdleTimeoutSec" {
-  type    = number
-  default = null
 }
 
 variable "natTcpTimeWaitTimeoutSec" {

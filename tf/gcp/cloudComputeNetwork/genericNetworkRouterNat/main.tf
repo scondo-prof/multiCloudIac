@@ -31,14 +31,14 @@ resource "google_compute_router_nat" "nat" {
     }
   }
 
-  min_ports_per_vm                 = var.natObject[""] #var.natMinPortsPerVm
-  max_ports_per_vm                 = var.natObject[""] #var.natMaxPortsPerVm
-  enable_dynamic_port_allocation   = var.natObject[""] #var.natEnableDynamicPortAllocation
-  udp_idle_timeout_sec             = var.natObject[""] #var.natUdpIdleTimeoutSec
-  icmp_idle_timeout_sec            = var.natObject[""] #var.natIcmpIdleTimeoutSec
-  tcp_established_idle_timeout_sec = var.natObject[""] #var.natTcpEstablishedIdleTimeoutSec
-  tcp_transitory_idle_timeout_sec  = var.natObject[""] #var.natTcpTransitoryIdleTimeoutSec
-  tcp_time_wait_timeout_sec        = var.natObject[""] #var.natTcpTimeWaitTimeoutSec
+  min_ports_per_vm                 = var.natObject["min_ports_per_vm"]
+  max_ports_per_vm                 = var.natObject["max_ports_per_vm"]
+  enable_dynamic_port_allocation   = var.natObject["enable_dynamic_port_allocation"]
+  udp_idle_timeout_sec             = var.natObject["udp_idle_timeout_sec"]
+  icmp_idle_timeout_sec            = var.natObject["icmp_idle_timeout_sec"]
+  tcp_established_idle_timeout_sec = var.natObject["tcp_established_idle_timeout_sec"]
+  tcp_transitory_idle_timeout_sec  = var.natObject["tcp_transitory_idle_timeout_sec"]
+  tcp_time_wait_timeout_sec        = var.natObject["tcp_time_wait_timeout_sec"]
 
   dynamic "log_config" {
     for_each = var.natObject[""] != null ? [var.natObject[""]] : [] #var.natLogConfig
