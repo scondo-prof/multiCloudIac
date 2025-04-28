@@ -26,10 +26,10 @@ resource "google_compute_address" "networkAddress" {
     created-by    = var.createdBy
     tf-module     = var.tfModule
   }, var.additionalTags)
-  network            = var.networkAddressObject[""]#var.networkAddressNetwork
-  prefix_length      = var.networkAddressObject[""]#var.networkAddressPrefixLength
-  ip_version         = var.networkAddressObject[""]#var.networkAddressIpVersion
-  ipv6_endpoint_type = var.networkAddressObject[""]#var.networkAddressIpv6EndpoingType
+  network            = var.networkAddressObject["network"]
+  prefix_length      = var.networkAddressObject["prefix_length"]
+  ip_version         = var.networkAddressObject["ip_version"]
+  ipv6_endpoint_type = var.networkAddressObject["ipv6_endpoint_type"]
   region             = var.gcpRegion
   project            = var.gcpProjectId
 }
