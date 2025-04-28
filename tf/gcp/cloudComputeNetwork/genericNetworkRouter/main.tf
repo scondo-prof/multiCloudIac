@@ -15,11 +15,11 @@ provider "google" {
 resource "google_compute_router" "networkRouter" {
   count       = length(var.networkRouterObjects)
   name        = "${var.networkRouterObjects[count.index]["name"]}-network-router"
-  network     = var.networkRouterObjects[count.index][""] #var.networkRouterNetwork
-  description = var.networkRouterObjects[count.index][""] #var.networkRouterDescription
+  network     = var.networkRouterObjects[count.index]["network"]
+  description = var.networkRouterObjects[count.index]["description"]
 
   dynamic "bgp" {
-    for_each = var.networkRouterObjects[count.index][""] != null ? [var.networkRouterObjects[count.index][""]] : [] #var.networkRouterBgp
+    for_each = var.networkRouterObjects[count.index]["bgp"] != null ? [var.networkRouterObjects[count.index]["bgp"]] : []
     content {
       asn               = bgp.value["asn"]
       advertise_mode    = bgp.value["advertise_mode"]

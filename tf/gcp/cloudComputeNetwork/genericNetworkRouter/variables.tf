@@ -11,17 +11,23 @@ variable "gcpRegion" {
 
 variable "networkRouterObjects" {
   type = list(object({
-    name = string
+    name        = string
+    network     = string
+    description = optional(string, null)
+
+    bgp = optional(object({
+      asn               = string
+      advertise_mode    = optional(string, null)
+      advertised_groups = optional(list(string), null)
+      advertised_ip_ranges = optional(object({
+        range       = string
+        description = optional(string, null)
+      }), null)
+      keepalive_interval = optional(number, null)
+      identifier_range   = optional(string, null)
+    }), null)
+
   }))
-}
-
-variable "networkRouterNetwork" {
-  type = string
-}
-
-variable "networkRouterDescription" {
-  type    = string
-  default = null
 }
 
 variable "networkRouterBgp" {
