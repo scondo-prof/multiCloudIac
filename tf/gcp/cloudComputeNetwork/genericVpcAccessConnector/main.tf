@@ -14,13 +14,13 @@ provider "google" {
 
 resource "google_vpc_access_connector" "vpcAccessConnector" {
   name           = "${var.resourceName}-vac"
-  network        = var.vpcAccessConnectorObject[""]#ar.vpcAccessConnectorNetwork
-  ip_cidr_range  = var.vpcAccessConnectorObject[""]#var.vpcAccessConnectorIpCidrRange
-  machine_type   = var.vpcAccessConnectorObject[""]#var.vpcAccessConnectorMachineType
-  min_throughput = var.vpcAccessConnectorObject[""]#var.vpcAccessConnectorMinThroughput
-  min_instances  = var.vpcAccessConnectorObject[""]#var.vpcAccessConnectorMinInstances
-  max_instances  = var.vpcAccessConnectorObject[""]#var.vpcAccessConnectorMaxInstances
-  max_throughput = var.vpcAccessConnectorObject[""]#var.vpcAccessConnectorMaxThroughput
+  network        = var.vpcAccessConnectorObject["network"]
+  ip_cidr_range  = var.vpcAccessConnectorObject["ip_cidr_range"]
+  machine_type   = var.vpcAccessConnectorObject["machine_type"]
+  min_throughput = var.vpcAccessConnectorObject["min_throughput"]
+  min_instances  = var.vpcAccessConnectorObject["min_instances"]
+  max_instances  = var.vpcAccessConnectorObject["max_instances"]
+  max_throughput = var.vpcAccessConnectorObject["max_throughput"]
   dynamic "subnet" {
     for_each = var.var.vpcAccessConnectorObject[""] != null ? [var.vpcAccessConnectorObject[""]] : []#var.vpcAccessConnectorSubnet
     content {
