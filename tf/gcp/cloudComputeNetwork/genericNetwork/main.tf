@@ -14,7 +14,7 @@ provider "google" {
 
 resource "google_compute_network" "network" {
   count                                     = length(var.networkObjects)
-  name                                      = "${var.networkObjects[count.index]["name"]}-network"
+  name                                      = "${var.resourceName}-${var.networkObjects[count.index]["name"]}-network"
   description                               = var.networkObjects[count.index]["description"]
   auto_create_subnetworks                   = var.networkObjects[count.index]["auto_create_subnetworks"]
   routing_mode                              = var.networkObjects[count.index]["routing_mode"]

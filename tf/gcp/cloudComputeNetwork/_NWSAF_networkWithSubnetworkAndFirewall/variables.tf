@@ -7,7 +7,11 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Network#argument-reference
+variable "resourceName" {
+  type = string
+}
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network#argument-reference
 
 variable "NWSAF_NetworkObjects" {
   type = list(object({
@@ -25,7 +29,7 @@ variable "NWSAF_NetworkObjects" {
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Subnetwork#argument-reference
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#argument-reference
 
 variable "NWSAF_SubnetworkObjects" {
   type = list(object({
@@ -36,7 +40,7 @@ variable "NWSAF_SubnetworkObjects" {
     purpose                 = optional(string, null)
     role                    = optional(string, null)
 
-    secondary_ip_range = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Subnetwork#nested_secondary_ip_range
+    secondary_ip_range = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#nested_secondary_ip_range
       range_name              = string
       ip_cidr_range           = optional(string, null)
       reserved_internal_range = optional(string, null)
@@ -45,7 +49,7 @@ variable "NWSAF_SubnetworkObjects" {
     private_ip_google_access   = optional(bool, null)
     private_ipv6_google_access = optional(string, null)
 
-    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Subnetwork#nested_log_config
+    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#nested_log_config
       aggregation_interval = optional(string, null)
       flow_sampling        = optional(number, null)
       metadata             = optional(string, null)
@@ -62,18 +66,18 @@ variable "NWSAF_SubnetworkObjects" {
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Firewall#argument-reference
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#argument-reference
 
 variable "NWSAF_FirewallObjects" {
   type = list(object({
     name = string
 
-    allow = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Firewall#nested_allow
+    allow = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_allow
       protocol = string
       ports    = optional(list(string), null)
     }), null)
 
-    deny = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Firewall#nested_deny
+    deny = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_deny
       protocol = string
       ports    = optional(list(string), null)
     }), null)
@@ -83,7 +87,7 @@ variable "NWSAF_FirewallObjects" {
     direction          = optional(string, null)
     disabled           = optional(bool, null)
 
-    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Firewall#nested_log_config
+    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_log_config
       metadata = string
     }), null)
 

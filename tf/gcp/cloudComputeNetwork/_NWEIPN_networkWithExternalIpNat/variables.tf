@@ -11,11 +11,11 @@ variable "resourceName" {
   type = string
 }
 
-variable "deployedDate" {
+variable "projectName" {
   type = string
 }
 
-variable "projectName" {
+variable "deployedDate" {
   type = string
 }
 
@@ -33,365 +33,95 @@ variable "additionalTags" {
   default = {}
 }
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWEIPN_NWSAF_Network#argument-reference
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network#argument-reference
 
-variable "NWEIPN_NWSAF_NetworkDescription" {
-  type    = string
-  default = null
-}
-
-variable "NWEIPN_NWSAF_NetworkAutoCreateSubNetworks" {
-  type    = bool
-  default = null
-}
-
-variable "NWEIPN_NWSAF_NetworkRoutingMode" {
-  type = string
-  validation {
-    condition = var.NWEIPN_NWSAF_NetworkRoutingMode == null || can(contains([
-      "REGIONAL",
-      "GLOBAL"
-    ], var.NWEIPN_NWSAF_NetworkRoutingMode))
-    error_message = "Valid inputs for | variable: var.NWEIPN_NWSAF_NetworkRoutingMode | are: REGIONAL, GLOBAL"
-  }
-  default = null
-}
-
-variable "NWEIPN_NWSAF_NetworkMaximumTransmissionUnitBytes" {
-  type = number
-  validation {
-    condition     = var.NWEIPN_NWSAF_NetworkMaximumTransmissionUnitBytes == null || can(var.NWEIPN_NWSAF_NetworkMaximumTransmissionUnitBytes >= 1300 && var.NWEIPN_NWSAF_NetworkMaximumTransmissionUnitBytes <= 8896)
-    error_message = "var.NWEIPN_NWSAF_NetworkMaximumTransmissionUnitBytes must be Greater than or Equal to 1300 AND Less Than or Equal to 8896"
-  }
-  default = null
-}
-
-variable "NWEIPN_NWSAF_NetworkEnableUlaInternalIpv6" {
-  type    = bool
-  default = null
-}
-
-variable "NWEIPN_NWSAF_NetworkInternalIpv6Range" {
-  type    = string
-  default = null
-}
-
-variable "NWEIPN_NWSAF_NetworkFirewallPolicyEnforcementOrder" {
-  type = string
-  validation {
-    condition = var.NWEIPN_NWSAF_NetworkFirewallPolicyEnforcementOrder == null || can(contains([
-      "BEFORE_CLASSIC_FIREWALL",
-      "AFTER_CLASSIC_FIREWALL"
-    ], var.NWEIPN_NWSAF_NetworkFirewallPolicyEnforcementOrder))
-    error_message = "Valid inputs for | variable: var.NWEIPN_NWSAF_NetworkFirewallPolicyEnforcementOrder | are: BEFORE_CLASSIC_FIREWALL, AFTER_CLASSIC_FIREWALL"
-  }
-  default = null
-}
-
-variable "NWEIPN_NWSAF_NetworkDeleteDefaultRoutesOnCreate" {
-  type    = bool
-  default = false
+variable "NWEIPN_NWSAF_NetworkObjects" {
+  type = list(object({
+    name                                      = string
+    description                               = optional(string, null)
+    auto_create_subnetworks                   = optional(bool, null)
+    routing_mode                              = optional(string, null)
+    mtu                                       = optional(number, null)
+    enable_ula_internal_ipv6                  = optional(bool, null)
+    internal_ipv6_range                       = optional(string, null)
+    network_firewall_policy_enforcement_order = optional(string, null)
+    delete_default_routes_on_create           = optional(bool, null)
+  }))
 }
 
 
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWEIPN_NWSAF_Subnetwork#argument-reference
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#argument-reference
 
-variable "NWEIPN_NWSAF_SubnetworkNetwork" {
-  type = string
-}
-
-variable "NWEIPN_NWSAF_SubnetworkDescription" {
-  type    = string
-  default = null
-}
-
-variable "NWEIPN_NWSAF_SubnetworkIpCidrRange" {
-  type    = string
-  default = null
-}
-
-variable "NWEIPN_NWSAF_SubnetworkReservedInternalRange" {
-  type    = string
-  default = null
-}
-
-variable "NWEIPN_NWSAF_SubnetworkPurpose" {
-  type = string
-  validation {
-    condition = var.NWEIPN_NWSAF_SubnetworkPurpose == null || can(contains([
-      "PRIVATE",
-      "REGIONAL_MANAGED_PROXY",
-      "GLOBAL_MANAGED_PROXY",
-      "PRIVATE_SERVICE_CONNECT",
-      "PEER_MIGRATION"
-    ], var.NWEIPN_NWSAF_SubnetworkPurpose))
-    error_message = "Valid inputs for | variable: var.NWEIPN_NWSAF_SubnetworkPurpose | are: PRIVATE, REGIONAL_MANAGED_PROXY, GLOBAL_MANAGED_PROXY, PRIVATE_SERVICE_CONNECT, PEER_MIGRATION"
-  }
-  default = null
-}
-
-variable "NWEIPN_NWSAF_SubnetworkRole" {
-  type = string
-  validation {
-    condition = var.NWEIPN_NWSAF_SubnetworkRole == null || can(contains([
-      "ACTIVE",
-      "BACKUP"
-    ], var.NWEIPN_NWSAF_SubnetworkRole))
-    error_message = "Valid inputs for | variable: var.NWEIPN_NWSAF_SubnetworkRole | are: ACTIVE, BACKUP"
-  }
-  default = null
-}
-
-variable "NWEIPN_NWSAF_SubnetworkSecondaryIpRange" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWEIPN_NWSAF_Subnetwork#nested_secondary_ip_range
-    range_name              = string
+variable "NWEIPN_NWSAF_SubnetworkObjects" {
+  type = list(object({
+    name                    = string
+    description             = optional(string, null)
     ip_cidr_range           = optional(string, null)
     reserved_internal_range = optional(string, null)
-  })
-  default = null
-}
+    purpose                 = optional(string, null)
+    role                    = optional(string, null)
 
-variable "NWEIPN_NWSAF_SubnetworkPrivateIpGoogleAccess" {
-  type    = bool
-  default = null
-}
+    secondary_ip_range = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#nested_secondary_ip_range
+      range_name              = string
+      ip_cidr_range           = optional(string, null)
+      reserved_internal_range = optional(string, null)
+    }), null)
 
-variable "NWEIPN_NWSAF_SubnetworkPrivateIpv6GoogleAccess" {
-  type    = string
-  default = null
-}
+    private_ip_google_access   = optional(bool, null)
+    private_ipv6_google_access = optional(string, null)
 
-variable "NWEIPN_NWSAF_SubnetworkLogConfig" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWEIPN_NWSAF_Subnetwork#nested_log_config
-    aggregation_interval = optional(string, null)
-    flow_sampling        = optional(number, null)
-    metadata             = optional(string, null)
-    metadata_fields      = optional(list(string), null)
-    filter_expr          = optional(string, null)
-  })
-  default = null
-}
+    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#nested_log_config
+      aggregation_interval = optional(string, null)
+      flow_sampling        = optional(number, null)
+      metadata             = optional(string, null)
+      metadata_fields      = optional(list(string), null)
+      filter_expr          = optional(string, null)
+    }), null)
 
-variable "NWEIPN_NWSAF_SubnetworkStackType" {
-  type = string
-  validation {
-    condition = var.NWEIPN_NWSAF_SubnetworkStackType == null || can(contains([
-      "IPV4_ONLY",
-      "IPV4_IPV6",
-      "IPV6_ONLY"
-    ], var.NWEIPN_NWSAF_SubnetworkStackType))
-    error_message = "Valid inputs for | variable: var.NWEIPN_NWSAF_SubnetworkStackType | are: IPV4_ONLY, IPV4_IPV6, IPV6_ONLY"
-  }
-  default = null
-}
-
-variable "NWEIPN_NWSAF_SubnetworkIpv6AccessType" {
-  type = string
-  validation {
-    condition = var.NWEIPN_NWSAF_SubnetworkIpv6AccessType == null || can(contains([
-      "EXTERNAL",
-      "INTERNAL"
-    ], var.NWEIPN_NWSAF_SubnetworkIpv6AccessType))
-    error_message = "Valid inputs for | variable: var.NWEIPN_NWSAF_SubnetworkIpv6AccessType | are: EXTERNAL, INTERNAL"
-  }
-  default = null
-}
-
-variable "NWEIPN_NWSAF_SubnetworkExternalIpv6Prefix" {
-  type    = string
-  default = null
-}
-
-variable "NWEIPN_NWSAF_SubnetworkSendSecondaryIpRangeIfEmpty" {
-  type    = bool
-  default = null
-}
-
-
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWEIPN_NWSAF_IngressFirewall#argument-reference
-
-variable "NWEIPN_NWSAF_IngressFirewallNetwork" {
-  type = string
-}
-
-variable "NWEIPN_NWSAF_IngressFirewallRulesAllow" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWEIPN_NWSAF_IngressFirewall#nested_allow
-  type = list(object({
-    protocol = string
-    ports    = optional(list(string), null)
+    stack_type                       = optional(string, null)
+    ipv6_access_type                 = optional(string, null)
+    external_ipv6_prefix             = optional(string, null)
+    send_secondary_ip_range_if_empty = optional(bool, null)
   }))
-  default = null
 }
 
-variable "NWEIPN_NWSAF_IngressFirewallDeny" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWEIPN_NWSAF_IngressFirewall#nested_deny
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#argument-reference
+
+variable "NWEIPN_NWSAF_FirewallObjects" {
   type = list(object({
-    protocol = string
-    ports    = optional(list(string), null)
+    name = string
+
+    allow = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_allow
+      protocol = string
+      ports    = optional(list(string), null)
+    }), null)
+
+    deny = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_deny
+      protocol = string
+      ports    = optional(list(string), null)
+    }), null)
+
+    description        = optional(string, null)
+    destination_ranges = optional(list(string), null)
+    direction          = optional(string, null)
+    disabled           = optional(bool, null)
+
+    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_log_config
+      metadata = string
+    }), null)
+
+    priority                = optional(number, null)
+    source_ranges           = optional(list(string), null)
+    source_service_accounts = optional(list(string), null)
+    source_tags             = optional(list(string), null)
+    target_service_accounts = optional(list(string), null)
+    target_tags             = optional(list(string), null)
   }))
-  default = null
 }
 
-variable "NWEIPN_NWSAF_IngressFirewallDescription" {
-  type    = string
-  default = null
-}
-
-variable "NWEIPN_NWSAF_IngressFirewallDestinationRanges" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEIPN_NWSAF_IngressFirewallDirection" {
-  type = string
-  validation {
-    condition = var.NWEIPN_NWSAF_IngressFirewallDirection == null || can(contains([
-      "INGRESS",
-      "EGRESS"
-    ], var.NWEIPN_NWSAF_IngressFirewallDirection))
-    error_message = "Valid inputs for | variable: var.NWEIPN_NWSAF_IngressFirewallDirection | are: INGRESS, EGRESS"
-  }
-  default = null
-}
-
-variable "NWEIPN_NWSAF_IngressFirewallDisabled" {
-  type    = bool
-  default = null
-}
-
-variable "NWEIPN_NWSAF_IngressFirewallLogConfig" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWEIPN_NWSAF_IngressFirewall#nested_log_config
-  type = object({
-    metadata = string
-  })
-  default = null
-}
-
-variable "NWEIPN_NWSAF_IngressFirewallPriority" {
-  type = number
-  validation {
-    condition     = var.NWEIPN_NWSAF_IngressFirewallPriority == null || can(var.NWEIPN_NWSAF_IngressFirewallPriority >= 0 && var.NWEIPN_NWSAF_IngressFirewallPriority <= 65535)
-    error_message = "var.NWEIPN_NWSAF_IngressFirewallPriority must be Greater than or Equal to 0 AND Less Than or Equal to 65535"
-  }
-  default = null
-}
-
-variable "NWEIPN_NWSAF_IngressFirewallSourceRanges" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEIPN_NWSAF_IngressFirewallSourceServiceAccounts" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEIPN_NWSAF_IngressFirewallSourceTags" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEIPN_NWSAF_IngressFirewallTargetServiceAccounts" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEIPN_NWSAF_IngressFirewallTargetTags" {
-  type    = list(string)
-  default = null
-}
-
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWEIPN_NWSAF_EgressFirewall#argument-reference
-
-variable "NWEIPN_NWSAF_EgressFirewallNetwork" {
-  type = string
-}
-
-variable "NWEIPN_NWSAF_EgressFirewallRulesAllow" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWEIPN_NWSAF_EgressFirewall#nested_allow
-  type = list(object({
-    protocol = string
-    ports    = optional(list(string), null)
-  }))
-  default = null
-}
-
-variable "NWEIPN_NWSAF_EgressFirewallDeny" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWEIPN_NWSAF_EgressFirewall#nested_deny
-  type = list(object({
-    protocol = string
-    ports    = optional(list(string), null)
-  }))
-  default = null
-}
-
-variable "NWEIPN_NWSAF_EgressFirewallDescription" {
-  type    = string
-  default = null
-}
-
-variable "NWEIPN_NWSAF_EgressFirewallDestinationRanges" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEIPN_NWSAF_EgressFirewallDirection" {
-  type = string
-  validation {
-    condition = var.NWEIPN_NWSAF_EgressFirewallDirection == null || can(contains([
-      "INGRESS",
-      "EGRESS"
-    ], var.NWEIPN_NWSAF_EgressFirewallDirection))
-    error_message = "Valid inputs for | variable: var.NWEIPN_NWSAF_EgressFirewallDirection | are: INGRESS, EGRESS"
-  }
-  default = null
-}
-
-variable "NWEIPN_NWSAF_EgressFirewallDisabled" {
-  type    = bool
-  default = null
-}
-
-variable "NWEIPN_NWSAF_EgressFirewallLogConfig" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWEIPN_NWSAF_EgressFirewall#nested_log_config
-  type = object({
-    metadata = string
-  })
-  default = null
-}
-
-variable "NWEIPN_NWSAF_EgressFirewallPriority" {
-  type = number
-  validation {
-    condition     = var.NWEIPN_NWSAF_EgressFirewallPriority == null || can(var.NWEIPN_NWSAF_EgressFirewallPriority >= 0 && var.NWEIPN_NWSAF_EgressFirewallPriority <= 65535)
-    error_message = "var.NWEIPN_NWSAF_EgressFirewallPriority must be Greater than or Equal to 0 AND Less Than or Equal to 65535"
-  }
-  default = null
-}
-
-variable "NWEIPN_NWSAF_EgressFirewallSourceRanges" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEIPN_NWSAF_EgressFirewallSourceServiceAccounts" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEIPN_NWSAF_EgressFirewallSourceTags" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEIPN_NWSAF_EgressFirewallTargetServiceAccounts" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEIPN_NWSAF_EgressFirewallTargetTags" {
-  type    = list(string)
-  default = null
-}
 
 
 
@@ -399,276 +129,126 @@ variable "NWEIPN_NWSAF_EgressFirewallTargetTags" {
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address#argument-reference
 
-#Only necessary if you want a specific address for internal use
-variable "NWEIPN_NWEA_NetworkAddressAddress" {
-  type    = string
-  default = null
+variable "NWEIPN_NWEA_NetworkAddressObject" {
+  type = object({
+    address            = optional(string, null)
+    address_type       = optional(string, null)
+    description        = optional(string, null)
+    purpose            = optional(string, null)
+    network_tier       = optional(string, null)
+    subnetwork         = optional(string, null)
+    network            = optional(string, null)
+    prefix_length      = optional(number, null)
+    ip_version         = optional(string, null)
+    ipv6_endpoint_type = optional(string, null)
+  })
+  default = {}
 }
 
-variable "NWEIPN_NWEA_NetworkAddressType" {
-  type = string
-  validation {
-    condition     = contains(["INTERNAL", "EXTERNAL"], var.NWEIPN_NWEA_NetworkAddressType)
-    error_message = "Variable NWEIPN_NWEA_NetworkAddressType must be one of the following values: INTERNAL, EXTERNAL"
-  }
-  default = "EXTERNAL"
-}
 
-#Possible Values are either PREMIUM or STANDARD, if left Null it will default to PREMIUM
-variable "NWEIPN_NWEA_NetworkAddressNetworkTier" {
-  type    = string
-  default = null
-}
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router#argument-reference
+
+variable "NWEIPN_NWEA_NetworkRouterObjects" {
+  type = list(object({
+    name        = string
+    description = optional(string, null)
+
+    bgp = optional(object({
+      asn               = string
+      advertise_mode    = optional(string, null)
+      advertised_groups = optional(list(string), null)
+      advertised_ip_ranges = optional(object({
+        range       = string
+        description = optional(string, null)
+      }), null)
+      keepalive_interval = optional(number, null)
+      identifier_range   = optional(string, null)
+    }), null)
+
+    encrypted_interconnect_router = optional(bool, null)
+  }))
+}
 
 variable "NWEIPN_NWEA_NetworkRouterNetwork" {
   type = string
 }
 
-variable "NWEIPN_NWEA_NetworkRouterDescription" {
-  type    = string
-  default = null
-}
 
-variable "NWEIPN_NWEA_NetworkRouterBgp" {
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#argument-reference
+
+variable "NWEIPN_NWEA_NatObject" {
   type = object({
-    asn               = string
-    advertise_mode    = optional(string, null)
-    advertised_groups = optional(list(string), null)
-    advertised_ip_ranges = optional(object({
-      range       = string
-      description = optional(string, null)
+    source_subnetwork_ip_ranges_to_nat = string
+    nat_ip_allocate_option             = optional(string, null)
+    initial_nat_ips                    = optional(list(string), null)
+    drain_nat_ips                      = optional(list(string), null)
+
+    subnetwork = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_subnetwork
+      name                     = string
+      source_ip_ranges_to_nat  = list(string)
+      secondary_ip_range_names = optional(list(string), null)
     }), null)
-    keepalive_interval = optional(number, null)
-    identifier_range   = optional(string, null)
+
+    min_ports_per_vm                 = optional(number, null)
+    max_ports_per_vm                 = optional(number, null)
+    enable_dynamic_port_allocation   = optional(bool, null)
+    udp_idle_timeout_sec             = optional(number, null)
+    icmp_idle_timeout_sec            = optional(number, null)
+    tcp_established_idle_timeout_sec = optional(number, null)
+    tcp_transitory_idle_timeout_sec  = optional(number, null)
+    tcp_time_wait_timeout_sec        = optional(number, null)
+
+    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_log_config
+      enable = bool
+      filter = string
+    }), null)
+
+    endpoint_types = optional(list(string), null)
+
+    rules = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules
+      rule_number = number
+      description = optional(string, null)
+      match       = string
+
+      action = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules_rules_action
+        source_nat_active_ips = optional(list(string), null)
+        source_nat_drain_ips  = optional(list(string), null)
+      })
+    }), null)
+
+    enable_endpoint_independent_mapping = optional(bool, null)
+    auto_network_tier                   = optional(string, null)
   })
-  default = null
 }
 
-variable "NWEIPN_NWEA_NetworkRouterEncryptedInterconnectRouter" {
-  type    = bool
-  default = null
-}
-
-
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEIPN_NWEA_Nat#argument-reference
-
-variable "NWEIPN_NWEA_NatSourceSubnetworkIpRangesToNat" {
-  type = string
-  validation {
-    condition = contains([
-      "ALL_SUBNETWORKS_ALL_IP_RANGES",
-      "ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES",
-      "LIST_OF_SUBNETWORKS"
-    ], var.NWEIPN_NWEA_NatSourceSubnetworkIpRangesToNat)
-    error_message = "Valid inputs for | variable: var.NWEIPN_NWEA_NatSourceSubnetworkIpRangesToNat | are: ALL_SUBNETWORKS_ALL_IP_RANGES, ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, LIST_OF_SUBNETWORKS"
-  }
-}
-
-variable "NWEIPN_NWEA_NatIpAllocateOption" {
-  type = string
-  validation {
-    condition = var.NWEIPN_NWEA_NatIpAllocateOption == null || can(contains([
-      "ALL_SUBNETWORKS_ALL_IP_RANGES",
-      "ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES",
-      "LIST_OF_SUBNETWORKS"
-    ], var.NWEIPN_NWEA_NatIpAllocateOption))
-    error_message = "Valid inputs for | variable: var.NWEIPN_NWEA_NatIpAllocateOption | are: ALL_SUBNETWORKS_ALL_IP_RANGES, ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, LIST_OF_SUBNETWORKS"
-  }
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatInitialNatIps" {
+variable "natNatIps" {
   type    = list(string)
-  default = null
+  default = []
 }
 
 
-variable "NWEIPN_NWEA_NatIps" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatDrainNatIps" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatSubnetwork" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEIPN_NWEA_Nat#nested_subnetwork
-  type = object({
-    name                                = string
-    source_ip_ranges_to_NWEIPN_NWEA_Nat = list(string)
-    secondary_ip_range_names            = optional(list(string), null)
-  })
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatMinPortsPerVm" {
-  type    = number
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatMaxPortsPerVm" {
-  type    = number
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatEnableDynamicPortAllocation" {
-  type    = bool
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatUdpIdleTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatIcmpIdleTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatTcpEstablishedIdleTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatTcpTransitoryIdleTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatTcpTimeWaitTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatLogConfig" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEIPN_NWEA_Nat#nested_log_config
-    enable = bool
-    filter = string
-  })
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatEndpointTypes" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatRules" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEIPN_NWEA_Nat#nested_rules
-    rule_number = number
-    description = optional(string, null)
-    match       = string
-
-    action = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEIPN_NWEA_Nat#nested_rules_rules_action
-      source_NWEIPN_NWEA_Nat_active_ips = optional(list(string), null)
-      source_NWEIPN_NWEA_Nat_drain_ips  = optional(list(string), null)
-    })
-  })
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatEnableEndpointIndependentMapping" {
-  type    = bool
-  default = null
-}
-
-variable "NWEIPN_NWEA_NatAutoNetworkTier" {
-  type = string
-  validation {
-    condition = var.NWEIPN_NWEA_NatAutoNetworkTier == null || can(contains([
-      "PREMIUM",
-      "STANDARD"
-    ], var.NWEIPN_NWEA_NatAutoNetworkTier))
-    error_message = "Valid inputs for | variable: var.NWEIPN_NWEA_NatAutoNetworkTier | are: PREMIUM, STANDARD"
-  }
-  default = null
-}
 
 #---
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/vpc_access_connector#argument-reference
 
-variable "NWEIPN_VpcAccessConnectorNetwork" {
-  type    = string
-  default = null
-}
+variable "NWEIPN_VpcAccessConnectorObject" {
+  type = object({
+    network        = optional(string, null)
+    ip_cidr_range  = optional(string, null)
+    machine_type   = optional(string, null)
+    min_throughput = optional(number, null)
+    min_instances  = optional(number, null)
+    max_instances  = optional(number, null)
+    max_throughput = optional(number, null)
 
-variable "NWEIPN_VpcAccessConnectorIpCidrRange" {
-  type    = string
-  default = null
-}
-
-variable "NWEIPN_VpcAccessConnectorMachineType" {
-  type    = string
-  default = null
-}
-
-variable "NWEIPN_VpcAccessConnectorMinThroughput" {
-  type = number
-  validation {
-    condition = var.NWEIPN_VpcAccessConnectorMinThroughput == null || can(contains([
-      200,
-      300,
-      400,
-      500,
-      600,
-      700,
-      800,
-      900
-    ], var.NWEIPN_VpcAccessConnectorMinThroughput))
-    error_message = "Valid inputs for | variable: var.NWEIPN_VpcAccessConnectorMinThroughput | are: 200, 300, 400, 500, 600, 700, 800, 900"
-  }
-  default = null
-}
-
-variable "NWEIPN_VpcAccessConnectorMinInstances" {
-  type = number
-  validation {
-    condition     = var.NWEIPN_VpcAccessConnectorMinInstances == null || can(var.NWEIPN_VpcAccessConnectorMinInstances >= 2 && var.NWEIPN_VpcAccessConnectorMinInstances <= 9)
-    error_message = "var.NWEIPN_VpcAccessConnectorMinInstances must be Greater than or Equal to 2 AND Less Than or Equal to 9"
-  }
-  default = null
-}
-
-variable "NWEIPN_VpcAccessConnectorMaxInstances" {
-  type = number
-  validation {
-    condition     = var.NWEIPN_VpcAccessConnectorMaxInstances == null || can(var.NWEIPN_VpcAccessConnectorMaxInstances >= 3 && var.NWEIPN_VpcAccessConnectorMaxInstances <= 10)
-    error_message = "var.NWEIPN_VpcAccessConnectorMaxInstances must be Greater than or Equal to 3 AND Less Than or Equal to 10"
-  }
-  default = null
-}
-
-variable "NWEIPN_VpcAccessConnectorMaxThroughput" {
-  type = number
-  validation {
-    condition = var.NWEIPN_VpcAccessConnectorMaxThroughput == null || can(contains([
-      300,
-      400,
-      500,
-      600,
-      700,
-      800,
-      900,
-      1000
-    ], var.NWEIPN_VpcAccessConnectorMaxThroughput))
-    error_message = "Valid inputs for | variable: var.NWEIPN_VpcAccessConnectorMaxThroughput | are: 300, 400, 500, 600, 700, 800, 900, 1000"
-  }
-}
-
-variable "NWEIPN_VpcAccessConnectorSubnet" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/vpc_access_connector#nested_subnet
-    name       = optional(string, null)
-    project_id = optional(string, null)
+    subnet = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/vpc_access_connector#nested_subnet
+      name       = optional(string, null)
+      project_id = optional(string, null)
+    }), null)
   })
 }
-
-
 
 #---

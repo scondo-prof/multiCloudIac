@@ -9,33 +9,33 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/genericNetworkAddress",
-            "source_path": "../genericNetworkAddress",
+            "project_path": "../gcp/cloudComputeNetwork/_NWSAF_networkWithSubnetworkAndFirewall",
+            "source_path": "../_NWSAF_networkWithSubnetworkAndFirewall",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "networkAddress",
-        "new_variable_prefix": "NWEA_NetworkAddress",
-        "module_name": "networkAddress",
+        "previous_variable_prefix": "NWSAF",
+        "new_variable_prefix": "NWEIPN_NWSAF",
+        "module_name": "NWSAF",
     },
     {
         "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/genericNetworkRouter",
-            "source_path": "../genericNetworkRouter",
+            "project_path": "../gcp/cloudComputeNetwork/_NWEA_natWithExternalAddress",
+            "source_path": "../_NWEA_natWithExternalAddress",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "networkRouter",
-        "new_variable_prefix": "NWEA_NetworkRouter",
-        "module_name": "networkRouter",
+        "previous_variable_prefix": "NWEA",
+        "new_variable_prefix": "NWEIPN_NWEA",
+        "module_name": "NWEA",
     },
     {
         "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/genericNetworkRouterNat",
-            "source_path": "../genericNetworkRouterNat",
+            "project_path": "../gcp/cloudComputeNetwork/genericVpcAccessConnector",
+            "source_path": "../genericVpcAccessConnector",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "nat",
-        "new_variable_prefix": "NWEA_Nat",
-        "module_name": "nat",
+        "previous_variable_prefix": "vpcAccessConnector",
+        "new_variable_prefix": "NWEIPN_VpcAccessConnector",
+        "module_name": "vpcAccessConnector",
     },
 ]
 

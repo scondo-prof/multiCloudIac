@@ -19,7 +19,6 @@ output "NWEIPN_NWSAF_NetworkName" {
 }
 
 
-
 output "NWEIPN_NWSAF_SubnetworkId" {
   value = module.NWSAF.NWSAF_SubnetworkId
 }
@@ -53,38 +52,20 @@ output "NWEIPN_NWSAF_SubnetworkName" {
 }
 
 
-
-output "NWEIPN_NWSAF_IngressFirewallId" {
-  value = module.NWSAF.NWSAF_IngressFirewallId
+output "NWEIPN_NWSAF_FirewallId" {
+  value = module.NWSAF.NWSAF_FirewallId
 }
 
-output "NWEIPN_NWSAF_IngressFirewallCreationTimestamp" {
-  value = module.NWSAF.NWSAF_IngressFirewallCreationTimestamp
+output "NWEIPN_NWSAF_FirewallCreationTimestamp" {
+  value = module.NWSAF.NWSAF_FirewallCreationTimestamp
 }
 
-output "NWEIPN_NWSAF_IngressFirewallSelfLink" {
-  value = module.NWSAF.NWSAF_IngressFirewallSelfLink
+output "NWEIPN_NWSAF_FirewallSelfLink" {
+  value = module.NWSAF.NWSAF_FirewallSelfLink
 }
 
-output "NWEIPN_NWSAF_IngressFirewallName" {
-  value = module.NWSAF.NWSAF_IngressFirewallName
-}
-
-
-output "NWEIPN_NWSAF_EgressFirewallId" {
-  value = module.NWSAF.NWSAF_EgressFirewallId
-}
-
-output "NWEIPN_NWSAF_EgressFirewallCreationTimestamp" {
-  value = module.NWSAF.NWSAF_EgressFirewallCreationTimestamp
-}
-
-output "NWEIPN_NWSAF_EgressFirewallSelfLink" {
-  value = module.NWSAF.NWSAF_EgressFirewallSelfLink
-}
-
-output "NWEIPN_NWSAF_EgressFirewallName" {
-  value = module.NWSAF.NWSAF_EgressFirewallName
+output "NWEIPN_NWSAF_FirewallName" {
+  value = module.NWSAF.NWSAF_FirewallName
 }
 
 
@@ -94,6 +75,26 @@ output "NWEIPN_NWEA_NetworkAddressId" {
   value = module.NWEA.NWEA_NetworkAddressId
 }
 
+output "NWEIPN_NWEA_NetworkAddressCreationTimestamp" {
+  value = module.NWEA.NWEA_NetworkAddressCreationTimestamp
+}
+
+output "NWEIPN_NWEA_NetworkAddressUsers" {
+  value = module.NWEA.NWEA_NetworkAddressUsers
+}
+
+output "NWEIPN_NWEA_NetworkAddressLabelFingerprint" {
+  value = module.NWEA.NWEA_NetworkAddressLabelFingerprint
+}
+
+output "NWEIPN_NWEA_NetworkAddressTerraformLabels" {
+  value = module.NWEA.NWEA_NetworkAddressTerraformLabels
+}
+
+output "NWEIPN_NWEA_NetworkAddressEffectiveLabels" {
+  value = module.NWEA.NWEA_NetworkAddressEffectiveLabels
+}
+
 output "NWEIPN_NWEA_NetworkAddressSelfLink" {
   value = module.NWEA.NWEA_NetworkAddressSelfLink
 }
@@ -101,7 +102,6 @@ output "NWEIPN_NWEA_NetworkAddressSelfLink" {
 output "NWEIPN_NWEA_NetworkAddressExternalIp" {
   value = module.NWEA.NWEA_NetworkAddressExternalIp
 }
-
 
 
 output "NWEIPN_NWEA_NetworkRouterId" {
@@ -121,7 +121,6 @@ output "NWEIPN_NWEA_NetworkRouterCreationTimestamp" {
 }
 
 
-
 output "NWEIPN_NWEA_NatId" {
   value = module.NWEA.NWEA_NatId
 }
@@ -129,6 +128,8 @@ output "NWEIPN_NWEA_NatId" {
 output "NWEIPN_NWEA_NatName" {
   value = module.NWEA.NWEA_NatName
 }
+
+
 
 #---
 output "NWEIPN_VpcAccessConnectorId" {

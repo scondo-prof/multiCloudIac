@@ -2,8 +2,8 @@ gcpProjectId = "dev-env-433017"
 
 NWSAF_NetworkObjects = [
   {
-    name                          = "another-test"
-    description                   = "can also be for testing porpoises"
+    name                    = "another-test"
+    description             = "can also be for testing porpoises"
     auto_create_subnetworks = false
   }
 ]
@@ -23,7 +23,7 @@ NWSAF_SubnetworkObjects = [
 
 NWSAF_FirewallObjects = [
   {
-    name    = "wow-cool-ingress"
+    name = "wow-cool-ingress"
     allow = {
       protocol = "tcp"
     }
@@ -36,7 +36,7 @@ NWSAF_FirewallObjects = [
     source_ranges = ["0.0.0.0/0"]
   },
   {
-    name    = "wow-cool-egress"
+    name = "wow-cool-egress"
     allow = {
       protocol = "tcp"
     }

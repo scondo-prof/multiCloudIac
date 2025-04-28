@@ -14,7 +14,7 @@ provider "google" {
 
 resource "google_compute_firewall" "firewall" {
   count   = length(var.firewallObjects)
-  name    = "${var.firewallObjects[count.index]["name"]}-firewall"
+  name    = "${var.resourceName}-${var.firewallObjects[count.index]["name"]}-firewall"
   network = var.firewallNetwork
 
   dynamic "allow" {
