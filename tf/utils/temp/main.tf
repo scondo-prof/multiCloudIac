@@ -1,32 +1,41 @@
 
-    module "network" {
-  source = "../genericNetwork"
+    module "NWSAF" {
+  source = "../_NWSAF_networkWithSubnetworkAndFirewall"
 gcpProjectId = var.gcpProjectId
 gcpRegion = var.gcpRegion
-networkObjects = var.NWSAF_NetworkObjects
+NWSAF_NetworkObjects = var.NWEIPN_NWSAF_NetworkObjects
 resourceName = var.resourceName
+NWSAF_SubnetworkObjects = var.NWEIPN_NWSAF_SubnetworkObjects
+NWSAF_FirewallObjects = var.NWEIPN_NWSAF_FirewallObjects
 }
 
 #---
 
-    module "subnetwork" {
-  source = "../genericSubnetwork"
+    module "NWEA" {
+  source = "../_NWEA_natWithExternalAddress"
 gcpProjectId = var.gcpProjectId
 gcpRegion = var.gcpRegion
-subnetworkObjects = var.NWSAF_SubnetworkObjects
 resourceName = var.resourceName
-subnetworkNetwork = var.NWSAF_SubnetworkNetwork
+NWEA_NetworkAddressObject = var.NWEIPN_NWEA_NetworkAddressObject
+projectName = var.projectName
+deployedDate = var.deployedDate
+createdBy = var.createdBy
+tfModule = var.tfModule
+additionalTags = var.additionalTags
+NWEA_NetworkRouterObjects = var.NWEIPN_NWEA_NetworkRouterObjects
+NWEA_NetworkRouterNetwork = var.NWEIPN_NWEA_NetworkRouterNetwork
+natNatIps = var.natNatIps
+NWEA_NatObject = var.NWEIPN_NWEA_NatObject
 }
 
 #---
 
-    module "firewall" {
-  source = "../genericFirewall"
+    module "vpcAccessConnector" {
+  source = "../genericVpcAccessConnector"
 gcpProjectId = var.gcpProjectId
 gcpRegion = var.gcpRegion
-firewallObjects = var.NWSAF_FirewallObjects
 resourceName = var.resourceName
-firewallNetwork = var.NWSAF_FirewallNetwork
+vpcAccessConnectorObject = var.NWEIPN_VpcAccessConnectorObject
 }
 
 #---

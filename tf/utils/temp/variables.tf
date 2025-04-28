@@ -11,9 +11,31 @@ variable "resourceName" {
   type = string
 }
 
+variable "projectName" {
+  type = string
+}
+
+variable "deployedDate" {
+  type = string
+}
+
+variable "createdBy" {
+  type    = string
+  default = "scott-condo"
+}
+
+variable "tfModule" {
+  type = string
+}
+
+variable "additionalTags" {
+  type    = map(string)
+  default = {}
+}
+
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network#argument-reference
 
-variable "NWSAF_NetworkObjects" {
+variable "NWEIPN_NWSAF_NetworkObjects" {
   type = list(object({
     name                                      = string
     description                               = optional(string, null)
@@ -27,11 +49,11 @@ variable "NWSAF_NetworkObjects" {
   }))
 }
 
-#---
+
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#argument-reference
 
-variable "NWSAF_SubnetworkObjects" {
+variable "NWEIPN_NWSAF_SubnetworkObjects" {
   type = list(object({
     name                    = string
     description             = optional(string, null)
@@ -64,17 +86,13 @@ variable "NWSAF_SubnetworkObjects" {
   }))
 }
 
-variable "NWSAF_SubnetworkNetwork" {
-  type = string
-}
 
-#---
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#argument-reference
 
-variable "NWSAF_FirewallObjects" {
+variable "NWEIPN_NWSAF_FirewallObjects" {
   type = list(object({
-    name    = string
+    name = string
 
     allow = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_allow
       protocol = string
@@ -104,8 +122,133 @@ variable "NWSAF_FirewallObjects" {
   }))
 }
 
-variable "NWSAF_FirewallNetwork" {
+
+
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address#argument-reference
+
+variable "NWEIPN_NWEA_NetworkAddressObject" {
+  type = object({
+    address            = optional(string, null)
+    address_type       = optional(string, null)
+    description        = optional(string, null)
+    purpose            = optional(string, null)
+    network_tier       = optional(string, null)
+    subnetwork         = optional(string, null)
+    network            = optional(string, null)
+    prefix_length      = optional(number, null)
+    ip_version         = optional(string, null)
+    ipv6_endpoint_type = optional(string, null)
+  })
+  default = {}
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router#argument-reference
+
+variable "NWEIPN_NWEA_NetworkRouterObjects" {
+  type = list(object({
+    name        = string
+    description = optional(string, null)
+
+    bgp = optional(object({
+      asn               = string
+      advertise_mode    = optional(string, null)
+      advertised_groups = optional(list(string), null)
+      advertised_ip_ranges = optional(object({
+        range       = string
+        description = optional(string, null)
+      }), null)
+      keepalive_interval = optional(number, null)
+      identifier_range   = optional(string, null)
+    }), null)
+
+    encrypted_interconnect_router = optional(bool, null)
+  }))
+}
+
+variable "NWEIPN_NWEA_NetworkRouterNetwork" {
   type = string
+}
+
+
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#argument-reference
+
+variable "NWEIPN_NWEA_NatObject" {
+  type = object({
+    source_subnetwork_ip_ranges_to_nat = string
+    nat_ip_allocate_option             = optional(string, null)
+    initial_nat_ips                    = optional(list(string), null)
+    drain_nat_ips                      = optional(list(string), null)
+
+    subnetwork = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_subnetwork
+      name                     = string
+      source_ip_ranges_to_nat  = list(string)
+      secondary_ip_range_names = optional(list(string), null)
+    }), null)
+
+    min_ports_per_vm                 = optional(number, null)
+    max_ports_per_vm                 = optional(number, null)
+    enable_dynamic_port_allocation   = optional(bool, null)
+    udp_idle_timeout_sec             = optional(number, null)
+    icmp_idle_timeout_sec            = optional(number, null)
+    tcp_established_idle_timeout_sec = optional(number, null)
+    tcp_transitory_idle_timeout_sec  = optional(number, null)
+    tcp_time_wait_timeout_sec        = optional(number, null)
+
+    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_log_config
+      enable = bool
+      filter = string
+    }), null)
+
+    endpoint_types = optional(list(string), null)
+
+    rules = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules
+      rule_number = number
+      description = optional(string, null)
+      match       = string
+
+      action = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules_rules_action
+        source_nat_active_ips = optional(list(string), null)
+        source_nat_drain_ips  = optional(list(string), null)
+      })
+    }), null)
+
+    enable_endpoint_independent_mapping = optional(bool, null)
+    auto_network_tier                   = optional(string, null)
+  })
+}
+
+variable "natNatIps" {
+  type    = list(string)
+  default = []
+}
+
+
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/vpc_access_connector#argument-reference
+
+variable "NWEIPN_VpcAccessConnectorObject" {
+  type = object({
+    network        = optional(string, null)
+    ip_cidr_range  = optional(string, null)
+    machine_type   = optional(string, null)
+    min_throughput = optional(number, null)
+    min_instances  = optional(number, null)
+    max_instances  = optional(number, null)
+    max_throughput = optional(number, null)
+
+    subnet = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/vpc_access_connector#nested_subnet
+      name       = optional(string, null)
+      project_id = optional(string, null)
+    }), null)
+  })
 }
 
 #---

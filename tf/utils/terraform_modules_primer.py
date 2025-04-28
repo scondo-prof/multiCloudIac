@@ -27,6 +27,16 @@ modules = [
         "new_variable_prefix": "NWEIPN_NWEA",
         "module_name": "NWEA",
     },
+    {
+        "paths": {
+            "project_path": "../gcp/cloudComputeNetwork/genericVpcAccessConnector",
+            "source_path": "../genericVpcAccessConnector",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "vpcAccessConnector",
+        "new_variable_prefix": "NWEIPN_VpcAccessConnector",
+        "module_name": "vpcAccessConnector",
+    },
 ]
 
 
