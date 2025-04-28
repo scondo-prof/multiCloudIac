@@ -1,7 +1,11 @@
 gcpProjectId = "dev-env-433017"
 
-resourceName = "route-53-test"
-
 projectName = "test"
 
-deployedDate = "11-15-2024"
+deployedDate = "2025-04-28"
+
+tfModule = "generic-network-address"
+
+networkAddressObject = {
+  name = "test-word"
+}

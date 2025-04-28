@@ -13,23 +13,23 @@ provider "google" {
 }
 
 resource "google_compute_address" "networkAddress" {
-  name         = "${var.resourceName}-network-address"
-  address      = var.networkAddressAddress
-  address_type = var.networkAddressType
-  description  = var.networkAddressDescription
-  purpose      = var.networkAddressPurpose
-  network_tier = var.networkAddressNetworkTier
-  subnetwork   = var.networkAddressSubnetwork
+  name         = "${var.networkAddressObject["name"]}-network-address"
+  address      = var.networkAddressObject["address"]
+  address_type = var.networkAddressObject["address_type"]
+  description  = var.networkAddressObject["description"]
+  purpose      = var.networkAddressObject["purpose"]
+  network_tier = var.networkAddressObject["network_tier"]
+  subnetwork   = var.networkAddressObject["subnetwork"]
   labels = merge({
     project       = var.projectName
     deployed-date = var.deployedDate
     created-by    = var.createdBy
     tf-module     = var.tfModule
   }, var.additionalTags)
-  network            = var.networkAddressNetwork
-  prefix_length      = var.networkAddressPrefixLength
-  ip_version         = var.networkAddressIpVersion
-  ipv6_endpoint_type = var.networkAddressIpv6EndpoingType
+  network            = var.networkAddressObject["network"]
+  prefix_length      = var.networkAddressObject["prefix_length"]
+  ip_version         = var.networkAddressObject["ip_version"]
+  ipv6_endpoint_type = var.networkAddressObject["ipv6_endpoint_type"]
   region             = var.gcpRegion
   project            = var.gcpProjectId
 }
