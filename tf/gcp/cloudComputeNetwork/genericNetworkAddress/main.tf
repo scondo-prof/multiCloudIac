@@ -14,12 +14,12 @@ provider "google" {
 
 resource "google_compute_address" "networkAddress" {
   name         = "${var.networkAddressObject["name"]}-network-address"
-  address      = var.networkAddressObject[""]#var.networkAddressAddress
-  address_type = var.networkAddressObject[""]#var.networkAddressType
-  description  = var.networkAddressObject[""]#var.networkAddressDescription
-  purpose      = var.networkAddressObject[""]#var.networkAddressPurpose
-  network_tier = var.networkAddressObject[""]#var.networkAddressNetworkTier
-  subnetwork   = var.networkAddressObject[""]#var.networkAddressSubnetwork
+  address      = var.networkAddressObject["address"]
+  address_type = var.networkAddressObject["address_type"]
+  description  = var.networkAddressObject["description"]
+  purpose      = var.networkAddressObject["purpose"]
+  network_tier = var.networkAddressObject["network_tier"]
+  subnetwork   = var.networkAddressObject["subnetwork"]
   labels = merge({
     project       = var.projectName
     deployed-date = var.deployedDate

@@ -34,53 +34,13 @@ variable "additionalTags" {
 variable "networkAddressObject" {
   type = object({
     name = string
+    address = optional(string, null)
+    address_type = optional(string, null)
+    description = optional(string, null)
+    purpose = optional(string, null)
+    network_tier = optional(string, null)
+    subnetwork = optional(string, null)
   })
-}
-
-variable "networkAddressAddress" {
-  type    = string
-  default = null
-}
-
-variable "networkAddressType" {
-  type = string
-  validation {
-    condition     = contains(["INTERNAL", "EXTERNAL"], var.networkAddressType)
-    error_message = "Variable networkAddressType must be one of the following values: INTERNAL, EXTERNAL"
-  }
-  default = "EXTERNAL"
-}
-
-variable "networkAddressDescription" {
-  type    = string
-  default = null
-}
-
-variable "networkAddressPurpose" {
-  type = string
-  validation {
-    condition = var.networkAddressPurpose == null || can(contains([
-      "GCE_ENDPOINT",
-      "SHARED_LOADBALANCER_VIP",
-      "VPC_PEERING",
-      "IPSEC_INTERCONNECT",
-      "PRIVATE_SERVICE_CONNECT"
-    ], var.networkAddressPurpose))
-    error_message = "Valid inputs for | variable: networkAddressPurpose | are: GCE_ENDPOINT, SHARED_LOADBALANCER_VIP, VPC_PEERING, IPSEC_INTERCONNECT, PRIVATE_SERVICE_CONNECT"
-  }
-  default = null
-}
-
-variable "networkAddressNetworkTier" {
-  type = string
-  validation {
-    condition = var.networkAddressNetworkTier == null || can(contains([
-      "PREMIUM",
-      "STANDARD"
-    ], var.networkAddressNetworkTier))
-    error_message = "Valid inputs for | variable: networkAddressNetworkTier | are: PREMIUM, STANDARD"
-  }
-  default = null
 }
 
 
