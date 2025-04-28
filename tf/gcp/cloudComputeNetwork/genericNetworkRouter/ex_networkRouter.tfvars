@@ -1,8 +1,9 @@
 gcpProjectId = "dev-env-433017"
 
-networkRouterObjects = [ 
-    {
-  name = "test-router"
-  network = "waynes-world-network"
-} 
+networkRouterObjects = [
+  {
+    name = "test-router"
+  }
 ]
+
+networkRouterNetwork = "waynes-world-network"

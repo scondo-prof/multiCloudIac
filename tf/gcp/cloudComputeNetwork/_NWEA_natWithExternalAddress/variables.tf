@@ -11,11 +11,11 @@ variable "resourceName" {
   type = string
 }
 
-variable "deployedDate" {
+variable "projectName" {
   type = string
 }
 
-variable "projectName" {
+variable "deployedDate" {
   type = string
 }
 
@@ -35,200 +35,103 @@ variable "additionalTags" {
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address#argument-reference
 
-#Only necessary if you want a specific address for internal use
-variable "NWEA_NetworkAddressAddress" {
-  type    = string
-  default = null
+variable "NWEA_NetworkAddressObject" {
+  type = object({
+    address            = optional(string, null)
+    address_type       = optional(string, null)
+    description        = optional(string, null)
+    purpose            = optional(string, null)
+    network_tier       = optional(string, null)
+    subnetwork         = optional(string, null)
+    network            = optional(string, null)
+    prefix_length      = optional(number, null)
+    ip_version         = optional(string, null)
+    ipv6_endpoint_type = optional(string, null)
+  })
+  default = {}
 }
 
-variable "NWEA_NetworkAddressType" {
-  type = string
-  validation {
-    condition     = contains(["INTERNAL", "EXTERNAL"], var.NWEA_NetworkAddressType)
-    error_message = "Variable NWEA_NetworkAddressType must be one of the following values: INTERNAL, EXTERNAL"
-  }
-  default = "EXTERNAL"
-}
-
-#Possible Values are either PREMIUM or STANDARD, if left Null it will default to PREMIUM
-variable "NWEA_NetworkAddressNetworkTier" {
-  type    = string
-  default = null
-}
+#---
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router#argument-reference
+
+variable "NWEA_NetworkRouterObjects" {
+  type = list(object({
+    name        = string
+    description = optional(string, null)
+
+    bgp = optional(object({
+      asn               = string
+      advertise_mode    = optional(string, null)
+      advertised_groups = optional(list(string), null)
+      advertised_ip_ranges = optional(object({
+        range       = string
+        description = optional(string, null)
+      }), null)
+      keepalive_interval = optional(number, null)
+      identifier_range   = optional(string, null)
+    }), null)
+
+    encrypted_interconnect_router = optional(bool, null)
+  }))
+}
 
 variable "NWEA_NetworkRouterNetwork" {
   type = string
 }
 
-variable "NWEA_NetworkRouterDescription" {
-  type    = string
-  default = null
-}
-
-variable "NWEA_NetworkRouterBgp" {
-  type = object({
-    asn               = string
-    advertise_mode    = optional(string, null)
-    advertised_groups = optional(list(string), null)
-    advertised_ip_ranges = optional(object({
-      range       = string
-      description = optional(string, null)
-    }), null)
-    keepalive_interval = optional(number, null)
-    identifier_range   = optional(string, null)
-  })
-  default = null
-}
-
-variable "NWEA_NetworkRouterEncryptedInterconnectRouter" {
-  type    = bool
-  default = null
-}
-
-
 #---
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#argument-reference
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#argument-reference
 
-variable "NWEA_NatSourceSubnetworkIpRangesToNat" {
-  type = string
-  validation {
-    condition = contains([
-      "ALL_SUBNETWORKS_ALL_IP_RANGES",
-      "ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES",
-      "LIST_OF_SUBNETWORKS"
-    ], var.NWEA_NatSourceSubnetworkIpRangesToNat)
-    error_message = "Valid inputs for | variable: var.NWEA_NatSourceSubnetworkIpRangesToNat | are: ALL_SUBNETWORKS_ALL_IP_RANGES, ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, LIST_OF_SUBNETWORKS"
-  }
-}
-
-variable "NWEA_NatIpAllocateOption" {
-  type = string
-  validation {
-    condition = var.NWEA_NatIpAllocateOption == null || can(contains([
-      "ALL_SUBNETWORKS_ALL_IP_RANGES",
-      "ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES",
-      "LIST_OF_SUBNETWORKS"
-    ], var.NWEA_NatIpAllocateOption))
-    error_message = "Valid inputs for | variable: var.NWEA_NatIpAllocateOption | are: ALL_SUBNETWORKS_ALL_IP_RANGES, ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, LIST_OF_SUBNETWORKS"
-  }
-  default = null
-}
-
-variable "NWEA_NatInitialNatIps" {
-  type    = list(string)
-  default = null
-}
-
-
-variable "NWEA_NatIps" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEA_NatDrainNatIps" {
-  type    = list(string)
-  default = null
-}
-
-variable "NWEA_NatSubnetwork" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#nested_subnetwork
+variable "NWEA_NatObject" {
   type = object({
-    name                         = string
-    source_ip_ranges_to_NWEA_Nat = list(string)
-    secondary_ip_range_names     = optional(list(string), null)
+    source_subnetwork_ip_ranges_to_nat = string
+    nat_ip_allocate_option             = optional(string, null)
+    initial_nat_ips                    = optional(list(string), null)
+    drain_nat_ips                      = optional(list(string), null)
+
+    subnetwork = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_subnetwork
+      name                     = string
+      source_ip_ranges_to_nat  = list(string)
+      secondary_ip_range_names = optional(list(string), null)
+    }), null)
+
+    min_ports_per_vm                 = optional(number, null)
+    max_ports_per_vm                 = optional(number, null)
+    enable_dynamic_port_allocation   = optional(bool, null)
+    udp_idle_timeout_sec             = optional(number, null)
+    icmp_idle_timeout_sec            = optional(number, null)
+    tcp_established_idle_timeout_sec = optional(number, null)
+    tcp_transitory_idle_timeout_sec  = optional(number, null)
+    tcp_time_wait_timeout_sec        = optional(number, null)
+
+    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_log_config
+      enable = bool
+      filter = string
+    }), null)
+
+    endpoint_types = optional(list(string), null)
+
+    rules = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules
+      rule_number = number
+      description = optional(string, null)
+      match       = string
+
+      action = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules_rules_action
+        source_nat_active_ips = optional(list(string), null)
+        source_nat_drain_ips  = optional(list(string), null)
+      })
+    }), null)
+
+    enable_endpoint_independent_mapping = optional(bool, null)
+    auto_network_tier                   = optional(string, null)
   })
-  default = null
 }
 
-variable "NWEA_NatMinPortsPerVm" {
-  type    = number
-  default = null
-}
-
-variable "NWEA_NatMaxPortsPerVm" {
-  type    = number
-  default = null
-}
-
-variable "NWEA_NatEnableDynamicPortAllocation" {
-  type    = bool
-  default = null
-}
-
-variable "NWEA_NatUdpIdleTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "NWEA_NatIcmpIdleTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "NWEA_NatTcpEstablishedIdleTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "NWEA_NatTcpTransitoryIdleTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "NWEA_NatTcpTimeWaitTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "NWEA_NatLogConfig" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#nested_log_config
-    enable = bool
-    filter = string
-  })
-  default = null
-}
-
-variable "NWEA_NatEndpointTypes" {
+variable "natNatIps" {
   type    = list(string)
-  default = null
+  default = []
 }
-
-variable "NWEA_NatRules" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#nested_rules
-    rule_number = number
-    description = optional(string, null)
-    match       = string
-
-    action = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#nested_rules_rules_action
-      source_NWEA_Nat_active_ips = optional(list(string), null)
-      source_NWEA_Nat_drain_ips  = optional(list(string), null)
-    })
-  })
-  default = null
-}
-
-variable "NWEA_NatEnableEndpointIndependentMapping" {
-  type    = bool
-  default = null
-}
-
-variable "NWEA_NatAutoNetworkTier" {
-  type = string
-  validation {
-    condition = var.NWEA_NatAutoNetworkTier == null || can(contains([
-      "PREMIUM",
-      "STANDARD"
-    ], var.NWEA_NatAutoNetworkTier))
-    error_message = "Valid inputs for | variable: var.NWEA_NatAutoNetworkTier | are: PREMIUM, STANDARD"
-  }
-  default = null
-}
-
-
-
-
-
 
 #---

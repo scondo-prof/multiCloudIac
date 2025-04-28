@@ -13,7 +13,7 @@ provider "google" {
 }
 
 resource "google_compute_address" "networkAddress" {
-  name         = "${var.networkAddressObject["name"]}-network-address"
+  name         = "${var.resourceName}-network-address"
   address      = var.networkAddressObject["address"]
   address_type = var.networkAddressObject["address_type"]
   description  = var.networkAddressObject["description"]

@@ -14,8 +14,8 @@ provider "google" {
 
 resource "google_compute_router" "networkRouter" {
   count       = length(var.networkRouterObjects)
-  name        = "${var.networkRouterObjects[count.index]["name"]}-network-router"
-  network     = var.networkRouterObjects[count.index]["network"]
+  name        = "${var.resourceName}-${var.networkRouterObjects[count.index]["name"]}-network-router"
+  network     = var.networkRouterNetwork
   description = var.networkRouterObjects[count.index]["description"]
 
   dynamic "bgp" {

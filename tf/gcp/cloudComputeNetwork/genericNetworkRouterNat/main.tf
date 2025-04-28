@@ -14,7 +14,7 @@ provider "google" {
 
 
 resource "google_compute_router_nat" "nat" {
-  name                               = "${var.natObject["name"]}-nat"
+  name                               = "${var.resourceName}-nat"
   source_subnetwork_ip_ranges_to_nat = var.natObject["source_subnetwork_ip_ranges_to_nat"]
   router                             = var.natObject["router"]
   nat_ip_allocate_option             = var.natObject["nat_ip_allocate_option"]
