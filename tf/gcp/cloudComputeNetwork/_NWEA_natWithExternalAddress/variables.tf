@@ -82,21 +82,19 @@ variable "NWEA_NetworkRouterNetwork" {
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#argument-reference
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#argument-reference
 
 variable "NWEA_NatObject" {
   type = object({
-    source_subnetwork_ip_ranges_to_NWEA_Nat = string
-    router                                  = string
-    NWEA_Nat_ip_allocate_option             = optional(string, null)
-    initial_NWEA_Nat_ips                    = optional(list(string), null)
-    NWEA_Nat_ips                            = optional(list(string), null)
-    drain_NWEA_Nat_ips                      = optional(list(string), null)
+    source_subnetwork_ip_ranges_to_nat = string
+    nat_ip_allocate_option             = optional(string, null)
+    initial_nat_ips                    = optional(list(string), null)
+    drain_nat_ips                      = optional(list(string), null)
 
-    subnetwork = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#nested_subnetwork
-      name                         = string
-      source_ip_ranges_to_NWEA_Nat = list(string)
-      secondary_ip_range_names     = optional(list(string), null)
+    subnetwork = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_subnetwork
+      name                     = string
+      source_ip_ranges_to_nat  = list(string)
+      secondary_ip_range_names = optional(list(string), null)
     }), null)
 
     min_ports_per_vm                 = optional(number, null)
@@ -108,27 +106,32 @@ variable "NWEA_NatObject" {
     tcp_transitory_idle_timeout_sec  = optional(number, null)
     tcp_time_wait_timeout_sec        = optional(number, null)
 
-    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#nested_log_config
+    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_log_config
       enable = bool
       filter = string
     }), null)
 
     endpoint_types = optional(list(string), null)
 
-    rules = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#nested_rules
+    rules = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules
       rule_number = number
       description = optional(string, null)
       match       = string
 
-      action = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#nested_rules_rules_action
-        source_NWEA_Nat_active_ips = optional(list(string), null)
-        source_NWEA_Nat_drain_ips  = optional(list(string), null)
+      action = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules_rules_action
+        source_nat_active_ips = optional(list(string), null)
+        source_nat_drain_ips  = optional(list(string), null)
       })
     }), null)
 
     enable_endpoint_independent_mapping = optional(bool, null)
     auto_network_tier                   = optional(string, null)
   })
+}
+
+variable "natNatIps" {
+  type    = list(string)
+  default = []
 }
 
 #---
