@@ -13,23 +13,23 @@ provider "google" {
 }
 
 resource "google_compute_address" "networkAddress" {
-  name         = "${var.resourceName}-network-address"
-  address      = var.networkAddressAddress
-  address_type = var.networkAddressType
-  description  = var.networkAddressDescription
-  purpose      = var.networkAddressPurpose
-  network_tier = var.networkAddressNetworkTier
-  subnetwork   = var.networkAddressSubnetwork
+  name         = "${var.networkAddressObject["name"]}-network-address"
+  address      = var.networkAddressObject[""]#var.networkAddressAddress
+  address_type = var.networkAddressObject[""]#var.networkAddressType
+  description  = var.networkAddressObject[""]#var.networkAddressDescription
+  purpose      = var.networkAddressObject[""]#var.networkAddressPurpose
+  network_tier = var.networkAddressObject[""]#var.networkAddressNetworkTier
+  subnetwork   = var.networkAddressObject[""]#var.networkAddressSubnetwork
   labels = merge({
     project       = var.projectName
     deployed-date = var.deployedDate
     created-by    = var.createdBy
     tf-module     = var.tfModule
   }, var.additionalTags)
-  network            = var.networkAddressNetwork
-  prefix_length      = var.networkAddressPrefixLength
-  ip_version         = var.networkAddressIpVersion
-  ipv6_endpoint_type = var.networkAddressIpv6EndpoingType
+  network            = var.networkAddressObject[""]#var.networkAddressNetwork
+  prefix_length      = var.networkAddressObject[""]#var.networkAddressPrefixLength
+  ip_version         = var.networkAddressObject[""]#var.networkAddressIpVersion
+  ipv6_endpoint_type = var.networkAddressObject[""]#var.networkAddressIpv6EndpoingType
   region             = var.gcpRegion
   project            = var.gcpProjectId
 }

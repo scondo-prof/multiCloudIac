@@ -7,10 +7,6 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
-variable "resourceName" {
-  type = string
-}
-
 variable "projectName" {
   type = string
 }
@@ -34,6 +30,12 @@ variable "additionalTags" {
 }
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address#argument-reference
+
+variable "networkAddressObject" {
+  type = object({
+    name = string
+  })
+}
 
 variable "networkAddressAddress" {
   type    = string
