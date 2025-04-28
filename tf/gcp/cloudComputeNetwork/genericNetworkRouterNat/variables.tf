@@ -7,11 +7,13 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
-variable "resourceName" {
-  type = string
-}
-
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#argument-reference
+
+variable "natObject" {
+  type = object({
+    name = string
+  })
+}
 
 variable "natSourceSubnetworkIpRangesToNat" {
   type = string
