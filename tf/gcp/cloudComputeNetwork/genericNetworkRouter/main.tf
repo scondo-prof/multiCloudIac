@@ -14,7 +14,7 @@ provider "google" {
 
 resource "google_compute_router" "networkRouter" {
   count       = length(var.networkRouterObjects)
-  name        = "${var.resourceName}-network-router"
+  name        = "${var.resourceName}-${var.networkRouterObjects[count.index]["name"]}-network-router"
   network     = var.networkRouterNetwork
   description = var.networkRouterObjects[count.index]["description"]
 

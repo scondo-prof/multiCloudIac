@@ -7,6 +7,10 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
+variable "resourceName" {
+  type = string
+}
+
 variable "projectName" {
   type = string
 }
@@ -33,7 +37,6 @@ variable "additionalTags" {
 
 variable "NWEA_NetworkAddressObject" {
   type = object({
-    name               = string
     address            = optional(string, null)
     address_type       = optional(string, null)
     description        = optional(string, null)
@@ -45,6 +48,7 @@ variable "NWEA_NetworkAddressObject" {
     ip_version         = optional(string, null)
     ipv6_endpoint_type = optional(string, null)
   })
+  default = {}
 }
 
 #---
@@ -82,18 +86,17 @@ variable "NWEA_NetworkRouterNetwork" {
 
 variable "NWEA_NatObject" {
   type = object({
-    name                                    = string
     source_subnetwork_ip_ranges_to_NWEA_Nat = string
-    router                                  = string
+    router                             = string
     NWEA_Nat_ip_allocate_option             = optional(string, null)
     initial_NWEA_Nat_ips                    = optional(list(string), null)
     NWEA_Nat_ips                            = optional(list(string), null)
     drain_NWEA_Nat_ips                      = optional(list(string), null)
 
     subnetwork = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_NWEA_Nat#nested_subnetwork
-      name                         = string
-      source_ip_ranges_to_NWEA_Nat = list(string)
-      secondary_ip_range_names     = optional(list(string), null)
+      name                     = string
+      source_ip_ranges_to_NWEA_Nat  = list(string)
+      secondary_ip_range_names = optional(list(string), null)
     }), null)
 
     min_ports_per_vm                 = optional(number, null)

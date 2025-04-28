@@ -1,8 +1,9 @@
+
 module "networkAddress" {
   source               = "../genericNetworkAddress"
   gcpProjectId         = var.gcpProjectId
   gcpRegion            = var.gcpRegion
-  resourceName = var.resourceName
+  resourceName         = var.resourceName
   networkAddressObject = var.NWEA_NetworkAddressObject
   projectName          = var.projectName
   deployedDate         = var.deployedDate
@@ -17,8 +18,8 @@ module "networkRouter" {
   source               = "../genericNetworkRouter"
   gcpProjectId         = var.gcpProjectId
   gcpRegion            = var.gcpRegion
-  resourceName = var.resourceName
   networkRouterObjects = var.NWEA_NetworkRouterObjects
+  resourceName         = var.resourceName
   networkRouterNetwork = var.NWEA_NetworkRouterNetwork
 }
 
@@ -28,10 +29,8 @@ module "nat" {
   source       = "../genericNetworkRouterNat"
   gcpProjectId = var.gcpProjectId
   gcpRegion    = var.gcpRegion
-  natObject    = {
-    router = module.networkRouter.networkRouterName[0]
-    nat_ips = concat([module.networkAddress.networkAddressSelfLink], var.NWEA_NatIps)
-  }#var.NWEA_NatObject
+  resourceName = var.resourceName
+  natObject    = var.NWEA_NatObject
 }
 
 #---

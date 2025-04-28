@@ -7,6 +7,10 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
+variable "resourceName" {
+  type = string
+}
+
 variable "projectName" {
   type = string
 }
@@ -29,15 +33,10 @@ variable "additionalTags" {
   default = {}
 }
 
-variable "resourceName" {
-  type = string
-}
-
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address#argument-reference
 
 variable "NWEA_NetworkAddressObject" {
   type = object({
-    name               = string
     address            = optional(string, null)
     address_type       = optional(string, null)
     description        = optional(string, null)
@@ -49,6 +48,7 @@ variable "NWEA_NetworkAddressObject" {
     ip_version         = optional(string, null)
     ipv6_endpoint_type = optional(string, null)
   })
+  default = {}
 }
 
 #---
@@ -86,8 +86,8 @@ variable "NWEA_NetworkRouterNetwork" {
 
 variable "NWEA_NatObject" {
   type = object({
-    name                                    = string
     source_subnetwork_ip_ranges_to_NWEA_Nat = string
+    router                                  = string
     NWEA_Nat_ip_allocate_option             = optional(string, null)
     initial_NWEA_Nat_ips                    = optional(list(string), null)
     NWEA_Nat_ips                            = optional(list(string), null)
@@ -129,11 +129,6 @@ variable "NWEA_NatObject" {
     enable_endpoint_independent_mapping = optional(bool, null)
     auto_network_tier                   = optional(string, null)
   })
-}
-
-variable "NWEA_NatIps" {
-  type = list(string)
-  default = []
 }
 
 #---

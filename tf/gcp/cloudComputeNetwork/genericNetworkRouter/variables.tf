@@ -15,6 +15,7 @@ variable "resourceName" {
 
 variable "networkRouterObjects" {
   type = list(object({
+    name        = string
     description = optional(string, null)
 
     bgp = optional(object({
