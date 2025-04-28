@@ -13,12 +13,13 @@ provider "google" {
 }
 
 resource "google_compute_router" "networkRouter" {
-  name        = "${var.resourceName}-network-router"
-  network     = var.networkRouterNetwork
-  description = var.networkRouterDescription
+  count       = length(var.networkRouterObjects)
+  name        = "${var.networkRouterObjects[count.index]["name"]}-network-router"
+  network     = var.networkRouterObjects[count.index]["network"]
+  description = var.networkRouterObjects[count.index]["description"]
 
   dynamic "bgp" {
-    for_each = var.networkRouterBgp != null ? [var.networkRouterBgp] : []
+    for_each = var.networkRouterObjects[count.index]["bgp"] != null ? [var.networkRouterObjects[count.index]["bgp"]] : []
     content {
       asn               = bgp.value["asn"]
       advertise_mode    = bgp.value["advertise_mode"]
@@ -38,7 +39,7 @@ resource "google_compute_router" "networkRouter" {
     }
   }
 
-  encrypted_interconnect_router = var.networkRouterEncryptedInterconnectRouter
+  encrypted_interconnect_router = var.networkRouterObjects[count.index]["encrypted_interconnect_router"]
   region                        = var.gcpRegion
   project                       = var.gcpProjectId
 }
