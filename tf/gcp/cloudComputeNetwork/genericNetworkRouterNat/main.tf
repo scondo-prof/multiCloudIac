@@ -41,17 +41,17 @@ resource "google_compute_router_nat" "nat" {
   tcp_time_wait_timeout_sec        = var.natObject["tcp_time_wait_timeout_sec"]
 
   dynamic "log_config" {
-    for_each = var.natObject[""] != null ? [var.natObject[""]] : [] #var.natLogConfig
+    for_each = var.natObject["log_config"] != null ? [var.natObject["log_config"]] : []
     content {
       enable = log_config.value["enable"]
       filter = log_config.value["filter"]
     }
   }
 
-  endpoint_types = var.natObject[""] #var.natEndpointTypes
+  endpoint_types = var.natObject["endpoint_types"]
 
   dynamic "rules" {
-    for_each = var.natObject[""] != null ? [var.natObject[""]] : [] #var.natRules
+    for_each = var.natObject["rules"] != null ? [var.natObject["rules"]] : []
     content {
       rule_number = rules.value["rule_number"]
       description = rules.value["description"]
@@ -67,8 +67,8 @@ resource "google_compute_router_nat" "nat" {
     }
   }
 
-  enable_endpoint_independent_mapping = var.natObject[""] #var.natEnableEndpointIndependentMapping
-  auto_network_tier                   = var.natObject[""] #var.natAutoNetworkTier
+  enable_endpoint_independent_mapping = var.natObject["enable_endpoint_independent_mapping"]
+  auto_network_tier                   = var.natObject["auto_network_tier"]
   region                              = var.gcpRegion
   project                             = var.gcpProjectId
 }

@@ -33,58 +33,26 @@ variable "natObject" {
     tcp_established_idle_timeout_sec = optional(number, null)
     tcp_transitory_idle_timeout_sec  = optional(number, null)
     tcp_time_wait_timeout_sec        = optional(number, null)
+
+    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_log_config
+      enable = bool
+      filter = string
+    }), null)
+
+    endpoint_types = optional(list(string), null)
+
+    rules = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules
+      rule_number = number
+      description = optional(string, null)
+      match       = string
+
+      action = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules_rules_action
+        source_nat_active_ips = optional(list(string), null)
+        source_nat_drain_ips  = optional(list(string), null)
+      })
+    }), null)
+
+    enable_endpoint_independent_mapping = optional(bool, null)
+    auto_network_tier                   = optional(string, null)
   })
 }
-
-variable "natTcpTimeWaitTimeoutSec" {
-  type    = number
-  default = null
-}
-
-variable "natLogConfig" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_log_config
-    enable = bool
-    filter = string
-  })
-  default = null
-}
-
-variable "natEndpointTypes" {
-  type    = list(string)
-  default = null
-}
-
-variable "natRules" {
-  type = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules
-    rule_number = number
-    description = optional(string, null)
-    match       = string
-
-    action = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules_rules_action
-      source_nat_active_ips = optional(list(string), null)
-      source_nat_drain_ips  = optional(list(string), null)
-    })
-  })
-  default = null
-}
-
-variable "natEnableEndpointIndependentMapping" {
-  type    = bool
-  default = null
-}
-
-variable "natAutoNetworkTier" {
-  type = string
-  validation {
-    condition = var.natAutoNetworkTier == null || can(contains([
-      "PREMIUM",
-      "STANDARD"
-    ], var.natAutoNetworkTier))
-    error_message = "Valid inputs for | variable: var.natAutoNetworkTier | are: PREMIUM, STANDARD"
-  }
-  default = null
-}
-
-
-
-
