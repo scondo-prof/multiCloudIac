@@ -22,7 +22,7 @@ resource "google_vpc_access_connector" "vpcAccessConnector" {
   max_instances  = var.vpcAccessConnectorObject["max_instances"]
   max_throughput = var.vpcAccessConnectorObject["max_throughput"]
   dynamic "subnet" {
-    for_each = var.var.vpcAccessConnectorObject[""] != null ? [var.vpcAccessConnectorObject[""]] : []#var.vpcAccessConnectorSubnet
+    for_each = var.var.vpcAccessConnectorObject["subnet"] != null ? [var.vpcAccessConnectorObject["subnet"]] : []
     content {
       name       = subnet.value["name"]
       project_id = subnet.value["project_id"]
