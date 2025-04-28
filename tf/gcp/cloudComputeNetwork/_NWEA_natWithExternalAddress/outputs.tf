@@ -2,6 +2,26 @@ output "NWEA_NetworkAddressId" {
   value = module.networkAddress.networkAddressId
 }
 
+output "NWEA_NetworkAddressCreationTimestamp" {
+  value = module.networkAddress.networkAddressCreationTimestamp
+}
+
+output "NWEA_NetworkAddressUsers" {
+  value = module.networkAddress.networkAddressUsers
+}
+
+output "NWEA_NetworkAddressLabelFingerprint" {
+  value = module.networkAddress.networkAddressLabelFingerprint
+}
+
+output "NWEA_NetworkAddressTerraformLabels" {
+  value = module.networkAddress.networkAddressTerraformLabels
+}
+
+output "NWEA_NetworkAddressEffectiveLabels" {
+  value = module.networkAddress.networkAddressEffectiveLabels
+}
+
 output "NWEA_NetworkAddressSelfLink" {
   value = module.networkAddress.networkAddressSelfLink
 }
@@ -11,7 +31,6 @@ output "NWEA_NetworkAddressExternalIp" {
 }
 
 #---
-
 output "NWEA_NetworkRouterId" {
   value = module.networkRouter.networkRouterId
 }
@@ -29,7 +48,6 @@ output "NWEA_NetworkRouterCreationTimestamp" {
 }
 
 #---
-
 output "NWEA_NatId" {
   value = module.nat.natId
 }
@@ -37,3 +55,5 @@ output "NWEA_NatId" {
 output "NWEA_NatName" {
   value = module.nat.natName
 }
+
+#---

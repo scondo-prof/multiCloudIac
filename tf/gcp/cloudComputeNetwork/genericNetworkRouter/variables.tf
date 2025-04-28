@@ -7,12 +7,14 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
+variable "resourceName" {
+  type = string
+}
+
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router#argument-reference
 
 variable "networkRouterObjects" {
   type = list(object({
-    name        = string
-    network     = string
     description = optional(string, null)
 
     bgp = optional(object({
@@ -29,4 +31,8 @@ variable "networkRouterObjects" {
 
     encrypted_interconnect_router = optional(bool, null)
   }))
+}
+
+variable "networkRouterNetwork" {
+  type = string
 }

@@ -6,6 +6,4 @@ deployedDate = "2025-04-28"
 
 tfModule = "generic-network-address"
 
-networkAddressObject = {
-  name = "test-word"
-}
+resourceName = "test"

@@ -7,6 +7,10 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
+variable "resourceName" {
+  type = string
+}
+
 variable "projectName" {
   type = string
 }
@@ -33,7 +37,6 @@ variable "additionalTags" {
 
 variable "networkAddressObject" {
   type = object({
-    name               = string
     address            = optional(string, null)
     address_type       = optional(string, null)
     description        = optional(string, null)
@@ -45,4 +48,5 @@ variable "networkAddressObject" {
     ip_version         = optional(string, null)
     ipv6_endpoint_type = optional(string, null)
   })
+  default = {}
 }
