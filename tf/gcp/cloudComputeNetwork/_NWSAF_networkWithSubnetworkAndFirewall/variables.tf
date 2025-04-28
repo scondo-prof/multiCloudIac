@@ -11,19 +11,19 @@ variable "resourceName" {
   type = string
 }
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Network#argument-reference
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network#argument-reference
 
 variable "NWSAF_NetworkObjects" {
   type = list(object({
-    name                                            = string
-    description                                     = optional(string, null)
-    auto_create_subNWSAF_Networks                   = optional(bool, null)
-    routing_mode                                    = optional(string, null)
-    mtu                                             = optional(number, null)
-    enable_ula_internal_ipv6                        = optional(bool, null)
-    internal_ipv6_range                             = optional(string, null)
-    NWSAF_Network_firewall_policy_enforcement_order = optional(string, null)
-    delete_default_routes_on_create                 = optional(bool, null)
+    name                                      = string
+    description                               = optional(string, null)
+    auto_create_subnetworks                   = optional(bool, null)
+    routing_mode                              = optional(string, null)
+    mtu                                       = optional(number, null)
+    enable_ula_internal_ipv6                  = optional(bool, null)
+    internal_ipv6_range                       = optional(string, null)
+    network_firewall_policy_enforcement_order = optional(string, null)
+    delete_default_routes_on_create           = optional(bool, null)
   }))
 }
 
@@ -31,7 +31,7 @@ variable "NWSAF_NetworkObjects" {
 
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#argument-reference
 
-variable "subnetworkObjects" {
+variable "NWSAF_SubnetworkObjects" {
   type = list(object({
     name                    = string
     description             = optional(string, null)
@@ -66,18 +66,18 @@ variable "subnetworkObjects" {
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Firewall#argument-reference
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#argument-reference
 
 variable "NWSAF_FirewallObjects" {
   type = list(object({
     name = string
 
-    allow = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Firewall#nested_allow
+    allow = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_allow
       protocol = string
       ports    = optional(list(string), null)
     }), null)
 
-    deny = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Firewall#nested_deny
+    deny = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_deny
       protocol = string
       ports    = optional(list(string), null)
     }), null)
@@ -87,7 +87,7 @@ variable "NWSAF_FirewallObjects" {
     direction          = optional(string, null)
     disabled           = optional(bool, null)
 
-    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Firewall#nested_log_config
+    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_log_config
       metadata = string
     }), null)
 

@@ -9,33 +9,23 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/genericNetwork",
-            "source_path": "../genericNetwork",
+            "project_path": "../gcp/cloudComputeNetwork/_NWSAF_networkWithSubnetworkAndFirewall",
+            "source_path": "../_NWSAF_networkWithSubnetworkAndFirewall",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "network",
-        "new_variable_prefix": "NWSAF_Network",
-        "module_name": "network",
+        "previous_variable_prefix": "NWSAF",
+        "new_variable_prefix": "NWEIPN_NWSAF",
+        "module_name": "NWSAF",
     },
     {
         "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/genericSubnetwork",
-            "source_path": "../genericSubnetwork",
+            "project_path": "../gcp/cloudComputeNetwork/_NWEA_natWithExternalAddress",
+            "source_path": "../_NWEA_natWithExternalAddress",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "subNetwork",
-        "new_variable_prefix": "NWSAF_SubNetwork",
-        "module_name": "subnetwork",
-    },
-    {
-        "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/genericFirewall",
-            "source_path": "../genericFirewall",
-            "destination_path": "./temp",
-        },
-        "previous_variable_prefix": "firewall",
-        "new_variable_prefix": "NWSAF_Firewall",
-        "module_name": "firewall",
+        "previous_variable_prefix": "NWEA",
+        "new_variable_prefix": "NWEIPN_NWEA",
+        "module_name": "NWEA",
     },
 ]
 

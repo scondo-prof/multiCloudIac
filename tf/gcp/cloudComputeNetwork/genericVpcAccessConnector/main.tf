@@ -14,15 +14,15 @@ provider "google" {
 
 resource "google_vpc_access_connector" "vpcAccessConnector" {
   name           = "${var.resourceName}-vac"
-  network        = var.vpcAccessConnectorNetwork
-  ip_cidr_range  = var.vpcAccessConnectorIpCidrRange
-  machine_type   = var.vpcAccessConnectorMachineType
-  min_throughput = var.vpcAccessConnectorMinThroughput
-  min_instances  = var.vpcAccessConnectorMinInstances
-  max_instances  = var.vpcAccessConnectorMaxInstances
-  max_throughput = var.vpcAccessConnectorMaxThroughput
+  network        = var.vpcAccessConnectorObject[""]#ar.vpcAccessConnectorNetwork
+  ip_cidr_range  = var.vpcAccessConnectorObject[""]#var.vpcAccessConnectorIpCidrRange
+  machine_type   = var.vpcAccessConnectorObject[""]#var.vpcAccessConnectorMachineType
+  min_throughput = var.vpcAccessConnectorObject[""]#var.vpcAccessConnectorMinThroughput
+  min_instances  = var.vpcAccessConnectorObject[""]#var.vpcAccessConnectorMinInstances
+  max_instances  = var.vpcAccessConnectorObject[""]#var.vpcAccessConnectorMaxInstances
+  max_throughput = var.vpcAccessConnectorObject[""]#var.vpcAccessConnectorMaxThroughput
   dynamic "subnet" {
-    for_each = var.vpcAccessConnectorSubnet != null ? [var.vpcAccessConnectorSubnet] : []
+    for_each = var.var.vpcAccessConnectorObject[""] != null ? [var.vpcAccessConnectorObject[""]] : []#var.vpcAccessConnectorSubnet
     content {
       name       = subnet.value["name"]
       project_id = subnet.value["project_id"]

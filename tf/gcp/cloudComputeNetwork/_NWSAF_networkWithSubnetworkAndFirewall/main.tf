@@ -13,9 +13,9 @@ module "subnetwork" {
   source            = "../genericSubnetwork"
   gcpProjectId      = var.gcpProjectId
   gcpRegion         = var.gcpRegion
-  subnetworkObjects = var.subnetworkObjects
+  subnetworkObjects = var.NWSAF_SubnetworkObjects
   resourceName      = var.resourceName
-  subnetworkNetwork = module.network.networkId[0]#var.subnetworkNetwork
+  subnetworkNetwork = module.network.networkId[0]
 }
 
 #---

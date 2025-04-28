@@ -19,35 +19,35 @@ output "NWSAF_NetworkName" {
 }
 
 #---
-output "subnetworkId" {
+output "NWSAF_SubnetworkId" {
   value = module.subnetwork.subnetworkId
 }
 
-output "subnetworkCreationTimestamp" {
+output "NWSAF_SubnetworkCreationTimestamp" {
   value = module.subnetwork.subnetworkCreationTimestamp
 }
 
-output "subnetworkGatewayAddress" {
+output "NWSAF_SubnetworkGatewayAddress" {
   value = module.subnetwork.subnetworkGatewayAddress
 }
 
-output "subnetworkIpv4CidrRange" {
+output "NWSAF_SubnetworkIpv4CidrRange" {
   value = module.subnetwork.subnetworkIpv4CidrRange
 }
 
-output "subnetworkIpv6CidrRange" {
+output "NWSAF_SubnetworkIpv6CidrRange" {
   value = module.subnetwork.subnetworkIpv6CidrRange
 }
 
-output "subnetworkInternalIpv6Prefix" {
+output "NWSAF_SubnetworkInternalIpv6Prefix" {
   value = module.subnetwork.subnetworkInternalIpv6Prefix
 }
 
-output "subnetworkSelfLink" {
+output "NWSAF_SubnetworkSelfLink" {
   value = module.subnetwork.subnetworkSelfLink
 }
 
-output "subnetworkName" {
+output "NWSAF_SubnetworkName" {
   value = module.subnetwork.subnetworkName
 }
 
