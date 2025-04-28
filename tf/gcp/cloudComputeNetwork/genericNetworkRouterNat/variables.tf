@@ -11,62 +11,20 @@ variable "gcpRegion" {
 
 variable "natObject" {
   type = object({
-    name = string
+    name                               = string
+    source_subnetwork_ip_ranges_to_nat = string
+    router                             = string
+    nat_ip_allocate_option             = optional(string, null)
+    initial_nat_ips                    = optional(list(string), null)
+    nat_ips                            = optional(list(string), null)
+    drain_nat_ips                      = optional(list(string), null)
+
+    subnetwork = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_subnetwork
+      name                     = string
+      source_ip_ranges_to_nat  = list(string)
+      secondary_ip_range_names = optional(list(string), null)
+    }), null)
   })
-}
-
-variable "natSourceSubnetworkIpRangesToNat" {
-  type = string
-  validation {
-    condition = contains([
-      "ALL_SUBNETWORKS_ALL_IP_RANGES",
-      "ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES",
-      "LIST_OF_SUBNETWORKS"
-    ], var.natSourceSubnetworkIpRangesToNat)
-    error_message = "Valid inputs for | variable: var.natSourceSubnetworkIpRangesToNat | are: ALL_SUBNETWORKS_ALL_IP_RANGES, ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, LIST_OF_SUBNETWORKS"
-  }
-}
-
-variable "natRouterName" {
-  type = string
-}
-
-variable "natIpAllocateOption" {
-  type = string
-  validation {
-    condition = var.natIpAllocateOption == null || can(contains([
-      "ALL_SUBNETWORKS_ALL_IP_RANGES",
-      "ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES",
-      "LIST_OF_SUBNETWORKS"
-    ], var.natIpAllocateOption))
-    error_message = "Valid inputs for | variable: var.natIpAllocateOption | are: ALL_SUBNETWORKS_ALL_IP_RANGES, ALL_SUBNETWORKS_ALL_PRIMARY_IP_RANGES, LIST_OF_SUBNETWORKS"
-  }
-  default = null
-}
-
-variable "natInitialNatIps" {
-  type    = list(string)
-  default = null
-}
-
-
-variable "natIps" {
-  type    = list(string)
-  default = null
-}
-
-variable "natDrainNatIps" {
-  type    = list(string)
-  default = null
-}
-
-variable "natSubnetwork" { #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_subnetwork
-  type = object({
-    name                     = string
-    source_ip_ranges_to_nat  = list(string)
-    secondary_ip_range_names = optional(list(string), null)
-  })
-  default = null
 }
 
 variable "natMinPortsPerVm" {

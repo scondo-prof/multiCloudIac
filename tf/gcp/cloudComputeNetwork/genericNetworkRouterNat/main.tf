@@ -15,15 +15,15 @@ provider "google" {
 
 resource "google_compute_router_nat" "nat" {
   name                               = "${var.natObject["name"]}-nat"
-  source_subnetwork_ip_ranges_to_nat = var.natObject[""] #var.natSourceSubnetworkIpRangesToNat
-  router                             = var.natObject[""] #var.natRouterName
-  nat_ip_allocate_option             = var.natObject[""] #var.natIpAllocateOption
-  initial_nat_ips                    = var.natObject[""] #var.natInitialNatIps
-  nat_ips                            = var.natObject[""] #var.natIps
-  drain_nat_ips                      = var.natObject[""] #var.natDrainNatIps
+  source_subnetwork_ip_ranges_to_nat = var.natObject["source_subnetwork_ip_ranges_to_nat"]
+  router                             = var.natObject["router"]
+  nat_ip_allocate_option             = var.natObject["nat_ip_allocate_option"]
+  initial_nat_ips                    = var.natObject["initial_nat_ips"]
+  nat_ips                            = var.natObject["nat_ips"]
+  drain_nat_ips                      = var.natObject["drain_nat_ips"]
 
   dynamic "subnetwork" {
-    for_each = var.natObject[""] != null ? [var.natObject[""]] : [] #var.natSubnetwork
+    for_each = var.natObject["subnetwork"] != null ? [var.natObject["subnetwork"]] : []
     content {
       name                     = subnetwork.value["name"]
       source_ip_ranges_to_nat  = subnetwork.value["source_ip_ranges_to_nat"]
