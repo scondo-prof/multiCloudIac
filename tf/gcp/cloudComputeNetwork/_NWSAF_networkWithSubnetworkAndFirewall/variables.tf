@@ -7,27 +7,31 @@ variable "gcpRegion" {
   default = "us-east1"
 }
 
+variable "resourceName" {
+  type = string
+}
+
 #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Network#argument-reference
 
 variable "NWSAF_NetworkObjects" {
   type = list(object({
-    name                                      = string
-    description                               = optional(string, null)
-    auto_create_subnetworks                   = optional(bool, null)
-    routing_mode                              = optional(string, null)
-    mtu                                       = optional(number, null)
-    enable_ula_internal_ipv6                  = optional(bool, null)
-    internal_ipv6_range                       = optional(string, null)
-    network_firewall_policy_enforcement_order = optional(string, null)
-    delete_default_routes_on_create           = optional(bool, null)
+    name                                            = string
+    description                                     = optional(string, null)
+    auto_create_subNWSAF_Networks                   = optional(bool, null)
+    routing_mode                                    = optional(string, null)
+    mtu                                             = optional(number, null)
+    enable_ula_internal_ipv6                        = optional(bool, null)
+    internal_ipv6_range                             = optional(string, null)
+    NWSAF_Network_firewall_policy_enforcement_order = optional(string, null)
+    delete_default_routes_on_create                 = optional(bool, null)
   }))
 }
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Subnetwork#argument-reference
+#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#argument-reference
 
-variable "NWSAF_SubnetworkObjects" {
+variable "subnetworkObjects" {
   type = list(object({
     name                    = string
     description             = optional(string, null)
@@ -36,7 +40,7 @@ variable "NWSAF_SubnetworkObjects" {
     purpose                 = optional(string, null)
     role                    = optional(string, null)
 
-    secondary_ip_range = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Subnetwork#nested_secondary_ip_range
+    secondary_ip_range = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#nested_secondary_ip_range
       range_name              = string
       ip_cidr_range           = optional(string, null)
       reserved_internal_range = optional(string, null)
@@ -45,7 +49,7 @@ variable "NWSAF_SubnetworkObjects" {
     private_ip_google_access   = optional(bool, null)
     private_ipv6_google_access = optional(string, null)
 
-    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_NWSAF_Subnetwork#nested_log_config
+    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#nested_log_config
       aggregation_interval = optional(string, null)
       flow_sampling        = optional(number, null)
       metadata             = optional(string, null)

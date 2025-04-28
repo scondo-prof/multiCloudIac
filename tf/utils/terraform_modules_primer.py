@@ -9,33 +9,33 @@ def terraform_modules_primer(modules: list[dict]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/genericNetworkAddress",
-            "source_path": "../genericNetworkAddress",
+            "project_path": "../gcp/cloudComputeNetwork/genericNetwork",
+            "source_path": "../genericNetwork",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "networkAddress",
-        "new_variable_prefix": "NWEA_NetworkAddress",
-        "module_name": "networkAddress",
+        "previous_variable_prefix": "network",
+        "new_variable_prefix": "NWSAF_Network",
+        "module_name": "network",
     },
     {
         "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/genericNetworkRouter",
-            "source_path": "../genericNetworkRouter",
+            "project_path": "../gcp/cloudComputeNetwork/genericSubnetwork",
+            "source_path": "../genericSubnetwork",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "networkRouter",
-        "new_variable_prefix": "NWEA_NetworkRouter",
-        "module_name": "networkRouter",
+        "previous_variable_prefix": "subNetwork",
+        "new_variable_prefix": "NWSAF_SubNetwork",
+        "module_name": "subnetwork",
     },
     {
         "paths": {
-            "project_path": "../gcp/cloudComputeNetwork/genericNetworkRouterNat",
-            "source_path": "../genericNetworkRouterNat",
+            "project_path": "../gcp/cloudComputeNetwork/genericFirewall",
+            "source_path": "../genericFirewall",
             "destination_path": "./temp",
         },
-        "previous_variable_prefix": "nat",
-        "new_variable_prefix": "NWEA_Nat",
-        "module_name": "nat",
+        "previous_variable_prefix": "firewall",
+        "new_variable_prefix": "NWSAF_Firewall",
+        "module_name": "firewall",
     },
 ]
 

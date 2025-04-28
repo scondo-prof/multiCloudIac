@@ -4,6 +4,7 @@ module "network" {
   gcpProjectId   = var.gcpProjectId
   gcpRegion      = var.gcpRegion
   networkObjects = var.NWSAF_NetworkObjects
+  resourceName   = var.resourceName
 }
 
 #---
@@ -12,8 +13,9 @@ module "subnetwork" {
   source            = "../genericSubnetwork"
   gcpProjectId      = var.gcpProjectId
   gcpRegion         = var.gcpRegion
-  subnetworkObjects = var.NWSAF_SubnetworkObjects
-  subnetworkNetwork = module.network.networkId[0]
+  subnetworkObjects = var.subnetworkObjects
+  resourceName      = var.resourceName
+  subnetworkNetwork = module.network.networkId[0]#var.subnetworkNetwork
 }
 
 #---
@@ -23,6 +25,7 @@ module "firewall" {
   gcpProjectId    = var.gcpProjectId
   gcpRegion       = var.gcpRegion
   firewallObjects = var.NWSAF_FirewallObjects
+  resourceName    = var.resourceName
   firewallNetwork = module.network.networkId[0]
 }
 

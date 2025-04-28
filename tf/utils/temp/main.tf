@@ -1,36 +1,32 @@
 
-    module "networkAddress" {
-  source = "../genericNetworkAddress"
+    module "network" {
+  source = "../genericNetwork"
 gcpProjectId = var.gcpProjectId
 gcpRegion = var.gcpRegion
+networkObjects = var.NWSAF_NetworkObjects
 resourceName = var.resourceName
-networkAddressObject = var.NWEA_NetworkAddressObject
-projectName = var.projectName
-deployedDate = var.deployedDate
-createdBy = var.createdBy
-tfModule = var.tfModule
-additionalTags = var.additionalTags
 }
 
 #---
 
-    module "networkRouter" {
-  source = "../genericNetworkRouter"
+    module "subnetwork" {
+  source = "../genericSubnetwork"
 gcpProjectId = var.gcpProjectId
 gcpRegion = var.gcpRegion
-networkRouterObjects = var.NWEA_NetworkRouterObjects
+subnetworkObjects = var.subnetworkObjects
 resourceName = var.resourceName
-networkRouterNetwork = var.NWEA_NetworkRouterNetwork
+subnetworkNetwork = var.subnetworkNetwork
 }
 
 #---
 
-    module "nat" {
-  source = "../genericNetworkRouterNat"
+    module "firewall" {
+  source = "../genericFirewall"
 gcpProjectId = var.gcpProjectId
 gcpRegion = var.gcpRegion
+firewallObjects = var.NWSAF_FirewallObjects
 resourceName = var.resourceName
-natObject = var.NWEA_NatObject
+firewallNetwork = var.NWSAF_FirewallNetwork
 }
 
 #---

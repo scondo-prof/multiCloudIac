@@ -1,59 +1,71 @@
-output "NWEA_NetworkAddressId" {
-  value = module.networkAddress.networkAddressId
+output "NWSAF_NetworkId" {
+  value = module.network.networkId
 }
 
-output "NWEA_NetworkAddressCreationTimestamp" {
-  value = module.networkAddress.networkAddressCreationTimestamp
+output "NWSAF_NetworkGatewayIpv4" {
+  value = module.network.networkGatewayIpv4
 }
 
-output "NWEA_NetworkAddressUsers" {
-  value = module.networkAddress.networkAddressUsers
+output "NWSAF_NetworkNumericId" {
+  value = module.network.networkNumericId
 }
 
-output "NWEA_NetworkAddressLabelFingerprint" {
-  value = module.networkAddress.networkAddressLabelFingerprint
+output "NWSAF_NetworkSelfLink" {
+  value = module.network.networkSelfLink
 }
 
-output "NWEA_NetworkAddressTerraformLabels" {
-  value = module.networkAddress.networkAddressTerraformLabels
-}
-
-output "NWEA_NetworkAddressEffectiveLabels" {
-  value = module.networkAddress.networkAddressEffectiveLabels
-}
-
-output "NWEA_NetworkAddressSelfLink" {
-  value = module.networkAddress.networkAddressSelfLink
-}
-
-output "NWEA_NetworkAddressExternalIp" {
-  value = module.networkAddress.networkAddressExternalIp
+output "NWSAF_NetworkName" {
+  value = module.network.networkName
 }
 
 #---
-output "NWEA_NetworkRouterId" {
-  value = module.networkRouter.networkRouterId
+output "subnetworkId" {
+  value = module.subnetwork.subnetworkId
 }
 
-output "NWEA_NetworkRouterName" {
-  value = module.networkRouter.networkRouterName
+output "subnetworkCreationTimestamp" {
+  value = module.subnetwork.subnetworkCreationTimestamp
 }
 
-output "NWEA_NetworkRouterSelfLink" {
-  value = module.networkRouter.networkRouterSelfLink
+output "subnetworkGatewayAddress" {
+  value = module.subnetwork.subnetworkGatewayAddress
 }
 
-output "NWEA_NetworkRouterCreationTimestamp" {
-  value = module.networkRouter.networkRouterCreationTimestamp
+output "subnetworkIpv4CidrRange" {
+  value = module.subnetwork.subnetworkIpv4CidrRange
+}
+
+output "subnetworkIpv6CidrRange" {
+  value = module.subnetwork.subnetworkIpv6CidrRange
+}
+
+output "subnetworkInternalIpv6Prefix" {
+  value = module.subnetwork.subnetworkInternalIpv6Prefix
+}
+
+output "subnetworkSelfLink" {
+  value = module.subnetwork.subnetworkSelfLink
+}
+
+output "subnetworkName" {
+  value = module.subnetwork.subnetworkName
 }
 
 #---
-output "NWEA_NatId" {
-  value = module.nat.natId
+output "NWSAF_FirewallId" {
+  value = module.firewall.firewallId
 }
 
-output "NWEA_NatName" {
-  value = module.nat.natName
+output "NWSAF_FirewallCreationTimestamp" {
+  value = module.firewall.firewallCreationTimestamp
+}
+
+output "NWSAF_FirewallSelfLink" {
+  value = module.firewall.firewallSelfLink
+}
+
+output "NWSAF_FirewallName" {
+  value = module.firewall.firewallName
 }
 
 #---
