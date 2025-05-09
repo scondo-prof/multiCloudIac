@@ -17,32 +17,31 @@ steps:
         "push",
         "$_REGION_NAME-docker.pkg.dev/$_PROJECT_NAME/$_ARTIFACT_REPO/$_APP_NAME:$COMMIT_SHA",
       ]
-  #Deploys cloud run container
+  #Deploys cloud run containerr
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     entrypoint: gcloud
     args:
       - "run"
       - "deploy"
       - "$_APP_NAME"
-      - "--image"
-      - "$_REGION_NAME-docker.pkg.dev/$_PROJECT_NAME/$_ARTIFACT_REPO/$_APP_NAME:$COMMIT_SHA" #Targets the Dockerfile built and pushed to artifact registry in prior step.
-      - "--region"
-      - "$_REGION_NAME"
-      - "--port"
-      - "8080"
-      - "--allow-unauthenticated" #Allows unauthenticated requests(doesnt work most the time)
-      - "--vpc-connector"
-      - "$_VPC_CONNECTOR" #Ties into a vpc connector, allowing traffic to pass through a nat gateway for a static external IP
-      - "--vpc-egress"
-      - "all-traffic" #States all egress traffic will leave through the vpc
-      - "--command=gunicorn,-w,2,-b,0.0.0.0:8080,app:server"
-      - "--memory=$_MEM_IN_GIGSGi"
+      - "--image=$_REGION_NAME-docker.pkg.dev/$_PROJECT_NAME/$_ARTIFACT_REPO/$_APP_NAME:$COMMIT_SHA" #Targets the Dockerfile built and pushed to artifact registry in prior step.
+      - "--region=$_REGION_NAME"
+      - "--concurrency=$_CONCURRENT_REQUESTS"
+      - "--timeout=$_REQUESTS_TIMEOUT"
+      - "--port=$_PORT_NUMBER"
+      - "--allow-unauthenticated" #Allows unauthenticated requests(doesnt work most the time
+      - "--min-instances=$_MIN_INSTANCES"
+      - "--max-instances=$_MAX_INSTANCES"
+      - "--vpc-connector=$_VPC_CONNECTOR" #Ties into a vpc connector, allowing traffic to pass through a nat gateway for a static external IP
+      - "--vpc-egress=all-traffic" #States all egress traffic will leave through the vpc
+      - "--command=gunicorn,-w,$_G_UNICORN_WORKERS,-b,0.0.0.0:8080,app:server,--timeout,$_G_UNICORN_TIMEOUT"
+      - "--memory=$_AMOUNT_OF_MEMORY"
       - "--cpu=$_NUMBER_OF_VCPU"
-      - "--set-secrets=$_ENV_VARIABLE_NAME=$_SECRET_NAME:1" #Passed secret into env variables, this comes in as a json object to be used in code in dictionary form.
+      - "--set-secrets=$_ENV_VARIABLE_NAME=$_SECRET_NAME:1,FIREBASE_CONFIG=firebase-config-secret:1" #Passed secret into env variables, this comes in as a json object to be used in code in dictionary form.
       - "--labels=project=dash,app=$_APP_NAME" #The labels for cost tracking
 
 images:
   - "$_REGION_NAME-docker.pkg.dev/$_PROJECT_NAME/$_ARTIFACT_REPO/$_APP_NAME:$COMMIT_SHA"
 
-logsBucket: "$_BUCKET_NAME" #The bucket used for cloudbuild byproducts.
+logsBucket: "$_BUCKET_NAME" #The bucket used for cloudbuild byproducts
 serviceAccount: "$_SERVICE_ACCOUNT"
