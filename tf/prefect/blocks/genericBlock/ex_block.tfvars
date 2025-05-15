@@ -1,4 +1,4 @@
-prefectApiKey = "pnu_200LnX5gWtRqOzoA9Auw4gUUMkjjzF0dKjFZ"
+prefectApiKey = "<prefect-api-key>"
 
 prefectAccountId = "9759ff6b-6f30-404f-92f3-02c593f6f7aa"
 
