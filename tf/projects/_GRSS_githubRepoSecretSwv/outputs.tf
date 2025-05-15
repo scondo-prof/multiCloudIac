@@ -17,7 +17,7 @@ output "GRSS_GithubActionsSecretEncryptedValue" {
 }
 
 output "GRSS_GithubActionsSecretName" {
-  value = module.githubActionsSecret.secretName
+  value     = module.githubActionsSecret.secretName
   sensitive = true
 }
 

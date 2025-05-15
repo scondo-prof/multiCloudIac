@@ -79,13 +79,13 @@ variable "additionalTags" {
   default = {}
 }
 
-# https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_GRSS_GithubActionsSecret#argument-reference
+# https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret#argument-reference
 
 variable "GRSS_GithubActionsSecretObjects" {
   type = list(object({
-    GRSS_GithubActionsSecret_name = string
-    encrypted_value               = optional(string, null)
-    plaintext_value               = optional(string, null)
+    secret_name     = string
+    encrypted_value = optional(string, null)
+    plaintext_value = optional(string, null)
   }))
   sensitive = true
 }

@@ -32,12 +32,12 @@ module "SWV" {
   deployedDate                   = var.deployedDate
   tfModule                       = var.tfModule
   additionalTags                 = var.additionalTags
-  SWV_SecretVersionSecretString  = merge({
+  SWV_SecretVersionSecretString = merge({
     for idx in range(length(module.githubActionsSecret.secretName)) :
-    module.githubActionsSecret.secretName[idx] => module.ghOrgSecret.secretPlaintextValue[idx]
-    }, var.GRSS_SWV_SecretVersionSecretString)
-  SWV_SecretVersionSecretBinary  = var.GRSS_SWV_SecretVersionSecretBinary
-  SWV_SecretVersionStages        = var.GRSS_SWV_SecretVersionStages
+    module.githubActionsSecret.secretName[idx] => module.githubActionsSecret.secretPlaintextValue[idx]
+  }, var.GRSS_SWV_SecretVersionSecretString)
+  SWV_SecretVersionSecretBinary = var.GRSS_SWV_SecretVersionSecretBinary
+  SWV_SecretVersionStages       = var.GRSS_SWV_SecretVersionStages
 }
 
 #---
