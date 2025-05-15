@@ -15,7 +15,7 @@ module "SWV" {
   SWV_SecretDescription          = var.PBS_SWV_SecretDescription
   SWV_SecretKmsKeyId             = var.PBS_SWV_SecretKmsKeyId
   SWV_SecretNamePrefix           = var.PBS_SWV_SecretNamePrefix
-  resourceName                   = var.resourceName
+  resourceName                   = "${var.resourceName}-prefect-block"
   SWV_SecretPolicy               = var.PBS_SWV_SecretPolicy
   SWV_SecretRecoveryWindowInDays = var.PBS_SWV_SecretRecoveryWindowInDays
   SWV_SecretReplica              = var.PBS_SWV_SecretReplica

@@ -15,7 +15,7 @@ provider "prefect" {
 resource "prefect_block" "block" {
   count        = length(var.blockObjects)
   data         = jsonencode(var.blockObjects[count.index]["data"])
-  name         = "${var.blockObjects[count.index]["name"]}-prefect-block"
+  name         = "${var.blockObjects[count.index]["name"]}-${var.blockObjects[count.index]["type_slug"]}-block"
   type_slug    = var.blockObjects[count.index]["type_slug"]
   account_id   = var.blockObjects[count.index]["account_id"]
   workspace_id = var.blockObjects[count.index]["workspace_id"]
