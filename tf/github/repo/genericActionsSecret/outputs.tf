@@ -15,3 +15,8 @@ output "secretEncryptedValue" {
   value = github_actions_secret.secret[*].encrypted_value
   sensitive = true
 }
+
+output "secretName" {
+  value = github_actions_secret.secret[*].secret_name
+  sensitive = true
+}
