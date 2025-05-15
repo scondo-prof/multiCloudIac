@@ -6,6 +6,16 @@ output "GRSS_GithubActionsSecretUpdatedAt" {
   value = module.githubActionsSecret.secretUpdatedAt
 }
 
+output "GRSS_GithubActionsSecretPlaintextValue" {
+  value     = module.githubActionsSecret.secretPlaintextValue
+  sensitive = true
+}
+
+output "GRSS_GithubActionsSecretEncryptedValue" {
+  value     = module.githubActionsSecret.secretEncryptedValue
+  sensitive = true
+}
+
 #---
 output "GRSS_SWV_SecretArn" {
   value = module.SWV.SWV_SecretArn

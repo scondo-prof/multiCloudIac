@@ -48,6 +48,22 @@ variable "githubMaxRetries" {
   default = null
 }
 
+# https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_GRSS_GithubActionsSecret#argument-reference
+
+variable "GRSS_GithubActionsSecretObjects" {
+  type = list(object({
+    GRSS_GithubActionsSecret_name = string
+    encrypted_value               = optional(string, null)
+    plaintext_value               = optional(string, null)
+  }))
+  sensitive = true
+}
+
+variable "GRSS_GithubActionsSecretRepository" {
+  type = string
+}
+
+#---
 variable "awsRegion" {
   type    = string
   default = "us-east-1"
@@ -78,23 +94,6 @@ variable "additionalTags" {
   type    = map(string)
   default = {}
 }
-
-# https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret#argument-reference
-
-variable "GRSS_GithubActionsSecretObjects" {
-  type = list(object({
-    GRSS_GithubActionsSecret_name     = string
-    encrypted_value = optional(string, null)
-    plaintext_value = optional(string, null)
-  }))
-  sensitive = true
-}
-
-variable "GRSS_GithubActionsSecretRepository" {
-  type = string
-}
-
-#---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
 
