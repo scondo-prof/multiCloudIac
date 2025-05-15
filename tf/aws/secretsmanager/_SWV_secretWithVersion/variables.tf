@@ -29,7 +29,7 @@ variable "additionalTags" {
   default = {}
 }
 
-#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/SWV_Secretsmanager_SWV_Secret#argument-reference
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
 
 variable "SWV_SecretDescription" {
   type    = string
