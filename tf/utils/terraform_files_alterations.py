@@ -35,17 +35,11 @@ def modify_main_tf_file(
 
         for variable in variables:
             variable_name = variable.split(".")[1]
-            new_variable_name = variable_name.replace(
-                previous_variable_prefix, new_variable_prefix
-            )
+            new_variable_name = variable_name.replace(previous_variable_prefix, new_variable_prefix)
             modified_main_tf_file += f"{variable_name} = var.{new_variable_name}\n"
         modified_main_tf_file += "}"
 
         return modified_main_tf_file
-
-
-import os
-import re
 
 
 def modify_outputs_tf_file(
@@ -70,9 +64,7 @@ def modify_outputs_tf_file(
         transformed_content = content
 
         for original_output_name, value, sensitive in output_blocks:
-            new_output_name = original_output_name.replace(
-                previous_variable_prefix, new_variable_prefix
-            )
+            new_output_name = original_output_name.replace(previous_variable_prefix, new_variable_prefix)
             new_value = f"module.{module_name}.{original_output_name}"
 
             # Construct new output block
@@ -94,16 +86,12 @@ def modify_outputs_tf_file(
         return transformed_content
 
 
-def modify_variables_tf_file(
-    paths: dict[str], previous_variable_prefix: str, new_variable_prefix: str
-) -> str:
+def modify_variables_tf_file(paths: dict[str], previous_variable_prefix: str, new_variable_prefix: str) -> str:
     project_path = paths["project_path"]
     if os.path.exists(f"{project_path}/variables.tf"):
         with open(f"{project_path}/variables.tf", "r") as vfile:
             variables_tf = vfile.read()
-        variables_tf = variables_tf.replace(
-            previous_variable_prefix, new_variable_prefix
-        )
+        variables_tf = variables_tf.replace(previous_variable_prefix, new_variable_prefix)
         variables_tf = variables_tf.replace("#---", "")
 
         return variables_tf
