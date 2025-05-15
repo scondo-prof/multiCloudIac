@@ -1,20 +1,17 @@
 variable "prefectAccountId" {
   type    = string
-  default = "9759ff6b-6f30-404f-92f3-02c593f6f7aa"
+  default = null
 }
 
 variable "prefectWorkspaceId" {
   type    = string
-  default = "1733fd7b-18ad-4093-a0a1-4f128be45747"
+  default = null
 }
 
 variable "prefectApiKey" {
   type      = string
   sensitive = true
-}
-
-variable "resourceName" {
-  type = string
+  default = null
 }
 
 #https://registry.terraform.io/providers/PrefectHQ/prefect/latest/docs/resources/block#schema

@@ -1,11 +1,20 @@
-output "prefectBlockId" {
-  value = prefect_block.prefectBlock.id
+output "blockCreated" {
+  value = prefect_block.block[*].created
 }
 
-output "prefectBlockAccountId" {
-  value = prefect_block.prefectBlock.account_id
+output "blockId" {
+  value = prefect_block.block[*].id
 }
 
-output "prefectBlockWorkspaceId" {
-  value = prefect_block.prefectBlock.workspace_id
+output "blockUpdated" {
+  value = prefect_block.block[*].updated
+}
+
+output "blockName" {
+  value = prefect_block.block[*].name
+}
+
+output "blockData" {
+  value = prefect_block.block[*].data
+  sensitive = true
 }
