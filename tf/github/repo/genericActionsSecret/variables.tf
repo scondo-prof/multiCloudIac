@@ -56,6 +56,7 @@ variable "secretObjects" {
     encrypted_value = optional(string, null)
     plaintext_value = optional(string, null)
   }))
+  sensitive = true
 }
 
 variable "secretRepository" {
