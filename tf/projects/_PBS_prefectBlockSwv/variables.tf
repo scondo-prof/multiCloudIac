@@ -14,21 +14,6 @@ variable "prefectApiKey" {
   default   = null
 }
 
-#https://registry.terraform.io/providers/PrefectHQ/prefect/latest/docs/resources/PBS_PrefectBlock#schema
-
-#Dependent on prefectBlockTypeSlug, use "prefect PBS_PrefectBlock type inspect <slug>" to see the required format
-
-variable "PBS_PrefectBlockObjects" {
-  type = list(object({
-    data         = map(string)
-    name         = string
-    type_slug    = string
-    account_id   = optional(string, null)
-    workspace_id = optional(string, null)
-  }))
-}
-
-#---
 variable "awsRegion" {
   type    = string
   default = "us-east-1"
@@ -59,6 +44,22 @@ variable "additionalTags" {
   type    = map(string)
   default = {}
 }
+
+#https://registry.terraform.io/providers/PrefectHQ/prefect/latest/docs/resources/block#schema
+
+#Dependent on prefectBlockTypeSlug, use "prefect block type inspect <slug>" to see the required format
+
+variable "PBS_PrefectBlockObjects" {
+  type = list(object({
+    data         = map(string)
+    name         = string
+    type_slug    = string
+    account_id   = optional(string, null)
+    workspace_id = optional(string, null)
+  }))
+}
+
+#---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
 
@@ -107,7 +108,7 @@ variable "PBS_SWV_SecretForceSecretOverwrite" {
 
 variable "PBS_SWV_SecretVersionSecretString" {
   type    = map(string)
-  default = null
+  default = {}
 }
 
 variable "PBS_SWV_SecretVersionSecretBinary" {

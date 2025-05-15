@@ -25,9 +25,12 @@ module "SWV" {
   deployedDate                   = var.deployedDate
   tfModule                       = var.tfModule
   additionalTags                 = var.additionalTags
-  SWV_SecretVersionSecretString  = var.PBS_SWV_SecretVersionSecretString
-  SWV_SecretVersionSecretBinary  = var.PBS_SWV_SecretVersionSecretBinary
-  SWV_SecretVersionStages        = var.PBS_SWV_SecretVersionStages
+  SWV_SecretVersionSecretString = merge({
+    for idx in range(length(module.prefectBlock.blockName)) :
+    module.prefectBlock.blockName[idx] => module.prefectBlock.blockData[idx]
+  }, var.PBS_SWV_SecretVersionSecretString)
+  SWV_SecretVersionSecretBinary = var.PBS_SWV_SecretVersionSecretBinary
+  SWV_SecretVersionStages       = var.PBS_SWV_SecretVersionStages
 }
 
 #---
