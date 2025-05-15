@@ -48,3 +48,16 @@ variable "githubMaxRetries" {
   default = null
 }
 
+# https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret#argument-reference
+
+variable "secretObjects" {
+  type = list(object({
+    secret_name     = string
+    encrypted_value = optional(string, null)
+    plaintext_value = optional(string, null)
+  }))
+}
+
+variable "secretRepository" {
+  type = string
+}
