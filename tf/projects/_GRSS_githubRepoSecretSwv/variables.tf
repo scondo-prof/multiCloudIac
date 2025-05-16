@@ -88,6 +88,7 @@ variable "GRSS_GithubActionsSecretObjects" {
     plaintext_value = optional(string, null)
   }))
   sensitive = true
+  default = []
 }
 
 variable "GRSS_GithubActionsSecretRepository" {
