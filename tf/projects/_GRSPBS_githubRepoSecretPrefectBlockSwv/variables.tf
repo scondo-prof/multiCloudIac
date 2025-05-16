@@ -48,6 +48,22 @@ variable "githubMaxRetries" {
   default = null
 }
 
+variable "prefectAccountId" {
+  type    = string
+  default = null
+}
+
+variable "prefectWorkspaceId" {
+  type    = string
+  default = null
+}
+
+variable "prefectApiKey" {
+  type      = string
+  sensitive = true
+  default   = null
+}
+
 variable "awsRegion" {
   type    = string
   default = "us-east-1"
@@ -81,50 +97,67 @@ variable "additionalTags" {
 
 # https://registry.terraform.io/providers/integrations/github/latest/docs/resources/actions_secret#argument-reference
 
-variable "GRSS_GithubActionsSecretObjects" {
+variable "GRSPBS_GithubActionsSecretObjects" {
   type = list(object({
     secret_name     = string
     encrypted_value = optional(string, null)
     plaintext_value = optional(string, null)
   }))
   sensitive = true
-  default = []
+  default   = []
 }
 
-variable "GRSS_GithubActionsSecretRepository" {
+variable "GRSPBS_GithubActionsSecretRepository" {
   type = string
+}
+
+#---
+
+#https://registry.terraform.io/providers/PrefectHQ/prefect/latest/docs/resources/block#schema
+
+#Dependent on prefectBlockTypeSlug, use "prefect GRSPBS_PrefectBlock type inspect <slug>" to see the required format
+
+variable "GRSPBS_PrefectBlockObjects" {
+  type = list(object({
+    data         = map(string)
+    name         = string
+    type_slug    = string
+    account_id   = optional(string, null)
+    workspace_id = optional(string, null)
+  }))
+  default = []
 }
 
 #---
 
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
 
-variable "GRSS_SWV_SecretDescription" {
+variable "GRSPBS_SWV_SecretDescription" {
   type    = string
   default = null
 }
 
-variable "GRSS_SWV_SecretKmsKeyId" {
+variable "GRSPBS_SWV_SecretKmsKeyId" {
   type    = string
   default = null
 }
 
-variable "GRSS_SWV_SecretNamePrefix" {
+variable "GRSPBS_SWV_SecretNamePrefix" {
   type    = string
   default = null
 }
 
-variable "GRSS_SWV_SecretPolicy" {
+variable "GRSPBS_SWV_SecretPolicy" {
   type    = string
   default = null
 }
 
-variable "GRSS_SWV_SecretRecoveryWindowInDays" {
+variable "GRSPBS_SWV_SecretRecoveryWindowInDays" {
   type    = number
   default = null
 }
 
-variable "GRSS_SWV_SecretReplica" {
+variable "GRSPBS_SWV_SecretReplica" {
   type = object({
     kms_key_id = optional(string, null)
     region     = string
@@ -132,7 +165,7 @@ variable "GRSS_SWV_SecretReplica" {
   default = null
 }
 
-variable "GRSS_SWV_SecretForceSecretOverwrite" {
+variable "GRSPBS_SWV_SecretForceSecretOverwrite" {
   type    = bool
   default = null
 }
@@ -142,17 +175,17 @@ variable "GRSS_SWV_SecretForceSecretOverwrite" {
 #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
 
 
-variable "GRSS_SWV_SecretVersionSecretString" {
+variable "GRSPBS_SWV_SecretVersionSecretString" {
   type    = map(string)
   default = {}
 }
 
-variable "GRSS_SWV_SecretVersionSecretBinary" {
+variable "GRSPBS_SWV_SecretVersionSecretBinary" {
   type    = string
   default = null
 }
 
-variable "GRSS_SWV_SecretVersionStages" {
+variable "GRSPBS_SWV_SecretVersionStages" {
   type    = list(string)
   default = null
 }

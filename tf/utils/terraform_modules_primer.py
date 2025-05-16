@@ -26,22 +26,32 @@ def terraform_modules_primer(modules: list[Module]) -> str:
 modules = [
     {
         "paths": {
+            "project_path": "../github/repo/genericActionsSecret",
+            "source_path": "../../github/repo/genericActionsSecret",
+            "destination_path": "../projects/_GRSPBS_githubRepoSecretPrefectBlockSwv",
+        },
+        "previous_variable_prefix": "secret",
+        "new_variable_prefix": "GRSPBS_GithubActionsSecret",
+        "module_name": "githubActionsSecret",
+    },
+    {
+        "paths": {
             "project_path": "../prefect/blocks/genericBlock",
             "source_path": "../../prefect/blocks/genericBlock",
-            "destination_path": "../projects/_PBS_prefectBlockSwv",
+            "destination_path": "../projects/_GRSPBS_githubRepoSecretPrefectBlockSwv",
         },
         "previous_variable_prefix": "block",
-        "new_variable_prefix": "PBS_PrefectBlock",
+        "new_variable_prefix": "GRSPBS_PrefectBlock",
         "module_name": "prefectBlock",
     },
     {
         "paths": {
             "project_path": "../aws/secretsmanager/_SWV_secretWithVersion",
             "source_path": "../../aws/secretsmanager/_SWV_secretWithVersion",
-            "destination_path": "../projects/_PBS_prefectBlockSwv",
+            "destination_path": "../projects/_GRSPBS_githubRepoSecretPrefectBlockSwv",
         },
         "previous_variable_prefix": "SWV",
-        "new_variable_prefix": "PBS_SWV",
+        "new_variable_prefix": "GRSPBS_SWV",
         "module_name": "SWV",
     },
 ]

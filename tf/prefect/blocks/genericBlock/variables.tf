@@ -26,4 +26,5 @@ variable "blockObjects" {
     account_id   = optional(string, null)
     workspace_id = optional(string, null)
   }))
+  default = []
 }

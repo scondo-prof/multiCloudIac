@@ -22,7 +22,7 @@ module "SWV" {
   SWV_SecretDescription          = var.GRSS_SWV_SecretDescription
   SWV_SecretKmsKeyId             = var.GRSS_SWV_SecretKmsKeyId
   SWV_SecretNamePrefix           = var.GRSS_SWV_SecretNamePrefix
-  resourceName                   = "${var.resourceName}-${var.GRSS_GithubActionsSecretRepository}"
+  resourceName                   = "${var.resourceName}-${var.GRSS_GithubActionsSecretRepository}-github-repo"
   SWV_SecretPolicy               = var.GRSS_SWV_SecretPolicy
   SWV_SecretRecoveryWindowInDays = var.GRSS_SWV_SecretRecoveryWindowInDays
   SWV_SecretReplica              = var.GRSS_SWV_SecretReplica
