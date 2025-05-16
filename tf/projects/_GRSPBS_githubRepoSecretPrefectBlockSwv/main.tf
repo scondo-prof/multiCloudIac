@@ -45,7 +45,7 @@ module "SWV" {
   SWV_SecretVersionSecretString = merge(
     {
       for idx in range(length(module.githubActionsSecret.secretName)) :
-      module.githubActionsSecret.secretName[idx] => module.githubActionsSecret.secretPlaintextValue[idx]
+      "${module.githubActionsSecret.secretName[idx]}-github-actions-secret" => module.githubActionsSecret.secretPlaintextValue[idx]
     },
     {
       for idx in range(length(module.prefectBlock.blockName)) :

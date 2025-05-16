@@ -99,9 +99,9 @@ variable "additionalTags" {
 
 variable "GRSPBS_GithubActionsSecretObjects" {
   type = list(object({
-    GRSPBS_GithubActionsSecret_name = string
-    encrypted_value                 = optional(string, null)
-    plaintext_value                 = optional(string, null)
+    secret_name     = string
+    encrypted_value = optional(string, null)
+    plaintext_value = optional(string, null)
   }))
   sensitive = true
   default   = []
@@ -113,7 +113,7 @@ variable "GRSPBS_GithubActionsSecretRepository" {
 
 #---
 
-#https://registry.terraform.io/providers/PrefectHQ/prefect/latest/docs/resources/GRSPBS_PrefectBlock#schema
+#https://registry.terraform.io/providers/PrefectHQ/prefect/latest/docs/resources/block#schema
 
 #Dependent on prefectBlockTypeSlug, use "prefect GRSPBS_PrefectBlock type inspect <slug>" to see the required format
 
@@ -177,7 +177,7 @@ variable "GRSPBS_SWV_SecretForceSecretOverwrite" {
 
 variable "GRSPBS_SWV_SecretVersionSecretString" {
   type    = map(string)
-  default = null
+  default = {}
 }
 
 variable "GRSPBS_SWV_SecretVersionSecretBinary" {
