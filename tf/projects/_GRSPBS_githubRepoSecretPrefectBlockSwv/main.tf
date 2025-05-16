@@ -32,7 +32,7 @@ module "SWV" {
   SWV_SecretDescription          = var.GRSPBS_SWV_SecretDescription
   SWV_SecretKmsKeyId             = var.GRSPBS_SWV_SecretKmsKeyId
   SWV_SecretNamePrefix           = var.GRSPBS_SWV_SecretNamePrefix
-  resourceName                   = "${var.resourceName}-${var.GRSPBS_GithubActionsSecretRepository}"
+  resourceName                   = "${var.resourceName}-${var.GRSPBS_GithubActionsSecretRepository}-with-prefect-block"
   SWV_SecretPolicy               = var.GRSPBS_SWV_SecretPolicy
   SWV_SecretRecoveryWindowInDays = var.GRSPBS_SWV_SecretRecoveryWindowInDays
   SWV_SecretReplica              = var.GRSPBS_SWV_SecretReplica
@@ -42,17 +42,17 @@ module "SWV" {
   deployedDate                   = var.deployedDate
   tfModule                       = var.tfModule
   additionalTags                 = var.additionalTags
-  SWV_SecretVersionSecretString  = merge(
+  SWV_SecretVersionSecretString = merge(
     {
-    for idx in range(length(module.githubActionsSecret.secretName)) :
-    module.githubActionsSecret.secretName[idx] => module.githubActionsSecret.secretPlaintextValue[idx]
-  },
-  {
-    for idx in range(length(module.prefectBlock.blockName)) :
-    module.prefectBlock.blockName[idx] => module.prefectBlock.blockData[idx]
+      for idx in range(length(module.githubActionsSecret.secretName)) :
+      module.githubActionsSecret.secretName[idx] => module.githubActionsSecret.secretPlaintextValue[idx]
+    },
+    {
+      for idx in range(length(module.prefectBlock.blockName)) :
+      module.prefectBlock.blockName[idx] => module.prefectBlock.blockData[idx]
   }, var.GRSPBS_SWV_SecretVersionSecretString)
-  SWV_SecretVersionSecretBinary  = var.GRSPBS_SWV_SecretVersionSecretBinary
-  SWV_SecretVersionStages        = var.GRSPBS_SWV_SecretVersionStages
+  SWV_SecretVersionSecretBinary = var.GRSPBS_SWV_SecretVersionSecretBinary
+  SWV_SecretVersionStages       = var.GRSPBS_SWV_SecretVersionStages
 }
 
 #---

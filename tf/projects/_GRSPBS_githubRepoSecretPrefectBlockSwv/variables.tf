@@ -104,6 +104,7 @@ variable "GRSPBS_GithubActionsSecretObjects" {
     plaintext_value                 = optional(string, null)
   }))
   sensitive = true
+  default   = []
 }
 
 variable "GRSPBS_GithubActionsSecretRepository" {
@@ -124,6 +125,7 @@ variable "GRSPBS_PrefectBlockObjects" {
     account_id   = optional(string, null)
     workspace_id = optional(string, null)
   }))
+  default = []
 }
 
 #---
