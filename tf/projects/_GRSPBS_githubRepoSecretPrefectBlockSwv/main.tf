@@ -32,7 +32,7 @@ module "SWV" {
   SWV_SecretDescription          = var.GRSPBS_SWV_SecretDescription
   SWV_SecretKmsKeyId             = var.GRSPBS_SWV_SecretKmsKeyId
   SWV_SecretNamePrefix           = var.GRSPBS_SWV_SecretNamePrefix
-  resourceName                   = "${var.resourceName}-${var.GRSPBS_GithubActionsSecretRepository}-with-prefect-block"
+  resourceName                   = "${var.resourceName}-${var.GRSPBS_GithubActionsSecretRepository}-github-repo-with-prefect-blocks"
   SWV_SecretPolicy               = var.GRSPBS_SWV_SecretPolicy
   SWV_SecretRecoveryWindowInDays = var.GRSPBS_SWV_SecretRecoveryWindowInDays
   SWV_SecretReplica              = var.GRSPBS_SWV_SecretReplica

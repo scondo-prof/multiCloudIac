@@ -23,7 +23,7 @@ module "SWV" {
   SWV_SecretDescription          = var.GOSAS_SWV_SecretDescription
   SWV_SecretKmsKeyId             = var.GOSAS_SWV_SecretKmsKeyId
   SWV_SecretNamePrefix           = var.GOSAS_SWV_SecretNamePrefix
-  resourceName                   = "${var.resourceName}-github-org"
+  resourceName                   = "${var.resourceName}-${var.githubOwner}-github-org"
   SWV_SecretPolicy               = var.GOSAS_SWV_SecretPolicy
   SWV_SecretRecoveryWindowInDays = var.GOSAS_SWV_SecretRecoveryWindowInDays
   SWV_SecretReplica              = var.GOSAS_SWV_SecretReplica
