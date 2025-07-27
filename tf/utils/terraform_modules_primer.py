@@ -26,33 +26,83 @@ def terraform_modules_primer(modules: list[Module]) -> str:
 modules = [
     {
         "paths": {
-            "project_path": "../github/repo/genericActionsSecret",
-            "source_path": "../../github/repo/genericActionsSecret",
-            "destination_path": "../projects/_GRSPBS_githubRepoSecretPrefectBlockSwv",
+            "project_path": "../aws/ec2/generic_key_pair",
+            "source_path": "../../aws/ec2/generic_key_pair",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "key_pair",
+        "new_variable_prefix": "key_pair",
+        "module_name": "key_pair",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/ec2/generic_security_group",
+            "source_path": "../../aws/ec2/generic_security_group",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "sg",
+        "new_variable_prefix": "sg",
+        "module_name": "sg",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/iam/generic_role",
+            "source_path": "../../aws/iam/generic_role",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "role",
+        "new_variable_prefix": "role",
+        "module_name": "role",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/iam/generic_policy",
+            "source_path": "../../aws/iam/generic_policy",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "policy",
+        "new_variable_prefix": "policy",
+        "module_name": "policy",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/iam/generic_iam_policy_attachment",
+            "source_path": "../../aws/iam/generic_iam_policy_attachment",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "pa",
+        "new_variable_prefix": "pa",
+        "module_name": "pa",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/ec2/generic_instance",
+            "source_path": "../../aws/ec2/generic_instance",
+            "destination_path": "./temp",
+        },
+        "previous_variable_prefix": "instance",
+        "new_variable_prefix": "instance",
+        "module_name": "instance",
+    },
+    {
+        "paths": {
+            "project_path": "../aws/secretsmanager/generic_secret",
+            "source_path": "../../aws/secretsmanager/generic_secret",
+            "destination_path": "./temp",
         },
         "previous_variable_prefix": "secret",
-        "new_variable_prefix": "GRSPBS_GithubActionsSecret",
-        "module_name": "githubActionsSecret",
+        "new_variable_prefix": "secret",
+        "module_name": "secret",
     },
     {
         "paths": {
-            "project_path": "../prefect/blocks/genericBlock",
-            "source_path": "../../prefect/blocks/genericBlock",
-            "destination_path": "../projects/_GRSPBS_githubRepoSecretPrefectBlockSwv",
+            "project_path": "../aws/secretsmanager/generic_secret_version",
+            "source_path": "../../aws/secretsmanager/generic_secret_version",
+            "destination_path": "./temp",
         },
-        "previous_variable_prefix": "block",
-        "new_variable_prefix": "GRSPBS_PrefectBlock",
-        "module_name": "prefectBlock",
-    },
-    {
-        "paths": {
-            "project_path": "../aws/secretsmanager/_SWV_secretWithVersion",
-            "source_path": "../../aws/secretsmanager/_SWV_secretWithVersion",
-            "destination_path": "../projects/_GRSPBS_githubRepoSecretPrefectBlockSwv",
-        },
-        "previous_variable_prefix": "SWV",
-        "new_variable_prefix": "GRSPBS_SWV",
-        "module_name": "SWV",
+        "previous_variable_prefix": "secret_version",
+        "new_variable_prefix": "secret_version",
+        "module_name": "secret_version",
     },
 ]
 

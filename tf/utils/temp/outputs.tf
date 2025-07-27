@@ -1,155 +1,214 @@
-output "NWEIPN_NWSAF_NetworkId" {
-  value = module.NWSAF.NWSAF_NetworkId
+output "private_key_id" {
+  value = module.key_pair.private_key_id
 }
 
-output "NWEIPN_NWSAF_NetworkGatewayIpv4" {
-  value = module.NWSAF.NWSAF_NetworkGatewayIpv4
+output "private_key_private_key_openssh" {
+  value     = module.key_pair.private_key_private_key_openssh
+  sensitive = true
 }
 
-output "NWEIPN_NWSAF_NetworkNumericId" {
-  value = module.NWSAF.NWSAF_NetworkNumericId
+output "private_key_private_key_pem" {
+  value     = module.key_pair.private_key_private_key_pem
+  sensitive = true
 }
 
-output "NWEIPN_NWSAF_NetworkSelfLink" {
-  value = module.NWSAF.NWSAF_NetworkSelfLink
+output "private_key_private_key_pem_pkcs8" {
+  value     = module.key_pair.private_key_private_key_pem_pkcs8
+  sensitive = true
 }
 
-output "NWEIPN_NWSAF_NetworkName" {
-  value = module.NWSAF.NWSAF_NetworkName
+output "private_key_public_key_fingerprint_md5" {
+  value     = module.key_pair.private_key_public_key_fingerprint_md5
+  sensitive = true
 }
 
-
-output "NWEIPN_NWSAF_SubnetworkId" {
-  value = module.NWSAF.NWSAF_SubnetworkId
+output "private_key_public_key_fingerprint_sha256" {
+  value     = module.key_pair.private_key_public_key_fingerprint_sha256
+  sensitive = true
 }
 
-output "NWEIPN_NWSAF_SubnetworkCreationTimestamp" {
-  value = module.NWSAF.NWSAF_SubnetworkCreationTimestamp
+output "private_key_public_key_openssh" {
+  value     = module.key_pair.private_key_public_key_openssh
+  sensitive = true
 }
 
-output "NWEIPN_NWSAF_SubnetworkGatewayAddress" {
-  value = module.NWSAF.NWSAF_SubnetworkGatewayAddress
+output "private_key_public_key_pem" {
+  value     = module.key_pair.private_key_public_key_pem
+  sensitive = true
 }
 
-output "NWEIPN_NWSAF_SubnetworkIpv4CidrRange" {
-  value = module.NWSAF.NWSAF_SubnetworkIpv4CidrRange
+###
+
+output "key_pair_id" {
+  value = module.key_pair.key_pair_id
 }
 
-output "NWEIPN_NWSAF_SubnetworkIpv6CidrRange" {
-  value = module.NWSAF.NWSAF_SubnetworkIpv6CidrRange
+output "key_pair_arn" {
+  value = module.key_pair.key_pair_arn
 }
 
-output "NWEIPN_NWSAF_SubnetworkInternalIpv6Prefix" {
-  value = module.NWSAF.NWSAF_SubnetworkInternalIpv6Prefix
+output "key_pair_key_name" {
+  value = module.key_pair.key_pair_key_name
 }
 
-output "NWEIPN_NWSAF_SubnetworkSelfLink" {
-  value = module.NWSAF.NWSAF_SubnetworkSelfLink
+output "key_pair_key_pair_id" {
+  value = module.key_pair.key_pair_key_pair_id
 }
 
-output "NWEIPN_NWSAF_SubnetworkName" {
-  value = module.NWSAF.NWSAF_SubnetworkName
+output "key_pair_key_type" {
+  value = module.key_pair.key_pair_key_type
 }
 
-
-output "NWEIPN_NWSAF_FirewallId" {
-  value = module.NWSAF.NWSAF_FirewallId
+output "key_pair_fingerprint" {
+  value = module.key_pair.key_pair_fingerprint
 }
 
-output "NWEIPN_NWSAF_FirewallCreationTimestamp" {
-  value = module.NWSAF.NWSAF_FirewallCreationTimestamp
+output "key_pair_tags_all" {
+  value = module.key_pair.key_pair_tags_all
 }
-
-output "NWEIPN_NWSAF_FirewallSelfLink" {
-  value = module.NWSAF.NWSAF_FirewallSelfLink
-}
-
-output "NWEIPN_NWSAF_FirewallName" {
-  value = module.NWSAF.NWSAF_FirewallName
-}
-
-
 
 #---
-output "NWEIPN_NWEA_NetworkAddressId" {
-  value = module.NWEA.NWEA_NetworkAddressId
+output "sg_arn" {
+  value = module.sg.sg_arn
 }
 
-output "NWEIPN_NWEA_NetworkAddressCreationTimestamp" {
-  value = module.NWEA.NWEA_NetworkAddressCreationTimestamp
+output "sg_id" {
+  value = module.sg.sg_id
 }
 
-output "NWEIPN_NWEA_NetworkAddressUsers" {
-  value = module.NWEA.NWEA_NetworkAddressUsers
+output "sg_owner_id" {
+  value = module.sg.sg_owner_id
 }
 
-output "NWEIPN_NWEA_NetworkAddressLabelFingerprint" {
-  value = module.NWEA.NWEA_NetworkAddressLabelFingerprint
+output "sg_tags_all" {
+  value = module.sg.sg_tags_all
 }
-
-output "NWEIPN_NWEA_NetworkAddressTerraformLabels" {
-  value = module.NWEA.NWEA_NetworkAddressTerraformLabels
-}
-
-output "NWEIPN_NWEA_NetworkAddressEffectiveLabels" {
-  value = module.NWEA.NWEA_NetworkAddressEffectiveLabels
-}
-
-output "NWEIPN_NWEA_NetworkAddressSelfLink" {
-  value = module.NWEA.NWEA_NetworkAddressSelfLink
-}
-
-output "NWEIPN_NWEA_NetworkAddressExternalIp" {
-  value = module.NWEA.NWEA_NetworkAddressExternalIp
-}
-
-
-output "NWEIPN_NWEA_NetworkRouterId" {
-  value = module.NWEA.NWEA_NetworkRouterId
-}
-
-output "NWEIPN_NWEA_NetworkRouterName" {
-  value = module.NWEA.NWEA_NetworkRouterName
-}
-
-output "NWEIPN_NWEA_NetworkRouterSelfLink" {
-  value = module.NWEA.NWEA_NetworkRouterSelfLink
-}
-
-output "NWEIPN_NWEA_NetworkRouterCreationTimestamp" {
-  value = module.NWEA.NWEA_NetworkRouterCreationTimestamp
-}
-
-
-output "NWEIPN_NWEA_NatId" {
-  value = module.NWEA.NWEA_NatId
-}
-
-output "NWEIPN_NWEA_NatName" {
-  value = module.NWEA.NWEA_NatName
-}
-
-
 
 #---
-output "NWEIPN_VpcAccessConnectorId" {
-  value = module.vpcAccessConnector.vpcAccessConnectorId
+output "role_arn" {
+  value = module.role.role_arn
 }
 
-output "NWEIPN_VpcAccessConnectorState" {
-  value = module.vpcAccessConnector.vpcAccessConnectorState
+output "role_create_date" {
+  value = module.role.role_create_date
 }
 
-output "NWEIPN_VpcAccessConnectorName" {
-  value = module.vpcAccessConnector.vpcAccessConnectorName
+output "role_id" {
+  value = module.role.role_id
 }
 
-output "NWEIPN_VpcAccessConnectorSelfLink" {
-  value = module.vpcAccessConnector.vpcAccessConnectorSelfLink
+output "role_name" {
+  value = module.role.role_name
 }
 
-output "NWEIPN_VpcAccessConnectorConnectedProjects" {
-  value = module.vpcAccessConnector.vpcAccessConnectorConnectedProjects
+output "role_tags_all" {
+  value = module.role.role_tags_all
+}
+
+output "role_unique_id" {
+  value = module.role.role_unique_id
+}
+
+#---
+output "policy_arn" {
+  value = module.policy.policy_arn
+}
+
+output "policy_attachment_count" {
+  value = module.policy.policy_attachment_count
+}
+
+output "policy_id" {
+  value = module.policy.policy_id
+}
+
+output "policy_policy_id" {
+  value = module.policy.policy_policy_id
+}
+
+output "policy_tags_all" {
+  value = module.policy.policy_tags_all
+}
+
+#---
+output "pa_id" {
+  value = module.pa.pa_id
+}
+
+output "pa_name" {
+  value = module.pa.pa_name
+}
+
+#---
+output "instance_arn" {
+  value = module.instance.instance_arn
+}
+
+output "instance_id" {
+  value = module.instance.instance_id
+}
+
+output "instance_instance_state" {
+  value = module.instance.instance_instance_state
+}
+
+output "instance_outpost_arn" {
+  value = module.instance.instance_outpost_arn
+}
+
+output "instance_password_data" {
+  value     = module.instance.instance_password_data
+  sensitive = true
+}
+
+output "instance_primary_network_interface_id" {
+  value = module.instance.instance_primary_network_interface_id
+}
+
+output "instance_private_dns" {
+  value = module.instance.instance_private_dns
+}
+
+output "instance_public_dns" {
+  value = module.instance.instance_public_dns
+}
+
+output "instance_public_ip" {
+  value = module.instance.instance_public_ip
+}
+
+output "instance_tags_all" {
+  value = module.instance.instance_tags_all
+}
+
+#---
+output "secret_id" {
+  value = module.secret.secret_id
+}
+
+output "secret_arn" {
+  value = module.secret.secret_arn
+}
+
+output "secret_replica" {
+  value = module.secret.secret_replica
+}
+
+output "secret_tags_all" {
+  value = module.secret.secret_tags_all
+}
+
+#---
+output "secret_version_arn" {
+  value = module.secret_version.secret_version_arn
+}
+
+output "secret_version_id" {
+  value = module.secret_version.secret_version_id
+}
+
+output "secret_version_version_id" {
+  value = module.secret_version.secret_version_version_id
 }
 
 #---

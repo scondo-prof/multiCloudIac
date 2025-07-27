@@ -1,41 +1,101 @@
 
-    module "NWSAF" {
-  source = "../_NWSAF_networkWithSubnetworkAndFirewall"
-gcpProjectId = var.gcpProjectId
-gcpRegion = var.gcpRegion
-NWSAF_NetworkObjects = var.NWEIPN_NWSAF_NetworkObjects
-resourceName = var.resourceName
-NWSAF_SubnetworkObjects = var.NWEIPN_NWSAF_SubnetworkObjects
-NWSAF_FirewallObjects = var.NWEIPN_NWSAF_FirewallObjects
+module "key_pair" {
+  source               = "../../aws/ec2/generic_key_pair"
+  create_key_pair      = var.create_key_pair
+  private_key_object   = var.private_key_object
+  key_pair_object      = var.key_pair_object
+  resource_name        = var.resource_name
+  project_name         = var.project_name
+  created_by           = var.created_by
+  terraform_repository = var.terraform_repository
+  environment          = var.environment
+  tags                 = var.tags
 }
 
 #---
 
-    module "NWEA" {
-  source = "../_NWEA_natWithExternalAddress"
-gcpProjectId = var.gcpProjectId
-gcpRegion = var.gcpRegion
-resourceName = var.resourceName
-NWEA_NetworkAddressObject = var.NWEIPN_NWEA_NetworkAddressObject
-projectName = var.projectName
-deployedDate = var.deployedDate
-createdBy = var.createdBy
-tfModule = var.tfModule
-additionalTags = var.additionalTags
-NWEA_NetworkRouterObjects = var.NWEIPN_NWEA_NetworkRouterObjects
-NWEA_NetworkRouterNetwork = var.NWEIPN_NWEA_NetworkRouterNetwork
-natNatIps = var.natNatIps
-NWEA_NatObject = var.NWEIPN_NWEA_NatObject
+module "sg" {
+  source               = "../../aws/ec2/generic_security_group"
+  create_sg            = var.create_sg
+  sg_object            = var.sg_object
+  resource_name        = var.resource_name
+  project_name         = var.project_name
+  created_by           = var.created_by
+  terraform_repository = var.terraform_repository
+  environment          = var.environment
+  tags                 = var.tags
 }
 
 #---
 
-    module "vpcAccessConnector" {
-  source = "../genericVpcAccessConnector"
-gcpProjectId = var.gcpProjectId
-gcpRegion = var.gcpRegion
-resourceName = var.resourceName
-vpcAccessConnectorObject = var.NWEIPN_VpcAccessConnectorObject
+module "role" {
+  source               = "../../aws/iam/generic_role"
+  create_role          = var.create_role
+  role_object          = var.role_object
+  resource_name        = var.resource_name
+  project_name         = var.project_name
+  created_by           = var.created_by
+  terraform_repository = var.terraform_repository
+  environment          = var.environment
+  tags                 = var.tags
+}
+
+#---
+
+module "policy" {
+  source               = "../../aws/iam/generic_policy"
+  create_policy        = var.create_policy
+  policy_object        = var.policy_object
+  resource_name        = var.resource_name
+  project_name         = var.project_name
+  created_by           = var.created_by
+  terraform_repository = var.terraform_repository
+  environment          = var.environment
+  tags                 = var.tags
+}
+
+#---
+
+module "pa" {
+  source        = "../../aws/iam/generic_iam_policy_attachment"
+  create_pa     = var.create_pa
+  resource_name = var.resource_name
+  pa_objects    = var.pa_objects
+}
+
+#---
+
+module "instance" {
+  source               = "../../aws/ec2/generic_instance"
+  instance_object      = var.instance_object
+  project_name         = var.project_name
+  created_by           = var.created_by
+  terraform_repository = var.terraform_repository
+  environment          = var.environment
+  tags                 = var.tags
+  resource_name        = var.resource_name
+}
+
+#---
+
+module "secret" {
+  source               = "../../aws/secretsmanager/generic_secret"
+  create_secret        = var.create_secret
+  secret_object        = var.secret_object
+  resource_name        = var.resource_name
+  project_name         = var.project_name
+  created_by           = var.created_by
+  terraform_repository = var.terraform_repository
+  environment          = var.environment
+  tags                 = var.tags
+}
+
+#---
+
+module "secret_version" {
+  source                = "../../aws/secretsmanager/generic_secret_version"
+  create_secret_version = var.create_secret_version
+  secret_version_object = var.secret_version_object
 }
 
 #---

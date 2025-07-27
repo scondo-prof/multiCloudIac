@@ -21,4 +21,9 @@ queuePolicyDocumentStatements = [{
   Sid = "value"
 }]
 
+queueRedrivePolicy = {
+    deadLetterTargetArn = "arn:aws:sqs:us-east-1:249689120119:example-deadletter"
+    maxReceiveCount     = 2
+  }
+
 queueVisibilityTimeoutSeconds = 30

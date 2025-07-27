@@ -134,12 +134,12 @@ variable "queueRecieveWaitTimeSeconds" {
 }
 
 variable "queueRedriveAllowPolicy" {
-  type    = string
+  type    = map(string)
   default = null
 }
 
 variable "queueRedrivePolicy" {
-  type    = string
+  type    = map(string)
   default = null
 }
 

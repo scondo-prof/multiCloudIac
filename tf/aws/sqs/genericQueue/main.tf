@@ -28,8 +28,8 @@ resource "aws_sqs_queue" "queue" {
     Statement = var.queuePolicyDocumentStatements
   }) : null
   receive_wait_time_seconds = var.queueRecieveWaitTimeSeconds
-  redrive_allow_policy      = var.queueRedriveAllowPolicy
-  redrive_policy            = var.queueRedrivePolicy
+  redrive_allow_policy      = var.queueRedriveAllowPolicy != null ? jsonencode(var.queueRedriveAllowPolicy): null
+  redrive_policy            = var.queueRedrivePolicy != null ? jsonencode(var.queueRedrivePolicy): null
   sqs_managed_sse_enabled   = var.queueSqsManagedSseEnabled
 
   tags = merge({

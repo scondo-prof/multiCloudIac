@@ -1,254 +1,367 @@
-variable "gcpProjectId" {
+variable "create_key_pair" {
+  type    = bool
+  default = true
+}
+
+variable "create_sg" {
+  type    = bool
+  default = true
+}
+
+variable "create_role" {
+  type    = bool
+  default = true
+}
+
+variable "create_policy" {
+  type    = bool
+  default = true
+}
+
+variable "create_pa" {
+  type    = bool
+  default = true
+}
+
+variable "create_secret" {
+  type    = bool
+  default = true
+}
+
+variable "create_secret_version" {
+  type    = bool
+  default = true
+}
+
+variable "resource_name" {
   type = string
 }
 
-variable "gcpRegion" {
-  type    = string
-  default = "us-east1"
+variable "project_name" {
+  description = "The GitLab Namespace Slug (Automatically Allocated)"
+  type        = string
 }
 
-variable "resourceName" {
-  type = string
+variable "created_by" {
+  description = "The GitLab Commit Author (Automatically Allocated)"
+  type        = string
+  default     = "automation"
 }
 
-variable "projectName" {
-  type = string
+variable "terraform_repository" {
+  description = "The GitLab Project (Automatically Allocated)"
+  type        = string
 }
 
-variable "deployedDate" {
-  type = string
+variable "environment" {
+  description = "The GitLab Commit Branch (Automatically Allocated)"
+  type        = string
 }
 
-variable "createdBy" {
-  type    = string
-  default = "scott-condo"
+variable "tags" {
+  description = "Tags to apply to the ECR repository"
+  type        = map(string)
+  default     = {}
 }
 
-variable "tfModule" {
-  type = string
+# https://registry.terraform.io/providers/hashicorp/tls/latest/docs/resources/private_key#schema
+
+variable "private_key_object" {
+  type = object({
+    algorithm   = string
+    ecdsa_curve = optional(string, null)
+    rsa_bits    = optional(number, null)
+  })
+  default = null
 }
 
-variable "additionalTags" {
-  type    = map(string)
-  default = {}
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/key_pair#argument-reference
+
+variable "key_pair_object" {
+  type = object({
+    key_name        = optional(string, null)
+    key_name_prefix = optional(string, null)
+  })
+  default = null
 }
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network#argument-reference
-
-variable "NWEIPN_NWSAF_NetworkObjects" {
-  type = list(object({
-    name                                      = string
-    description                               = optional(string, null)
-    auto_create_subnetworks                   = optional(bool, null)
-    routing_mode                              = optional(string, null)
-    mtu                                       = optional(number, null)
-    enable_ula_internal_ipv6                  = optional(bool, null)
-    internal_ipv6_range                       = optional(string, null)
-    network_firewall_policy_enforcement_order = optional(string, null)
-    delete_default_routes_on_create           = optional(bool, null)
-  }))
-}
-
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#argument-reference
-
-variable "NWEIPN_NWSAF_SubnetworkObjects" {
-  type = list(object({
-    name                    = string
-    description             = optional(string, null)
-    ip_cidr_range           = optional(string, null)
-    reserved_internal_range = optional(string, null)
-    purpose                 = optional(string, null)
-    role                    = optional(string, null)
-
-    secondary_ip_range = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#nested_secondary_ip_range
-      range_name              = string
-      ip_cidr_range           = optional(string, null)
-      reserved_internal_range = optional(string, null)
-    }), null)
-
-    private_ip_google_access   = optional(bool, null)
-    private_ipv6_google_access = optional(string, null)
-
-    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork#nested_log_config
-      aggregation_interval = optional(string, null)
-      flow_sampling        = optional(number, null)
-      metadata             = optional(string, null)
-      metadata_fields      = optional(list(string), null)
-      filter_expr          = optional(string, null)
-    }), null)
-
-    stack_type                       = optional(string, null)
-    ipv6_access_type                 = optional(string, null)
-    external_ipv6_prefix             = optional(string, null)
-    send_secondary_ip_range_if_empty = optional(bool, null)
-  }))
-}
-
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#argument-reference
-
-variable "NWEIPN_NWSAF_FirewallObjects" {
-  type = list(object({
-    name = string
-
-    allow = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_allow
-      protocol = string
-      ports    = optional(list(string), null)
-    }), null)
-
-    deny = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_deny
-      protocol = string
-      ports    = optional(list(string), null)
-    }), null)
-
-    description        = optional(string, null)
-    destination_ranges = optional(list(string), null)
-    direction          = optional(string, null)
-    disabled           = optional(bool, null)
-
-    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_firewall#nested_log_config
-      metadata = string
-    }), null)
-
-    priority                = optional(number, null)
-    source_ranges           = optional(list(string), null)
-    source_service_accounts = optional(list(string), null)
-    source_tags             = optional(list(string), null)
-    target_service_accounts = optional(list(string), null)
-    target_tags             = optional(list(string), null)
-  }))
-}
-
-
-
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_address#argument-reference
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group#argument-reference
 
-variable "NWEIPN_NWEA_NetworkAddressObject" {
+variable "sg_object" {
   type = object({
-    address            = optional(string, null)
-    address_type       = optional(string, null)
-    description        = optional(string, null)
-    purpose            = optional(string, null)
-    network_tier       = optional(string, null)
-    subnetwork         = optional(string, null)
-    network            = optional(string, null)
-    prefix_length      = optional(number, null)
-    ip_version         = optional(string, null)
-    ipv6_endpoint_type = optional(string, null)
-  })
-  default = {}
-}
-
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router#argument-reference
-
-variable "NWEIPN_NWEA_NetworkRouterObjects" {
-  type = list(object({
-    name        = string
     description = optional(string, null)
 
-    bgp = optional(object({
-      asn               = string
-      advertise_mode    = optional(string, null)
-      advertised_groups = optional(list(string), null)
-      advertised_ip_ranges = optional(object({
-        range       = string
-        description = optional(string, null)
-      }), null)
-      keepalive_interval = optional(number, null)
-      identifier_range   = optional(string, null)
-    }), null)
+    egress = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group#egress
+      from_port        = number
+      to_port          = number
+      cidr_blocks      = optional(list(string), null)
+      description      = optional(string, null)
+      ipv6_cidr_blocks = optional(list(string), null)
+      prefix_list_ids  = optional(list(string), null)
+      protocol         = string
+      security_groups  = optional(list(string), null)
+      self             = optional(bool, null)
+    })), null)
 
-    encrypted_interconnect_router = optional(bool, null)
-  }))
-}
+    ingress = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group#ingress
+      from_port        = number
+      to_port          = number
+      protocol         = string
+      cidr_blocks      = optional(list(string), null)
+      description      = optional(string, null)
+      ipv6_cidr_blocks = optional(list(string), null)
+      prefix_list_ids  = optional(list(string), null)
+      security_groups  = optional(list(string), null)
+      self             = optional(bool, null)
+    })), null)
 
-variable "NWEIPN_NWEA_NetworkRouterNetwork" {
-  type = string
-}
-
-
-
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#argument-reference
-
-variable "NWEIPN_NWEA_NatObject" {
-  type = object({
-    source_subnetwork_ip_ranges_to_nat = string
-    nat_ip_allocate_option             = optional(string, null)
-    initial_nat_ips                    = optional(list(string), null)
-    drain_nat_ips                      = optional(list(string), null)
-
-    subnetwork = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_subnetwork
-      name                     = string
-      source_ip_ranges_to_nat  = list(string)
-      secondary_ip_range_names = optional(list(string), null)
-    }), null)
-
-    min_ports_per_vm                 = optional(number, null)
-    max_ports_per_vm                 = optional(number, null)
-    enable_dynamic_port_allocation   = optional(bool, null)
-    udp_idle_timeout_sec             = optional(number, null)
-    icmp_idle_timeout_sec            = optional(number, null)
-    tcp_established_idle_timeout_sec = optional(number, null)
-    tcp_transitory_idle_timeout_sec  = optional(number, null)
-    tcp_time_wait_timeout_sec        = optional(number, null)
-
-    log_config = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_log_config
-      enable = bool
-      filter = string
-    }), null)
-
-    endpoint_types = optional(list(string), null)
-
-    rules = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules
-      rule_number = number
-      description = optional(string, null)
-      match       = string
-
-      action = object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_router_nat#nested_rules_rules_action
-        source_nat_active_ips = optional(list(string), null)
-        source_nat_drain_ips  = optional(list(string), null)
-      })
-    }), null)
-
-    enable_endpoint_independent_mapping = optional(bool, null)
-    auto_network_tier                   = optional(string, null)
+    name                   = optional(string, null)
+    name_prefix            = optional(string, null)
+    revoke_rules_on_delete = optional(bool, null)
+    vpc_id                 = optional(string, null)
   })
+  default = null
 }
-
-variable "natNatIps" {
-  type    = list(string)
-  default = []
-}
-
-
 
 #---
 
-#https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/vpc_access_connector#argument-reference
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role 
 
-variable "NWEIPN_VpcAccessConnectorObject" {
+variable "role_object" {
   type = object({
-    network        = optional(string, null)
-    ip_cidr_range  = optional(string, null)
-    machine_type   = optional(string, null)
-    min_throughput = optional(number, null)
-    min_instances  = optional(number, null)
-    max_instances  = optional(number, null)
-    max_throughput = optional(number, null)
 
-    subnet = optional(object({ #https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/vpc_access_connector#nested_subnet
-      name       = optional(string, null)
-      project_id = optional(string, null)
-    }), null)
+    policy_statements = list(object({
+      Effect    = string
+      Principal = map(string)
+      Action    = string
+    }))
+
+    description           = optional(string, null)
+    force_detach_policies = optional(bool, null)
+    max_session_duration  = optional(number, null)
+    name                  = optional(string, null)
+    name_prefix           = optional(string, null)
+    path                  = optional(string, null)
+    permissions_boundary  = optional(string, null)
   })
+  default = null
+}
+
+#---
+
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy#argument-reference
+
+variable "policy_object" {
+  type = object({
+    description = optional(string, null)
+    name_prefix = optional(string, null)
+    name        = optional(string, null)
+    path        = optional(string, null)
+
+    policy_statements = list(object({
+      Sid      = string
+      Action   = list(string)
+      Resource = list(string)
+      Effect   = string
+    }))
+
+  })
+  default = null
+}
+
+#---
+
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment#argument-reference
+
+variable "pa_objects" {
+  type = object({
+    users      = optional(list(string), null)
+    roles      = optional(list(string), null)
+    groups     = optional(list(string), null)
+    policy_arn = string
+  })
+  default = null
+}
+
+#---
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#argument-reference
+
+variable "instance_object" {
+  type = object({
+    ami                         = optional(string, null)
+    associate_public_ip_address = optional(bool, null)
+    availability_zone           = optional(string, null)
+
+    capacity_reservation_specification = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#capacity-reservation-specification
+      capacity_reservation_preference = optional(string, null)
+
+      capacity_reservation_target = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#capacity-reservation-target
+        capacity_reservation_id                 = optional(string, null)
+        capacity_reservation_resource_group_arn = optional(string, null)
+      }), null)
+
+    }), null)
+
+    cpu_options = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#cpu-options
+      amd_sev_snp      = optional(string, null)
+      core_count       = optional(number, null)
+      threads_per_core = optional(number, null)
+    }), null)
+
+    credit_specification = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#credit-specification
+      cpu_credits = optional(string, null)
+    }), null)
+
+    disable_api_stop        = optional(bool, null)
+    disable_api_termination = optional(bool, null)
+
+    ebs_block_device = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#ebs-ephemeral-and-root-block-devices
+      delete_on_termination = optional(bool, null)
+      device_name           = string
+      encrypted             = optional(bool, null)
+      iops                  = optional(string, null)
+      kms_key_id            = optional(string, null)
+      snapshot_id           = optional(string, null)
+      throughput            = optional(number, null)
+      volume_size           = optional(number, null)
+      volume_type           = optional(string, null)
+    })), null)
+
+    ebs_optimized       = optional(bool, null)
+    enable_primary_ipv6 = optional(bool, null)
+
+    enclave_options = optional(object({
+      enabled = optional(bool, null)
+    }), null)
+
+    ephemeral_block_device = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#ebs-ephemeral-and-root-block-devices
+      device_name  = string
+      no_device    = optional(bool, null)
+      virtual_name = optional(string, null)
+    })), null)
+
+    get_password_data                    = optional(bool, null)
+    hibernation                          = optional(bool, null)
+    host_id                              = optional(string, null)
+    host_resource_group_arn              = optional(string, null)
+    iam_instance_profile                 = optional(string, null)
+    instance_initiated_shutdown_behavior = optional(string, null)
+
+    instance_market_options = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#market-options
+      market_type = optional(string, null)
+
+      spot_options = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#spot-options
+        instance_interruption_behavior = optional(string, null)
+        max_price                      = optional(number, null)
+        spot_instance_type             = optional(string, null)
+        valid_until                    = optional(string, null)
+      }), null)
+
+    }), null)
+
+    instance_type      = optional(string, null)
+    ipv6_address_count = optional(number, null)
+    ipv6_addresses     = optional(list(string), null)
+    key_name           = optional(string, null)
+
+    launch_template = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#launch-template-specification
+      id      = string
+      name    = string
+      version = string
+    }), null)
+
+    maintenance_options = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#maintenance-options
+      auto_recovery = optional(string, null)
+    }), null)
+
+    metadata_options = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#metadata-options
+      http_endpoint               = optional(string, null)
+      http_protocol_ipv6          = optional(string, null)
+      http_put_response_hop_limit = optional(number, null)
+      http_tokens                 = optional(string, null)
+      instance_metadata_tags      = optional(string, null)
+    }), null)
+
+    monitoring = optional(bool, null)
+
+    network_interface = optional(list(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#network-interfaces
+      delete_on_termination = optional(bool, null)
+      device_index          = number
+      network_card_index    = optional(number, null)
+      network_interface_id  = string
+    })), null)
+
+    placement_group            = optional(string, null)
+    placement_partition_number = optional(number, null)
+
+    private_dns_name_options = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#private-dns-name-options
+      enable_resource_name_dns_aaaa_record = bool
+      enable_resource_name_dns_a_record    = bool
+      hostname_type                        = string
+    }), null)
+
+    private_ip = optional(string, null)
+
+    root_block_device = optional(object({ #https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance#ebs-ephemeral-and-root-block-devices
+      delete_on_termination = optional(bool, null)
+      encrypted             = optional(bool, null)
+      iops                  = optional(string, null)
+      kms_key_id            = optional(string, null)
+      throughput            = optional(number, null)
+      volume_size           = optional(number, null)
+      volume_type           = optional(string, null)
+    }), null)
+
+    secondary_private_ips       = optional(list(string), null)
+    security_groups             = optional(list(string), null)
+    source_dest_check           = optional(bool, null)
+    subnet_id                   = optional(string, null)
+    tenancy                     = optional(string, null)
+    user_data                   = optional(string, null)
+    user_data_base64            = optional(string, null)
+    user_data_replace_on_change = optional(bool, null)
+    vpc_security_group_ids      = optional(list(string), null)
+  })
+}
+
+#---
+
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret#argument-reference
+
+variable "secret_object" {
+  type = object({
+    description             = optional(string, null)
+    kms_key_id              = optional(string, null)
+    name                    = optional(string, null)
+    name_prefix             = optional(string, null)
+    policy                  = optional(string, null)
+    recovery_window_in_days = optional(number, null)
+
+    replica = optional(list(object({
+      kms_key_id = optional(string, null)
+      region     = string
+    })), null)
+
+    force_overwrite_replica_secret = optional(bool, null)
+  })
+  default = null
+}
+
+#---
+
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version#argument-reference
+
+variable "secret_version_object" {
+  type = object({
+    secret_id      = string
+    secret_string  = optional(map(string), null)
+    secret_binary  = optional(string, null)
+    version_stages = optional(list(string), null)
+  })
+  default = null
 }
 
 #---
